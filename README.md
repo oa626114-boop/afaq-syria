@@ -1,60 +1,105 @@
-# afaq-syria
-Official website of Afaq Syria for Real Estate Investment, Construction and Infrastructure Development in Syria.
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آفاق سوريا للاستثمار العقاري والبنية التحتية</title>
+<meta name="description" content="آفاق سوريا للاستثمار العقاري والإنشاءات والبنية التحتية والتنمية العمرانية في سوريا.">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101820;color:#fff;line-height:1.8}
+header{background:#080d13;padding:22px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{color:#d5ad55;font-size:22px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:8px;font-size:14px}
+.hero{text-align:center;padding:90px 20px;background:linear-gradient(135deg,#172b3b,#080d13)}
+.hero h1{color:#e3bd69;font-size:34px}
+.hero p{max-width:750px;margin:20px auto}
+.btn{display:inline-block;background:#c6a052;color:#101820;padding:12px 28px;text-decoration:none;border-radius:5px;font-weight:bold}
+section{padding:55px 7%;text-align:center}
+h2{color:#d5ad55;font-size:27px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#1c2b38;padding:25px;border-radius:10px;border:1px solid #344351}
+.card h3{color:#e2bd6a}
+footer{background:#080d13;text-align:center;padding:30px;color:#ccc}
+a{color:#e2bd6a}
+</style>
+</head>
+<body>
 
-أ
+<header>
+<div class="logo">آفاق سوريا | AFAQ SYRIA</div>
+<nav>
+<a href="#about">من نحن</a>
+<a href="#services">خدماتنا</a>
+<a href="#sectors">قطاعات التنمية</a>
+<a href="#contact">التواصل</a>
+</nav>
+</header>
 
-آفاق سوريا
-AFAQ SYRIA
-للاستثمار العقاري والبنية التحتية
-الرئيسيةHome من نحنAbout خدماتناServices قطاعاتناSectors اتصل بناContact English
+<div class="hero">
+<h1>آفاق سوريا للاستثمار العقاري والبنية التحتية</h1>
+<p>
+نحو مستقبل أفضل لسوريا من خلال الاستثمار العقاري،
+وتطوير المشاريع العمرانية والإنشائية والبنية التحتية
+والمساهمة في التنمية المستدامة.
+</p>
+<a class="btn" href="#services">اكتشف خدماتنا</a>
+</div>
 
-رؤية للمستقبل • استثمار للتنميةA VISION FOR THE FUTURE • INVESTING IN DEVELOPMENT
-نبني آفاقاً جديدة لمستقبل سورياBuilding New Horizons for Syria’s Future
-نعمل على تطوير الفرص الاستثمارية والمشاريع العقارية والإنشائية ومشاريع البنية التحتية، برؤية تركز على الجودة والاستدامة وخدمة المجتمعات.We focus on investment opportunities, real estate development, construction and infrastructure projects, with an emphasis on quality, sustainability and community value.
-اكتشف خدماتناExplore Servicesتواصل معناContact Us
+<section id="about">
+<h2>من نحن | About Us</h2>
+<p>
+آفاق سوريا شركة تهدف إلى المساهمة في تطوير الاستثمار
+العقاري والإنشاءات والبنية التحتية في مختلف أنحاء سوريا،
+من خلال دعم المشاريع التنموية وبناء الشراكات
+وتطوير فرص الاستثمار.
+</p>
+</section>
 
-من نحنWHO WE ARE
-شريك في التنمية والاستثمارA Partner in Development and Investment
-آفاق سوريا للاستثمار العقاري والبنية التحتية تسعى إلى المساهمة في تطوير مشاريع متكاملة تدعم النمو العمراني والاقتصادي. نؤمن بأهمية التخطيط المدروس، والشراكات الفاعلة، والتنفيذ وفق معايير مهنية واضحة.Afaq Syria Real Estate Investment & Infrastructure aims to contribute to integrated projects that support urban and economic growth. We believe in careful planning, effective partnerships and professional delivery standards.
+<section id="services">
+<h2>خدماتنا | Our Services</h2>
+<div class="grid">
+<div class="card">
+<h3>الاستثمار العقاري</h3>
+<p>تطوير المجمعات السكنية والتجارية والمشاريع العقارية.</p>
+</div>
+<div class="card">
+<h3>الإنشاءات والمقاولات</h3>
+<p>مشاريع البناء والتطوير العمراني والأعمال المدنية.</p>
+</div>
+<div class="card">
+<h3>البنية التحتية</h3>
+<p>تطوير الطرق والجسور وشبكات الخدمات والمرافق العامة.</p>
+</div>
+<div class="card">
+<h3>التخطيط العمراني</h3>
+<p>إعداد وتطوير المشاريع والمخططات العمرانية المتكاملة.</p>
+</div>
+</div>
+</section>
 
-خدماتناOur Services
-حلول متكاملة من الفكرة والتخطيط إلى التطوير والتنفيذ.Integrated solutions from concept and planning to development and delivery.
+<section id="sectors">
+<h2>قطاعات التنمية | Development Sectors</h2>
+<div class="grid">
+<div class="card"><h3>المجمعات السكنية</h3><p>مشاريع سكنية متكاملة.</p></div>
+<div class="card"><h3>المدارس والتعليم</h3><p>تطوير المرافق التعليمية.</p></div>
+<div class="card"><h3>المستشفيات</h3><p>دعم مشاريع الرعاية الصحية.</p></div>
+<div class="card"><h3>الحدائق والملاعب</h3><p>مساحات عامة ومرافق رياضية.</p></div>
+<div class="card"><h3>الطرق والجسور</h3><p>مشاريع النقل والبنية التحتية.</p></div>
+<div class="card"><h3>المشاريع التجارية</h3><p>تطوير المراكز والمرافق التجارية.</p></div>
+</div>
+</section>
 
-الاستثمار والتطوير العقاريReal Estate Investment & Development
-تطوير المجمعات السكنية والمباني التجارية والمشاريع متعددة الاستخدامات.Residential communities, commercial buildings and mixed-use developments.
+<section id="contact">
+<h2>التواصل معنا | Contact Us</h2>
+<p>نرحب بالتواصل معنا بشأن فرص الاستثمار والتعاون والشراكات.</p>
+<p>اسم الشركة: آفاق سوريا للاستثمار العقاري والبنية التحتية</p>
+<p>Company: Afaq Syria Real Estate Investment & Infrastructure</p>
+</section>
 
-الإنشاءات والمقاولاتConstruction & Contracting
-مشاريع البناء والأعمال المدنية والتطوير وفق متطلبات كل مشروع.Building projects, civil works and project-specific development.
+<footer>
+<p>© 2026 AFAQ SYRIA. جميع الحقوق محفوظة.</p>
+</footer>
 
-البنية التحتية والطرقInfrastructure & Roads
-الطرق والجسور وشبكات الخدمات ومشاريع المرافق العامة.Roads, bridges, utility networks and public infrastructure.
-
-قطاعات ومرافق التنميةDevelopment Sectors
-نظرة شاملة لمجتمعات متكاملة وخدمات تدعم جودة الحياة.A holistic approach to connected communities and quality-of-life services.
-
-المدارس والمراكز التعليميةSchools & Education
-مرافق تعليمية حديثة ضمن المجتمعات السكنية.Modern educational facilities within residential communities.
-
-المشافي والمراكز الصحيةHospitals & Healthcare
-مرافق صحية تسهم في تلبية احتياجات السكان.Healthcare facilities designed around community needs.
-
-الحدائق والملاعب والمساحات العامةParks, Sports & Public Spaces
-مساحات خضراء ومرافق رياضية وترفيهية لجميع أفراد المجتمع.Green spaces, sports and recreational facilities for everyone.
-
-رؤية تنمويةتخطيط يراعي احتياجات المستقبلPlanning for future needs
-شراكات فاعلةتعاون لتحقيق قيمة مستدامةPartnerships that create lasting value
-جودة واستدامةمعايير مهنية في كل مرحلةProfessional standards at every stage
-
-لنبنِ المستقبل معاًLet’s Build the Future Together
-للاستفسارات وفرص التعاون والشراكات الاستثمارية، يسعدنا التواصل معكم.For inquiries, cooperation and investment partnerships, we welcome your contact.
-
-معلومات التواصلContact Information
-الشركة:Company: آفاق سوريا للاستثمار العقاري والبنية التحتية
-الهاتف:Phone: يضاف رقم الهاتف
-Email: يضاف البريد الإلكتروني
-الموقع:Website: يضاف رابط الموقع بعد النشر
-
-مجالات التعاونPartnership Opportunities
-نرحب بالتواصل من المستثمرين والمطورين والمقاولين والجهات الراغبة في دراسة فرص المشاريع داخل سوريا.We welcome inquiries from investors, developers, contractors and organizations interested in exploring project opportunities in Syria.
-راسلنا عبر البريدEmail Us
-© آفاق سوريا للاستثمار العقاري والبنية التحتية — Afaq Syria. جميع الحقوق محفوظة.All rights reserved.
+</body>
+</html>

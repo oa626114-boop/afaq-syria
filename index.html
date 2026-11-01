@@ -23,11 +23,43 @@ nav{display:flex;gap:12px;flex-wrap:wrap}nav a{color:white;text-decoration:none;
 footer{background:#06111c;color:#e9eef2;text-align:center;padding:30px 5%;border-top:4px solid var(--gold)}footer strong{color:var(--gold)}
 #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:20;align-items:center;justify-content:center;padding:20px}#lightbox.open{display:flex}#lightbox img{max-width:95vw;max-height:82vh;object-fit:contain;border-radius:6px}#lightbox button{position:absolute;top:15px;left:18px;background:var(--gold);border:0;border-radius:50%;width:42px;height:42px;font-size:24px;cursor:pointer}
 @media(max-width:600px){header{justify-content:center;text-align:center}nav{justify-content:center}.hero{padding:45px 6%}.portfolio{padding:38px 4%}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.photo-card img{height:135px}.photo-card figcaption{font-size:11px;padding:7px}}
+
+/* AFAQ SYRIA — premium responsive upgrade */
+:root{--navy:#071522;--navy2:#102b40;--gold:#d9b15f;--gold2:#f2d797;--ink:#172633;--muted:#62717c;--paper:#f5f7f9}
+body{background:var(--paper);font-family:"Tahoma","Arial",sans-serif;line-height:1.85}
+html{scroll-padding-top:100px}
+header{position:sticky;top:0;z-index:50;padding:12px clamp(14px,4vw,58px);box-shadow:0 8px 30px #07152224;backdrop-filter:blur(12px);background:rgba(7,21,34,.97)}
+.brand{font-size:clamp(20px,2.4vw,28px);letter-spacing:.2px}.brand small{font-size:11px;letter-spacing:2px}
+nav{gap:6px 13px;align-items:center}nav a{padding:7px 9px;border-radius:20px;transition:.2s;font-weight:600}nav a:hover,nav a:focus{background:#ffffff18;color:var(--gold2)}
+.hero{min-height:440px;display:flex;align-items:center;position:relative;isolation:isolate;padding:clamp(55px,9vw,110px) clamp(22px,8vw,110px);background-position:center 48%;background-attachment:scroll}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,#06111ce8 0%,#071522a8 55%,#07152235 100%);z-index:-1}
+.hero h1{max-width:900px;font-size:clamp(32px,5.2vw,58px);line-height:1.35;text-shadow:0 3px 18px #0008;margin:0 0 15px}
+.hero p{font-size:clamp(15px,1.8vw,19px);color:#f1f4f6;max-width:760px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}.hero-btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 22px;border-radius:30px;text-decoration:none;font-weight:bold;border:1px solid var(--gold);transition:.2s}.hero-btn.primary{background:var(--gold);color:#071522}.hero-btn.secondary{color:#fff;background:#ffffff12}.hero-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px #0003}
+.quick-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d9e0e5;margin:-28px auto 0;position:relative;z-index:2;width:min(1120px,92%);border-radius:16px;overflow:hidden;box-shadow:0 12px 32px #07152218}
+.quick-item{background:#fff;text-align:center;padding:18px 10px}.quick-item strong{display:block;color:#98732f;font-size:clamp(20px,3vw,29px);line-height:1.3}.quick-item span{font-size:12px;color:var(--muted)}
+.portfolio{padding:clamp(42px,6vw,76px) clamp(16px,5vw,70px);scroll-margin-top:78px}.portfolio:nth-of-type(even){background:#fff}
+.section-title{max-width:850px;margin:0 auto 30px}.section-title h2{font-size:clamp(23px,3vw,34px);line-height:1.4}.section-title p{font-size:12px;letter-spacing:1.4px;color:#8a6a2c}.section-title .num{letter-spacing:1px;color:#a17a35}
+.gallery{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px;max-width:1320px}.photo-card{border-radius:14px;box-shadow:0 8px 25px #0a233514;transition:transform .25s,box-shadow .25s}.photo-card:hover{transform:translateY(-6px);box-shadow:0 16px 34px #0a233526}.photo-card img{height:205px;transition:transform .5s}.photo-card:hover img{transform:scale(1.045)}.photo-card figcaption{padding:11px 13px;font-size:14px;min-height:48px}.photo-card figcaption span{color:#a27b36}
+.cattle-feature{border-radius:18px;margin-bottom:32px}.cattle-feature figcaption{font-size:15px;padding:15px}
+.info{max-width:1100px;margin:35px auto;padding:18px 22px;border-radius:12px}
+footer{padding:44px 5%;line-height:2.1}footer a{text-decoration:none}footer a:hover{text-decoration:underline}
+.site-tools{background:#fff;padding:24px 5%;border-bottom:1px solid #e4e9ed}.tools-inner{max-width:1100px;margin:auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}.tools-inner label{font-weight:bold;color:var(--navy)}.search-wrap{flex:1;min-width:min(100%,250px);max-width:520px;position:relative}.search-wrap input{width:100%;padding:13px 16px;border:1px solid #d6dee4;border-radius:30px;font:inherit;outline:none;background:#f8fafb}.search-wrap input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #d9b15f30}.search-note{font-size:12px;color:var(--muted);margin:6px 10px 0}
+.menu-toggle{display:none;background:transparent;border:1px solid #ffffff55;color:#fff;border-radius:9px;padding:8px 12px;font-size:20px;cursor:pointer}
+#backTop{position:fixed;bottom:20px;left:18px;z-index:40;border:0;border-radius:50%;width:46px;height:46px;background:var(--gold);color:#071522;font-size:22px;box-shadow:0 5px 18px #0003;cursor:pointer;display:none}#backTop.show{display:block}
+#scrollProgress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--gold);z-index:100;transition:width .08s linear}
+#lightbox{cursor:zoom-out}#lightbox button{cursor:pointer;position:fixed;z-index:2}
+@media(max-width:760px){header{justify-content:space-between;text-align:right}.menu-toggle{display:block}header nav{display:none;width:100%;padding:10px 0 4px;flex-direction:column;align-items:stretch;gap:3px}header nav.open{display:flex}nav a{padding:9px 12px;border-bottom:1px solid #ffffff18;border-radius:8px}.hero{min-height:390px;background-attachment:scroll}.quick-strip{grid-template-columns:repeat(2,1fr);margin-top:-20px}.quick-item{padding:14px 8px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.photo-card img{height:145px}.photo-card figcaption{font-size:11px;min-height:43px;padding:7px 8px}.tools-inner{align-items:stretch}.search-wrap{max-width:none}.portfolio{padding:38px 4%}}
+@media(max-width:360px){.gallery{grid-template-columns:1fr}.photo-card img{height:190px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
 </style></head>
 <body>
-<header><div class="brand">آفاق سوريا <small>AFAQ SYRIA</small></div>
-<nav><a href="#portfolio-1">الطرق والجسور</a><a href="#portfolio-2">العقارات والإنشاءات</a><a href="#portfolio-3">الطاقة البحرية</a><a href="#portfolio-4">الطاقة النظيفة</a><a href="#portfolio-5">الزراعة</a><a href="#portfolio-6">الثروة الحيوانية</a><a href="#portfolio-7">الثروة السمكية</a><a href="#portfolio-8">التصنيع والتبريد</a></nav></header>
-<div class="hero"><div><h1>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية</h1><p>ثماني محافظ متخصصة، تضم كل محفظة عشرة مواضع للصور لعرض مجالات المشاريع والفرص الاستثمارية في سوريا.</p></div></div>
+<div id="scrollProgress"></div><header><div class="brand">آفاق سوريا <small>AFAQ SYRIA</small></div><button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+<nav id="mainNav"><a href="#portfolio-1">الطرق والجسور</a><a href="#portfolio-2">العقارات والإنشاءات</a><a href="#portfolio-3">الطاقة البحرية</a><a href="#portfolio-4">الطاقة النظيفة</a><a href="#portfolio-5">الزراعة</a><a href="#portfolio-6">الثروة الحيوانية</a><a href="#portfolio-7">الثروة السمكية</a><a href="#portfolio-8">التصنيع والتبريد</a></nav></header>
+<div class="hero"><div><h1>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية</h1><p>نحو مستقبل عمراني وإنتاجي مستدام في سوريا، عبر تطوير المشاريع المتكاملة وبناء الشراكات الاستثمارية في قطاعات العقارات والبنية التحتية والطاقة والزراعة.</p><div class="hero-actions"><a class="hero-btn primary" href="#portfolio-1">استكشف قطاعاتنا</a><a class="hero-btn secondary" href="#contact">تواصل معنا</a></div></div></div>
+<div class="quick-strip" aria-label="ملخص قطاعات الشركة"><div class="quick-item"><strong>08</strong><span>قطاعات تنموية</span></div><div class="quick-item"><strong>80+</strong><span>موضعاً لعرض الصور</span></div><div class="quick-item"><strong>سوريا</strong><span>نطاق الاهتمام الاستثماري</span></div><div class="quick-item"><strong>شراكات</strong><span>فرص تعاون واستثمار</span></div></div>
+<div class="site-tools"><div class="tools-inner"><label for="projectSearch">ابحث في قطاعات ومشاريع آفاق سوريا</label><div class="search-wrap"><input id="projectSearch" type="search" placeholder="مثال: جسور، أبقار، طاقة شمسية، مدارس..." autocomplete="off"><div class="search-note" id="searchNote">اكتب كلمة للعثور على الصور والقطاعات ذات الصلة.</div></div></div></div>
 <section class="portfolio" id="intro"><div class="section-title"><h2>رؤيتنا | Our Vision</h2><p>INVESTMENT • RECONSTRUCTION • SUSTAINABLE DEVELOPMENT</p></div><p style="max-width:950px;margin:auto;text-align:center">آفاق سوريا تسعى إلى المساهمة في تطوير الاستثمار العقاري والإنشاءات والبنية التحتية والقطاعات الإنتاجية في مختلف أنحاء سوريا، من خلال دراسة الفرص وبناء الشراكات وتطوير مشاريع متكاملة تراعي الجودة والاستدامة واحتياجات المجتمعات.</p></section>
 <section class="portfolio" id="portfolio-1">
 <div class="section-title"><div class="num">محفظة 01</div><h2>الطرق والجسور والبنية التحتية</h2><p>ROADS, BRIDGES &amp; INFRASTRUCTURE</p>
@@ -332,10 +364,64 @@ footer{background:#06111c;color:#e9eef2;text-align:center;padding:30px 5%;border
 </section>
 <div class="info">الصور المعروضة أمثلة بصرية توضيحية لمجالات العمل وليست إثباتاً على مشاريع منفذة أو مملوكة للشركة. الصور تُحمّل من خدمة صور خارجية وتتطلب اتصالاً بالإنترنت. لإضافة صور دائمة للموقع لاحقاً، ارفع الصور إلى مجلد images في مستودع GitHub ثم أضف بطاقات جديدة إلى المحفظة المناسبة.</div>
 <footer id="contact"><strong>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية</strong><p>AFAQ SYRIA — Real Estate Investment, Infrastructure & Development</p><p>الهاتف: <a href="tel:+905523156980" style="color:#f1d18a;direction:ltr;display:inline-block">+90 552 315 6980</a></p><p>البريد الإلكتروني: <a href="mailto:oali47438@gmail.com" style="color:#f1d18a">oali47438@gmail.com</a></p><p>© 2026 AFAQ SYRIA. جميع الحقوق محفوظة.</p></footer>
+<button id="backTop" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
 <div id="lightbox" onclick="closeLightbox()"><button aria-label="إغلاق">×</button><img id="largeImage" alt="صورة مكبرة"></div>
 <script>
-document.querySelectorAll('.photo-card img').forEach(img=>img.addEventListener('click',()=>{document.getElementById('largeImage').src=img.dataset.full;document.getElementById('lightbox').classList.add('open')}));
-function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+(() => {
+  const nav = document.getElementById('mainNav');
+  const menu = document.getElementById('menuToggle');
+  const search = document.getElementById('projectSearch');
+  const note = document.getElementById('searchNote');
+  const cards = [...document.querySelectorAll('.photo-card')];
+  const sections = [...document.querySelectorAll('section.portfolio[id^="portfolio-"]')];
+  const progress = document.getElementById('scrollProgress');
+  const backTop = document.getElementById('backTop');
+
+  menu?.addEventListener('click', () => {
+    const opened = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(opened));
+    menu.textContent = opened ? '×' : '☰';
+  });
+  nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open'); menu?.setAttribute('aria-expanded','false'); if(menu) menu.textContent='☰';
+  }));
+
+  search?.addEventListener('input', () => {
+    const q = search.value.trim().toLocaleLowerCase('ar');
+    let visible = 0;
+    cards.forEach(card => {
+      const hay = (card.innerText + ' ' + (card.querySelector('img')?.alt || '')).toLocaleLowerCase('ar');
+      const show = !q || hay.includes(q);
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    sections.forEach(section => {
+      const any = [...section.querySelectorAll('.photo-card')].some(card => !card.hidden);
+      section.hidden = !!q && !any;
+    });
+    note.textContent = q ? `عدد النتائج المطابقة: ${visible}` : 'اكتب كلمة للعثور على الصور والقطاعات ذات الصلة.';
+  });
+
+  document.querySelectorAll('.photo-card img').forEach(img => img.addEventListener('click', () => {
+    const full = img.dataset.full || img.currentSrc || img.src;
+    document.getElementById('largeImage').src = full;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }));
+  window.closeLightbox = () => {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') window.closeLightbox(); });
+  document.getElementById('lightbox')?.querySelector('button')?.addEventListener('click', e => {e.stopPropagation();window.closeLightbox();});
+  document.getElementById('largeImage')?.addEventListener('click', e => e.stopPropagation());
+  backTop?.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+  const updateScroll = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    backTop.classList.toggle('show', window.scrollY > 500);
+  };
+  window.addEventListener('scroll', updateScroll, {passive:true}); updateScroll();
+})();
 </script>
 </body></html>

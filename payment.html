@@ -77,7 +77,7 @@ footer{text-align:center;color:#aebbc1;padding:26px 12px;border-top:1px solid va
 <footer>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية<br>AFAQ SYRIA — Real Estate Investment, Infrastructure &amp; Development<br>© 2026 AFAQ SYRIA</footer>
 <script>
 /* ضع رابط Cloudflare Worker الكامل هنا بعد تأكيده */
-const WORKER_URL = "https://ADD-YOUR-WORKER-URL.workers.dev";
+const WORKER_URL = "https://omax-api-105a.oa626114.workers.dev";
 const form=document.getElementById("paymentForm");
 const btn=document.getElementById("submitBtn");
 const resultBox=document.getElementById("result");
@@ -91,7 +91,7 @@ form.addEventListener("submit",async e=>{
  btn.disabled=true;btn.textContent="جارٍ إنشاء الفاتورة...";
  resultBox.style.display="block";statusMessage.textContent="جارٍ الاتصال ببوابة الدفع...";statusMessage.className="status";
  try{
-  const response=await fetch(WORKER_URL.replace(/\/$/,"")+"/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount,currency})});
+  const response=await fetch(WORKER_URL.replace(/\/$/,"")+"/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount,currency,email:document.getElementById("customerEmail").value.trim()})});
   const data=await response.json();
   if(!response.ok||!data.success)throw new Error(data.error||data.message||"تعذر إنشاء طلب الدفع");
   const p=data.payment||data;

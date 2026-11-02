@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="آفاق سوريا للاستثمار العقاري والإنشاءات والبنية التحتية والطاقة والزراعة والثروة الحيوانية والسمكية والتصنيع." name="description"/>
+<title>آفاق سوريا | محافظ المشاريع</title>
+<style>
+:root{--navy:#071522;--navy2:#102b40;--gold:#d9b15f;--ink:#172633;--muted:#62717c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f2f5f7;color:var(--ink);line-height:1.8}
+header{background:var(--navy);color:#fff;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:3px solid var(--gold)}
+.brand{font-size:24px;font-weight:bold;color:var(--gold)}.brand small{display:block;color:white;font-size:11px;letter-spacing:1px}
+nav{display:flex;gap:12px;flex-wrap:wrap}nav a{color:white;text-decoration:none;font-size:13px}nav a:hover{color:var(--gold)}
+.hero{padding:65px 7%;color:#fff;background:linear-gradient(90deg,rgba(3,14,24,.88),rgba(3,14,24,.38)),url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero h1{font-size:clamp(28px,5vw,48px);max-width:850px;line-height:1.4;color:#f1d18a}.hero p{max-width:780px;font-size:17px}
+.portfolio{padding:48px 5%;scroll-margin-top:15px}.portfolio:nth-of-type(even){background:#fff}
+.section-title{text-align:center;margin:0 auto 25px}.section-title .num{color:#9a762e;font-weight:bold;font-size:13px}.section-title h2{margin:0;color:var(--navy);font-size:clamp(23px,3vw,32px)}.section-title p{margin:3px;color:var(--muted);direction:ltr;font-size:12px;letter-spacing:.5px}.count{display:inline-block;background:#e9dfc9;color:#62491d;border-radius:30px;padding:3px 13px;font-size:12px;margin-top:8px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;max-width:1400px;margin:auto}
+.photo-card{margin:0;background:white;border-radius:10px;overflow:hidden;box-shadow:0 5px 18px rgba(8,30,48,.12);border:1px solid #e1e7eb;cursor:pointer;transition:transform .2s}
+.photo-card:hover{transform:translateY(-3px)}.photo-card img{width:100%;height:170px;object-fit:cover;display:block;background:#dbe2e7}.photo-card figcaption{padding:8px 11px;font-size:13px;font-weight:bold;color:#203446}.photo-card figcaption span{color:#b08a3d;direction:ltr;display:inline-block;margin-left:5px}
+.info{margin:28px auto 0;max-width:1000px;background:#fff7e5;border-right:4px solid var(--gold);padding:13px 17px;border-radius:5px;font-size:13px;color:#584a2d}
+footer{background:#06111c;color:#e9eef2;text-align:center;padding:30px 5%;border-top:4px solid var(--gold)}footer strong{color:var(--gold)}
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:20;align-items:center;justify-content:center;padding:20px}#lightbox.open{display:flex}#lightbox img{max-width:95vw;max-height:82vh;object-fit:contain;border-radius:6px}#lightbox button{position:absolute;top:15px;left:18px;background:var(--gold);border:0;border-radius:50%;width:42px;height:42px;font-size:24px;cursor:pointer}
+@media(max-width:600px){header{justify-content:center;text-align:center}nav{justify-content:center}.hero{padding:45px 6%}.portfolio{padding:38px 4%}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.photo-card img{height:135px}.photo-card figcaption{font-size:11px;padding:7px}}
+
+.portfolio-intro{max-width:1050px;margin:-10px auto 25px;text-align:center;color:#52616d;font-size:15px;line-height:2;padding:0 8px}.photo-card{cursor:zoom-in}.photo-card img{transition:transform .2s}.photo-card:hover img{transform:scale(1.02)}@media(max-width:600px){.portfolio-intro{font-size:13px;margin:0 auto 18px}.photo-card img{height:145px}}
+
+/* AFAQ SYRIA: unified navy-and-gold portfolio design */
+:root{--navy:#06131e;--navy2:#102536;--gold:#d7ad52;--ink:#f4f1e8;--muted:#c3ccd2}
+html{background:#06131e}body{background:#06131e;color:#f4f1e8;font-family:Tahoma,Arial,sans-serif}
+header{position:sticky;top:0;z-index:15;background:#04101a;border-bottom:2px solid var(--gold);padding:12px 3%;box-shadow:0 5px 18px #0008}
+.brand{font-size:clamp(22px,3vw,32px);letter-spacing:.3px;color:#e5bd65}.brand small{font-size:12px;color:#fff;letter-spacing:2px}
+nav{gap:8px 15px;align-items:center}nav a{font-size:13px;color:#f4f1e8;padding:5px 0}nav a:hover{color:#e7bd62}
+.hero{min-height:300px;display:flex;align-items:center;padding:50px 7%;background:linear-gradient(90deg,rgba(3,13,22,.94),rgba(3,13,22,.62)),url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1800&q=85') center/cover;border-bottom:2px solid var(--gold);text-align:center}
+.hero>div{max-width:1050px;margin:auto}.hero h1{margin:0 auto 12px;color:#e7bd62;font-size:clamp(27px,4vw,43px);line-height:1.45}.hero p{margin:auto;color:#fff;font-size:clamp(14px,1.7vw,18px);line-height:2}
+#intro{background:linear-gradient(120deg,#102536,#071622);border-bottom:1px solid #8d713d;padding:28px 5%}
+#intro .section-title h2{color:#e7bd62}#intro .section-title p{color:#e8d6ad}#intro>p{color:#f4f1e8!important;line-height:2}
+.portfolio{display:inline-block;vertical-align:top;width:49.7%;padding:25px 15px 22px;background:#071622!important;border:1px solid #bd984d;border-radius:14px;margin:8px 0;scroll-margin-top:90px}
+.section-title{margin-bottom:12px}.section-title .num{color:#e7bd62}.section-title h2{color:#f3d17e;font-size:clamp(17px,2vw,24px);line-height:1.5}.section-title p{color:#e8d6ad;font-weight:bold}.count{background:#d7ad52;color:#17202a;border-radius:5px;font-weight:bold}
+.portfolio-intro{color:#e2e7e9;font-size:13px;line-height:1.9;margin:6px auto 14px;min-height:48px}
+.gallery{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;max-width:none}
+.photo-card{background:#102536;border:1px solid #b38e48;border-radius:7px;box-shadow:none;overflow:hidden}.photo-card img{height:94px;object-fit:cover}.photo-card figcaption{background:#102536;color:#fff;font-size:10px;line-height:1.5;padding:5px 3px;text-align:center}.photo-card figcaption span{color:#e8bd5e;margin-left:3px}
+.info{background:#102536;border-right:4px solid var(--gold);color:#e9e4d9;max-width:none;margin:16px 3%;border-radius:6px}
+footer{background:#030d15;border-top:3px solid var(--gold);color:#f4f1e8;padding:24px 5%}footer strong{color:#e7bd62}
+#lightbox{background:rgba(0,0,0,.96)}#lightbox button{background:#d7ad52;color:#071522}
+@media(max-width:900px){.portfolio{width:100%;display:block}.gallery{grid-template-columns:repeat(5,minmax(0,1fr))}.photo-card img{height:110px}}
+@media(max-width:600px){header{position:relative;padding:12px 3%}.brand{text-align:center;width:100%}nav{justify-content:center;gap:5px 11px}nav a{font-size:11px}.hero{min-height:235px;padding:35px 5%}.portfolio{padding:20px 10px;margin:7px 0;border-radius:10px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.photo-card img{height:145px}.photo-card figcaption{font-size:12px;padding:7px 4px}.portfolio-intro{font-size:13px;min-height:0}.section-title h2{font-size:20px}}
+
+
+/* Mobile-first folder index and single-gallery navigation */
+.menu-toggle{background:var(--gold);color:#071522;border:0;border-radius:9px;padding:10px 16px;font: bold 14px Tahoma,Arial;cursor:pointer}
+.portfolio-menu{padding:28px 4% 38px;background:linear-gradient(145deg,#0b1c29,#102b40);border-bottom:1px solid var(--gold)}
+.menu-heading{text-align:center;margin:0 auto 20px;color:#f0cb75;font-size:25px;font-weight:bold}
+.menu-heading small{display:block;color:#e6e9eb;font-size:13px;font-weight:normal;margin-top:4px}
+.folder-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;max-width:1150px;margin:auto}
+.folder-card{min-height:145px;border:1px solid #c49a48;border-radius:12px;background:linear-gradient(145deg,#1a3447,#0b1b28);color:#fff;padding:15px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;font:14px Tahoma,Arial;cursor:pointer;box-shadow:0 5px 15px #0004}
+.folder-card:active{transform:scale(.98);background:#29465b}
+.folder-icon{font-size:35px;line-height:1.3}.folder-card b{color:#f0cb75;font-size:15px}.folder-card small{color:#d9e0e4;font-size:11px}
+.gallery-back{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1400px;margin:0 auto 18px}
+.gallery-back button{background:var(--gold);color:#071522;border:0;border-radius:8px;padding:10px 16px;font:bold 14px Tahoma,Arial;cursor:pointer}
+.gallery-back span{color:#e8d6ad;font-size:13px}
+.portfolio.gallery-view{display:block;width:auto;max-width:1400px;margin:12px auto;padding:24px 3%;border:1px solid var(--gold);border-radius:14px;background:#071622!important}
+.portfolio.gallery-view .gallery{grid-template-columns:repeat(5,minmax(0,1fr))}
+.portfolio.gallery-view .photo-card img{height:150px}
+body.gallery-open .hero,body.gallery-open #intro,body.gallery-open #portfolio-menu,body.gallery-open footer,body.gallery-open .info{display:none!important}
+body.gallery-open header{position:sticky;top:0}
+@media(max-width:760px){.folder-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.folder-card{min-height:125px}.menu-heading{font-size:21px}.portfolio.gallery-view{margin:8px 2%;padding:18px 10px}.portfolio.gallery-view .gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.portfolio.gallery-view .photo-card img{height:155px}}
+
+
+/* Payment page navigation button */
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.payment-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#e4c16f,#c99a3e);color:#071522!important;text-decoration:none;font-weight:bold;font-size:14px;padding:10px 15px;border-radius:9px;border:1px solid #f2d991;box-shadow:0 3px 12px #0005;line-height:1.4}
+.payment-link span{font-size:9px;letter-spacing:.4px;direction:ltr}
+.payment-link:hover{filter:brightness(1.08);transform:translateY(-1px)}
+@media(max-width:600px){.header-actions{width:100%;gap:8px}.payment-link{font-size:12px;padding:9px 11px}.payment-link span{font-size:8px}.menu-toggle{font-size:12px;padding:9px 11px}}
+
+</style></head>
+<body>
+<header><div class="brand">آفاق سوريا <small>AFAQ SYRIA</small></div>
+<div class="header-actions">
+<a class="payment-link" href="payment.html" aria-label="الانتقال إلى صفحة الدفع والفواتير">💳 الدفع والفواتير <span>PAYMENTS &amp; INVOICES</span></a>
+<button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false">☰ قائمة المحافظ</button>
+</div></header>
+<div class="hero"><div><h1>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية</h1><p>من سوريا وإلى سوريا: ثماني محافظ متخصصة، تضم كل محفظة عشرة مواضع للصور لعرض مجالات المشاريع والفرص الاستثمارية وإعادة الإعمار والتنمية في مختلف المحافظات السورية.</p></div></div>
+<section id="portfolio-menu" class="portfolio-menu" aria-label="فهرس محافظ المشاريع">
+  <div class="menu-heading"><span>فهرس المشاريع</span><small>اختر المحفظة للدخول إلى الصور والتفاصيل</small></div>
+  <div class="folder-grid">
+    <button class="folder-card" data-open="portfolio-1"><span class="folder-icon">🛣️</span><b>الطرق والجسور</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-2"><span class="folder-icon">🏙️</span><b>العقارات والإنشاءات</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-3"><span class="folder-icon">🌊</span><b>الطاقة البحرية</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-4"><span class="folder-icon">☀️</span><b>الطاقة النظيفة</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-5"><span class="folder-icon">🌾</span><b>الزراعة</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-6"><span class="folder-icon">🐎</span><b>الثروة الحيوانية</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-7"><span class="folder-icon">🐟</span><b>الثروة السمكية</b><small>10 صور ومعلومات</small></button>
+    <button class="folder-card" data-open="portfolio-8"><span class="folder-icon">🏭</span><b>التصنيع والتبريد</b><small>10 صور ومعلومات</small></button>
+  </div>
+</section>
+<section class="portfolio" id="intro"><div class="section-title"><h2>رؤيتنا | Our Vision</h2><p>INVESTMENT • RECONSTRUCTION • SUSTAINABLE DEVELOPMENT</p></div><p style="max-width:950px;margin:auto;text-align:center">آفاق سوريا تسعى إلى المساهمة في تطوير الاستثمار العقاري والإنشاءات والبنية التحتية والقطاعات الإنتاجية في مختلف أنحاء سوريا، من خلال دراسة الفرص وبناء الشراكات وتطوير مشاريع متكاملة تراعي الجودة والاستدامة واحتياجات المجتمعات.</p></section>
+<section class="portfolio" id="portfolio-1">
+<div class="section-title"><div class="num">محفظة 01</div><h2>الطرق والجسور والبنية التحتية</h2><p>ROADS, BRIDGES &amp; INFRASTRUCTURE</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تشمل هذه المحفظة مشاريع الطرق السريعة والجسور والأنفاق وشبكات النقل وتصريف مياه الأمطار وأعمال البنية التحتية المرتبطة بها، مع عرض صور توضيحية لكل مجال.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="طرق سريعة" data-full="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> طرق سريعة</figcaption>
+</figure><figure class="photo-card">
+<img alt="جسر حديث" data-full="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> جسر حديث</figcaption>
+</figure><figure class="photo-card">
+<img alt="أعمال إنشاء طريق" data-full="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> أعمال إنشاء طريق</figcaption>
+</figure><figure class="photo-card">
+<img alt="أنفاق وممرات" data-full="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> أنفاق وممرات</figcaption>
+</figure><figure class="photo-card">
+<img alt="جسر فوق المياه" data-full="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> جسر فوق المياه</figcaption>
+</figure><figure class="photo-card">
+<img alt="شبكات النقل" data-full="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> شبكات النقل</figcaption>
+</figure><figure class="photo-card">
+<img alt="أعمال بنية تحتية" data-full="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> أعمال بنية تحتية</figcaption>
+</figure><figure class="photo-card">
+<img alt="معدات إنشاء الطرق" data-full="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> معدات إنشاء الطرق</figcaption>
+</figure><figure class="photo-card">
+<img alt="جسور حضرية" data-full="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> جسور حضرية</figcaption>
+</figure><figure class="photo-card">
+<img alt="تطوير الطرق" data-full="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> تطوير الطرق</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-2">
+<div class="section-title"><div class="num">محفظة 02</div><h2>العقارات والإنشاءات والمشاريع السكنية</h2><p>REAL ESTATE &amp; CONSTRUCTION</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تعرض هذه المحفظة نماذج الأبراج والمجمعات السكنية والمباني التجارية والفنادق والمكاتب وأعمال البناء والتشطيبات والتخطيط العمراني.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="أبراج سكنية" data-full="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> أبراج سكنية</figcaption>
+</figure><figure class="photo-card">
+<img alt="تصميم معماري حديث" data-full="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> تصميم معماري حديث</figcaption>
+</figure><figure class="photo-card">
+<img alt="مجمع سكني" data-full="https://images.unsplash.com/photo-1600585154340-be6161a56c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> مجمع سكني</figcaption>
+</figure><figure class="photo-card">
+<img alt="مبانٍ متعددة الاستخدامات" data-full="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> مبانٍ متعددة الاستخدامات</figcaption>
+</figure><figure class="photo-card">
+<img alt="حدائق ومسطحات خضراء" data-full="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> حدائق ومسطحات خضراء</figcaption>
+</figure><figure class="photo-card">
+<img alt="ملاعب ومرافق رياضية" data-full="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> ملاعب ومرافق رياضية</figcaption>
+</figure><figure class="photo-card">
+<img alt="موقع بناء" data-full="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> موقع بناء</figcaption>
+</figure><figure class="photo-card">
+<img alt="رافعات وآليات إنشائية" data-full="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> رافعات وآليات إنشائية</figcaption>
+</figure><figure class="photo-card">
+<img alt="تصميم واجهات" data-full="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> تصميم واجهات</figcaption>
+</figure><figure class="photo-card">
+<img alt="تخطيط عمراني" data-full="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> تخطيط عمراني</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-3">
+<div class="section-title"><div class="num">محفظة 03</div><h2>الطاقة البحرية والتيارات البحرية</h2><p>MARINE &amp; TIDAL ENERGY</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تستعرض هذه المحفظة فرص الاستفادة من طاقة الأمواج والتيارات البحرية والمد والجزر، إضافة إلى المنشآت والمعدات البحرية الداعمة لتوليد الطاقة.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="توربينات تيارات بحرية" data-full="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> توربينات تيارات بحرية</figcaption>
+</figure><figure class="photo-card">
+<img alt="مياه بحرية عميقة" data-full="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> مياه بحرية عميقة</figcaption>
+</figure><figure class="photo-card">
+<img alt="توربينات تحت الماء" data-full="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> توربينات تحت الماء</figcaption>
+</figure><figure class="photo-card">
+<img alt="منشأة بحرية" data-full="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> منشأة بحرية</figcaption>
+</figure><figure class="photo-card">
+<img alt="أمواج البحر" data-full="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> أمواج البحر</figcaption>
+</figure><figure class="photo-card">
+<img alt="معدات بحرية" data-full="https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> معدات بحرية</figcaption>
+</figure><figure class="photo-card">
+<img alt="طاقة المد والجزر" data-full="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> طاقة المد والجزر</figcaption>
+</figure><figure class="photo-card">
+<img alt="ساحل وبحر" data-full="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> ساحل وبحر</figcaption>
+</figure><figure class="photo-card">
+<img alt="هندسة بحرية" data-full="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> هندسة بحرية</figcaption>
+</figure><figure class="photo-card">
+<img alt="توربينات ومياه" data-full="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> توربينات ومياه</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-4">
+<div class="section-title"><div class="num">محفظة 04</div><h2>الطاقة النظيفة والمتجددة</h2><p>CLEAN &amp; RENEWABLE ENERGY</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تضم هذه المحفظة مشاريع الطاقة الشمسية وطاقة الرياح والطاقة الكهرومائية وحلول التخزين والشبكات، بهدف دعم إنتاج طاقة نظيفة ومستدامة.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="ألواح شمسية" data-full="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> ألواح شمسية</figcaption>
+</figure><figure class="photo-card">
+<img alt="مزرعة رياح" data-full="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> مزرعة رياح</figcaption>
+</figure><figure class="photo-card">
+<img alt="توربينات رياح" data-full="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> توربينات رياح</figcaption>
+</figure><figure class="photo-card">
+<img alt="محطة طاقة شمسية" data-full="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> محطة طاقة شمسية</figcaption>
+</figure><figure class="photo-card">
+<img alt="طاقة شمسية على الأسطح" data-full="https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> طاقة شمسية على الأسطح</figcaption>
+</figure><figure class="photo-card">
+<img alt="شبكات كهرباء" data-full="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> شبكات كهرباء</figcaption>
+</figure><figure class="photo-card">
+<img alt="تخزين الطاقة" data-full="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> تخزين الطاقة</figcaption>
+</figure><figure class="photo-card">
+<img alt="محطة طاقة متجددة" data-full="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> محطة طاقة متجددة</figcaption>
+</figure><figure class="photo-card">
+<img alt="طاقة الرياح والحقول" data-full="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> طاقة الرياح والحقول</figcaption>
+</figure><figure class="photo-card">
+<img alt="حلول الطاقة المستدامة" data-full="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> حلول الطاقة المستدامة</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-5">
+<div class="section-title"><div class="num">محفظة 05</div><h2>الزراعة والمزارع والإنتاج النباتي</h2><p>AGRICULTURE &amp; FARMING</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تغطي هذه المحفظة زراعة القمح والشعير والعدس والحمص والكمون واليانسون والكزبرة وغيرها، إلى جانب الحصاد والري والتخزين والتصنيع الزراعي.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="حقول قمح" data-full="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> حقول قمح</figcaption>
+</figure><figure class="photo-card">
+<img alt="محاصيل زراعية" data-full="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> محاصيل زراعية</figcaption>
+</figure><figure class="photo-card">
+<img alt="حصاد زراعي" data-full="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> حصاد زراعي</figcaption>
+</figure><figure class="photo-card">
+<img alt="خضروات طازجة" data-full="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> خضروات طازجة</figcaption>
+</figure><figure class="photo-card">
+<img alt="بيوت محمية" data-full="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> بيوت محمية</figcaption>
+</figure><figure class="photo-card">
+<img alt="جرار زراعي" data-full="https://images.unsplash.com/photo-1592982537447-6f2a6a0a3b6a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1592982537447-6f2a6a0a3b6a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> جرار زراعي</figcaption>
+</figure><figure class="photo-card">
+<img alt="بساتين وأشجار" data-full="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> بساتين وأشجار</figcaption>
+</figure><figure class="photo-card">
+<img alt="ري حديث" data-full="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> ري حديث</figcaption>
+</figure><figure class="photo-card">
+<img alt="مزارع وحقول" data-full="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> مزارع وحقول</figcaption>
+</figure><figure class="photo-card">
+<img alt="منتجات زراعية" data-full="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> منتجات زراعية</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-6">
+<div class="section-title"><div class="num">محفظة 06</div><h2>الثروة الحيوانية والمزارع</h2><p>LIVESTOCK &amp; ANIMAL FARMS</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تستعرض هذه المحفظة فرص تطوير مزارع الثروة الحيوانية في سوريا، بما يشمل الأبقار الحلوب واللحوم والخيول العربية الأصيلة والأغنام والماعز والدواجن، إضافة إلى الأعلاف والرعاية البيطرية وتجهيزات المزارع الملائمة للبيئة المحلية.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="مزارع أبقار" data-full="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> مزارع أبقار</figcaption>
+</figure><figure class="photo-card">
+<img alt="أبقار حلوب" data-full="https://images.unsplash.com/photo-1527153857715-3908f2edt?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1527153857715-3908f2edt?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> أبقار حلوب</figcaption>
+</figure><figure class="photo-card">
+<img alt="أغنام ومراعي" data-full="https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> أغنام ومراعي</figcaption>
+</figure><figure class="photo-card">
+<img alt="ماعز في المزرعة" data-full="https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1524024973431-2ad916746881?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> ماعز في المزرعة</figcaption>
+</figure><figure class="photo-card">
+<img alt="مداجن الدجاج" data-full="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> مداجن الدجاج</figcaption>
+</figure><figure class="photo-card">
+<img alt="دجاج وبيض" data-full="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> دجاج وبيض</figcaption>
+</figure><figure class="photo-card">
+<img alt="خيول عربية أصيلة" data-full="https://images.unsplash.com/photo-1534307675-6d0f9c4f0e6d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1534307675-6d0f9c4f0e6d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> خيول عربية أصيلة</figcaption>
+</figure><figure class="photo-card">
+<img alt="مزارع خيول" data-full="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> مزارع خيول</figcaption>
+</figure><figure class="photo-card">
+<img alt="مزارع أعلاف" data-full="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> مزارع أعلاف</figcaption>
+</figure><figure class="photo-card">
+<img alt="رعاية بيطرية" data-full="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> رعاية بيطرية</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-7">
+<div class="section-title"><div class="num">محفظة 07</div><h2>الثروة السمكية والاستزراع المائي</h2><p>FISHERIES &amp; AQUACULTURE</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تعرض هذه المحفظة مشاريع تربية الأسماك في الأحواض والأقفاص العائمة والمفرخات ومصانع الأعلاف والتبريد والتعبئة، مع الاهتمام بجودة المياه والاستدامة.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="أسماك في المياه" data-full="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> أسماك في المياه</figcaption>
+</figure><figure class="photo-card">
+<img alt="استزراع سمكي" data-full="https://images.unsplash.com/photo-1535392432937-a27c36ec07b5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1535392432937-a27c36ec07b5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> استزراع سمكي</figcaption>
+</figure><figure class="photo-card">
+<img alt="مزارع أسماك" data-full="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> مزارع أسماك</figcaption>
+</figure><figure class="photo-card">
+<img alt="صيد بحري" data-full="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> صيد بحري</figcaption>
+</figure><figure class="photo-card">
+<img alt="أسماك طازجة" data-full="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> أسماك طازجة</figcaption>
+</figure><figure class="photo-card">
+<img alt="أحواض تربية الأسماك" data-full="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> أحواض تربية الأسماك</figcaption>
+</figure><figure class="photo-card">
+<img alt="سواحل ومرافئ" data-full="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> سواحل ومرافئ</figcaption>
+</figure><figure class="photo-card">
+<img alt="تربية الأحياء المائية" data-full="https://images.unsplash.com/photo-1534483509719-3aee6e0f2f3f?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1534483509719-3aee6e0f2f3f?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> تربية الأحياء المائية</figcaption>
+</figure><figure class="photo-card">
+<img alt="تنوع بحري" data-full="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> تنوع بحري</figcaption>
+</figure><figure class="photo-card">
+<img alt="منتجات بحرية" data-full="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> منتجات بحرية</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section><section class="portfolio" id="portfolio-8">
+<div class="section-title"><div class="num">محفظة 08</div><h2>التصنيع الغذائي والتبريد والتخزين</h2><p>PROCESSING, COLD STORAGE &amp; LOGISTICS</p>
+<div class="count">10 صور في هذه المحفظة</div></div><p class="portfolio-intro">تستعرض هذه المحفظة منشآت تصنيع الأغذية والألبان والحبوب والتعبئة والتغليف ومستودعات التبريد وسلاسل التخزين والنقل المبرد.</p>
+<div class="gallery">
+<figure class="photo-card">
+<img alt="منشأة تصنيع غذائي" data-full="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>01</span> منشأة تصنيع غذائي</figcaption>
+</figure><figure class="photo-card">
+<img alt="خط إنتاج صناعي" data-full="https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>02</span> خط إنتاج صناعي</figcaption>
+</figure><figure class="photo-card">
+<img alt="مستودعات تخزين" data-full="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>03</span> مستودعات تخزين</figcaption>
+</figure><figure class="photo-card">
+<img alt="سلاسل تبريد" data-full="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>04</span> سلاسل تبريد</figcaption>
+</figure><figure class="photo-card">
+<img alt="تعبئة وتغليف" data-full="https://images.unsplash.com/photo-1604719312566-8912e9c8a213?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1604719312566-8912e9c8a213?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>05</span> تعبئة وتغليف</figcaption>
+</figure><figure class="photo-card">
+<img alt="معدات تصنيع" data-full="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>06</span> معدات تصنيع</figcaption>
+</figure><figure class="photo-card">
+<img alt="مستودع لوجستي" data-full="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>07</span> مستودع لوجستي</figcaption>
+</figure><figure class="photo-card">
+<img alt="صناديق منتجات غذائية" data-full="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>08</span> صناديق منتجات غذائية</figcaption>
+</figure><figure class="photo-card">
+<img alt="نقل وتوزيع" data-full="https://images.unsplash.com/photo-1600585154340-be6161a56c2c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56c2c?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>09</span> نقل وتوزيع</figcaption>
+</figure><figure class="photo-card">
+<img alt="مرافق التخزين والتبريد" data-full="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82" loading="lazy" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&amp;fit=crop&amp;w=1000&amp;q=82"/>
+<figcaption><span>10</span> مرافق التخزين والتبريد</figcaption>
+</figure>
+</div>
+<!-- لإضافة صور لاحقاً: انسخ عنصر figure.photo-card داخل هذه الشبكة، ثم غيّر رابط الصورة والنص البديل والعنوان. -->
+</section>
+<div class="info">الصور المعروضة أمثلة بصرية توضيحية لمجالات العمل وليست إثباتاً على مشاريع منفذة أو مملوكة للشركة. الصور تُحمّل من خدمة صور خارجية وتتطلب اتصالاً بالإنترنت. لإضافة صور دائمة للموقع لاحقاً، ارفع الصور إلى مجلد images في مستودع GitHub ثم أضف بطاقات جديدة إلى المحفظة المناسبة.</div>
+<footer id="contact"><strong>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية</strong><p>AFAQ SYRIA — Real Estate Investment, Infrastructure &amp; Development</p><p>الهاتف: <a href="tel:+905523156980" style="color:#f1d18a;direction:ltr;display:inline-block">+90 552 315 6980</a></p><p>البريد الإلكتروني: <a href="mailto:oali47438@gmail.com" style="color:#f1d18a">oali47438@gmail.com</a></p><p>© 2026 AFAQ SYRIA. جميع الحقوق محفوظة.</p></footer>
+<div id="lightbox" onclick="closeLightbox()"><button aria-label="إغلاق">×</button><img alt="صورة مكبرة" id="largeImage"/></div>
+<script>
+document.querySelectorAll('.photo-card img').forEach(img=>img.addEventListener('click',()=>{document.getElementById('largeImage').src=img.dataset.full;document.getElementById('lightbox').classList.add('open')}));
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+</script>
+
+<script>
+(function(){
+  const sections = Array.from(document.querySelectorAll('section.portfolio[id^="portfolio-"]'));
+  const menu = document.getElementById('portfolio-menu');
+  const toggle = document.getElementById('menuToggle');
+  const intro = document.getElementById('intro');
+  let current = null;
+
+  function closeGallery(){
+    sections.forEach(section => {
+      section.hidden = true;
+      section.classList.remove('gallery-view');
+      const back = section.querySelector('.gallery-back');
+      if(back) back.remove();
+    });
+    document.body.classList.remove('gallery-open');
+    menu.hidden = false;
+    intro.hidden = false;
+    current = null;
+    if(toggle) toggle.textContent = '☰ قائمة المحافظ';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function openGallery(id){
+    const target = document.getElementById(id);
+    if(!target) return;
+    sections.forEach(section => {
+      section.hidden = section !== target;
+      section.classList.toggle('gallery-view', section === target);
+    });
+    menu.hidden = true;
+    intro.hidden = true;
+    document.body.classList.add('gallery-open');
+    current = id;
+    let back = target.querySelector('.gallery-back');
+    if(!back){
+      back = document.createElement('div');
+      back.className = 'gallery-back';
+      back.innerHTML = '<button type="button">← العودة إلى فهرس المحافظ</button><span>اختر صورة لعرضها بالحجم الكامل</span>';
+      target.insertBefore(back, target.firstChild);
+      back.querySelector('button').addEventListener('click', closeGallery);
+    }
+    if(toggle) toggle.textContent = '☰ فهرس المحافظ';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  document.querySelectorAll('[data-open]').forEach(button => {
+    button.addEventListener('click', () => openGallery(button.getAttribute('data-open')));
+  });
+  if(toggle) toggle.addEventListener('click', () => {
+    if(current) closeGallery();
+    else { menu.scrollIntoView({behavior:'smooth'}); }
+  });
+
+  sections.forEach(section => section.hidden = true);
+  if(menu) menu.hidden = false;
+  if(intro) intro.hidden = false;
+  document.querySelectorAll('.photo-card img').forEach(img => {
+    img.addEventListener('error', () => { img.style.opacity = '.35'; });
+  });
+})();
+</script>
+
+</body></html>

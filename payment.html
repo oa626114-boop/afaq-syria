@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071722">
+<title>الفواتير والدفع الإلكتروني | آفاق سوريا</title>
+<style>
+:root{--bg:#071722;--panel:#102635;--gold:#dfbd70;--gold2:#c9a65d;--line:#29404c;--muted:#b6c2c8;--white:#f5f2e9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#112c3c 0,#071722 58%);color:var(--white);font-family:Arial,Tahoma,sans-serif;line-height:1.8;min-height:100vh}
+header{height:72px;padding:12px clamp(16px,5vw,64px);display:flex;align-items:center;justify-content:space-between;background:#06131d;border-bottom:1px solid var(--line)}
+.brand{color:var(--gold);font-weight:700}.brand small{display:block;font-size:9px;letter-spacing:2px;color:#c4b58d}
+a{color:var(--gold);text-decoration:none}.back{border:1px solid var(--line);border-radius:8px;padding:7px 13px;color:var(--gold);font-size:13px}
+main{width:min(720px,calc(100% - 28px));margin:38px auto 70px}
+.eyebrow{text-align:center;color:var(--gold);font-size:11px;letter-spacing:2px}
+h1{text-align:center;color:var(--gold);font-size:clamp(25px,5vw,36px);margin:8px 0}
+.intro{text-align:center;color:var(--muted);font-size:14px;margin:0 auto 26px;max-width:580px}
+.panel{background:linear-gradient(145deg,rgba(18,43,59,.97),rgba(9,27,39,.98));border:1px solid var(--line);border-radius:16px;padding:clamp(18px,4vw,30px);box-shadow:0 18px 50px #0004}
+label{display:block;color:var(--gold);font-size:13px;margin:14px 0 6px}
+input,select{width:100%;background:#071923;color:var(--white);border:1px solid #38515e;border-radius:9px;padding:13px 14px;font-size:16px;outline:none}
+input:focus,select:focus{border-color:var(--gold)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+button{width:100%;border:0;border-radius:9px;background:linear-gradient(110deg,var(--gold),var(--gold2));color:#101b20;font-weight:700;font-size:16px;padding:13px 18px;margin-top:22px;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+.result{display:none;margin-top:20px;padding:18px;border:1px solid var(--line);border-radius:12px;background:#071923}
+.result h2{color:var(--gold);font-size:19px;margin:0 0 10px}
+.detail{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #263d49;font-size:13px}
+.detail span:first-child{color:var(--muted)}.detail strong{direction:ltr;text-align:left;overflow-wrap:anywhere}
+.address{display:block;direction:ltr;text-align:left;background:#102635;padding:12px;border-radius:8px;margin-top:6px;overflow-wrap:anywhere}
+.copy{margin-top:8px;padding:9px;font-size:13px;background:#d6b76c}
+.status{margin-top:14px;color:var(--gold);font-size:13px}
+.error{color:#ffb5a9}.success{color:#a7e2bf}
+footer{text-align:center;color:#aebbc1;padding:26px 12px;border-top:1px solid var(--line);font-size:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}header{height:64px}main{margin-top:26px}}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">آفاق سوريا <small>AFAQ SYRIA</small></div>
+<a class="back" href="./">العودة إلى الموقع</a>
+</header>
+<main>
+<div class="eyebrow">SECURE DIGITAL PAYMENT</div>
+<h1>الفواتير والدفع الإلكتروني</h1>
+<p class="intro">أنشئ طلب دفع خاصاً بك عبر بوابة الدفع الإلكترونية. أدخل المبلغ واختر شبكة الدفع بعناية قبل المتابعة.</p>
+<section class="panel">
+<form id="paymentForm">
+<label for="amount">المبلغ المطلوب بالدولار الأمريكي (USD)</label>
+<input id="amount" name="amount" type="number" min="1" max="10000" step="0.01" placeholder="مثال: 100" required>
+<div class="row">
+<div><label for="currency">عملة / شبكة الدفع</label>
+<select id="currency" name="currency" required>
+<option value="usdttrc20">USDT — TRC20</option>
+<option value="usdterc20">USDT — ERC20</option>
+<option value="btc">Bitcoin (BTC)</option>
+</select></div>
+<div><label for="customerEmail">البريد الإلكتروني (اختياري)</label>
+<input id="customerEmail" type="email" placeholder="name@example.com">
+</div>
+</div>
+<button id="submitBtn" type="submit">إنشاء فاتورة الدفع</button>
+<p class="note">سيتم إنشاء طلب الدفع من خلال بوابة NOWPayments. لا ترسل أي أموال قبل ظهور عنوان الدفع والمبلغ النهائي داخل هذه الصفحة.</p>
+</form>
+<div id="result" class="result" aria-live="polite">
+<h2>تفاصيل فاتورة الدفع</h2>
+<div class="detail"><span>رقم الدفع</span><strong id="paymentId">—</strong></div>
+<div class="detail"><span>الحالة</span><strong id="paymentStatus">—</strong></div>
+<div class="detail"><span>المبلغ المطلوب</span><strong id="payAmount">—</strong></div>
+<div class="detail"><span>الشبكة / العملة</span><strong id="payCurrency">—</strong></div>
+<label>عنوان الدفع</label><strong id="payAddress" class="address">—</strong>
+<button class="copy" id="copyAddress" type="button">نسخ عنوان الدفع</button>
+<p id="statusMessage" class="status">يرجى التحقق من الشبكة والمبلغ قبل التحويل.</p>
+</div>
+</section>
+</main>
+<footer>آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية<br>AFAQ SYRIA — Real Estate Investment, Infrastructure &amp; Development<br>© 2026 AFAQ SYRIA</footer>
+<script>
+/* ضع رابط Cloudflare Worker الكامل هنا بعد تأكيده */
+const WORKER_URL = "https://ADD-YOUR-WORKER-URL.workers.dev";
+const form=document.getElementById("paymentForm");
+const btn=document.getElementById("submitBtn");
+const resultBox=document.getElementById("result");
+const statusMessage=document.getElementById("statusMessage");
+form.addEventListener("submit",async e=>{
+ e.preventDefault();
+ const amount=Number(document.getElementById("amount").value);
+ const currency=document.getElementById("currency").value.toLowerCase();
+ if(!Number.isFinite(amount)||amount<1||amount>10000){resultBox.style.display="block";statusMessage.textContent="يرجى إدخال مبلغ بين 1 و 10000 دولار.";statusMessage.className="status error";return;}
+ if(WORKER_URL.includes("ADD-YOUR-WORKER-URL")){resultBox.style.display="block";statusMessage.textContent="صفحة الفواتير جاهزة، ويتبقى وضع رابط Cloudflare Worker الصحيح لتفعيل إنشاء الدفع.";statusMessage.className="status error";return;}
+ btn.disabled=true;btn.textContent="جارٍ إنشاء الفاتورة...";
+ resultBox.style.display="block";statusMessage.textContent="جارٍ الاتصال ببوابة الدفع...";statusMessage.className="status";
+ try{
+  const response=await fetch(WORKER_URL.replace(/\/$/,"")+"/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount,currency})});
+  const data=await response.json();
+  if(!response.ok||!data.success)throw new Error(data.error||data.message||"تعذر إنشاء طلب الدفع");
+  const p=data.payment||data;
+  document.getElementById("paymentId").textContent=p.payment_id||p.id||p.order_id||"—";
+  document.getElementById("paymentStatus").textContent=p.payment_status||p.status||"انتظار الدفع";
+  document.getElementById("payAmount").textContent=(p.pay_amount??"—");
+  document.getElementById("payCurrency").textContent=(p.pay_currency||currency).toUpperCase();
+  document.getElementById("payAddress").textContent=p.pay_address||"لم يُرجع مزود الدفع عنواناً";
+  statusMessage.textContent="تم إنشاء الطلب. أرسل المبلغ المحدد إلى العنوان أعلاه باستخدام الشبكة المطابقة فقط.";
+  statusMessage.className="status success";
+ }catch(err){statusMessage.textContent="لم يتم إنشاء الفاتورة: "+err.message;statusMessage.className="status error";}
+ finally{btn.disabled=false;btn.textContent="إنشاء فاتورة الدفع";}
+});
+document.getElementById("copyAddress").addEventListener("click",async()=>{
+ const value=document.getElementById("payAddress").textContent;
+ try{await navigator.clipboard.writeText(value);statusMessage.textContent="تم نسخ عنوان الدفع.";statusMessage.className="status success";}
+ catch{statusMessage.textContent="تعذر النسخ تلقائياً؛ اضغط مطولاً على العنوان لنسخه.";statusMessage.className="status";}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+AFAQ SYRIA — PAYMENT INTEGRATION NOTES
+
+Configured invoice currencies: USD, EUR, SYP
+Configured payment methods:
+- Bank transfer (manual reconciliation or supported bank API)
+- Cards (Visa/Mastercard through an eligible acquiring provider)
+- USDT TRC20
+- USDT ERC20
+- BTC
+
+CURRENT STATUS
+payments.html is a front-end prototype. It stores demo invoice records in the
+current browser only. It does not collect money, create live checkout URLs,
+verify blockchain transfers, or confirm bank transfers.
+
+PRODUCTION FLOW
+1. Browser sends invoice request to authenticated server endpoint.
+2. Server validates user, customer, amount, currency and invoice reference.
+3. Server stores invoice in a database.
+4. Server creates provider checkout session for cards/crypto using server-side
+   credentials kept in environment secrets.
+5. Provider webhook signature, amount, currency, invoice reference and event ID
+   are verified server-side; replay/duplicate events are rejected.
+6. Only verified events can mark an invoice paid.
+7. Bank transfers stay pending until matched against the business bank account
+   or a supported verified bank integration.
+8. All status changes are audit-logged.
+
+REQUIRED BEFORE LIVE ACTIVATION
+- Confirm legal entity name, registration country, business activity and KYC.
+- Select a card acquirer supporting that entity, activity and settlement bank.
+- Supply verified business bank transfer instructions.
+- Select a compliant crypto payment processor/custody solution and verify
+  supported assets, networks, jurisdictions, fees and settlement.
+- Configure secure backend, database, authentication, authorization, HTTPS,
+  backups, monitoring and webhook secrets.
+
+SECURITY
+- Never put API keys, webhook secrets, seed phrases or private keys in browser
+  code or a public GitHub repository.
+- Do not collect or store full card numbers or CVV in this application.
+- Never mark an invoice paid from a screenshot or client-side action.
+- SYP acceptance, card acquiring, crypto processing and cross-border settlement
+  must be checked against applicable law and provider policy.

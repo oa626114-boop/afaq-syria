@@ -96,7 +96,7 @@ function styles(){if(document.getElementById('briefcaseStyles'))return;var st=do
 function init(){
  styles();
  if(typeof window.render==='function'&&!window.render.__briefcase){var oldRender=window.render;window.render=function(){oldRender();document.querySelectorAll('[data-portfolio] .module-card p:last-child').forEach(function(x){x.textContent='📁 فتح الحقيبة الاستثمارية ←'})};window.render.__briefcase=true;window.render()}
- if(typeof window.openPortfolio==='function'&&!window.openPortfolio.__briefcase){var oldOpen=window.openPortfolio;window.openPortfolio=function(i){oldOpen(i);var p=window.portfolios?window.portfolios[i]:null;if(!p){try{p=portfolios[i]}catch(e){}}if(p)workspace(i,p)};window.openPortfolio.__briefcase=true}
+ if(typeof window.openPortfolio==='function'&&!window.openPortfolio.__briefcase){var oldOpen=window.openPortfolio;window.openPortfolio=function(i){var prior=document.getElementById('briefcaseWorkspace');if(prior)prior.remove();oldOpen(i);var p=window.portfolios?window.portfolios[i]:null;if(!p){try{p=portfolios[i]}catch(e){}}if(p)workspace(i,p)};window.openPortfolio.__briefcase=true}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

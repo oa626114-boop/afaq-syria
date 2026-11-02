@@ -1,0 +1,13 @@
+AFAQ SYRIA PORTFOLIO GALLERY
+============================
+The eight portfolio cards now open dedicated galleries with ten illustrative
+images each. Tapping a thumbnail opens a full-screen image viewer. The back
+button returns to the portfolio index.
+
+Images currently load from Unsplash over HTTPS and therefore require internet
+access. For permanent, reliable hosting, download approved image assets and
+commit them into a repository folder such as assets/portfolio/ then change the
+image URL builder in index.html to local relative paths.
+
+These images are illustrative references, not evidence of completed or owned
+projects.

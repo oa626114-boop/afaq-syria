@@ -91,16 +91,20 @@ form.addEventListener("submit",async e=>{
  btn.disabled=true;btn.textContent="جارٍ إنشاء الفاتورة...";
  resultBox.style.display="block";statusMessage.textContent="جارٍ الاتصال ببوابة الدفع...";statusMessage.className="status";
  try{
-  const response=await fetch(WORKER_URL.replace(/\/$/,"")+"/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount,currency,email:document.getElementById("customerEmail").value.trim()})});
+  const email=document.getElementById("customerEmail").value.trim();
+  const response=await fetch(WORKER_URL.replace(/\/$/,"")+"/create-invoice",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount,price_amount:amount,price_currency:"usd",currency,pay_currency:currency,email,customer_email:email})});
   const data=await response.json();
-  if(!response.ok||!data.success)throw new Error(data.error||data.message||"تعذر إنشاء طلب الدفع");
-  const p=data.payment||data;
-  document.getElementById("paymentId").textContent=p.payment_id||p.id||p.order_id||"—";
-  document.getElementById("paymentStatus").textContent=p.payment_status||p.status||"انتظار الدفع";
-  document.getElementById("payAmount").textContent=(p.pay_amount??"—");
-  document.getElementById("payCurrency").textContent=(p.pay_currency||currency).toUpperCase();
-  document.getElementById("payAddress").textContent=p.pay_address||"لم يُرجع مزود الدفع عنواناً";
-  statusMessage.textContent="تم إنشاء الطلب. أرسل المبلغ المحدد إلى العنوان أعلاه باستخدام الشبكة المطابقة فقط.";
+  if(!response.ok||data.success===false||data.error)throw new Error(data.error||data.message||"تعذر إنشاء طلب الدفع");
+  const p=data.payment||data.invoice||data;
+  const invoiceUrl=p.invoice_url||p.url||data.invoice_url||data.url||"";
+  const payAddress=p.pay_address||data.pay_address||"";
+  document.getElementById("paymentId").textContent=p.payment_id||p.id||p.invoice_id||p.order_id||data.id||"—";
+  document.getElementById("paymentStatus").textContent=p.payment_status||p.status||"تم إنشاء الفاتورة";
+  document.getElementById("payAmount").textContent=(p.pay_amount??p.amount??amount);
+  document.getElementById("payCurrency").textContent=(p.pay_currency||p.currency||currency).toUpperCase();
+  document.getElementById("payAddress").textContent=payAddress|| (invoiceUrl?"الدفع عبر صفحة الفاتورة الآمنة":"لم يُرجع مزود الدفع عنواناً أو رابط فاتورة");
+  if(invoiceUrl){let link=document.getElementById("invoiceCheckout");if(!link){link=document.createElement("a");link.id="invoiceCheckout";link.target="_blank";link.rel="noopener noreferrer";link.textContent="فتح صفحة الدفع الآمنة";link.style.cssText="display:block;text-align:center;margin-top:12px;padding:12px;border-radius:9px;background:#dfbd70;color:#101b20;font-weight:bold";document.getElementById("payAddress").after(link)}link.href=invoiceUrl;link.hidden=false}
+  statusMessage.textContent=invoiceUrl?"تم إنشاء الفاتورة. أكمل الدفع عبر صفحة NOWPayments الآمنة.":"تم إنشاء الطلب؛ تحقق من تفاصيل الدفع قبل التحويل.";
   statusMessage.className="status success";
  }catch(err){statusMessage.textContent="لم يتم إنشاء الفاتورة: "+err.message;statusMessage.className="status error";}
  finally{btn.disabled=false;btn.textContent="إنشاء فاتورة الدفع";}

@@ -425,23 +425,7 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
  input.value=apiBase;
  const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#e8f5ef':ok===false?'#fcebea':'#fff2d6';status.style.color=ok===true?'#16845b':ok===false?'#b94a48':'#805d18'};
  async function request(path,options={}){
-   if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-   async function request(path,options={}){
-   if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-
-   // هنا السطر 429 الذي ستستبدله
-const response=await fetch(apiBase+path,{
-  ...options,
-  headers:{
-    'Content-Type':'application/json',
-    ...(options.headers||{})
-  }
-});
-   const data=await response.json().catch(()=>(
-   const data=await response.json().catch(()=>({}));
-   if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
-   return data;
- }
+   
  async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){say('فشل الاتصال: '+e.message,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};

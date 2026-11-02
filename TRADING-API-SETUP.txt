@@ -1,0 +1,19 @@
+AFAQ SYRIA — SHARES & API MODULE
+=================================
+
+Added to index.html:
+- Buy / Sell share request controls inside Invoices & Payments.
+- Share order history (stored in this browser only).
+- API & Integrations portal with illustrative endpoint documentation.
+- Gold action buttons and navy/gold visual styling.
+
+IMPORTANT:
+This is a front-end prototype. It does NOT execute stock trades, provide live quotes,
+hold client funds, or connect to a broker. Real share trading requires an appropriately
+licensed brokerage/provider, legal review for the operating jurisdictions, KYC/AML
+controls, server-side order validation, audit logs, and provider API credentials.
+
+API:
+The endpoint paths shown are illustrative and are not live until a secure backend
+(e.g. Cloudflare Worker + database) is deployed. Never put API secrets in index.html
+or any public GitHub Pages file. Store secrets only in server-side secret storage.

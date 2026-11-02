@@ -33,12 +33,36 @@
 @media(max-width:850px){.portfolio-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-photo img{height:150px}}
 @media(max-width:520px){.portfolio-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.portfolio-photo img{height:125px}.portfolio-photo figcaption{font-size:11px;padding:8px}}
 
+
+/* AFAQ SYRIA — Shares & API portal */
+.gold-action{background:linear-gradient(135deg,#f4d58b,#c99532)!important;color:#172331!important;border:1px solid #f5dfaa!important}
+.trade-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 14px}
+.trade-tabs button{border:1px solid #d7b66e;background:#fffaf0;color:#70531d;border-radius:9px;padding:10px 18px;font-weight:bold}
+.trade-tabs button.active{background:linear-gradient(135deg,#f4d58b,#c99532);color:#172331}
+.trade-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.trade-card,.api-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+.trade-card h3,.api-card h3{margin:0 0 5px;font-size:15px;color:var(--navy)}
+.trade-card p,.api-card p{margin:0 0 13px;color:var(--muted);font-size:11px}
+.trade-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.trade-form .field.full{grid-column:1/-1}
+.trade-form input,.trade-form select{width:100%;border:1px solid #dce3e8;border-radius:8px;padding:10px;background:#fff}
+.trade-warning{margin:12px 0;padding:12px 14px;border-right:4px solid #d7ad52;border-radius:8px;background:#fff8e9;color:#604a21;font-size:11px;line-height:1.8}
+.api-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.api-endpoint{display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:10px;border-bottom:1px solid var(--line);font-size:11px}
+.api-method{font-weight:bold;color:#166b4a;background:#e7f5ee;border-radius:5px;padding:3px 7px}
+.api-code{direction:ltr;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;background:#081a29;color:#e8d9b5;border-radius:9px;padding:13px;font:11px/1.7 monospace}
+.api-badge{display:inline-block;padding:4px 9px;border-radius:20px;background:#fff2d6;color:#805d18;font-size:10px;font-weight:bold}
+.trade-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:11px}
+.trade-table th,.trade-table td{padding:10px;border-bottom:1px solid var(--line);text-align:right}
+@media(max-width:800px){.trade-grid,.api-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.trade-form{grid-template-columns:1fr}.trade-form .field.full{grid-column:auto}}
+
 </style></head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payments.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payments.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
 <div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><button class="btn ghost" id="langBtn">EN</button><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
@@ -49,12 +73,70 @@
 <section class="view" id="projects"><div class="view-head"><div><h2>إدارة المشاريع</h2><p>تسجيل المشاريع ومتابعة القطاع والحالة والميزانية.</p></div><button class="btn gold" data-add="project">＋ مشروع جديد</button></div><div class="toolbar"><input id="projectSearch" placeholder="ابحث عن مشروع..."></div><div class="panel table-wrap"><table><thead><tr><th>اسم المشروع</th><th>القطاع</th><th>الموقع</th><th>الحالة</th><th>الميزانية التقديرية</th></tr></thead><tbody id="projectsTable"></tbody></table></div></section>
 <section class="view" id="portfolios"><div class="view-head"><div><h2>المحافظ الاستثمارية</h2><p>القطاعات الثمانية المعتمدة في آفاق سوريا.</p></div></div><div class="cards" id="portfolioCards"></div></section>
 <section class="view" id="clients"><div class="view-head"><div><h2>العملاء والشركاء</h2><p>سجل جهات الاتصال والعلاقات التجارية.</p></div><button class="btn gold" data-add="client">＋ جهة جديدة</button></div><div class="toolbar"><input id="clientSearch" placeholder="ابحث بالاسم أو البريد..."></div><div class="panel table-wrap"><table><thead><tr><th>الاسم</th><th>النوع</th><th>البريد الإلكتروني</th><th>الهاتف</th></tr></thead><tbody id="clientsTable"></tbody></table></div></section>
-<section class="view" id="invoices"><div class="view-head"><div><h2>الفواتير والمدفوعات</h2><p>إنشاء سجل فاتورة ومتابعة حالتها. الدفع الإلكتروني يحتاج ربطاً خلفياً آمناً.</p></div><button class="btn gold" data-add="invoice">＋ إنشاء فاتورة</button></div><div class="panel table-wrap"><table><thead><tr><th>رقم الفاتورة</th><th>العميل</th><th>المبلغ</th><th>تاريخ الإصدار</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="invoicesTable"></tbody></table></div></section>
+<section class="view" id="invoices">
+<div class="view-head"><div><h2>الفواتير والمدفوعات والاستثمار</h2><p>الفواتير وسجل أوامر شراء وبيع الأسهم — النسخة الحالية تجريبية وغير متصلة بوسيط تداول.</p></div><button class="btn gold" data-add="invoice">＋ إنشاء فاتورة</button></div>
+<div class="panel">
+ <div class="panel-head"><h3>تداول الأسهم</h3><small>إرسال طلب شراء أو بيع للمراجعة</small></div>
+ <div class="trade-tabs"><button type="button" class="active" id="buyTab">شراء الأسهم</button><button type="button" id="sellTab">بيع الأسهم</button></div>
+ <div class="trade-grid">
+  <div class="trade-card"><h3 id="tradeHeading">طلب شراء أسهم</h3><p>سجّل تفاصيل الطلب. لن يتم تنفيذ أي صفقة أو تحويل أموال من هذه الصفحة.</p>
+   <form id="tradeForm" class="trade-form">
+    <label class="field">اسم الشركة / رمز السهم<input id="shareSymbol" required maxlength="30" placeholder="مثال: AAPL أو اسم الشركة"></label>
+    <label class="field">السوق<input id="shareMarket" maxlength="60" placeholder="اسم السوق أو البورصة"></label>
+    <label class="field">عدد الأسهم<input id="shareQty" type="number" min="1" step="1" required placeholder="10"></label>
+    <label class="field">السعر المستهدف (اختياري)<input id="sharePrice" type="number" min="0" step="0.01" placeholder="0.00"></label>
+    <label class="field">عملة التسعير<select id="shareCurrency"><option>USD</option><option>EUR</option><option>SYP</option></select></label>
+    <label class="field">نوع الطلب<select id="shareOrderType"><option>طلب بسعر السوق (غير منفذ)</option><option>طلب محدد السعر</option></select></label>
+    <label class="field full">اسم مقدم الطلب<input id="shareCustomer" maxlength="100" placeholder="اسم العميل أو المستثمر" required></label>
+    <label class="field full">ملاحظات<textarea id="shareNotes" rows="2" maxlength="300" placeholder="ملاحظات إضافية"></textarea></label>
+    <div class="field full"><button class="btn gold-action" id="tradeSubmit" type="submit">إرسال طلب شراء للمراجعة</button></div>
+   </form>
+  </div>
+  <div class="trade-card"><h3>معلومات مهمة قبل التداول</h3><p>هذه الوحدة لإدارة طلبات العملاء وليست منصة وساطة أو بورصة.</p>
+   <div class="trade-warning"><b>تنبيه قانوني ومالي:</b> لا يتم تنفيذ شراء أو بيع الأسهم، ولا يتم حجز أو تحويل أموال. يلزم وسيط مالي مرخّص، والتحقق من أهلية الشركة والعملاء، والامتثال لقوانين الأوراق المالية في بلد التشغيل.</div>
+   <ul style="font-size:12px;color:#53636e;line-height:2;padding-right:18px">
+    <li>يُسجّل الطلب بحالة «بانتظار المراجعة» فقط.</li>
+    <li>لا توجد أسعار أسهم مباشرة أو توصيات استثمارية.</li>
+    <li>لا تُدخل بيانات بطاقة أو حساب تداول في هذا النموذج.</li>
+    <li>التنفيذ الفعلي يتطلب API من وسيط مرخّص وخادماً آمناً.</li>
+   </ul>
+   <span class="api-badge">وضع تجريبي — لا يوجد تنفيذ تداول</span>
+  </div>
+ </div>
+</div>
+<div class="panel"><div class="panel-head"><h3>سجل طلبات شراء وبيع الأسهم</h3><small>طلبات محفوظة محلياً على هذا الجهاز فقط</small></div><div class="table-wrap"><table class="trade-table"><thead><tr><th>المرجع</th><th>النوع</th><th>السهم</th><th>الكمية</th><th>العميل</th><th>الحالة</th></tr></thead><tbody id="tradeOrdersTable"></tbody></table></div></div>
+<div class="panel table-wrap"><div class="panel-head"><h3>سجل الفواتير</h3><small>سجلات الفواتير الحالية</small></div><table><thead><tr><th>رقم الفاتورة</th><th>العميل</th><th>المبلغ</th><th>تاريخ الإصدار</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="invoicesTable"></tbody></table></div>
+</section>
 
 <section class="view" id="portfolioGalleryView">
  <div class="view-head"><div><h2 id="galleryTitle">معرض المحفظة</h2><p id="gallerySubtitle">صور توضيحية لمجالات المشاريع</p></div></div>
  <div class="portfolio-toolbar"><button type="button" id="galleryBack">← العودة إلى المحافظ الاستثمارية</button><span class="hint">اضغط على أي صورة لمشاهدتها بالحجم الكامل</span></div>
  <div class="portfolio-gallery" id="portfolioGallery"></div>
+</section>
+<section class="view" id="api">
+ <div class="view-head"><div><h2>مركز API والتكاملات</h2><p>بوابة المطورين لإدارة واجهات الربط، التوثيق، Webhooks وحالة الخدمات.</p></div><span class="api-badge">بيئة تجريبية — غير متصلة</span></div>
+ <div class="trade-warning"><b>الأمان أولاً:</b> هذه صفحة توثيق وتجهيز فقط. لا توجد مفاتيح API فعالة هنا، ولا تضع أي سر أو كلمة مرور داخل ملفات GitHub Pages أو كود المتصفح. تحفظ المفاتيح الحقيقية كأسرار في الخادم فقط.</div>
+ <div class="api-grid">
+  <div class="api-card"><h3>واجهة إدارة المشاريع</h3><p>نقاط API المقترحة لقراءة المشاريع وإضافة سجل جديد.</p><div class="api-endpoint"><span class="api-method">GET</span><code>/api/v1/projects</code></div><div class="api-endpoint"><span class="api-method">POST</span><code>/api/v1/projects</code></div></div>
+  <div class="api-card"><h3>الفواتير والمدفوعات</h3><p>إنشاء الفواتير ومراجعة حالة الدفع من خلال الخادم.</p><div class="api-endpoint"><span class="api-method">POST</span><code>/api/v1/invoices</code></div><div class="api-endpoint"><span class="api-method">GET</span><code>/api/v1/invoices/{id}</code></div></div>
+  <div class="api-card"><h3>طلبات الأسهم</h3><p>تسجيل طلبات الشراء والبيع وإرسالها إلى نظام وسيط مرخص بعد التفعيل.</p><div class="api-endpoint"><span class="api-method">POST</span><code>/api/v1/share-orders</code></div><div class="api-endpoint"><span class="api-method">GET</span><code>/api/v1/share-orders/{id}</code></div></div>
+  <div class="api-card"><h3>الإشعارات Webhooks</h3><p>استقبال تحديثات موثوقة من مزودي الدفع أو الوسيط بعد التحقق من التوقيع.</p><div class="api-endpoint"><span class="api-method">POST</span><code>/api/v1/webhooks/provider</code></div></div>
+ </div>
+ <div class="api-card" style="margin-top:14px"><h3>مثال طلب API</h3><p>نموذج توثيقي فقط — العنوان لا يعمل قبل نشر API Worker والخادم.</p><pre class="api-code">POST https://YOUR-API-DOMAIN/api/v1/share-orders
+Content-Type: application/json
+Authorization: Bearer YOUR_SERVER_TOKEN
+
+{
+  "side": "buy",
+  "symbol": "SYMBOL",
+  "quantity": 10,
+  "currency": "USD",
+  "order_type": "limit"
+}</pre></div>
+ <div class="api-grid" style="margin-top:14px">
+  <div class="api-card"><h3>مفاتيح API</h3><p>لا توجد مفاتيح منشأة أو معروضة في هذه النسخة. إنشاء المفاتيح وتدويرها وإلغاؤها يتم عبر لوحة خادم محمية.</p><span class="api-badge">لا توجد مفاتيح نشطة</span></div>
+  <div class="api-card"><h3>حالة الربط</h3><p>Cloudflare Worker / قاعدة البيانات / وسيط الأسهم / بوابة الدفع</p><span class="api-badge">بانتظار إعداد الخادم والمزود</span></div>
+ </div>
 </section>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
 <section class="view" id="reports"><div class="view-head"><div><h2>التقارير والتحليلات</h2><p>مؤشرات أولية لمتابعة نشاط المنصة.</p></div></div><div class="cards"><div class="module-card"><div class="symbol">📊</div><h3>أداء المشاريع</h3><p>ملخص حالات المشاريع والقطاعات.</p></div><div class="module-card"><div class="symbol">💳</div><h3>التقارير المالية</h3><p>ملخص الفواتير والمبالغ المسجلة.</p></div><div class="module-card"><div class="symbol">🤝</div><h3>الشراكات</h3><p>متابعة العملاء والشركاء.</p></div></div></section>
@@ -86,12 +168,13 @@ const portfolios=[
 const seedProjects=[{name:'تطوير البنية التحتية',sector:'الطرق والجسور',location:'سوريا',status:'قيد الدراسة',budget:'يحدد لاحقاً'},{name:'مجمع سكني نموذجي',sector:'العقارات والإنشاءات',location:'سوريا',status:'فرصة استثمارية',budget:'يحدد لاحقاً'},{name:'محطة طاقة شمسية',sector:'الطاقة النظيفة',location:'سوريا',status:'قيد التخطيط',budget:'يحدد لاحقاً'}];
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=JSON.parse(localStorage.getItem('afaq_projects')||'null')||seedProjects,clients=JSON.parse(localStorage.getItem('afaq_clients')||'null')||seedClients,invoices=JSON.parse(localStorage.getItem('afaq_invoices')||'null')||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
-const titles={dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة'};
+let shareOrders=JSON.parse(localStorage.getItem('afaq_share_orders')||'[]'),tradeSide='buy';
+const titles={dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id)}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
-function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>`<button type="button" class="portfolio-card" data-portfolio="${i}"><div class="module-card"><div class="symbol">${p.icon}</div><h3>${p.name}</h3><p>${p.en}</p><p style="margin-top:8px;color:#9a762e;font-weight:bold">10 صور توضيحية · فتح المعرض ←</p></div></button>`).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}
+function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>`<button type="button" class="portfolio-card" data-portfolio="${i}"><div class="module-card"><div class="symbol">${p.icon}</div><h3>${p.name}</h3><p>${p.en}</p><p style="margin-top:8px;color:#9a762e;font-weight:bold">10 صور توضيحية · فتح المعرض ←</p></div></button>`).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.getElementById('tradeOrdersTable').innerHTML=shareOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${o.side==='buy'?'شراء':'بيع'}</td><td>${esc(o.symbol)}</td><td>${esc(o.qty)}</td><td>${esc(o.customer)}</td><td><span class="status pending">بانتظار المراجعة</span></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد طلبات أسهم مسجلة</td></tr>';document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 let kind='';const modal=document.getElementById('modal');function field(label,name,placeholder='',type='text',required=true){return `<label class="field">${label}<input name="${name}" type="${type}" placeholder="${placeholder}" ${required?'required':''}></label>`}
 function openAdd(k){kind=k;let html='';if(k==='project'){document.getElementById('modalTitle').textContent='إضافة مشروع جديد';html=field('اسم المشروع','name','اسم المشروع')+field('القطاع','sector','مثال: الطاقة النظيفة')+field('الموقع','location','المحافظة / المدينة')+field('الحالة','status','قيد الدراسة')+field('الميزانية التقديرية','budget','مثال: يحدد لاحقاً', 'text',false)}if(k==='client'){document.getElementById('modalTitle').textContent='إضافة عميل أو شريك';html=field('الاسم','name','الاسم الكامل أو اسم الجهة')+field('النوع','type','عميل / شريك / مورد')+field('البريد الإلكتروني','email','name@example.com','email',false)+field('الهاتف','phone','رقم الهاتف', 'tel',false)}if(k==='invoice'){document.getElementById('modalTitle').textContent='إنشاء فاتورة';html=field('اسم العميل','client','اسم العميل')+field('المبلغ والعملة','amount','مثال: 1500 USD')+field('تاريخ الإصدار','date',new Date().toISOString().slice(0,10),'date')+field('رقم الفاتورة','number','AFQ-2026-003')+`<label class="field">الحالة<select name="status"><option>مسودة</option><option>بانتظار الدفع</option><option>مدفوعة</option></select></label>`}document.getElementById('formFields').innerHTML=html;modal.classList.add('open')}
@@ -125,6 +208,28 @@ document.getElementById('galleryBack').addEventListener('click',()=>go('portfoli
 function openGalleryLightbox(src){document.getElementById('galleryLargeImage').src=src;document.getElementById('galleryLightbox').classList.add('open')}
 function closeGalleryLightbox(){document.getElementById('galleryLightbox').classList.remove('open');document.getElementById('galleryLargeImage').src=''}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeGalleryLightbox()});
+
+
+function setTradeSide(side){
+ tradeSide=side;
+ document.getElementById('buyTab').classList.toggle('active',side==='buy');
+ document.getElementById('sellTab').classList.toggle('active',side==='sell');
+ document.getElementById('tradeHeading').textContent=side==='buy'?'طلب شراء أسهم':'طلب بيع أسهم';
+ document.getElementById('tradeSubmit').textContent=side==='buy'?'إرسال طلب شراء للمراجعة':'إرسال طلب بيع للمراجعة';
+}
+document.getElementById('buyTab').addEventListener('click',()=>setTradeSide('buy'));
+document.getElementById('sellTab').addEventListener('click',()=>setTradeSide('sell'));
+document.getElementById('tradeForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const qty=Number(document.getElementById('shareQty').value);
+ if(!Number.isInteger(qty)||qty<1){showToast('أدخل كمية صحيحة من الأسهم');return}
+ const ref='AFQ-SH-'+Date.now().toString().slice(-8);
+ const order={ref,side:tradeSide,symbol:document.getElementById('shareSymbol').value.trim().toUpperCase(),market:document.getElementById('shareMarket').value.trim(),qty,price:document.getElementById('sharePrice').value,currency:document.getElementById('shareCurrency').value,orderType:document.getElementById('shareOrderType').value,customer:document.getElementById('shareCustomer').value.trim(),notes:document.getElementById('shareNotes').value.trim(),status:'pending-review',createdAt:new Date().toISOString()};
+ shareOrders.unshift(order);
+ try{localStorage.setItem('afaq_share_orders',JSON.stringify(shareOrders))}catch(err){}
+ render();e.target.reset();setTradeSide(tradeSide);
+ showToast('تم تسجيل الطلب محلياً — لم يتم تنفيذ أي صفقة');
+});
 
 render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
 </script></body></html>

@@ -191,6 +191,17 @@ Authorization: Bearer YOUR_SERVER_TOKEN
   <div class="api-card"><h3>مفاتيح API</h3><p>لا توجد مفاتيح منشأة أو معروضة في هذه النسخة. إنشاء المفاتيح وتدويرها وإلغاؤها يتم عبر لوحة خادم محمية.</p><span class="api-badge">لا توجد مفاتيح نشطة</span></div>
   <div class="api-card"><h3>حالة الربط</h3><p>Cloudflare Worker / قاعدة البيانات / وسيط الأسهم / بوابة الدفع</p><span class="api-badge">بانتظار إعداد الخادم والمزود</span></div>
  </div>
+
+  <div class="api-card" id="afaqApiConnect" style="margin-top:14px;border:1px solid #d9b15f">
+   <h3>🔌 ربط الخادم وقاعدة البيانات</h3>
+   <p>أدخل عنوان Cloudflare Worker المنشور. لا تضع مفاتيح سرية في هذه الصفحة.</p>
+   <div class="form-grid">
+    <label class="field full">عنوان API Worker<input id="afaqApiBase" type="url" placeholder="https://your-worker.your-subdomain.workers.dev"></label>
+    <div class="field"><span>حالة الاتصال</span><strong id="afaqApiStatus" class="api-badge">لم يتم الفحص بعد</strong></div>
+    <div class="field"><span>الإجراءات</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn gold" id="afaqApiSave">حفظ العنوان</button><button type="button" class="btn" id="afaqApiTest">اختبار الاتصال</button><button type="button" class="btn ghost" id="afaqApiSync">مزامنة البيانات</button></div></div>
+   </div>
+   <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access.</p>
+  </div>
 </section>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
 <section class="view" id="reports"><div class="view-head"><div><h2>التقارير والتحليلات</h2><p>إدارة التقارير والتكاليف والشركات المشاركة بالمشاريع.</p></div></div>
@@ -401,4 +412,41 @@ const settingsForm=document.getElementById('settingsForm'),settingsSaved=JSON.pa
 settingsForm.onsubmit=e=>{e.preventDefault();localStorage.setItem('afaq_company_settings_v1',JSON.stringify(Object.fromEntries(new FormData(e.target))));showToast('تم حفظ الإعدادات على هذا الجهاز')};
 fillReportProjects();renderReportStore();
 render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
-</script><script src="./afaq-enhancements.js"></script></body></html>
+</script><script>
+/* AFAQ SYRIA API bridge. Configure the Worker URL in the API page. */
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const key='afaq_api_base_v1';
+ const normalize=s=>String(s||'').trim().replace(/\/+$/,'');
+ let apiBase=normalize(localStorage.getItem(key)||'');
+ const input=$('afaqApiBase'), status=$('afaqApiStatus'), message=$('afaqApiMessage');
+ if(!input||!status||!message)return;
+ input.value=apiBase;
+ const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#e8f5ef':ok===false?'#fcebea':'#fff2d6';status.style.color=ok===true?'#16845b':ok===false?'#b94a48':'#805d18'};
+ async function request(path,options={}){
+   if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
+   const response=await fetch(apiBase+path,{...options,credentials:'include',headers:{'Content-Type':'application/json',...(options.headers||{})}});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
+   return data;
+ }
+ async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){say('فشل الاتصال: '+e.message,false)}}
+ function collect(){
+   const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
+   return {
+    projects:read('afaq_projects',[]), clients:read('afaq_clients',[]), invoices:read('afaq_invoices',[]),
+    shareOrders:read('afaq_share_orders',[]), bags:read('afaq_bag_records_v2',{}),
+    reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
+    partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{})
+   };
+ }
+ async function sync(){try{say('جارٍ مزامنة السجلات مع قاعدة البيانات…');const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});say('اكتملت المزامنة · '+(r.saved||0)+' مجموعة بيانات',true)}catch(e){say('تعذرت المزامنة: '+e.message,false)}}
+ $('afaqApiSave').addEventListener('click',()=>{apiBase=normalize(input.value);if(!/^https:\/\//i.test(apiBase)){say('يجب إدخال عنوان HTTPS صحيح',false);return}localStorage.setItem(key,apiBase);say('تم حفظ عنوان الخادم على هذا الجهاز');test()});
+ $('afaqApiTest').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));test()});
+ $('afaqApiSync').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));sync()});
+ window.AFAQ_API={request,test,sync,get base(){return apiBase}};
+ if(apiBase)test();
+})();
+</script>
+<script src="./afaq-enhancements.js"></script></body></html>

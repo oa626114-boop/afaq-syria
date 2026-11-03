@@ -110,8 +110,8 @@ td,th{border-color:#806633!important}
 .toast{background:#102b40!important;color:#f0d18b!important;border:1px solid #d9b15f}
 .modal{background:#020a11dd!important}
 .language-mini{width:auto;min-width:66px;max-width:105px;height:36px;padding:5px 8px;border-radius:8px;background:#102b40!important;color:#f0d18b!important;border:1px solid #806633!important;font-size:11px}
-.remove-mode{display:none!important;background:#8b3030!important;color:#fff!important;border:1px solid #d46b6b!important}
-.portfolio-toolbar.remove-enabled .remove-mode{display:inline-flex!important}
+.remove-mode{display:inline-flex!important;align-items:center;justify-content:center;background:#8b3030!important;color:#fff!important;border:1px solid #d46b6b!important}
+.portfolio-toolbar .remove-mode{display:inline-flex!important}.portfolio-toolbar.remove-enabled .remove-mode{background:#d9b15f!important;color:#071522!important;border-color:#f0d18b!important}
 .photo-delete{display:none;position:absolute;top:7px;left:7px;z-index:2;background:#8b3030!important;color:#fff!important;border:1px solid #e28b8b!important;border-radius:7px;padding:6px 9px;font-size:11px;font-weight:bold}
 .portfolio-gallery.remove-enabled .photo-delete{display:block}
 .photo-delete:focus-visible,.remove-mode:focus-visible,.language-mini:focus-visible{outline:2px solid #f0d18b;outline-offset:2px}
@@ -210,7 +210,7 @@ td,th{border-color:#806633!important}
 
 <section class="view" id="portfolioGalleryView">
  <div class="view-head"><div><h2 id="galleryTitle">الحقيبة الاستثمارية</h2><p id="gallerySubtitle">سجل بيانات المحفظة ومشاريعها ومرفقاتها</p></div></div>
- <div class="portfolio-toolbar"><button type="button" id="galleryBack">← العودة إلى الحقائب الاستثمارية</button><button type="button" id="galleryAddPhotos">＋ إضافة صور جديدة</button><button type="button" id="galleryRemoveMode" class="remove-mode" aria-pressed="false">− إزالة الصور</button><input type="file" id="galleryPhotoInput" accept="image/*" multiple hidden><span class="hint">ملف مستقل لكل حقيبة استثمارية</span></div>
+ <div class="portfolio-toolbar"><button type="button" id="galleryHome" class="home-return">⌂ العودة إلى الصفحة الرئيسية</button><button type="button" id="galleryBack">← العودة إلى الحقائب الاستثمارية</button><button type="button" id="galleryAddPhotos">＋ إضافة صور جديدة</button><button type="button" id="galleryRemoveMode" class="remove-mode" aria-pressed="false">− إزالة الصور</button><input type="file" id="galleryPhotoInput" accept="image/*" multiple hidden><span class="hint">ملف مستقل لكل حقيبة استثمارية</span></div>
  <div class="bag-workspace">
  <section class="panel"><div class="panel-head"><h3>📁 بيانات الحقيبة</h3><small>احفظ المعلومات الأساسية والمالية</small></div>
  <form id="bagInfoForm" class="bag-form">
@@ -427,6 +427,7 @@ document.getElementById('galleryRemoveMode').addEventListener('click',()=>{
  if(enabled)showToast('اضغط إزالة الصورة على أي صورة أضفتها لحذفها');
 });
 document.getElementById('galleryBack').addEventListener('click',()=>go('portfolios'));
+document.getElementById('galleryHome').addEventListener('click',()=>{go('dashboard');window.scrollTo({top:0,behavior:'smooth'});});
 document.getElementById('galleryAddPhotos').addEventListener('click',()=>document.getElementById('galleryPhotoInput').click());
 document.getElementById('galleryPhotoInput').addEventListener('change',async function(e){
  const files=Array.from(e.target.files||[]);if(!files.length||activePortfolioIndex===null)return;

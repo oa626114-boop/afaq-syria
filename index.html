@@ -299,7 +299,65 @@ let kind='';const modal=document.getElementById('modal');function field(label,na
 function openAdd(k){kind=k;let html='';if(k==='project'){document.getElementById('modalTitle').textContent='إضافة مشروع جديد';html=field('اسم المشروع','name','اسم المشروع')+field('القطاع','sector','مثال: الطاقة النظيفة')+field('الموقع','location','المحافظة / المدينة')+field('الحالة','status','قيد الدراسة')+field('الميزانية التقديرية','budget','مثال: يحدد لاحقاً', 'text',false)}if(k==='client'){document.getElementById('modalTitle').textContent='إضافة عميل أو شريك';html=field('الاسم','name','الاسم الكامل أو اسم الجهة')+field('النوع','type','عميل / شريك / مورد')+field('البريد الإلكتروني','email','name@example.com','email',false)+field('الهاتف','phone','رقم الهاتف', 'tel',false)}if(k==='invoice'){document.getElementById('modalTitle').textContent='إنشاء فاتورة';html=field('اسم العميل','client','اسم العميل')+field('المبلغ والعملة','amount','مثال: 1500 USD')+field('تاريخ الإصدار','date',new Date().toISOString().slice(0,10),'date')+field('رقم الفاتورة','number','AFQ-2026-003')+`<label class="field">الحالة<select name="status"><option>مسودة</option><option>بانتظار الدفع</option><option>مدفوعة</option></select></label>`}document.getElementById('formFields').innerHTML=html;modal.classList.add('open')}
 document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>openAdd(b.dataset.add)));function close(){modal.classList.remove('open')}document.getElementById('closeModal').onclick=close;document.getElementById('cancelModal').onclick=close;
 document.getElementById('recordForm').onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target).entries());if(kind==='project')projects.unshift(d);if(kind==='client')clients.unshift(d);if(kind==='invoice')invoices.unshift(d);save();render();close();e.target.reset();showToast('تم حفظ السجل في هذه النسخة التجريبية')};
-function printInvoice(n){let i=invoices[n];let w=window.open('','_blank');w.document.write(`<html dir="rtl"><meta charset="utf-8"><title>فاتورة ${esc(i.number)}</title><body style="font-family:Tahoma;padding:40px;color:#172633"><h1 style="color:#9a762e">آفاق سوريا | AFAQ SYRIA</h1><h2>فاتورة أولية</h2><hr><p>رقم الفاتورة: ${esc(i.number)}</p><p>العميل: ${esc(i.client)}</p><p>التاريخ: ${esc(i.date)}</p><h2>المبلغ: ${esc(i.amount)}</h2><p>الحالة: ${esc(i.status)}</p><hr><p>هذه فاتورة تجريبية غير مرتبطة بنظام دفع أو محاسبة معتمد.</p><script>window.print()<\/script></body></html>`);w.document.close()}
+function printInvoice(n){let i=invoices[n];let w=window.open('','_blank');w.document.write(`<html dir="rtl"><meta charset="utf-8"><title>فاتورة ${esc(i.number)}</title><body style="font-family:Tahoma;padding:40px;color:#172633"><h1 style="color:#9a762e">آفاق سوريا | AFAQ SYRIA</h1><h2>فاتورة أولية</h2><hr><p>رقم الفاتورة: ${esc(i.number)}</p><p>العميل: ${esc(i.client)}</p><p>التاريخ: ${esc(i.date)}</p><h2>المبلغ: ${esc(i.amount)}</h2><p>الحالة: ${esc(i.status)}</p><hr><p>هذه فاتورة تجريبية غير مرتبطة بنظام دفع أو محاسبة معتمد.</p><script>window.print()<\/script>
+<style>
+.language-control{display:flex;align-items:center;gap:7px;margin-inline-start:8px}
+.language-control label{font-size:11px;color:var(--muted,#70808c);white-space:nowrap}
+.language-control select{border:1px solid #dce3e8;border-radius:8px;padding:8px 10px;background:#fff;color:#102b40;max-width:155px;font-size:12px}
+#google_translate_element{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}
+.goog-te-banner-frame,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+.skiptranslate{display:none!important}
+@media(max-width:520px){.language-control label{display:none}.language-control select{max-width:125px}}
+</style>
+<div id="google_translate_element" aria-hidden="true"></div>
+<script>
+(function(){
+ const LANGS=[
+  ['ar','العربية'],['en','English'],['tr','Türkçe'],['fa','فارسی'],
+  ['fr','Français'],['de','Deutsch'],['es','Español'],['ru','Русский'],
+  ['zh-CN','中文'],['it','Italiano']
+ ];
+ const RTL=['ar','fa'];
+ const key='afaq_language_v1';
+ const current=()=>localStorage.getItem(key)||'ar';
+ function applyDirection(code){
+  const lang=code==='zh-CN'?'zh-CN':code;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=RTL.includes(code)?'rtl':'ltr';
+  document.body.classList.toggle('afaq-rtl',RTL.includes(code));
+ }
+ function setGoogleLanguage(code){
+  applyDirection(code);
+  localStorage.setItem(key,code);
+  const select=document.querySelector('.goog-te-combo');
+  if(select){select.value=code;select.dispatchEvent(new Event('change'));}
+  const picker=document.getElementById('afaqLanguage');
+  if(picker)picker.value=code;
+ }
+ window.googleTranslateElementInit=function(){
+  if(window.google&&google.translate){
+   new google.translate.TranslateElement({pageLanguage:'ar',includedLanguages:LANGS.map(x=>x[0]).join(','),autoDisplay:false},'google_translate_element');
+   setTimeout(()=>setGoogleLanguage(current()),700);
+  }
+ };
+ window.AFAQ_SET_LANGUAGE=setGoogleLanguage;
+ document.addEventListener('DOMContentLoaded',()=>{
+  const host=document.querySelector('.top-right')||document.querySelector('.topbar')||document.querySelector('.top')||document.body;
+  const wrap=document.createElement('div');wrap.className='language-control';
+  const label=document.createElement('label');label.htmlFor='afaqLanguage';label.textContent='اللغة / Language';
+  const select=document.createElement('select');select.id='afaqLanguage';select.setAttribute('aria-label','Choose language');
+  LANGS.forEach(([code,name])=>{const o=document.createElement('option');o.value=code;o.textContent=name;select.appendChild(o)});
+  select.value=current();select.addEventListener('change',()=>setGoogleLanguage(select.value));
+  wrap.append(label,select);
+  if(host.classList.contains('top-right'))host.prepend(wrap);else host.appendChild(wrap);
+  applyDirection(current());
+ });
+})();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+</body></html>`);w.document.close()}
 document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('langBtn').onclick=()=>showToast('واجهة الإنجليزية الكاملة ضمن مرحلة الترجمة التالية');
 let installPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;let b=document.getElementById('installBtn');b.hidden=false;b.onclick=async()=>{installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;b.hidden=true}});if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 let activePortfolioIndex=null;
@@ -426,19 +484,11 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
  const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#e8f5ef':ok===false?'#fcebea':'#fff2d6';status.style.color=ok===true?'#16845b':ok===false?'#b94a48':'#805d18'};
  async function request(path,options={}){
    if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-
-const response=await fetch(apiBase+path,{
-  ...options,
-  headers:{
-    'Content-Type':'application/json',
-    ...(options.headers||{})
-  }
-});
-
-const data=await response.json().catch(()=>({}));
-if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
-return data;
-}
+   const response=await fetch(apiBase+path,{...options,credentials:'include',headers:{'Content-Type':'application/json',...(options.headers||{})}});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
+   return data;
+ }
  async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){say('فشل الاتصال: '+e.message,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
@@ -457,4 +507,62 @@ return data;
  if(apiBase)test();
 })();
 </script>
-<script src="./afaq-enhancements.js"></script></body></html>
+<script src="./afaq-enhancements.js"></script>
+<style>
+.language-control{display:flex;align-items:center;gap:7px;margin-inline-start:8px}
+.language-control label{font-size:11px;color:var(--muted,#70808c);white-space:nowrap}
+.language-control select{border:1px solid #dce3e8;border-radius:8px;padding:8px 10px;background:#fff;color:#102b40;max-width:155px;font-size:12px}
+#google_translate_element{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}
+.goog-te-banner-frame,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+.skiptranslate{display:none!important}
+@media(max-width:520px){.language-control label{display:none}.language-control select{max-width:125px}}
+</style>
+<div id="google_translate_element" aria-hidden="true"></div>
+<script>
+(function(){
+ const LANGS=[
+  ['ar','العربية'],['en','English'],['tr','Türkçe'],['fa','فارسی'],
+  ['fr','Français'],['de','Deutsch'],['es','Español'],['ru','Русский'],
+  ['zh-CN','中文'],['it','Italiano']
+ ];
+ const RTL=['ar','fa'];
+ const key='afaq_language_v1';
+ const current=()=>localStorage.getItem(key)||'ar';
+ function applyDirection(code){
+  const lang=code==='zh-CN'?'zh-CN':code;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=RTL.includes(code)?'rtl':'ltr';
+  document.body.classList.toggle('afaq-rtl',RTL.includes(code));
+ }
+ function setGoogleLanguage(code){
+  applyDirection(code);
+  localStorage.setItem(key,code);
+  const select=document.querySelector('.goog-te-combo');
+  if(select){select.value=code;select.dispatchEvent(new Event('change'));}
+  const picker=document.getElementById('afaqLanguage');
+  if(picker)picker.value=code;
+ }
+ window.googleTranslateElementInit=function(){
+  if(window.google&&google.translate){
+   new google.translate.TranslateElement({pageLanguage:'ar',includedLanguages:LANGS.map(x=>x[0]).join(','),autoDisplay:false},'google_translate_element');
+   setTimeout(()=>setGoogleLanguage(current()),700);
+  }
+ };
+ window.AFAQ_SET_LANGUAGE=setGoogleLanguage;
+ document.addEventListener('DOMContentLoaded',()=>{
+  const host=document.querySelector('.top-right')||document.querySelector('.topbar')||document.querySelector('.top')||document.body;
+  const wrap=document.createElement('div');wrap.className='language-control';
+  const label=document.createElement('label');label.htmlFor='afaqLanguage';label.textContent='اللغة / Language';
+  const select=document.createElement('select');select.id='afaqLanguage';select.setAttribute('aria-label','Choose language');
+  LANGS.forEach(([code,name])=>{const o=document.createElement('option');o.value=code;o.textContent=name;select.appendChild(o)});
+  select.value=current();select.addEventListener('change',()=>setGoogleLanguage(select.value));
+  wrap.append(label,select);
+  if(host.classList.contains('top-right'))host.prepend(wrap);else host.appendChild(wrap);
+  applyDirection(current());
+ });
+})();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+</body></html>

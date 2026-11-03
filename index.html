@@ -688,7 +688,8 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
    if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
    return data;
  }
- async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true)throw new Error('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
+ async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true && r.success!==true)
+  throw new Error('استجابة فحص الصحة غير سليمة');('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {

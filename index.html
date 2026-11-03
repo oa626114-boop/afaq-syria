@@ -171,6 +171,73 @@ th{background:#102b40!important;color:#f0d18b!important}td,th{border-color:#6655
 @media(max-width:720px){.portfolio-overview{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.portfolio-overview-stat{padding:10px 8px;display:block;text-align:center}.portfolio-overview-stat small{display:block;font-size:10px;line-height:1.5}.portfolio-overview-stat b{font-size:20px}.portfolio-cards{grid-template-columns:1fr}.portfolio-card .module-card{min-height:0}.portfolio-card-actions .btn{min-width:0}.brand{padding-bottom:16px}}
 @media(max-width:420px){.portfolio-overview{grid-template-columns:1fr}.portfolio-overview-stat{display:flex;text-align:right;align-items:center}.portfolio-card-actions{display:grid;grid-template-columns:1fr 1fr}}
 
+
+/* AFAQ SYRIA — professional production UI refinement */
+:root{
+  --navy:#071522;--navy2:#0b2030;--navy3:#123047;
+  --gold:#d9b15f;--gold2:#f0d18b;--paper:#071522;
+  --ink:#f4f0e6;--muted:#c4b68f;--line:#66552f;
+  --white:#0b2030;--shadow:0 14px 34px rgba(0,0,0,.28);
+}
+body{font-family:Tahoma,Arial,sans-serif;background:#071522;color:#f4f0e6}
+.sidebar{background:linear-gradient(180deg,#061321 0%,#0b2030 58%,#102b40 100%);border-left:1px solid #66552f}
+.brand{border-bottom-color:#806633}
+.brand b{font-size:27px;letter-spacing:.2px}
+.topbar{background:rgba(9,27,42,.96)!important;backdrop-filter:blur(14px);border-bottom:1px solid #806633!important}
+.content{max-width:1680px}
+.welcome{border:1px solid #806633;background:radial-gradient(circle at 12% 0%,#1a4054 0,#102b40 34%,#071522 78%);box-shadow:0 16px 38px #0006}
+.welcome h1{letter-spacing:.1px}
+.stat,.panel,.module-card,.trade-card,.api-card,.quick,.modal-box,.archive-record,.record-item,.bag-project-card{
+  background:linear-gradient(150deg,#0d2638,#091b2a)!important;color:#f4f0e6!important;
+  border:1px solid #66552f!important;box-shadow:0 8px 24px rgba(0,0,0,.22)
+}
+.stat{transition:transform .18s,border-color .18s}
+.stat:hover{transform:translateY(-2px);border-color:#d9b15f!important}
+.stat strong,.view-head h2,.panel h3,.module-card h3,.page-title{color:#f0d18b!important}
+.stat-top,.view-head p,.panel-head small,.module-card p,.field,.eyebrow,.empty,.settings-note{color:#d9c99f!important}
+.quick{min-height:88px;border-radius:12px!important;transition:transform .18s,border-color .18s,background .18s}
+.quick:hover{transform:translateY(-2px);border-color:#f0d18b!important;background:#123047!important}
+.btn{border-radius:9px;min-height:42px;transition:transform .16s,filter .16s,box-shadow .16s}
+.btn:hover,.portfolio-toolbar button:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 5px 14px #0004}
+.btn:active{transform:translateY(0)}
+.btn.gold,.gold-action,.portfolio-toolbar button{background:linear-gradient(135deg,#f0d18b,#c99a43)!important;color:#071522!important;border:1px solid #f0d18b!important}
+.btn.ghost,.close{background:#102b40!important;color:#f0d18b!important;border:1px solid #806633!important}
+input,select,textarea,.toolbar input,.toolbar select,.field input,.field select,.field textarea{
+  background:#071522!important;color:#f4f0e6!important;border:1px solid #806633!important;border-radius:9px
+}
+input:focus,select:focus,textarea:focus{border-color:#f0d18b!important;box-shadow:0 0 0 3px #d9b15f22}
+input::placeholder,textarea::placeholder{color:#a99a76!important}
+table{border-collapse:separate;border-spacing:0}
+th{background:#102b40!important;color:#f0d18b!important}
+td,th{border-bottom:1px solid #66552f!important;color:#f4f0e6}
+tbody tr:hover td{background:#102b40}
+.status,.status.pending,.status.hold{background:#17394f!important;color:#f0d18b!important;border:1px solid #806633}
+.nav button.active{background:#d9b15f22!important;border:1px solid #806633;color:#f0d18b!important}
+.nav button:hover{background:#ffffff12}
+.nav-payment{border:1px solid #806633!important;background:#102b40!important}
+.view{scroll-margin-top:82px}
+.portfolio-card .module-card{box-shadow:0 12px 28px #0005}
+.portfolio-photo{background:#0b2030!important;border:1px solid #806633!important}
+.portfolio-photo figcaption{color:#f0d18b!important}
+.trade-warning{background:#172b37!important;color:#f0d18b!important;border:1px solid #806633!important}
+.api-code,.api-card pre{background:#061321!important;color:#f0d18b!important;border:1px solid #66552f;border-radius:10px;padding:14px;overflow:auto}
+.archive-record{overflow-wrap:anywhere}
+.footer{color:#c4b68f!important;border-top:1px solid #66552f;margin-top:18px}
+.toast{background:#102b40!important;color:#f0d18b!important;border:1px solid #d9b15f;box-shadow:0 12px 30px #0008}
+.modal-box{max-height:min(90dvh,850px)}
+.mobile-menu{display:none}
+@media(max-width:720px){
+ .mobile-menu{display:inline-flex}
+ .topbar{position:sticky;top:0;z-index:12}
+ .welcome{padding:17px}
+ .welcome h1{font-size:18px}
+ .content{padding:14px 11px}
+ .panel{padding:13px}
+ .quick{min-height:78px}
+ .portfolio-toolbar{position:relative}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style></head>
 <body>
 <div class="shell">
@@ -341,7 +408,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
     <div class="field"><span>حالة الاتصال</span><strong id="afaqApiStatus" class="api-badge">لم يتم الفحص بعد</strong></div>
     <div class="field"><span>الإجراءات</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn gold" id="afaqApiSave">حفظ العنوان</button><button type="button" class="btn" id="afaqApiTest">اختبار الاتصال</button><button type="button" class="btn ghost" id="afaqApiSync">مزامنة البيانات</button></div></div>
    </div>
-   <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access.</p>
+   <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access. لا تضغط مزامنة على جهاز عام أو غير موثوق.</p>
   </div>
 </section>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
@@ -391,13 +458,13 @@ const seedProjects=[{name:'تطوير البنية التحتية',sector:'ال�
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=safeReadStore('afaq_projects',null)||seedProjects,clients=safeReadStore('afaq_clients',null)||seedClients,invoices=safeReadStore('afaq_invoices',null)||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
 let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
-const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',stocks:'البورصة ومحفظة الأسهم',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات'};
+const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
-function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id)}
+function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
 document.addEventListener('click',e=>{const side=document.getElementById('sidebar'),menu=document.getElementById('menuBtn');if(side.classList.contains('open')&&!side.contains(e.target)&&!menu.contains(e.target))side.classList.remove('open')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('sidebar').classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('sidebar').classList.remove('open');document.getElementById('modal')?.classList.remove('open')}});
 function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>{const bag=bagRecords[i]||{},count=(bag.projects||[]).length;return `<article class="portfolio-card"><div class="module-card"><div class="portfolio-card-top"><span class="symbol">${esc(p.icon||'💼')}</span><span class="portfolio-count">📁 ${count} مشروع</span></div><h3>${esc(p.name)}</h3><p>${esc(p.en||'INVESTMENT PORTFOLIO')}</p><p class="portfolio-description">${esc(p.description||'إدارة المشاريع والفرص الاستثمارية والمستندات الخاصة بهذا القطاع.')}</p><div class="portfolio-card-actions"><button type="button" class="btn gold" data-portfolio="${i}">فتح الحقيبة ←</button><button type="button" class="btn ghost" data-portfolio-add="${i}">＋ إضافة مشروع</button></div></div></article>`}).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.querySelectorAll('[data-portfolio-add]').forEach(b=>b.addEventListener('click',()=>{openPortfolio(Number(b.dataset.portfolio));document.getElementById('bagProjectForm').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#bagProjectForm [name=name]')?.focus()}));const pOverview=document.getElementById('portfolioOverview');if(pOverview){const total=portfolios.reduce((n,p,i)=>n+((bagRecords[i]?.projects||[]).length),0);pOverview.innerHTML=`<div class="portfolio-overview-stat"><small>عدد الحقائب</small><b>${portfolios.length}</b></div><div class="portfolio-overview-stat"><small>المشاريع داخل الحقائب</small><b>${total}</b></div><div class="portfolio-overview-stat"><small>القطاعات المتاحة</small><b>${new Set(portfolios.map(p=>p.en||p.name)).size}</b></div>`;}document.getElementById('tradeOrdersTable').innerHTML=shareOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${o.side==='buy'?'شراء':o.side==='sell'?'بيع':o.side==='deposit-demo'?'إضافة رصيد تجريبي':'—'}</td><td>${esc(o.symbol)}</td><td>${esc(o.qty)}</td><td>${esc(o.customer)}</td><td><span class="status pending">بانتظار المراجعة</span></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد طلبات أسهم مسجلة</td></tr>';document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}
 
 document.getElementById('toggleNewPortfolio')?.addEventListener('click',()=>{const panel=document.getElementById('newPortfolioPanel');panel.hidden=!panel.hidden;if(!panel.hidden)panel.scrollIntoView({behavior:'smooth',block:'center'});});
@@ -480,7 +547,7 @@ function openAdd(k){kind=k;let html='';if(k==='project'){document.getElementById
 document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>openAdd(b.dataset.add)));function close(){modal.classList.remove('open')}document.getElementById('closeModal').onclick=close;document.getElementById('cancelModal').onclick=close;
 document.getElementById('recordForm').onsubmit=e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target).entries());if(kind==='project')projects.unshift(d);if(kind==='client')clients.unshift(d);if(kind==='invoice')invoices.unshift(d);save();render();close();e.target.reset();showToast('تم حفظ السجل في هذه النسخة التجريبية')};
 function printInvoice(n){let i=invoices[n];let w=window.open('','_blank');w.document.write(`<html dir="rtl"><meta charset="utf-8"><title>فاتورة ${esc(i.number)}</title><body style="font-family:Tahoma;padding:40px;background:#071522;color:#fff"><h1 style="color:#d9b15f">آفاق سوريا | AFAQ SYRIA</h1><h2 style="color:#f0d18b">فاتورة أولية</h2><hr style="border-color:#806633"><p>رقم الفاتورة: ${esc(i.number)}</p><p>العميل: ${esc(i.client)}</p><p>التاريخ: ${esc(i.date)}</p><h2>المبلغ: ${esc(i.amount)}</h2><p>الحالة: ${esc(i.status)}</p><hr><p>هذه فاتورة تجريبية غير مرتبطة بنظام دفع أو محاسبة معتمد.</p><script>window.print()<\/script></body></html>`);w.document.close()}
-document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
+document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة','investment-wallet':'محفظة الاستثمار والشراء والبيع',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities','company-archive':'Company Archive','investment-wallet':'Investment Wallet',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri','company-archive':'Şirket Arşivi','investment-wallet':'Yatırım Cüzdanı',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه','company-archive':'بایگانی شرکت','investment-wallet':'کیف پول سرمایه‌گذاری',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
 let activeLanguage=localStorage.getItem('afaq_ui_language')||'ar';
 function applyShellLanguage(lang){activeLanguage=lang;localStorage.setItem('afaq_ui_language',lang);const labels=languageLabels[lang]||languageLabels.ar;document.querySelectorAll('.nav button[data-view]').forEach(b=>{const icon=b.querySelector('.ico'),key=b.dataset.view;if(icon){const text=labels[key]||languageLabels.ar[key]||key;b.innerHTML='';b.append(icon);b.append(document.createTextNode(text))}});document.getElementById('pageTitle').textContent=labels[document.querySelector('.view.active')?.id]||labels.dashboard;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'||lang==='fa'?'rtl':'ltr';document.getElementById('langBtn').value=lang;}
 document.getElementById('langBtn').addEventListener('change',e=>{const next=e.target.value;applyShellLanguage(next);showToast(({ar:'تم تغيير لغة القوائم إلى العربية',en:'Navigation language changed to English',tr:'Menü dili Türkçe olarak değiştirildi',fa:'زبان منوها به فارسی تغییر کرد'})[next])});
@@ -613,7 +680,7 @@ document.getElementById('partnerForm').onsubmit=e=>{e.preventDefault();const x=O
 const settingsForm=document.getElementById('settingsForm'),settingsSaved=safeReadStore('afaq_company_settings_v1',{});Object.keys(settingsSaved).forEach(k=>{if(settingsForm.elements[k])settingsForm.elements[k].value=settingsSaved[k]});
 settingsForm.onsubmit=e=>{e.preventDefault();localStorage.setItem('afaq_company_settings_v1',JSON.stringify(Object.fromEntries(new FormData(e.target))));showToast('تم حفظ الإعدادات على هذا الجهاز')};
 fillReportProjects();renderReportStore();
-render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
+render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d+)$/.exec(initial);if(portfolioRoute){openPortfolio(Number(portfolioRoute[1])-1)}else if(titles[initial])go(initial);
 </script><script>
 /* AFAQ SYRIA — multi-currency investment paper wallet (simulation only) */
 (()=>{
@@ -688,8 +755,7 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
    if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
    return data;
  }
- async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true && r.success!==true)
-  throw new Error('استجابة فحص الصحة غير سليمة');('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
+ async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true)throw new Error('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {
@@ -699,7 +765,7 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
     partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
  }
- async function sync(){try{say('جارٍ مزامنة السجلات مع قاعدة البيانات…');const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});say('اكتملت المزامنة · '+(r.saved||0)+' مجموعة بيانات',true)}catch(e){say('تعذرت المزامنة: '+e.message,false)}}
+ async function sync(){try{say('جارٍ التحقق من الخادم قبل المزامنة…');const health=await request('/health',{method:'GET'});if(health.ok!==true)throw new Error('الخادم لم يؤكد جاهزيته عبر /health');say('تم التحقق. جارٍ إرسال السجلات…');const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});say('اكتملت المزامنة · '+(r.saved??'تم قبول الطلب')+' مجموعة بيانات',true)}catch(e){say('تعذرت المزامنة: '+e.message,false)}}
  $('afaqApiSave').addEventListener('click',()=>{apiBase=normalize(input.value);if(!/^https:\/\//i.test(apiBase)){say('يجب إدخال عنوان HTTPS صحيح',false);return}localStorage.setItem(key,apiBase);say('تم حفظ عنوان الخادم على هذا الجهاز');test()});
  $('afaqApiTest').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));test()});
  $('afaqApiSync').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));sync()});

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a2b">
+<title>AFAQ SYRIA GLOBAL MARKETS</title>
+<style>
+:root{
+ --navy:#071a2b;--panel:#10283b;--panel2:#0b2133;--gold:#d9b45b;
+ --gold2:#f0d58d;--brown:#39291f;--line:#806633;--white:#f5edda;
+ --muted:#c7b88f;--green:#4bc08a;--red:#e47b72;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--navy);color:var(--white);font-family:Arial,Tahoma,sans-serif;line-height:1.65}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--gold2)}
+.wrap{max-width:1280px;margin:auto;padding:16px}
+header{position:sticky;top:0;z-index:20;background:rgba(7,26,43,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.head{max-width:1280px;margin:auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:clamp(19px,3vw,27px);color:var(--gold);letter-spacing:.3px}
+.sub{font-size:12px;color:var(--muted)}
+.back{border:1px solid var(--line);border-radius:10px;padding:8px 12px;white-space:nowrap}
+.nav{display:flex;gap:7px;overflow-x:auto;padding:0 16px 12px;max-width:1280px;margin:auto;scrollbar-width:thin}
+.nav a{flex:0 0 auto;padding:7px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);font-size:13px}
+.hero{padding:22px 0 8px}
+h1,h2,h3{color:var(--gold);margin:0 0 10px}
+h1{font-size:clamp(22px,4vw,32px)}
+h2{font-size:21px}
+h3{font-size:16px}
+p{margin:6px 0;color:#e6dcc6}
+.muted{color:var(--muted);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}
+.card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.card{background:linear-gradient(145deg,var(--brown),#172b3b)}
+.card b{display:block;color:var(--gold2);font-size:16px;margin-bottom:3px}
+.card span{font-size:12px;color:#e9ddc5}
+section.panel{margin:16px 0;scroll-margin-top:115px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:30px;padding:4px 9px;color:var(--muted);font-size:11px}
+.widget{width:100%;min-height:360px;overflow:hidden;border-radius:10px}
+.widget.tall{min-height:520px}
+.widget iframe{max-width:100%}
+.tradingview-widget-container{width:100%;min-height:360px}
+.notice{color:#f2d28a;background:#30271c;border:1px solid var(--line);padding:13px;border-radius:11px;line-height:1.8;font-size:13px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--panel2);border:1px solid #365066;border-radius:11px;padding:12px}
+.tile strong{color:var(--gold)}
+footer{border-top:1px solid var(--line);padding:20px 16px;text-align:center;color:var(--muted);font-size:12px;margin-top:25px}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.wrap{padding:11px}.head{padding:10px 12px}.cards{gap:8px}.card{padding:11px}.grid2,.grid3{grid-template-columns:1fr}section.panel{padding:11px}.widget.tall{min-height:460px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="head">
+  <div><div class="brand">AFAQ SYRIA GLOBAL MARKETS</div><div class="sub">مركز آفاق سوريا للأسواق العالمية والتحليل المالي</div></div>
+  <a class="back" href="index.html">← العودة إلى المنصة الرئيسية</a>
+ </div>
+ <nav class="nav" aria-label="أقسام الأسواق">
+  <a href="#overview">نظرة عامة</a><a href="#indices">المؤشرات والأسهم</a><a href="#forex">الفوركس والعملات</a>
+  <a href="#crypto">الأصول الرقمية</a><a href="#metals">المعادن</a><a href="#energy">الطاقة</a>
+  <a href="#bonds">السندات</a><a href="#heatmaps">خرائط الأسواق</a><a href="#calendar">الأجندة الاقتصادية</a>
+  <a href="#analysis">التحليل والمتابعة</a>
+ </nav>
+</header>
+
+<main class="wrap">
+ <div class="hero" id="overview">
+  <h1>مركز الأسواق العالمية</h1>
+  <p>لوحة موحدة لمتابعة الأسواق المالية، الأسهم، العملات، السلع، الطاقة والأصول الرقمية من مكان واحد.</p>
+  <p class="muted">اختر القسم من شريط التنقل، ويمكنك تغيير الرمز والفترة الزمنية داخل الرسوم التفاعلية.</p>
+ </div>
+
+ <div class="cards">
+  <div class="card"><b>الأسهم والمؤشرات</b><span>NASDAQ · S&amp;P 500 · DAX · Dow Jones</span></div>
+  <div class="card"><b>الفوركس والعملات</b><span>أزواج العملات الرئيسية ومؤشرات الدولار</span></div>
+  <div class="card"><b>السلع والمعادن</b><span>الذهب · الفضة · النحاس · النفط · الغاز</span></div>
+  <div class="card"><b>الأصول الرقمية</b><span>Bitcoin · Ethereum وأسواق العملات الرقمية</span></div>
+ </div>
+
+ <section class="panel">
+  <div class="section-head"><h2>الرسم البياني العالمي التفاعلي</h2><span class="pill">TradingView</span></div>
+  <p class="muted">الرسم الافتراضي لمؤشر NASDAQ 100. استخدم مربع الرمز لتبديل الأصل، والفترة الزمنية لتغيير طريقة العرض.</p>
+  <div class="widget tall">
+   <div class="tradingview-widget-container" style="height:100%;width:100%">
+    <div class="tradingview-widget-container__widget" style="height:calc(100% - 28px);width:100%"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" target="_blank" rel="noopener">بيانات ورسوم TradingView</a></div>
+    <script src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+    {"autosize":true,"symbol":"NASDAQ:NDX","interval":"D","timezone":"Etc/UTC","theme":"dark","style":"1","locale":"ar","allow_symbol_change":true,"calendar":false,"support_host":"https://www.tradingview.com"}
+    </script>
+   </div>
+  </div>
+ </section>
+
+ <section class="panel" id="indices">
+  <div class="section-head"><h2>1. مؤشرات الأسهم والأسواق العالمية</h2><span class="pill">المؤشرات الرئيسية</span></div>
+  <p class="muted">متابعة مؤشرات الولايات المتحدة وأوروبا وآسيا، مع إمكانية فتح الرسم التفصيلي لأي رمز.</p>
+  <div class="widget tall"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+   {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"520","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"أمريكا","symbols":[{"s":"NASDAQ:NDX","d":"NASDAQ 100"},{"s":"SP:SPX","d":"S&P 500"},{"s":"DJ:DJI","d":"Dow Jones"},{"s":"AMEX:RUT","d":"Russell 2000"}]},{"title":"أوروبا","symbols":[{"s":"XETR:DAX","d":"DAX"},{"s":"INDEX:CAC40","d":"CAC 40"},{"s":"INDEX:FTSE","d":"FTSE 100"},{"s":"INDEX:STOXX50E","d":"Euro Stoxx 50"}]},{"title":"آسيا","symbols":[{"s":"TVC:NI225","d":"Nikkei 225"},{"s":"HSI","d":"Hang Seng"},{"s":"SSE:000001","d":"Shanghai Composite"}]}]}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="forex">
+  <div class="section-head"><h2>2. سوق العملات الأجنبية والفوركس</h2><span class="pill">FX</span></div>
+  <p class="muted">أزواج العملات الرئيسية والثانوية. الأسعار ومواعيد التداول تخضع لمزود البيانات.</p>
+  <div class="widget tall"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+   {"width":"100%","height":"520","currencies":["EUR","USD","JPY","GBP","CHF","AUD","CAD","NZD","TRY"],"isTransparent":true,"colorTheme":"dark","locale":"ar"}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="crypto">
+  <div class="section-head"><h2>3. العملات والأصول الرقمية</h2><span class="pill">Crypto</span></div>
+  <p class="muted">متابعة العملات الرقمية وأزواج التداول المتاحة لدى مزود البيانات.</p>
+  <div class="widget tall"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+   {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"520","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"العملات الرئيسية","symbols":[{"s":"BINANCE:BTCUSDT","d":"Bitcoin / USDT"},{"s":"BINANCE:ETHUSDT","d":"Ethereum / USDT"},{"s":"BINANCE:BNBUSDT","d":"BNB / USDT"},{"s":"BINANCE:SOLUSDT","d":"Solana / USDT"}]},{"title":"عملات إضافية","symbols":[{"s":"BINANCE:XRPUSDT","d":"XRP / USDT"},{"s":"BINANCE:ADAUSDT","d":"Cardano / USDT"},{"s":"BINANCE:TRXUSDT","d":"TRON / USDT"},{"s":"BINANCE:TONUSDT","d":"Toncoin / USDT"}]}]}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="metals">
+  <div class="section-head"><h2>4. المعادن الثمينة والصناعية</h2><span class="pill">Metals</span></div>
+  <div class="grid2">
+   <div class="tile"><strong>المعادن الثمينة</strong><p>الذهب والفضة والبلاتين والبلاديوم.</p></div>
+   <div class="tile"><strong>المعادن الصناعية</strong><p>النحاس والألمنيوم ومعادن مرتبطة بالنشاط الصناعي.</p></div>
+  </div>
+  <div class="widget tall" style="margin-top:12px"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+   {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"520","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"المعادن الثمينة","symbols":[{"s":"TVC:GOLD","d":"Gold"},{"s":"TVC:SILVER","d":"Silver"},{"s":"TVC:PLATINUM","d":"Platinum"},{"s":"TVC:PALLADIUM","d":"Palladium"}]},{"title":"المعادن الصناعية","symbols":[{"s":"COMEX:HG1!","d":"Copper"},{"s":"LME:ALI1!","d":"Aluminium"}]}]}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="energy">
+  <div class="section-head"><h2>5. الطاقة والموارد</h2><span class="pill">Energy &amp; Resources</span></div>
+  <p class="muted">متابعة أسواق النفط والغاز ومؤشرات الطاقة. لا تمثل الرسوم عرضاً للبيع أو الشراء.</p>
+  <div class="widget tall"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+   {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"520","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"النفط","symbols":[{"s":"TVC:USOIL","d":"WTI Crude Oil"},{"s":"TVC:UKOIL","d":"Brent Crude"}]},{"title":"الغاز والطاقة","symbols":[{"s":"NYMEX:NG1!","d":"Natural Gas"},{"s":"NYMEX:RB1!","d":"RBOB Gasoline"},{"s":"NYMEX:HO1!","d":"Heating Oil"}]}]}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="bonds">
+  <div class="section-head"><h2>6. السندات وأسواق الدخل الثابت</h2><span class="pill">Bonds &amp; Yields</span></div>
+  <p class="muted">متابعة عوائد السندات الحكومية ومؤشرات الدخل الثابت، حيث تتوفر لدى مزود البيانات.</p>
+  <div class="widget"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+   {"width":"100%","height":"420","symbolsGroups":[{"name":"عوائد السندات الحكومية","symbols":[{"name":"TVC:US02Y","displayName":"أمريكا سنتان"},{"name":"TVC:US10Y","displayName":"أمريكا 10 سنوات"},{"name":"TVC:US30Y","displayName":"أمريكا 30 سنة"},{"name":"TVC:DE10Y","displayName":"ألمانيا 10 سنوات"}]}],"showSymbolLogo":false,"isTransparent":true,"colorTheme":"dark","locale":"ar"}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="heatmaps">
+  <div class="section-head"><h2>7. خرائط وتحليلات السوق</h2><span class="pill">Market Heatmaps</span></div>
+  <div class="grid2">
+   <div><h3>خريطة الأسهم</h3><div class="widget tall"><div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+    {"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"ar","symbolUrl":"","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"width":"100%","height":"520"}
+    </script>
+   </div></div></div>
+   <div><h3>خريطة العملات الرقمية</h3><div class="widget tall"><div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script src="https://s3.tradingview.com/external-embedding/embed-widget-crypto-coins-heatmap.js" async>
+    {" dataSource":"Crypto","blockSize":"market_cap_calc","blockColor":"24h_close_change|5","locale":"ar","symbolUrl":"","colorTheme":"dark","hasTopBar":true,"isDataSetEnabled":true,"isZoomEnabled":true,"hasSymbolTooltip":true,"width":"100%","height":"520"}
+    </script>
+   </div></div></div>
+  </div>
+ </section>
+
+ <section class="panel" id="calendar">
+  <div class="section-head"><h2>8. الأجندة الاقتصادية والأحداث</h2><span class="pill">Economic Calendar</span></div>
+  <p class="muted">تابع الإعلانات الاقتصادية ومواعيد البيانات المهمة. تحقق من التوقيت المحلي وتأثير الحدث من المصدر.</p>
+  <div class="widget tall"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+   {"colorTheme":"dark","isTransparent":true,"width":"100%","height":"520","locale":"ar","importanceFilter":"-1,0,1","countryFilter":"us,eu,gb,jp,cn,tr"}
+   </script>
+  </div></div>
+ </section>
+
+ <section class="panel" id="analysis">
+  <div class="section-head"><h2>9. التحليل والمتابعة</h2><span class="pill">Research &amp; Watchlist</span></div>
+  <div class="grid3">
+   <div class="tile"><strong>التحليل الفني</strong><p>استخدم الرسوم والمؤشرات الفنية وأدوات تحديد الاتجاه والدعم والمقاومة داخل الرسم التفاعلي.</p></div>
+   <div class="tile"><strong>المتابعة الشخصية</strong><p>يمكنك اختيار الرموز المفضلة من أدوات TradingView المتاحة وتكوين قائمة متابعة عبر حساب المزود.</p></div>
+   <div class="tile"><strong>إدارة المخاطر</strong><p>قارن بين الأصول والفترات الزمنية، ولا تعتمد على مؤشر واحد أو بيانات متأخرة لاتخاذ قرار مالي.</p></div>
+  </div>
+  <div class="notice"><strong>تنبيه:</strong> هذه الصفحة واجهة متابعة وتحليل وليست منصة تنفيذ أوامر تداول أو وسيطاً مالياً. الأسعار والرسوم والأجندة تأتي من TradingView ومصادره، وقد تكون متأخرة أو تختلف حسب السوق والاشتراك. لا نقدم ضماناً لصحة أو اكتمال البيانات ولا تُعد المعلومات توصية استثمارية.</div>
+ </section>
+
+ <div class="notice"><strong>تطوير مستقبلي لمؤشر آفاق سوريا:</strong> يمكن إضافة مؤشر مركب خاص بالمنصة بعد تحديد الأصول المكوّنة له، والأوزان، ومنهجية الحساب، ومصدر بيانات مرخّص. لن نعرض أرقاماً تقديرية على أنها أسعار أو مؤشرات حقيقية.</div>
+</main>
+<footer>AFAQ SYRIA · GLOBAL MARKETS · جميع الحقوق محفوظة</footer>
+</body>
+</html>

@@ -246,12 +246,30 @@ tbody tr:hover td{background:#102b40}
 .invoice-link{display:inline-flex;gap:6px;align-items:center;color:#f0d18b;text-decoration:underline;font-size:11px}
 .invoice-method{color:#f0d18b;font-size:10px}
 
+
+/* Multi-currency financial branch */
+.bank-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+.bank-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bank-balance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bank-balance{border:1px solid #806633;border-radius:10px;padding:12px;background:linear-gradient(145deg,#102b40,#071522);min-width:0}
+.bank-balance b{display:block;color:#f0d18b;font-size:14px}
+.bank-balance strong{display:block;color:#fff;font-size:18px;direction:ltr;text-align:right;overflow-wrap:anywhere;margin-top:5px}
+.bank-balance small{color:#c4b68f}
+.bank-actions{display:flex;gap:8px;flex-wrap:wrap}
+.bank-ledger{min-width:900px}
+.bank-ledger td{vertical-align:top;white-space:normal;min-width:90px}
+.bank-ledger td:last-child{min-width:145px;max-width:230px;overflow-wrap:anywhere}
+.bank-type{display:inline-block;border:1px solid #806633;border-radius:20px;padding:3px 8px;color:#f0d18b;font-size:10px;white-space:nowrap}
+.bank-positive{color:#65d9a5!important}.bank-negative{color:#ff9a9e!important}
+#bank-branch .trade-warning{margin-top:0}
+@media(max-width:850px){.bank-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.bank-summary{grid-template-columns:1fr}.bank-balance-grid{grid-template-columns:1fr 1fr}.bank-actions{width:100%}.bank-actions button{flex:1}}
 </style></head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="bank-branch"><span class="ico">🏦</span>الفرع المصرفي متعدد العملات</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
 <div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
@@ -419,6 +437,44 @@ Authorization: Bearer YOUR_SERVER_TOKEN
    <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access. لا تضغط مزامنة على جهاز عام أو غير موثوق.</p>
   </div>
 </section>
+
+<section class="view" id="bank-branch">
+ <div class="view-head"><div><h2>الفرع المصرفي متعدد العملات</h2><p>إدارة أرصدة نقدية متعددة العملات، تسجيل الحركات، والتحويل بين حساباتك في سجل مستقل عن المحفظة الرقمية.</p></div><span class="api-badge">سجل مالي تجريبي محلي</span></div>
+ <div class="finance-summary bank-summary">
+  <div class="stat"><span>عدد العملات المتاحة</span><strong id="bankCurrencyCount">0</strong></div>
+  <div class="stat"><span>عدد الحركات المسجلة</span><strong id="bankTransactionCount">0</strong></div>
+  <div class="stat"><span>آخر حركة</span><strong id="bankLastTransaction">—</strong></div>
+ </div>
+ <div class="trade-warning"><b>تنبيه تشغيلي:</b> هذا الفرع في هذه المرحلة دفتر حسابات تجريبي يحفظ البيانات على الجهاز فقط. لا يفتح حساباً مصرفياً ولا ينفذ حوالات أو إيداعات حقيقية. لا تدخل بيانات بطاقات أو كلمات مرور أو بيانات مصرفية سرية.</div>
+ <div class="bank-layout">
+  <div class="panel">
+   <div class="panel-head"><h3>تسجيل حركة مالية</h3><small>اختر نوع العملية والعملة</small></div>
+   <form id="bankTransactionForm" class="form-grid">
+    <label class="field">نوع الحركة<select id="bankType" required><option value="deposit">إيداع / قبض</option><option value="withdrawal">سحب / صرف</option><option value="transfer">حوالة صادرة تجريبية</option><option value="exchange">تبديل عملات بين حساباتك</option></select></label>
+    <label class="field">عملة الحساب<select id="bankCurrency" required></select></label>
+    <label class="field">المبلغ<input id="bankAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
+    <label class="field bank-destination" id="bankDestinationWrap" hidden>العملة المستلمة<select id="bankDestinationCurrency"></select></label>
+    <label class="field bank-rate" id="bankRateWrap" hidden>سعر الصرف (كم وحدة مستلمة لكل 1 من المصدر)<input id="bankRate" type="number" min="0.00000001" step="any" placeholder="مثال: 0.92"></label>
+    <label class="field bank-recipient" id="bankRecipientWrap" hidden>اسم المستفيد / الجهة<input id="bankRecipient" maxlength="100" placeholder="اسم المستفيد"></label>
+    <label class="field">المرجع<input id="bankReference" maxlength="80" placeholder="رقم مرجعي اختياري"></label>
+    <label class="field full">ملاحظات<textarea id="bankNotes" rows="2" maxlength="500" placeholder="تفاصيل الحركة (اختياري)"></textarea></label>
+    <div class="field full"><button class="btn gold" type="submit">＋ تسجيل الحركة</button></div>
+   </form>
+   <p class="settings-note">في التبديل بين العملات، أدخل سعر الصرف بنفسك. لا يتم جلب أسعار مباشرة أو احتساب رسوم مصرفية تلقائياً.</p>
+  </div>
+  <div class="panel">
+   <div class="panel-head"><h3>حساباتي وأرصدتي</h3><small>الرصيد المسجل لكل عملة</small></div>
+   <div class="toolbar"><input id="bankBalanceSearch" placeholder="ابحث عن عملة أو رمز..."></div>
+   <div id="bankBalances" class="bank-balance-grid"></div>
+  </div>
+ </div>
+ <div class="panel">
+  <div class="panel-head"><h3>سجل الحركات المالية</h3><div class="bank-actions"><button type="button" class="btn ghost" id="bankExportCsv">تصدير CSV</button><button type="button" class="btn ghost" id="bankPrint">طباعة الكشف</button></div></div>
+  <div class="toolbar"><input id="bankLedgerSearch" placeholder="ابحث بالعملة أو نوع الحركة أو المرجع..."><select id="bankLedgerFilter"><option value="">كل الحركات</option><option value="deposit">إيداع / قبض</option><option value="withdrawal">سحب / صرف</option><option value="transfer">حوالة صادرة تجريبية</option><option value="exchange">تبديل عملات</option></select></div>
+  <div class="table-wrap"><table class="bank-ledger"><thead><tr><th>التاريخ والوقت</th><th>نوع الحركة</th><th>من / العملة</th><th>المبلغ</th><th>إلى / المستفيد</th><th>المبلغ المستلم</th><th>المرجع والملاحظات</th><th>الحالة</th></tr></thead><tbody id="bankLedger"></tbody></table></div>
+  <p id="bankLedgerEmpty" class="empty" hidden>لا توجد حركات مطابقة للبحث.</p>
+ </div>
+</section>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
 <section class="view" id="reports"><div class="view-head"><div><h2>التقارير والتحليلات</h2><p>إدارة التقارير والتكاليف والشركات المشاركة بالمشاريع.</p></div></div>
 <div class="report-tabs"><button class="active" data-report-tab="analysis">📊 تقارير وتحليلات</button><button data-report-tab="finance">💰 التقارير المالية والتكاليف</button><button data-report-tab="partners">🤝 الشركات الشريكة</button></div>
@@ -466,7 +522,7 @@ const seedProjects=[{name:'تطوير البنية التحتية',sector:'ال�
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=safeReadStore('afaq_projects',null)||seedProjects,clients=safeReadStore('afaq_clients',null)||seedClients,invoices=safeReadStore('afaq_invoices',null)||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
 let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
-const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
+const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
@@ -557,7 +613,7 @@ document.getElementById('recordForm').onsubmit=async e=>{e.preventDefault();let 
 function copyInvoiceLink(n){const url=invoices[n]?.paymentUrl;if(!url){showToast('لا يوجد رابط دفع لهذه الفاتورة');return}if(!navigator.clipboard){showToast('تعذر النسخ التلقائي؛ افتح الرابط وانسخه يدوياً');return}navigator.clipboard.writeText(url).then(()=>showToast('تم نسخ رابط الدفع')).catch(()=>showToast('تعذر النسخ؛ افتح الرابط وانسخه يدوياً'))}
 async function refreshInvoiceStatuses(silent=false){if(!window.AFAQ_API)return;const pending=invoices.filter(x=>x.orderId&&x.paymentUrl);if(!pending.length){if(!silent)showToast('لا توجد فواتير رقمية لمراجعة حالتها');return}let changed=false;await Promise.all(pending.map(async inv=>{try{const r=await window.AFAQ_API.request('/api/payment/status?order_id='+encodeURIComponent(inv.orderId));const st=String(r.payment?.status||'').toLowerCase();let label=inv.status;if(['finished','confirmed'].includes(st))label='مدفوعة';else if(st==='partially_paid')label='مدفوعة جزئياً';else if(['failed','expired','refunded'].includes(st))label=st==='failed'?'فشل الدفع':st==='expired'?'انتهت صلاحية الدفع':'تم رد المبلغ';else if(['waiting','confirming','sending'].includes(st))label=st==='confirming'?'قيد تأكيد الشبكة':st==='sending'?'قيد الإرسال':'بانتظار الدفع';if(label!==inv.status){inv.status=label;changed=true}}catch(err){console.warn('AFAQ invoice status refresh:',err.message)}}));if(changed){save();render()}if(!silent)showToast(changed?'تم تحديث حالات الفواتير من الخادم':'لا توجد تغييرات جديدة في حالات الدفع')}
 function printInvoice(n){let i=invoices[n];let w=window.open('','_blank');w.document.write(`<html dir="rtl"><meta charset="utf-8"><title>فاتورة ${esc(i.number)}</title><body style="font-family:Tahoma;padding:40px;background:#071522;color:#f4f1e8"><h1 style="color:#d9b15f">آفاق سوريا | AFAQ SYRIA</h1><h2 style="color:#f0d18b">فاتورة ${i.paymentUrl?'دفع':'أولية'}</h2><hr style="border-color:#806633"><p>رقم الفاتورة: ${esc(i.number)}</p><p>العميل: ${esc(i.client)}</p><p>التاريخ: ${esc(i.date)}</p><h2>المبلغ: ${esc(i.amount)}</h2><p>وسيلة الدفع: ${esc(i.paymentMethodLabel||'—')}</p><p>الحالة: ${esc(i.status)}</p>${i.paymentUrl?`<p>رابط الدفع: <a href="${esc(i.paymentUrl)}" style="color:#f0d18b">${esc(i.paymentUrl)}</a></p>`:'<p>لم يتم إنشاء رابط دفع لهذه الفاتورة بعد.</p>'}<hr><p>تأكيد استلام المبلغ يعتمد على إشعار مزود الدفع الموثّق، وليس على صورة الفاتورة أو رسالة العميل.</p><script>window.print()<\/script></body></html>`);w.document.close()}
-document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة','investment-wallet':'محفظة الاستثمار والشراء والبيع',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities','company-archive':'Company Archive','investment-wallet':'Investment Wallet',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri','company-archive':'Şirket Arşivi','investment-wallet':'Yatırım Cüzdanı',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه','company-archive':'بایگانی شرکت','investment-wallet':'کیف پول سرمایه‌گذاری',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
+document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities','company-archive':'Company Archive','investment-wallet':'Investment Wallet','bank-branch':'Multi-Currency Banking Branch',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri','company-archive':'Şirket Arşivi','investment-wallet':'Yatırım Cüzdanı','bank-branch':'Çoklu Para Birimli Bankacılık',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه','company-archive':'بایگانی شرکت','investment-wallet':'کیف پول سرمایه‌گذاری','bank-branch':'شعبه بانکی چندارزی',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
 let activeLanguage=localStorage.getItem('afaq_ui_language')||'ar';
 function applyShellLanguage(lang){activeLanguage=lang;localStorage.setItem('afaq_ui_language',lang);const labels=languageLabels[lang]||languageLabels.ar;document.querySelectorAll('.nav button[data-view]').forEach(b=>{const icon=b.querySelector('.ico'),key=b.dataset.view;if(icon){const text=labels[key]||languageLabels.ar[key]||key;b.innerHTML='';b.append(icon);b.append(document.createTextNode(text))}});document.getElementById('pageTitle').textContent=labels[document.querySelector('.view.active')?.id]||labels.dashboard;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'||lang==='fa'?'rtl':'ltr';document.getElementById('langBtn').value=lang;}
 document.getElementById('langBtn').addEventListener('change',e=>{const next=e.target.value;applyShellLanguage(next);showToast(({ar:'تم تغيير لغة القوائم إلى العربية',en:'Navigation language changed to English',tr:'Menü dili Türkçe olarak değiştirildi',fa:'زبان منوها به فارسی تغییر کرد'})[next])});
@@ -770,7 +826,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {
     projects:read('afaq_projects',[]), clients:read('afaq_clients',[]), invoices:read('afaq_invoices',[]),
-    shareOrders:read('afaq_share_orders',[]), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
+    shareOrders:read('afaq_share_orders',[]), bankBranch:read('afaq_bank_branch_v1',{balances:{},transactions:[]}), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
     archive:read('afaq_company_archive_v1',[]), syrianCities:read('afaq_syrian_city_directory_v1',{}), cityProjects:read('afaq_syrian_city_projects_v1',[]), reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
     partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
@@ -785,4 +841,114 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  window.addEventListener('focus',()=>refreshInvoiceStatuses(true));
 })();
 </script>
+
+<script>
+/* AFAQ SYRIA — multi-currency cash ledger (local demo; not a bank connection) */
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const form=$('bankTransactionForm'); if(!form)return;
+ const storeKey='afaq_bank_branch_v1';
+ const currencies=[
+  ['USD','دولار أمريكي'],['EUR','يورو'],['TRY','ليرة تركية'],['GBP','جنيه إسترليني'],
+  ['CHF','فرنك سويسري'],['CAD','دولار كندي'],['AUD','دولار أسترالي'],['NZD','دولار نيوزيلندي'],
+  ['JPY','ين ياباني'],['CNY','يوان صيني'],['HKD','دولار هونغ كونغي'],['SGD','دولار سنغافوري'],
+  ['AED','درهم إماراتي'],['SAR','ريال سعودي'],['QAR','ريال قطري'],['KWD','دينار كويتي'],
+  ['BHD','دينار بحريني'],['OMR','ريال عماني'],['JOD','دينار أردني'],['SYP','ليرة سورية'],
+  ['EGP','جنيه مصري'],['MAD','درهم مغربي'],['TND','دينار تونسي'],['DZD','دينار جزائري'],
+  ['IQD','دينار عراقي'],['LBP','ليرة لبنانية'],['PKR','روبية باكستانية'],['INR','روبية هندية'],
+  ['BRL','ريال برازيلي'],['MXN','بيزو مكسيكي'],['ZAR','راند جنوب أفريقي'],['RUB','روبل روسي'],
+  ['SEK','كرونة سويدية'],['NOK','كرونة نرويجية'],['DKK','كرونة دنماركية'],['PLN','زلوتي بولندي'],
+  ['CZK','كرونة تشيكية'],['HUF','فورنت مجري'],['RON','ليو روماني'],['BGN','ليف بلغاري'],
+  ['UAH','هريفنيا أوكرانية'],['GEL','لاري جورجي'],['AZN','مانات أذربيجاني'],['KRW','وون كوري']
+ ];
+ const names=Object.fromEntries(currencies);
+ const blank=()=>({balances:{},transactions:[]});
+ const read=()=>{try{const x=JSON.parse(localStorage.getItem(storeKey)||'null');return x&&typeof x==='object'?{...blank(),...x,balances:x.balances||{},transactions:Array.isArray(x.transactions)?x.transactions:[]}:blank()}catch(_){return blank()}};
+ let data=read();
+ const save=()=>{try{localStorage.setItem(storeKey,JSON.stringify(data));return true}catch(e){alert('تعذر حفظ السجل على هذا الجهاز. قد تكون مساحة المتصفح ممتلئة.');return false}};
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const fmt=(n)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
+ const typeNames={deposit:'إيداع / قبض',withdrawal:'سحب / صرف',transfer:'حوالة صادرة تجريبية',exchange:'تبديل عملات'};
+ const selectOptions=currencies.map(([c,n])=>`<option value="${c}">${c} — ${n}</option>`).join('');
+ $('bankCurrency').innerHTML=selectOptions;
+ $('bankDestinationCurrency').innerHTML=selectOptions;
+ $('bankDestinationCurrency').value='EUR';
+ function toggleFields(){
+  const t=$('bankType').value,exchange=t==='exchange',transfer=t==='transfer';
+  $('bankDestinationWrap').hidden=!exchange;
+  $('bankRateWrap').hidden=!exchange;
+  $('bankRecipientWrap').hidden=!transfer;
+  $('bankRate').required=exchange;
+  $('bankDestinationCurrency').required=exchange;
+  $('bankRecipient').required=transfer;
+ }
+ $('bankType').addEventListener('change',toggleFields);
+ $('bankCurrency').addEventListener('change',()=>{if($('bankDestinationCurrency').value===$('bankCurrency').value){$('bankDestinationCurrency').value=currencies.find(x=>x[0]!==$('bankCurrency').value)?.[0]||'EUR'}});
+ function renderBalances(){
+  const q=($('bankBalanceSearch').value||'').toLowerCase();
+  const rows=currencies.filter(([c,n])=>(Number(data.balances[c])||0)!==0||['USD','EUR','TRY','GBP'].includes(c)).filter(([c,n])=>!q||(c+' '+n).toLowerCase().includes(q));
+  $('bankBalances').innerHTML=rows.map(([c,n])=>`<article class="bank-balance"><b>${c} · ${n}</b><strong>${fmt(data.balances[c]||0)}</strong><small>رصيد مسجل تجريبياً</small></article>`).join('')||'<div class="empty">لا توجد عملات مطابقة.</div>';
+  $('bankCurrencyCount').textContent=String(currencies.length);
+ }
+ function renderLedger(){
+  const q=($('bankLedgerSearch').value||'').toLowerCase(),filter=$('bankLedgerFilter').value;
+  const rows=data.transactions.filter(x=>(!filter||x.type===filter)&&(!q||[x.type,x.currency,x.destinationCurrency,x.recipient,x.reference,x.notes].join(' ').toLowerCase().includes(q)));
+  $('bankLedger').innerHTML=rows.map(x=>{
+   const outgoing=['withdrawal','transfer','exchange'].includes(x.type);
+   const fromAmount=`<span class="${outgoing?'bank-negative':'bank-positive'}">${outgoing?'−':'+'}${fmt(x.amount)} ${esc(x.currency)}</span>`;
+   const to=x.type==='exchange'?`${esc(x.destinationCurrency)}`:x.type==='transfer'?esc(x.recipient||'مستفيد غير محدد'):'—';
+   const received=x.type==='exchange'?`<span class="bank-positive">+${fmt(x.receivedAmount)} ${esc(x.destinationCurrency)}</span>`:'—';
+   return `<tr><td>${new Date(x.time).toLocaleString('ar')}</td><td><span class="bank-type">${typeNames[x.type]||'حركة'}</span></td><td>${esc(x.currency)}</td><td>${fromAmount}</td><td>${to}</td><td>${received}</td><td>${esc(x.reference||'—')}<br><small>${esc(x.notes||'')}</small></td><td><span class="status pending">مسجلة محلياً</span></td></tr>`;
+  }).join('');
+  $('bankLedgerEmpty').hidden=rows.length>0;
+  $('bankTransactionCount').textContent=String(data.transactions.length);
+  $('bankLastTransaction').textContent=data.transactions[0]?new Date(data.transactions[0].time).toLocaleDateString('ar'):'—';
+ }
+ function render(){renderBalances();renderLedger()}
+ form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const type=$('bankType').value,currency=$('bankCurrency').value,amount=Number($('bankAmount').value);
+  if(!Number.isFinite(amount)||amount<=0){alert('أدخل مبلغاً صحيحاً أكبر من صفر.');return}
+  const current=Number(data.balances[currency])||0;
+  if(['withdrawal','transfer','exchange'].includes(type)&&current<amount){alert('الرصيد المسجل غير كافٍ بهذه العملة.');return}
+  const row={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),type,currency,amount,time:new Date().toISOString(),reference:$('bankReference').value.trim(),notes:$('bankNotes').value.trim()};
+  if(type==='deposit')data.balances[currency]=current+amount;
+  if(type==='withdrawal')data.balances[currency]=current-amount;
+  if(type==='transfer'){
+   row.recipient=$('bankRecipient').value.trim();
+   data.balances[currency]=current-amount;
+  }
+  if(type==='exchange'){
+   const destinationCurrency=$('bankDestinationCurrency').value,rate=Number($('bankRate').value);
+   if(destinationCurrency===currency){alert('اختر عملة مستلمة مختلفة عن عملة المصدر.');return}
+   if(!Number.isFinite(rate)||rate<=0){alert('أدخل سعر صرف صحيحاً أكبر من صفر.');return}
+   const receivedAmount=amount*rate;
+   row.destinationCurrency=destinationCurrency;row.rate=rate;row.receivedAmount=receivedAmount;
+   data.balances[currency]=current-amount;
+   data.balances[destinationCurrency]=(Number(data.balances[destinationCurrency])||0)+receivedAmount;
+  }
+  data.transactions.unshift(row);
+  if(save()){form.reset();$('bankDestinationCurrency').value='EUR';toggleFields();render();if(window.showToast)showToast('تم تسجيل الحركة محلياً بنجاح')}
+ });
+ $('bankBalanceSearch').addEventListener('input',renderBalances);
+ $('bankLedgerSearch').addEventListener('input',renderLedger);
+ $('bankLedgerFilter').addEventListener('change',renderLedger);
+ $('bankExportCsv').addEventListener('click',()=>{
+  const head=['date','type','currency','amount','destinationCurrency','receivedAmount','recipient','reference','notes'];
+  const rows=data.transactions.map(x=>[x.time,typeNames[x.type]||x.type,x.currency,x.amount,x.destinationCurrency||'',x.receivedAmount||'',x.recipient||'',x.reference||'',x.notes||'']);
+  const csv=[head,...rows].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='afaq-multi-currency-ledger.csv';a.click();URL.revokeObjectURL(url);
+ });
+ $('bankPrint').addEventListener('click',()=>{
+  const rows=data.transactions.map(x=>`<tr><td>${esc(new Date(x.time).toLocaleString())}</td><td>${esc(typeNames[x.type]||x.type)}</td><td>${esc(x.currency)}</td><td>${fmt(x.amount)}</td><td>${esc(x.destinationCurrency||x.recipient||'—')}</td><td>${x.receivedAmount?fmt(x.receivedAmount):'—'}</td><td>${esc(x.reference||'')}</td></tr>`).join('');
+  const w=window.open('','_blank');if(!w){alert('اسمح بالنوافذ المنبثقة لطباعة الكشف.');return}
+  w.document.write(`<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>كشف الفرع المصرفي - آفاق سوريا</title><style>body{font-family:Tahoma,Arial;padding:24px;color:#111}h2{color:#80601e}table{width:100%;border-collapse:collapse}td,th{border:1px solid #aaa;padding:8px;text-align:right}</style><h2>آفاق سوريا — كشف الحركات متعددة العملات</h2><p>كشف سجل محلي تجريبي وليس كشفاً مصرفياً رسمياً.</p><table><thead><tr><th>التاريخ</th><th>العملية</th><th>العملة</th><th>المبلغ</th><th>إلى</th><th>المستلم</th><th>المرجع</th></tr></thead><tbody>${rows}</tbody></table><script>window.print()<\\/script></html>`);
+  w.document.close();
+ });
+ toggleFields();render();
+})();
+</script>
+
 </body></html>

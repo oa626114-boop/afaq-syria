@@ -2,4 +2,62 @@
 :root{--n:#071522;--n2:#102b40;--g:#d9b15f;--g2:#f0d18b;--paper:#f4f6f8;--ink:#172633}*{box-sizing:border-box}body{margin:0;background:var(--paper);font-family:Tahoma,Arial,sans-serif;color:var(--ink);line-height:1.7}.top{background:linear-gradient(110deg,var(--n),var(--n2));padding:22px;color:#fff}.top b{color:var(--g2);font-size:22px}.wrap{max-width:850px;margin:28px auto;padding:0 14px}.card{background:white;border:1px solid #e1e7eb;border-radius:14px;padding:22px;box-shadow:0 10px 30px #06152212;margin-bottom:16px}h1{font-size:21px;margin:0 0 5px;color:var(--n)}p{font-size:13px;color:#70808c}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#52616b}.field input,.field select{padding:12px;border:1px solid #dce3e8;border-radius:8px;font:inherit}.full{grid-column:1/-1}.btn{border:0;border-radius:8px;padding:12px 18px;background:linear-gradient(135deg,var(--g2),var(--g));font-weight:bold;cursor:pointer;color:#172633}.btn.dark{background:var(--n2);color:white}.note{padding:12px;background:#fff7e7;border-right:4px solid var(--g);border-radius:8px;font-size:12px;color:#70531d}.result{display:none;margin-top:14px;padding:14px;background:#edf8f2;border-radius:9px}.result a{color:#126b4b;font-weight:bold;overflow-wrap:anywhere}.status{font-size:12px;color:#70808c;white-space:pre-wrap}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}}
 </style></head><body><header class="top"><b>آفاق سوريا | AFAQ SYRIA</b><div>مركز الدفع والتحصيل</div></header><main class="wrap"><section class="card"><h1>إنشاء فاتورة دفع رقمية</h1><p>أنشئ فاتورة آمنة عبر بوابة NOWPayments. يتم فتح صفحة الدفع المستضافة لدى مزود الخدمة.</p><form id="payForm" class="grid"><label class="field">المبلغ<input id="amount" type="number" min="1" max="1000000" step="0.01" required placeholder="مثال: 25"></label><label class="field">عملة الفاتورة<select id="currency"><option value="usd">USD</option><option value="eur">EUR</option><option value="try">TRY</option></select></label><label class="field full">عملة الدفع الرقمية<select id="payCurrency"><option value="usdttrc20">USDT TRC20</option><option value="usdterc20">USDT ERC20</option><option value="btc">BTC</option><option value="eth">ETH</option><option value="trx">TRX</option></select></label><label class="field full">وصف الفاتورة<input id="description" maxlength="160" placeholder="AFAQ SYRIA invoice"></label><div class="full"><button class="btn" type="submit">إنشاء فاتورة ومتابعة الدفع</button> <a class="btn dark" href="./index.html" style="display:inline-block;text-decoration:none">العودة إلى لوحة التحكم</a></div></form><div id="message" class="status" aria-live="polite">عنوان API: <span id="apiState">غير مضبوط</span></div><div id="result" class="result"><b>تم إنشاء الفاتورة</b><p>رقم الطلب: <span id="order"></span></p><a id="invoiceLink" target="_blank" rel="noopener">فتح صفحة الدفع الآمنة</a></div></section><section class="card"><div class="note">تنبيه: لا تغلق الفاتورة ولا تعتبرها مدفوعة بناءً على لقطة شاشة أو رابط العودة. يتم تحديث حالة الدفع بعد وصول إشعار IPN صحيح والتحقق منه على الخادم.</div></section></main><script>
 (()=>{const $=id=>document.getElementById(id);const base=(localStorage.getItem('afaq_api_base_v1')||'').trim().replace(/\/+$/,'');$('apiState').textContent=base||'غير مضبوط — اضبطه من مركز API في لوحة التحكم';$('payForm').addEventListener('submit',async e=>{e.preventDefault();if(!base){$('message').textContent='يرجى ضبط عنوان API Worker من لوحة التحكم أولاً.';return}const button=e.submitter;button.disabled=true;button.textContent='جارٍ إنشاء الفاتورة…';$('result').style.display='none';try{const r=await fetch(base+'/api/payment/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:Number($('amount').value),currency:$('currency').value,pay_currency:$('payCurrency').value,description:$('description').value||'AFAQ SYRIA invoice',success_url:location.origin+'/payment.html?payment=return',cancel_url:location.href})});const d=await r.json();if(!r.ok)throw new Error(d.error||'تعذر إنشاء الفاتورة');$('order').textContent=d.order_id;$('invoiceLink').href=d.invoice_url;$('invoiceLink').textContent=d.invoice_url;$('result').style.display='block';$('message').textContent='تم إنشاء الفاتورة لدى NOWPayments. بانتظار الدفع.'}catch(err){$('message').textContent='خطأ: '+err.message}finally{button.disabled=false;button.textContent='إنشاء فاتورة ومتابعة الدفع'}})})();
-</script></body></html>
+</script>
+<style>
+.language-control{display:flex;align-items:center;gap:7px;margin-inline-start:8px}
+.language-control label{font-size:11px;color:var(--muted,#70808c);white-space:nowrap}
+.language-control select{border:1px solid #dce3e8;border-radius:8px;padding:8px 10px;background:#fff;color:#102b40;max-width:155px;font-size:12px}
+#google_translate_element{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important}
+.goog-te-banner-frame,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+.skiptranslate{display:none!important}
+@media(max-width:520px){.language-control label{display:none}.language-control select{max-width:125px}}
+</style>
+<div id="google_translate_element" aria-hidden="true"></div>
+<script>
+(function(){
+ const LANGS=[
+  ['ar','العربية'],['en','English'],['tr','Türkçe'],['fa','فارسی'],
+  ['fr','Français'],['de','Deutsch'],['es','Español'],['ru','Русский'],
+  ['zh-CN','中文'],['it','Italiano']
+ ];
+ const RTL=['ar','fa'];
+ const key='afaq_language_v1';
+ const current=()=>localStorage.getItem(key)||'ar';
+ function applyDirection(code){
+  const lang=code==='zh-CN'?'zh-CN':code;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=RTL.includes(code)?'rtl':'ltr';
+  document.body.classList.toggle('afaq-rtl',RTL.includes(code));
+ }
+ function setGoogleLanguage(code){
+  applyDirection(code);
+  localStorage.setItem(key,code);
+  const select=document.querySelector('.goog-te-combo');
+  if(select){select.value=code;select.dispatchEvent(new Event('change'));}
+  const picker=document.getElementById('afaqLanguage');
+  if(picker)picker.value=code;
+ }
+ window.googleTranslateElementInit=function(){
+  if(window.google&&google.translate){
+   new google.translate.TranslateElement({pageLanguage:'ar',includedLanguages:LANGS.map(x=>x[0]).join(','),autoDisplay:false},'google_translate_element');
+   setTimeout(()=>setGoogleLanguage(current()),700);
+  }
+ };
+ window.AFAQ_SET_LANGUAGE=setGoogleLanguage;
+ document.addEventListener('DOMContentLoaded',()=>{
+  const host=document.querySelector('.top-right')||document.querySelector('.topbar')||document.querySelector('.top')||document.body;
+  const wrap=document.createElement('div');wrap.className='language-control';
+  const label=document.createElement('label');label.htmlFor='afaqLanguage';label.textContent='اللغة / Language';
+  const select=document.createElement('select');select.id='afaqLanguage';select.setAttribute('aria-label','Choose language');
+  LANGS.forEach(([code,name])=>{const o=document.createElement('option');o.value=code;o.textContent=name;select.appendChild(o)});
+  select.value=current();select.addEventListener('change',()=>setGoogleLanguage(select.value));
+  wrap.append(label,select);
+  if(host.classList.contains('top-right'))host.prepend(wrap);else host.appendChild(wrap);
+  applyDirection(current());
+ });
+})();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+</body></html>

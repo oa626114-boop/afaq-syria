@@ -123,12 +123,32 @@ td,th{border-color:#806633!important}
 #investment-wallet .trade-card h3{color:#f0d18b!important}#investment-wallet .trade-card p{color:#f7f1e4!important}
 #investment-wallet .record-item{background:#071522!important;border-color:#806633!important}
 #investment-wallet table{min-width:720px}
+
+/* AFAQ SYRIA — unified dark navy / gold theme (no white surfaces) */
+:root{--paper:#071522;--ink:#f4f0e6;--muted:#c4b68f;--line:#66552f;--white:#0b2030;--shadow:0 10px 28px #0008}
+html,body{background:#071522!important;color:#f4f0e6!important}
+.topbar,.stat,.panel,.module-card,.quick,.trade-card,.api-card,.portfolio-photo,.modal-box,.trade-tabs button,.trade-form input,.trade-form select{background:#0b2030!important;color:#f4f0e6!important;border-color:#66552f!important}
+.topbar{background:#091b2a!important}.page-title,.panel h3,.view-head h2,.module-card h3,.portfolio-photo figcaption,.stat strong{color:#f0d18b!important}
+.eyebrow,.view-head p,.panel-head small,.module-card p,.stat-top,.field,.portfolio-toolbar .hint,.empty{color:#d8c99f!important}
+.quick{color:#f0d18b!important}.quick:hover,.trade-tabs button.active{background:#17394f!important;color:#f0d18b!important}
+.toolbar input,.toolbar select,.field input,.field select,.field textarea,.trade-form input,.trade-form select{background:#071522!important;color:#fff!important;border-color:#806633!important}
+th{background:#102b40!important;color:#f0d18b!important}td,th{border-color:#66552f!important;color:#f4f0e6}
+.modal-box{background:#0b2030!important}.close,.btn.ghost{background:#17394f!important;color:#f0d18b!important}
+.portfolio-photo{background:#0b2030!important}.portfolio-photo img{background:#071522!important}.portfolio-photo figcaption{color:#f0d18b!important}
+.trade-warning,.trade-tabs button,.api-badge,.status.pending{background:#172b37!important;color:#f0d18b!important;border-color:#806633!important}
+.status{background:#123a32!important;color:#9be0bd!important}.status.hold{background:#48252b!important;color:#ffb1b1!important}
+.photo-select{display:none;position:absolute;top:9px;right:9px;width:25px;height:25px;accent-color:#d9b15f;z-index:3}
+.portfolio-gallery.remove-enabled .photo-select{display:block}.portfolio-gallery.remove-enabled .portfolio-photo{position:relative;cursor:pointer;outline:1px dashed #d9b15f}
+.portfolio-photo.selected{outline:3px solid #f0d18b!important}
+#galleryDeleteSelected{display:none}.portfolio-toolbar.remove-enabled #galleryDeleteSelected{display:inline-block}
+.archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.archive-record{background:#0b2030;border:1px solid #806633;border-radius:11px;padding:14px;color:#f4f0e6}.archive-record h4{color:#f0d18b;margin:0 0 7px}.archive-record p{margin:4px 0;font-size:12px;color:#ddd0ae}.archive-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.archive-form .full{grid-column:1/-1}
+@media(max-width:600px){.archive-grid,.archive-form{grid-template-columns:1fr}}
 </style></head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
 <div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
@@ -210,7 +230,7 @@ td,th{border-color:#806633!important}
 
 <section class="view" id="portfolioGalleryView">
  <div class="view-head"><div><h2 id="galleryTitle">الحقيبة الاستثمارية</h2><p id="gallerySubtitle">سجل بيانات المحفظة ومشاريعها ومرفقاتها</p></div></div>
- <div class="portfolio-toolbar"><button type="button" id="galleryHome" class="home-return">⌂ العودة إلى الصفحة الرئيسية</button><button type="button" id="galleryBack">← العودة إلى الحقائب الاستثمارية</button><button type="button" id="galleryAddPhotos">＋ إضافة صور جديدة</button><button type="button" id="galleryRemoveMode" class="remove-mode" aria-pressed="false">− إزالة الصور</button><input type="file" id="galleryPhotoInput" accept="image/*" multiple hidden><span class="hint">ملف مستقل لكل حقيبة استثمارية</span></div>
+ <div class="portfolio-toolbar"><button type="button" id="galleryHome" class="home-return">⌂ العودة إلى الصفحة الرئيسية</button><button type="button" id="galleryBack">← العودة إلى الحقائب الاستثمارية</button><button type="button" id="galleryAddPhotos">＋ إضافة صور جديدة</button><button type="button" id="galleryRemoveMode" class="remove-mode" aria-pressed="false">− تحديد صور للإزالة</button><button type="button" id="galleryDeleteSelected" class="btn" disabled>حذف الصور المحددة (0)</button><input type="file" id="galleryPhotoInput" accept="image/*" multiple hidden><span class="hint">ملف مستقل لكل حقيبة استثمارية</span></div>
  <div class="bag-workspace">
  <section class="panel"><div class="panel-head"><h3>📁 بيانات الحقيبة</h3><small>احفظ المعلومات الأساسية والمالية</small></div>
  <form id="bagInfoForm" class="bag-form">
@@ -230,8 +250,22 @@ td,th{border-color:#806633!important}
  <section class="panel"><div class="panel-head"><h3>🖼️ صور الحقيبة</h3><small>أضف صوراً توضيحية خاصة بهذه الحقيبة</small></div><div class="portfolio-gallery" id="portfolioGallery"></div></section>
  </div>
 </section>
+<section class="view" id="company-archive">
+ <div class="view-head"><div><h2>أرشيف شركة آفاق سوريا للاستثمار العقاري والبنية التحتية</h2><p>أرشفة المشاريع العقارية ومشاريع البنية التحتية والعقود والصور والمراسلات.</p></div></div>
+ <div class="panel"><div class="panel-head"><h3>＋ إضافة سجل إلى أرشيف الشركة</h3><small>يحفظ على هذا الجهاز ويمكن مزامنته عند تفعيل API وقاعدة البيانات</small></div>
+ <form id="archiveForm" class="archive-form">
+ <label class="field">عنوان السجل<input name="title" required placeholder="مثال: مشروع تطوير مجمع سكني"></label>
+ <label class="field">نوع الأرشيف<select name="category"><option>الاستثمار العقاري</option><option>البنية التحتية</option><option>الأراضي والعقارات</option><option>العقود والاتفاقيات</option><option>الدراسات والمخططات</option><option>المراسلات والتقارير</option><option>الصور والوثائق</option></select></label>
+ <label class="field">الموقع / المحافظة<input name="location" placeholder="المدينة أو المحافظة"></label><label class="field">رقم المرجع<input name="reference" placeholder="رقم الملف أو المشروع"></label>
+ <label class="field">التاريخ<input name="date" type="date"></label><label class="field">الحالة<input name="status" placeholder="قيد الدراسة / قيد التنفيذ / مكتمل"></label>
+ <label class="field full">الوصف والملاحظات<textarea name="notes" rows="3" placeholder="تفاصيل السجل وملاحظاته..."></textarea></label>
+ <label class="field full">إرفاق صورة أو مستند<input name="attachment" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"></label>
+ <div class="full"><button class="btn gold" type="submit">حفظ في أرشيف الشركة</button></div></form></div>
+ <div class="toolbar"><input id="archiveSearch" placeholder="ابحث في أرشيف الشركة..."><select id="archiveFilter"><option value="">كل التصنيفات</option><option>الاستثمار العقاري</option><option>البنية التحتية</option><option>الأراضي والعقارات</option><option>العقود والاتفاقيات</option><option>الدراسات والمخططات</option><option>المراسلات والتقارير</option><option>الصور والوثائق</option></select></div>
+ <div class="archive-grid" id="archiveList"></div>
+ </section>
 <section class="view" id="api">
- <div class="view-head"><div><h2>مركز API والتكاملات</h2><p>بوابة المطورين لإدارة واجهات الربط، التوثيق، Webhooks وحالة الخدمات.</p></div><span class="api-badge">بيئة تجريبية — غير متصلة</span></div>
+ <div class="view-head"><div><h2>مركز API والتكاملات</h2><p>بوابة المطورين لإدارة واجهات الربط، التوثيق، Webhooks وحالة الخدمات.</p></div><span class="api-badge" id="apiTopBadge">لم يتم فحص الخادم</span></div>
  <div class="trade-warning"><b>الأمان أولاً:</b> هذه صفحة توثيق وتجهيز فقط. لا توجد مفاتيح API فعالة هنا، ولا تضع أي سر أو كلمة مرور داخل ملفات GitHub Pages أو كود المتصفح. تحفظ المفاتيح الحقيقية كأسرار في الخادم فقط.</div>
  <div class="api-grid">
   <div class="api-card"><h3>واجهة إدارة المشاريع</h3><p>نقاط API المقترحة لقراءة المشاريع وإضافة سجل جديد.</p><div class="api-endpoint"><span class="api-method">GET</span><code>/api/v1/projects</code></div><div class="api-endpoint"><span class="api-method">POST</span><code>/api/v1/projects</code></div></div>
@@ -310,7 +344,7 @@ const seedProjects=[{name:'تطوير البنية التحتية',sector:'ال�
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=safeReadStore('afaq_projects',null)||seedProjects,clients=safeReadStore('afaq_clients',null)||seedClients,invoices=safeReadStore('afaq_invoices',null)||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
 let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
-const titles={dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',stocks:'البورصة ومحفظة الأسهم',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات'};
+const titles={'company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',stocks:'البورصة ومحفظة الأسهم',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id)}
@@ -395,7 +429,7 @@ function setupBagForms(i,p){
 }
 function openPortfolio(index){
  const p=portfolios[index];if(!p)return;activePortfolioIndex=index;
- const galleryPhotos=p.photos.concat(getExtraGalleryPhotos(index));
+ const removedBase=safeReadStore('afaq-gallery-removed-base-v1-'+index,[]);const visibleBase=p.photos.map((x,n)=>({photo:x,baseIndex:n})).filter(x=>!removedBase.includes(x.baseIndex));const extras=getExtraGalleryPhotos(index);const galleryPhotos=visibleBase.map(x=>({photo:x.photo,baseIndex:x.baseIndex,extraIndex:null})).concat(extras.map((photo,n)=>({photo,baseIndex:null,extraIndex:n}))); 
  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
  document.getElementById('portfolioGalleryView').classList.add('active');
  document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view==='portfolios'));
@@ -403,28 +437,31 @@ function openPortfolio(index){
  document.getElementById('galleryTitle').textContent=p.name;
  document.getElementById('gallerySubtitle').textContent=p.en+' — حقيبة مستقلة لتسجيل جميع البيانات';
  setupBagForms(index,p);
- document.getElementById('portfolioGallery').innerHTML=galleryPhotos.map((photo,i)=>{
-  const url=String(photo[1]).startsWith('data:')?photo[1]:'https://images.unsplash.com/'+photo[1]+'?auto=format&fit=crop&w=1000&q=82';
-  const isExtra=i>=p.photos.length;const extraIndex=i-p.photos.length;
-  return `<figure class="portfolio-photo" data-image="${url}">${isExtra?`<button type="button" class="photo-delete" data-photo-delete="${extraIndex}" aria-label="إزالة الصورة">إزالة الصورة ✕</button>`:''}<img src="${url}" alt="${esc(photo[0])}" loading="lazy" onerror="this.style.opacity='.25';this.alt='تعذر تحميل الصورة — تحقق من الاتصال بالإنترنت'"><figcaption><small>${String(i+1).padStart(2,'0')}</small>${esc(photo[0])}</figcaption></figure>`;
+ document.getElementById('portfolioGallery').innerHTML=galleryPhotos.map((item,i)=>{
+  const photo=item.photo;const url=String(photo[1]).startsWith('data:')?photo[1]:'https://images.unsplash.com/'+photo[1]+'?auto=format&fit=crop&w=1000&q=82';
+  const token=item.extraIndex!==null?'extra:'+item.extraIndex:'base:'+item.baseIndex;
+  return `<figure class="portfolio-photo" data-token="${token}" data-image="${url}"><input class="photo-select" type="checkbox" aria-label="تحديد ${esc(photo[0])}"><img src="${url}" alt="${esc(photo[0])}" loading="lazy" onerror="this.style.opacity='.25';this.alt='تعذر تحميل الصورة — تحقق من الاتصال بالإنترنت'"><figcaption><small>${String(i+1).padStart(2,'0')}</small>${esc(photo[0])}</figcaption></figure>`;
  }).join('');
  const gallery=document.getElementById('portfolioGallery');gallery.classList.remove('remove-enabled');document.querySelector('.portfolio-toolbar').classList.remove('remove-enabled');const removeBtn=document.getElementById('galleryRemoveMode');removeBtn.setAttribute('aria-pressed','false');removeBtn.textContent='− إزالة الصور';
- gallery.querySelectorAll('.portfolio-photo img').forEach(img=>img.addEventListener('click',()=>openGalleryLightbox(img.src)));
- gallery.querySelectorAll('[data-photo-delete]').forEach(btn=>btn.addEventListener('click',e=>{
-  e.stopPropagation();const n=Number(btn.dataset.photoDelete);const items=getExtraGalleryPhotos(activePortfolioIndex);
-  if(!Number.isInteger(n)||n<0||n>=items.length)return;
-  if(!confirm('هل تريد إزالة هذه الصورة من الحقيبة؟'))return;
-  items.splice(n,1);saveExtraGalleryPhotos(activePortfolioIndex,items);openPortfolio(activePortfolioIndex);showToast('تمت إزالة الصورة من هذه الحقيبة');
- }));
+ gallery.querySelectorAll('.portfolio-photo img').forEach(img=>img.addEventListener('click',()=>{if(gallery.classList.contains('remove-enabled')){const cb=img.closest('.portfolio-photo').querySelector('.photo-select');cb.checked=!cb.checked;img.closest('.portfolio-photo').classList.toggle('selected',cb.checked);updateSelectedPhotoCount()}else openGalleryLightbox(img.src)}));
+ gallery.querySelectorAll('.photo-select').forEach(cb=>cb.addEventListener('change',()=>{cb.closest('.portfolio-photo').classList.toggle('selected',cb.checked);updateSelectedPhotoCount()}));
  document.getElementById('sidebar').classList.remove('open');
  history.replaceState(null,'','#portfolio-'+(index+1));
  window.scrollTo({top:0,behavior:'smooth'});
 }
+function updateSelectedPhotoCount(){const n=document.querySelectorAll('#portfolioGallery .photo-select:checked').length;const b=document.getElementById('galleryDeleteSelected');if(b)b.textContent='حذف الصور المحددة ('+n+')';if(b)b.disabled=!n}
 document.getElementById('galleryRemoveMode').addEventListener('click',()=>{
  const gallery=document.getElementById('portfolioGallery'),btn=document.getElementById('galleryRemoveMode'),toolbar=document.querySelector('.portfolio-toolbar');
  const enabled=gallery.classList.toggle('remove-enabled');toolbar.classList.toggle('remove-enabled',enabled);btn.setAttribute('aria-pressed',String(enabled));
- btn.textContent=enabled?'إلغاء إزالة الصور':'− إزالة الصور';
- if(enabled)showToast('اضغط إزالة الصورة على أي صورة أضفتها لحذفها');
+ btn.textContent=enabled?'إلغاء التحديد':'− تحديد صور للإزالة';gallery.querySelectorAll('.photo-select').forEach(x=>{x.checked=false;x.closest('.portfolio-photo').classList.remove('selected')});updateSelectedPhotoCount();
+ if(enabled)showToast('حدد الصور التي تريد إزالتها ثم اضغط حذف الصور المحددة');
+});
+document.getElementById('galleryDeleteSelected').addEventListener('click',()=>{
+ const selected=Array.from(document.querySelectorAll('#portfolioGallery .photo-select:checked')).map(x=>x.closest('.portfolio-photo').dataset.token);
+ if(!selected.length)return;if(!confirm('تأكيد إزالة '+selected.length+' صورة محددة من هذه الحقيبة؟'))return;
+ const baseKey='afaq-gallery-removed-base-v1-'+activePortfolioIndex;const removed=safeReadStore(baseKey,[]);const extras=getExtraGalleryPhotos(activePortfolioIndex);let count=0;
+ selected.forEach(token=>{const [kind,n]=token.split(':');const i=Number(n);if(kind==='base'&&!removed.includes(i)){removed.push(i);count++}else if(kind==='extra'&&Number.isInteger(i)&&i>=0&&i<extras.length){extras[i]=null;count++}});
+ saveExtraGalleryPhotos(activePortfolioIndex,extras.filter(Boolean));localStorage.setItem(baseKey,JSON.stringify(removed));openPortfolio(activePortfolioIndex);showToast('تمت إزالة '+count+' صورة محددة');
 });
 document.getElementById('galleryBack').addEventListener('click',()=>go('portfolios'));
 document.getElementById('galleryHome').addEventListener('click',()=>{go('dashboard');window.scrollTo({top:0,behavior:'smooth'});});
@@ -537,30 +574,43 @@ render();let initial=location.hash.slice(1);if(titles[initial])go(initial);
 </script>
 <script>
 /* AFAQ SYRIA API bridge. Configure the Worker URL in the API page. */
+// Company archive: local-first records, included in API sync payload.
+(()=>{
+ const key='afaq_company_archive_v1';const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(_){return []}};
+ const escA=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const list=document.getElementById('archiveList'),form=document.getElementById('archiveForm');if(!list||!form)return;
+ function render(){const q=(document.getElementById('archiveSearch').value||'').toLowerCase(),f=document.getElementById('archiveFilter').value;const rows=read().filter(x=>(!f||x.category===f)&&(!q||[x.title,x.location,x.reference,x.notes,x.category].join(' ').toLowerCase().includes(q)));
+ list.innerHTML=rows.map(x=>`<article class="archive-record"><h4>${escA(x.title)}</h4><p>التصنيف: ${escA(x.category)} · الموقع: ${escA(x.location||'—')}</p><p>المرجع: ${escA(x.reference||'—')} · التاريخ: ${escA(x.date||'—')}</p><p>الحالة: ${escA(x.status||'—')}</p><p>${escA(x.notes||'')}</p>${x.fileName?`<p>المرفق: ${escA(x.fileName)} ${x.fileData?`<a download="${escA(x.fileName)}" href="${x.fileData}" style="color:#f0d18b">فتح / تنزيل</a>`:''}</p>`:''}<button class="btn ghost" type="button" data-archive-delete="${x.id}">حذف السجل</button></article>`).join('')||'<div class="empty">لا توجد سجلات في الأرشيف بعد. أضف أول سجل من النموذج أعلاه.</div>';
+ list.querySelectorAll('[data-archive-delete]').forEach(b=>b.onclick=()=>{if(!confirm('هل تريد حذف هذا السجل من أرشيف الشركة؟'))return;localStorage.setItem(key,JSON.stringify(read().filter(x=>x.id!==b.dataset.archiveDelete)));render()})}
+ form.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(form),file=fd.get('attachment');let fileData='';if(file&&file.size){if(file.size>700000){alert('حجم المرفق يجب ألا يتجاوز 700 كيلوبايت في التخزين المحلي.');return}fileData=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}
+ const rows=read();rows.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title:fd.get('title'),category:fd.get('category'),location:fd.get('location'),reference:fd.get('reference'),date:fd.get('date'),status:fd.get('status'),notes:fd.get('notes'),fileName:file?.name||'',fileData});try{localStorage.setItem(key,JSON.stringify(rows));form.reset();render();}catch(err){alert('تعذر الحفظ بسبب امتلاء مساحة التخزين. قلل حجم المرفق.')}});
+ document.getElementById('archiveSearch').addEventListener('input',render);document.getElementById('archiveFilter').addEventListener('change',render);render();
+})();
+
 (()=>{
  'use strict';
  const $=id=>document.getElementById(id);
  const key='afaq_api_base_v1';
  const normalize=s=>String(s||'').trim().replace(/\/+$/,'');
- let apiBase=normalize(localStorage.getItem(key)||'');
- const input=$('afaqApiBase'), status=$('afaqApiStatus'), message=$('afaqApiMessage');
+ let apiBase=normalize(localStorage.getItem(key)||'https://omax-api-105a.oa626114.workers.dev');
+ const input=$('afaqApiBase'), status=$('afaqApiStatus'), message=$('afaqApiMessage'), topBadge=$('apiTopBadge');
  if(!input||!status||!message)return;
  input.value=apiBase;
- const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#e8f5ef':ok===false?'#fcebea':'#fff2d6';status.style.color=ok===true?'#16845b':ok===false?'#b94a48':'#805d18'};
+ const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'Worker متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';status.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b';if(topBadge){topBadge.textContent=ok===true?'Cloudflare Worker متصل':ok===false?'Cloudflare Worker غير متصل':'لم يتم فحص الخادم';topBadge.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';topBadge.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b'}};
  async function request(path,options={}){
    if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-   const response=await fetch(apiBase+path,{...options,credentials:'include',headers:{'Content-Type':'application/json',...(options.headers||{})}});
+   const response=await fetch(apiBase+path,{...options,mode:'cors',credentials:path.startsWith('/api/v1/')?'include':'omit',headers:{'Content-Type':'application/json',...(options.headers||{})}});
    const data=await response.json().catch(()=>({}));
    if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
    return data;
  }
- async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){say('فشل الاتصال: '+e.message,false)}}
+ async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true)throw new Error('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){say('فشل الاتصال: '+e.message,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {
     projects:read('afaq_projects',[]), clients:read('afaq_clients',[]), invoices:read('afaq_invoices',[]),
     shareOrders:read('afaq_share_orders',[]), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
-    reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
+    archive:read('afaq_company_archive_v1',[]), reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
     partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
  }

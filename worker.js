@@ -4,7 +4,7 @@
 const cors = (request, env) => {
   const origin = request.headers.get('Origin') || '';
   const allowed = (env.ALLOWED_ORIGIN || '').split(',').map(x=>x.trim()).filter(Boolean);
-  const allow = allowed.includes(origin) ? origin : (allowed.length ? allowed[0] : (origin || '*'));
+  const allow = !allowed.length ? (origin || '*') : (allowed.includes(origin) ? origin : 'null');
   return {'Access-Control-Allow-Origin':allow,'Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Allow-Credentials':'true','Vary':'Origin'};
 };
 const json=(data,status=200,headers={})=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json; charset=utf-8',...headers}});

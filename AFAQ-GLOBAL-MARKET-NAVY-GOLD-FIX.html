@@ -1,7 +1,237 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AFAQ SYRIA GLOBAL INDEX</title><style>
-:root{--navy:#071a2b;--panel:#10283b;--gold:#d9b45b;--line:#806633;--white:#f5edda}*{box-sizing:border-box}body{margin:0;background:var(--navy);color:var(--white);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:1100px;margin:auto;padding:18px}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.brand{color:var(--gold);font-weight:bold;font-size:23px}.sub{color:#c7b88f;font-size:12px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px}.card b{display:block;color:var(--gold);font-size:18px}.card span{font-size:12px;color:#e9ddc5}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}.notice{color:#f2d28a;background:#0b2133;border:1px solid #806633;padding:12px;border-radius:10px;line-height:1.8;font-size:13px}.chart{height:520px}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs a{color:var(--gold);border:1px solid var(--line);padding:8px 12px;border-radius:9px;text-decoration:none}.back{color:var(--gold)}@media(max-width:700px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.card{min-width:0;overflow-wrap:anywhere}.chart{height:430px}}
-</style></head><body><main class="wrap"><header class="head"><div><div class="brand">AFAQ SYRIA GLOBAL INDEX</div><div class="sub">مؤشر آفاق سوريا العالمي · لوحة متابعة الأسواق</div></div><a class="back" href="index.html">العودة إلى المنصة ←</a></header>
-<div class="cards"><div class="card"><b>الأسهم العالمية</b><span>NASDAQ · S&P 500 · DAX · Dow Jones</span></div><div class="card"><b>المعادن</b><span>الذهب · الفضة</span></div><div class="card"><b>الطاقة</b><span>النفط · الغاز</span></div><div class="card"><b>العملات</b><span>FX · Bitcoin · Ethereum</span></div></div>
-<section class="panel"><h2 style="color:var(--gold)">الشموع اليابانية — الأسواق العالمية</h2><div class="tabs"><a href="#chart">الرسم البياني</a><a href="#watch">قائمة المتابعة</a><a href="index.html">لوحة المنصة</a></div><div id="chart" class="chart"><div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div><div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener" target="_blank">بيانات ورسوم TradingView</a></div><script src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>{"autosize":true,"symbol":"NASDAQ:QQQ","interval":"D","timezone":"Etc/UTC","theme":"dark","style":"1","locale":"ar","allow_symbol_change":true,"calendar":false,"support_host":"https://www.tradingview.com"}</script></div></div></section>
-<section class="panel" id="watch"><h2 style="color:var(--gold)">مراقبة المؤشرات والأصول</h2><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>{"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"500","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"المؤشرات","symbols":[{"s":"NASDAQ:NDX","d":"NASDAQ 100"},{"s":"SP:SPX","d":"S&P 500"},{"s":"XETR:DAX","d":"DAX"},{"s":"DJ:DJI","d":"Dow Jones"}]},{"title":"المعادن والطاقة","symbols":[{"s":"TVC:GOLD","d":"Gold"},{"s":"TVC:SILVER","d":"Silver"},{"s":"TVC:USOIL","d":"WTI Oil"},{"s":"TVC:NATGAS","d":"Natural Gas"}]},{"title":"العملات الرقمية","symbols":[{"s":"BINANCE:BTCUSDT","d":"Bitcoin"},{"s":"BINANCE:ETHUSDT","d":"Ethereum"}]}]}</script></div></section>
-<div class="notice"><b>شفافية البيانات:</b> الرسوم والأسعار المعروضة تأتي من مزود الرسوم الخارجي وقد تكون متأخرة حسب السوق والاشتراك. مؤشر AFAQ SYRIA المركب الخاص سيُعلن كقيمة رسمية فقط بعد ربط مزود بيانات مرخّص وتحديد مكونات المؤشر وأوزانه وطريقة إعادة التوازن؛ لن نعرض قيمة مصطنعة على أنها سعر حقيقي.</div></main></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a2b">
+<title>AFAQ SYRIA GLOBAL INDEX</title>
+<style>
+:root{
+  --navy:#071a2b;--navy-2:#0a2032;--panel:#10283b;--panel-2:#14334a;
+  --gold:#d9b45b;--gold-2:#f0d58e;--line:#806633;--text:#f5edda;
+  --muted:#c7b88f;--green:#55c69a;--red:#ed8585;--radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(145deg,#061522 0%,var(--navy) 55%,#0a2032 100%);color:var(--text);font-family:Arial,Tahoma,sans-serif;min-height:100vh}
+button,a{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1180px,100%);margin:auto;padding:18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:12px 0 18px;border-bottom:1px solid rgba(217,180,91,.28)}
+.brand{color:var(--gold-2);font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.5px}
+.sub{color:var(--muted);font-size:13px;margin-top:6px}
+.header-actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn,.nav-link{border:1px solid var(--line);background:#0b2235;color:var(--gold-2);padding:10px 14px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.2s}
+.btn:hover,.nav-link:hover,.btn.active{background:var(--gold);color:#071a2b;border-color:var(--gold)}
+.btn.primary{background:linear-gradient(135deg,#e7c875,#c99b3d);color:#071a2b;font-weight:700;border-color:#e7c875}
+.hero{padding:24px 0 8px}
+.eyebrow{color:var(--gold);font-size:12px;letter-spacing:1.5px;font-weight:bold}
+h1{font-size:clamp(23px,4vw,34px);margin:8px 0;color:var(--gold-2)}
+.lead{color:var(--muted);line-height:1.8;margin:0;max-width:760px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0}
+.card,.panel{background:linear-gradient(150deg,rgba(20,51,74,.96),rgba(12,34,52,.98));border:1px solid rgba(128,102,51,.75);border-radius:var(--radius);box-shadow:0 10px 30px rgba(0,0,0,.16)}
+.card{padding:16px;min-width:0}
+.card .label{color:var(--muted);font-size:13px}
+.card b{display:block;color:var(--gold-2);font-size:18px;margin:8px 0}
+.card small{color:#e4d7b9;line-height:1.6}
+.panel{padding:17px;margin:16px 0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+h2{color:var(--gold-2);font-size:20px;margin:0}
+.section-note{color:var(--muted);font-size:12px;line-height:1.7}
+.tabs,.toolbar,.symbol-list{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{margin:18px 0 12px}
+.tab{border:1px solid var(--line);background:#0a2032;color:var(--gold);padding:10px 15px;border-radius:10px}
+.tab[aria-selected="true"]{background:var(--gold);color:#071a2b;font-weight:bold}
+.chart-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:12px 0}
+.symbol-btn{border:1px solid rgba(128,102,51,.85);background:#0a2032;color:var(--gold-2);padding:8px 12px;border-radius:9px}
+.symbol-btn.active{background:var(--gold);color:#071a2b;font-weight:bold}
+.chart-frame{height:540px;width:100%;overflow:hidden;border-radius:12px;background:#081a29;border:1px solid rgba(128,102,51,.55)}
+.chart-frame .tradingview-widget-container,.chart-frame .tradingview-widget-container__widget{height:100%;width:100%}
+.market-frame{min-height:480px}
+.market-frame .tradingview-widget-container,.market-frame .tradingview-widget-container__widget{width:100%}
+.watch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.watch-item{background:#0a2032;border:1px solid rgba(128,102,51,.65);border-radius:12px;padding:13px}
+.watch-item strong{display:block;color:var(--gold-2);margin-bottom:5px}
+.watch-item span{font-size:12px;color:var(--muted)}
+.notice{color:#f2d28a;background:#0a2032;border:1px solid var(--line);padding:13px 15px;border-radius:12px;line-height:1.9;font-size:13px;margin:16px 0}
+.hidden{display:none!important}
+footer{border-top:1px solid rgba(217,180,91,.25);margin-top:24px;padding:18px 0;color:var(--muted);font-size:12px;line-height:1.8}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold-2);outline-offset:3px}
+@media(max-width:850px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.watch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-frame{height:470px}}
+@media(max-width:520px){.wrap{padding:13px}.header-actions{width:100%}.header-actions>*{flex:1}.cards{gap:8px}.card{padding:12px}.card b{font-size:16px}.watch-grid{grid-template-columns:1fr}.chart-frame{height:420px}.panel{padding:13px}.tab,.btn{padding:9px 11px;font-size:13px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+  <div>
+    <div class="brand">AFAQ SYRIA GLOBAL INDEX</div>
+    <div class="sub">مؤشر آفاق سوريا العالمي · مركز متابعة الأسواق والأصول</div>
+  </div>
+  <div class="header-actions">
+    <a class="nav-link" href="index.html">← العودة إلى المنصة الرئيسية</a>
+    <button class="btn" type="button" id="topBtn">العودة إلى الأعلى ↑</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">GLOBAL MARKETS • LIVE CHARTS</div>
+  <h1>لوحة الأسواق العالمية</h1>
+  <p class="lead">تابع المؤشرات والأسهم والمعادن والطاقة والعملات من لوحة واحدة. اختر الأصل والفترة الزمنية لعرض الرسم البياني التفاعلي.</p>
+</section>
+
+<section class="cards" aria-label="فئات الأسواق">
+  <article class="card"><div class="label">الأسهم والمؤشرات</div><b>NASDAQ · S&P 500</b><small>DAX · Dow Jones · مؤشرات عالمية</small></article>
+  <article class="card"><div class="label">المعادن الثمينة</div><b>الذهب · الفضة</b><small>متابعة أسعار المعادن والأسواق المرتبطة بها</small></article>
+  <article class="card"><div class="label">الطاقة والسلع</div><b>النفط · الغاز</b><small>WTI · Brent · Natural Gas</small></article>
+  <article class="card"><div class="label">العملات والأصول الرقمية</div><b>FX · Bitcoin</b><small>Ethereum · أزواج العملات العالمية</small></article>
+</section>
+
+<nav class="tabs" aria-label="أقسام المؤشر">
+  <button class="tab" type="button" data-tab="chartPanel" aria-selected="true">الرسم البياني</button>
+  <button class="tab" type="button" data-tab="watchPanel" aria-selected="false">قائمة المتابعة</button>
+  <button class="tab" type="button" data-tab="aboutPanel" aria-selected="false">حول المؤشر</button>
+</nav>
+
+<section class="panel" id="chartPanel">
+  <div class="panel-head">
+    <h2>الشموع اليابانية — الأسواق العالمية</h2>
+    <span class="section-note" id="selectedName">الأصل المحدد: NASDAQ 100</span>
+  </div>
+  <div class="chart-toolbar">
+    <div class="symbol-list" aria-label="اختيار الأصل">
+      <button class="symbol-btn active" type="button" data-symbol="NASDAQ:NDX" data-name="NASDAQ 100">NASDAQ 100</button>
+      <button class="symbol-btn" type="button" data-symbol="SP:SPX" data-name="S&amp;P 500">S&amp;P 500</button>
+      <button class="symbol-btn" type="button" data-symbol="TVC:GOLD" data-name="الذهب">الذهب</button>
+      <button class="symbol-btn" type="button" data-symbol="TVC:SILVER" data-name="الفضة">الفضة</button>
+      <button class="symbol-btn" type="button" data-symbol="TVC:USOIL" data-name="النفط WTI">النفط</button>
+      <button class="symbol-btn" type="button" data-symbol="BINANCE:BTCUSDT" data-name="Bitcoin / USDT">Bitcoin</button>
+      <button class="symbol-btn" type="button" data-symbol="BINANCE:ETHUSDT" data-name="Ethereum / USDT">Ethereum</button>
+    </div>
+    <div class="toolbar" aria-label="الفترة الزمنية">
+      <button class="btn interval-btn" type="button" data-interval="15">15 دقيقة</button>
+      <button class="btn interval-btn" type="button" data-interval="60">ساعة</button>
+      <button class="btn interval-btn active" type="button" data-interval="D">يومي</button>
+      <button class="btn interval-btn" type="button" data-interval="W">أسبوعي</button>
+    </div>
+  </div>
+  <div class="chart-frame" id="mainChart" aria-label="الرسم البياني التفاعلي">
+    <div style="padding:22px;color:#d9b45b;text-align:center">جارٍ تحميل الرسم البياني…</div>
+  </div>
+  <p class="section-note">يمكنك تغيير الأصل والفترة الزمنية من الأزرار أعلاه، كما يمكنك استخدام أدوات الرسم والتكبير داخل المخطط.</p>
+</section>
+
+<section class="panel hidden" id="watchPanel">
+  <div class="panel-head"><h2>قائمة مراقبة الأسواق</h2><span class="section-note">اختر أي أصل للانتقال مباشرة إلى الرسم البياني</span></div>
+  <div class="watch-grid">
+    <button class="watch-item symbol-btn" type="button" data-symbol="NASDAQ:NDX" data-name="NASDAQ 100"><strong>NASDAQ 100</strong><span>مؤشر أسهم التكنولوجيا الأمريكية</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="SP:SPX" data-name="S&amp;P 500"><strong>S&amp;P 500</strong><span>أكبر الشركات الأمريكية</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="XETR:DAX" data-name="DAX"><strong>DAX</strong><span>السوق الألماني</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="DJ:DJI" data-name="Dow Jones"><strong>Dow Jones</strong><span>مؤشر داو جونز</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="TVC:GOLD" data-name="الذهب"><strong>الذهب</strong><span>المعادن الثمينة</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="TVC:SILVER" data-name="الفضة"><strong>الفضة</strong><span>المعادن الثمينة</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="TVC:USOIL" data-name="النفط WTI"><strong>النفط WTI</strong><span>الطاقة</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="TVC:UKOIL" data-name="نفط Brent"><strong>نفط Brent</strong><span>الطاقة</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="BINANCE:BTCUSDT" data-name="Bitcoin / USDT"><strong>Bitcoin</strong><span>الأصول الرقمية</span></button>
+    <button class="watch-item symbol-btn" type="button" data-symbol="BINANCE:ETHUSDT" data-name="Ethereum / USDT"><strong>Ethereum</strong><span>الأصول الرقمية</span></button>
+  </div>
+</section>
+
+<section class="panel hidden" id="aboutPanel">
+  <h2>حول مؤشر آفاق سوريا العالمي</h2>
+  <p class="lead">هذه الصفحة واجهة لمتابعة الأسواق العالمية عبر الرسوم والبيانات المقدمة من TradingView. لا تمثل هذه الصفحة وسيط تداول أو جهة تنفيذ أوامر مالية.</p>
+  <div class="notice">مؤشر AFAQ SYRIA المركب الخاص لن يُعرض كقيمة رسمية إلا بعد تحديد مكوناته وأوزانه ومنهجية احتسابه وربط مزود بيانات مرخّص. لن نعرض قيمة تقديرية على أنها سعر سوق حقيقي.</div>
+</section>
+
+<div class="notice"><b>شفافية البيانات:</b> الرسوم والأسعار تأتي من مزود خارجي وقد تكون متأخرة حسب السوق والاشتراك. لا تعتمد على هذه الصفحة وحدها لاتخاذ قرارات استثمارية أو تداولية.</div>
+
+<section class="panel">
+  <div class="panel-head"><h2>نظرة عامة على الأسواق</h2><span class="section-note">أدوات متابعة خارجية من TradingView</span></div>
+  <div class="market-frame" id="marketOverview">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+      {"colorTheme":"dark","dateRange":"12M","showChart":true,"locale":"ar","width":"100%","height":"500","isTransparent":true,"showSymbolLogo":true,"tabs":[{"title":"المؤشرات","symbols":[{"s":"NASDAQ:NDX","d":"NASDAQ 100"},{"s":"SP:SPX","d":"S&P 500"},{"s":"XETR:DAX","d":"DAX"},{"s":"DJ:DJI","d":"Dow Jones"}]},{"title":"المعادن والطاقة","symbols":[{"s":"TVC:GOLD","d":"Gold"},{"s":"TVC:SILVER","d":"Silver"},{"s":"TVC:USOIL","d":"WTI Oil"},{"s":"TVC:NATGAS","d":"Natural Gas"}]},{"title":"العملات الرقمية","symbols":[{"s":"BINANCE:BTCUSDT","d":"Bitcoin"},{"s":"BINANCE:ETHUSDT","d":"Ethereum"}]}]}</script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><b style="color:var(--gold)">AFAQ SYRIA GLOBAL INDEX</b></div>
+  <div>© آفاق سوريا — واجهة معلومات الأسواق العالمية.</div>
+  <div>TradingView علامة تجارية ومصدر الرسوم والبيانات المضمنة في هذه الصفحة.</div>
+</footer>
+</main>
+<script>
+(function(){
+  "use strict";
+  const chartHost=document.getElementById("mainChart");
+  let currentSymbol="NASDAQ:NDX";
+  let currentInterval="D";
+  let currentName="NASDAQ 100";
+
+  function loadChart(){
+    chartHost.innerHTML="";
+    const container=document.createElement("div");
+    container.className="tradingview-widget-container";
+    container.style.height="100%";
+    container.style.width="100%";
+    const widget=document.createElement("div");
+    widget.className="tradingview-widget-container__widget";
+    widget.style.height="calc(100% - 32px)";
+    widget.style.width="100%";
+    const credit=document.createElement("div");
+    credit.style.cssText="height:28px;padding:5px 10px;font-size:11px;text-align:left;color:#c7b88f";
+    const link=document.createElement("a");
+    link.href="https://www.tradingview.com/";
+    link.target="_blank";
+    link.rel="noopener";
+    link.textContent="TradingView";
+    link.style.color="#d9b45b";
+    credit.appendChild(link);
+    const script=document.createElement("script");
+    script.type="text/javascript";
+    script.src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.async=true;
+    script.text=JSON.stringify({
+      autosize:true,symbol:currentSymbol,interval:currentInterval,timezone:"Etc/UTC",
+      theme:"dark",style:"1",locale:"ar",allow_symbol_change:true,calendar:false,
+      support_host:"https://www.tradingview.com"
+    });
+    container.append(widget,credit,script);
+    chartHost.appendChild(container);
+    document.getElementById("selectedName").textContent="الأصل المحدد: "+currentName;
+  }
+
+  function chooseSymbol(button){
+    currentSymbol=button.dataset.symbol;
+    currentName=button.dataset.name||button.textContent.trim();
+    document.querySelectorAll("[data-symbol]").forEach(b=>b.classList.toggle("active",b.dataset.symbol===currentSymbol && b.classList.contains("symbol-btn") && b.closest("#chartPanel")));
+    document.querySelectorAll("#chartPanel .symbol-btn").forEach(b=>b.classList.toggle("active",b.dataset.symbol===currentSymbol));
+    loadChart();
+    showTab("chartPanel");
+    document.getElementById("chartPanel").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function showTab(id){
+    ["chartPanel","watchPanel","aboutPanel"].forEach(panelId=>{
+      document.getElementById(panelId).classList.toggle("hidden",panelId!==id);
+    });
+    document.querySelectorAll(".tab").forEach(tab=>{
+      tab.setAttribute("aria-selected",String(tab.dataset.tab===id));
+    });
+  }
+
+  document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>showTab(tab.dataset.tab)));
+  document.querySelectorAll("[data-symbol]").forEach(button=>button.addEventListener("click",()=>chooseSymbol(button)));
+  document.querySelectorAll(".interval-btn").forEach(button=>button.addEventListener("click",()=>{
+    currentInterval=button.dataset.interval;
+    document.querySelectorAll(".interval-btn").forEach(b=>b.classList.toggle("active",b===button));
+    loadChart();
+  }));
+  document.getElementById("topBtn").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  loadChart();
+})();
+</script>
+</body>
+</html>

@@ -816,12 +816,29 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'Worker متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';status.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b';if(topBadge){topBadge.textContent=ok===true?'Cloudflare Worker متصل':ok===false?'Cloudflare Worker غير متصل':'لم يتم فحص الخادم';topBadge.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';topBadge.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b'}};
  async function request(path,options={}){
    if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-   const headers={...(options.headers||{})};if(options.body!==undefined&&!headers['Content-Type']&&!headers['content-type'])headers['Content-Type']='application/json';const response=await fetch(apiBase+path,{...options,cache:'no-store',mode:'cors',credentials:'omit',headers});
-   const data=await response.json().catch(()=>({}));
+   const headers={...(options.headers||{})};
+   if(options.body!==undefined&&!headers['Content-Type']&&!headers['content-type'])headers['Content-Type']='application/json';
+   const response=await fetch(apiBase+path,{...options,cache:'no-store',mode:'cors',credentials:'omit',headers});
+   const raw=await response.text();let data={};
+   if(raw){try{data=JSON.parse(raw)}catch(_){data={message:raw.trim()}}}
    if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
+   if(data&&data.ok===false)throw new Error(data.error||data.message||'رفض الخادم الطلب');
    return data;
  }
- async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true)throw new Error('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
+ async function test(){
+   try{
+     say('جارٍ اختبار الاتصال…');
+     const r=await request('/health',{method:'GET'});
+     // A successful HTTP health response is valid even if the Worker returns
+     // plain text or uses a status field instead of the exact {ok:true} shape.
+     if(r.status&&/error|fail|down/i.test(String(r.status)))throw new Error(r.message||'الخادم يعلن حالة غير سليمة');
+     say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true);
+     return true;
+   }catch(e){
+     const detail=e instanceof TypeError?'تعذر الوصول إلى Worker: تحقق من عنوانه المنشور وإعدادات CORS للسماح لموقع GitHub Pages.':e.message;
+     say('فشل الاتصال: '+detail,false);return false;
+   }
+ }
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {
@@ -831,7 +848,15 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
     partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
  }
- async function sync(){try{say('جارٍ التحقق من الخادم قبل المزامنة…');const health=await request('/health',{method:'GET'});if(health.ok!==true)throw new Error('الخادم لم يؤكد جاهزيته عبر /health');say('تم التحقق. جارٍ إرسال السجلات…');const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});say('اكتملت المزامنة · '+(r.saved??'تم قبول الطلب')+' مجموعة بيانات',true)}catch(e){say('تعذرت المزامنة: '+e.message,false)}}
+ async function sync(){
+   try{
+     say('جارٍ التحقق من الخادم قبل المزامنة…');
+     const healthy=await test();if(!healthy)throw new Error('تعذر إثبات اتصال الخادم؛ لم تُرسل أي بيانات');
+     say('تم التحقق. جارٍ إرسال السجلات…');
+     const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});
+     say('أكد الخادم استلام طلب المزامنة'+(r.saved!==undefined?' · '+r.saved+' مجموعة بيانات':''),true);
+   }catch(e){say('تعذرت المزامنة: '+e.message,false)}
+ }
  $('afaqApiSave').addEventListener('click',()=>{apiBase=normalize(input.value);if(!/^https:\/\//i.test(apiBase)){say('يجب إدخال عنوان HTTPS صحيح',false);return}localStorage.setItem(key,apiBase);say('تم حفظ عنوان الخادم على هذا الجهاز');test()});
  $('afaqApiTest').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));test()});
  $('afaqApiSync').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));sync()});

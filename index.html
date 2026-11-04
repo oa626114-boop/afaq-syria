@@ -67,7 +67,7 @@
 <div class="field"><label>اسم المشروع</label><input name="name" required></div><div class="field"><label>القطاع</label><select name="sector"><option>بنية تحتية</option><option>استثمار عقاري</option><option>طرق وجسور</option><option>طاقة ومياه</option><option>صناعة وتجارة</option><option>زراعة</option><option>سياحة</option><option>أخرى</option></select></div>
 <div class="field"><label>المحافظة / الموقع</label><input name="location"></div><div class="field"><label>الميزانية التقديرية</label><input name="budget" type="number" min="0" step="0.01"></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>الحالة</label><select name="status"><option>فكرة أولية</option><option>قيد الدراسة</option><option>فرصة استثمارية</option><option>قيد التنفيذ</option><option>مكتمل</option><option>متوقف</option></select></div></div><div class="field"><label>الوصف</label><textarea name="description"></textarea></div><button class="btn">حفظ المشروع</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>المشروع</th><th>القطاع</th><th>الموقع</th><th>الميزانية</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="projectRows"></tbody></table></div></div></section>
 
-<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2><div id="cityMessage" class="notice" role="status" aria-live="polite" style="display:none"></div><div class="card"><form id="cityForm"><div class="formgrid"><div class="field"><label>المحافظة</label><select name="governorate" id="governorate"></select></div><div class="field"><label>اسم المدينة / المنطقة</label><input name="city" required></div></div><button class="btn">إضافة المدينة</button></form></div><div class="card"><h3>المدن المسجلة</h3><div class="tablewrap"><table><thead><tr><th>المحافظة</th><th>المدينة / المنطقة</th><th>إجراء</th></tr></thead><tbody id="cityRows"></tbody></table></div></div></section>
+<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2><div id="cityMessage" class="notice" role="status" aria-live="polite" style="display:none"></div><div class="card"><form id="cityForm"><div class="formgrid"><div class="field"><label>المحافظة</label><select name="governorate" id="governorate"></select></div><div class="field"><label>اسم المدينة / المنطقة</label><input name="city" required></div></div><button type="button" class="btn" id="addCityBtn" onclick="addCity()">إضافة المدينة</button></form></div><div class="card"><h3>المدن المسجلة</h3><div class="tablewrap"><table><thead><tr><th>المحافظة</th><th>المدينة / المنطقة</th><th>إجراء</th></tr></thead><tbody id="cityRows"></tbody></table></div></div></section>
 
 <section id="portfolios" class="page"><h2>الحقائب الاستثمارية</h2><div class="card"><form id="portfolioForm"><div class="formgrid"><div class="field"><label>اسم الحقيبة</label><input name="name" required></div><div class="field"><label>الاسم بالإنجليزية</label><input name="english"></div><div class="field"><label>رمز الحقيبة</label><input name="code"></div><div class="field"><label>القطاع</label><input name="sector"></div></div><div class="field"><label>الوصف</label><textarea name="description"></textarea></div><button class="btn">حفظ الحقيبة</button></form></div><div id="portfolioRows"></div></section>
 
@@ -108,22 +108,31 @@ const govs=['دمشق','ريف دمشق','حلب','حمص','حماة','اللا�
 document.getElementById('governorate').innerHTML=govs.map(x=>'<option>'+x+'</option>').join('');
 function bind(formId,k,mapper){document.getElementById(formId).addEventListener('submit',e=>{e.preventDefault();addRow(k,mapper(e.target));e.target.reset()})}
 bind('projectForm','projects',f=>Object.fromEntries(['name','sector','location','budget','currency','status','description'].map(n=>[n,val(f,n)])));
-document.getElementById('cityForm').addEventListener('submit',e=>{
- e.preventDefault();
- const form=e.currentTarget, governorate=val(form,'governorate'), city=val(form,'city');
+function addCity(){
+ const form=document.getElementById('cityForm');
+ const governorate=form.elements.governorate.value.trim();
+ const city=form.elements.city.value.trim();
  const msg=document.getElementById('cityMessage');
- if(!city){form.elements.city.focus();return}
+ const btn=document.getElementById('addCityBtn');
+ if(!city){msg.textContent='يرجى كتابة اسم المدينة أولاً.';msg.style.display='block';form.elements.city.focus();return}
+ btn.disabled=true;
  try{
-  addRow('cities',{governorate,city});
-  form.reset();
+  const rows=read('cities');
+  rows.push({governorate,city,id:Date.now()+Math.random()});
+  localStorage.setItem('afaq_cities',JSON.stringify(rows));
+  const saved=JSON.parse(localStorage.getItem('afaq_cities')||'[]');
+  if(!saved.some(x=>x.city===city&&x.governorate===governorate)) throw new Error('Storage verification failed');
+  render();
+  form.elements.city.value='';
   msg.textContent='تمت إضافة '+city+' إلى محافظة '+governorate+' بنجاح.';
   msg.style.display='block';
  }catch(err){
-  msg.textContent='تعذر حفظ المدينة في هذا المتصفح. تحقق من مساحة التخزين ثم أعد المحاولة.';
+  msg.textContent='لم يتم الحفظ. قد يكون تخزين المتصفح معطلاً أو ممتلئاً. افتح الموقع عبر HTTPS ثم أعد المحاولة.';
   msg.style.display='block';
   console.error('City save error:',err);
- }
-});
+ }finally{btn.disabled=false}
+}
+document.getElementById('cityForm').addEventListener('submit',e=>{e.preventDefault();addCity()});
 bind('portfolioForm','portfolios',f=>Object.fromEntries(['name','english','code','sector','description'].map(n=>[n,val(f,n)])));
 bind('watchForm','watch',f=>({symbol:val(f,'symbol').toUpperCase()}));
 bind('tradeForm','trades',f=>({...Object.fromEntries(['side','type','symbol','asset','quantity','price','currency'].map(n=>[n,val(f,n)])),total:(Number(val(f,'quantity'))*Number(val(f,'price'))).toFixed(2),date:new Date().toLocaleString('ar')}));

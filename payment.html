@@ -9,17 +9,17 @@
 @media(max-width:560px){.row,.methods{grid-template-columns:1fr}header{padding:12px 14px}main{margin-top:20px}}
 </style></head><body>
 <header><div class="brand">آفاق سوريا <small>AFAQ SYRIA · PAYMENT CENTER</small></div><a class="back" href="./">العودة إلى الموقع</a></header>
-<main><div class="eyebrow">SECURE PAYMENT LINKS</div><h1>مركز الدفع والتحصيل</h1><p class="intro">إنشاء فواتير وروابط دفع للعملاء. تُعالج بيانات الدفع الحساسة لدى مزود الدفع، ولا يخزن هذا الموقع بيانات البطاقات.</p>
+<main><div class="eyebrow">SECURE PAYMENT LINKS</div><h1>مركز الدفع والتحصيل</h1><p class="intro">إنشاء فواتير وروابط دفع بالعملات الرقمية عبر NOWPayments. وسائل البطاقات والتحويلات البنكية غير مفعّلة في هذه النسخة.</p>
 <section class="panel"><h2 class="section-title">اختر وسيلة الدفع</h2><div class="methods">
 <button class="method active" type="button" data-method="crypto"><b>₿ العملات الرقمية</b><small>USDT · BTC · ETH · TRX عبر NOWPayments</small><span class="tag">متاح للاختبار بعد نجاح API</span></button>
-<button class="method" type="button" data-method="card"><b>💳 Visa / Mastercard</b><small>قد تظهر عبر NOWPayments Fiat On-Ramp بعد تفعيلها</small><span class="tag pending">يتطلب Fiat On-Ramp وKYC/KYB</span></button>
-<button class="method" type="button" data-method="applepay"><b> Apple Pay</b><small>قد يظهر داخل صفحة مزود On-Ramp وفق البلد والجهاز</small><span class="tag pending">ليس مضموناً قبل التفعيل</span></button>
+<button class="method" type="button" data-method="card" disabled><b>💳 Visa / Mastercard</b><small>قد تظهر عبر NOWPayments Fiat On-Ramp بعد تفعيلها</small><span class="tag pending">يتطلب Fiat On-Ramp وKYC/KYB</span></button>
+<button class="method" type="button" data-method="applepay" disabled><b> Apple Pay</b><small>قد يظهر داخل صفحة مزود On-Ramp وفق البلد والجهاز</small><span class="tag pending">ليس مضموناً قبل التفعيل</span></button>
 <button class="method" type="button" data-method="paypal"><b>PayPal</b><small>حسب بلد تسجيل الشركة وحالة حساب PayPal Business</small><span class="tag pending">بانتظار حساب مؤهل</span></button>
 <button class="method" type="button" data-method="papara"><b>Papara</b><small>حسب التوفر والأهلية وموافقة مزود الخدمة</small><span class="tag pending">بانتظار التحقق</span></button>
 <button class="method" type="button" data-method="bank"><b>🏦 تحويل بنكي</b><small>تعليمات التحويل البنكي يضيفها مدير الحساب</small><span class="tag pending">إعداد يدوي</span></button>
-</div><div id="methodNotice" class="notice">الدفع الرقمي يستخدم NOWPayments لإنشاء فاتورة مستضافة ورابط يمكن مشاركته. لا ترسل أي عملة قبل ظهور فاتورة صادرة من مزود الدفع.</div></section>
+</div><div id="methodNotice" class="notice">الدفع بالعملات الرقمية فقط متاح حالياً عبر NOWPayments. البطاقات وApple Pay وPayPal وPapara والتحويل البنكي غير مفعّلة حتى ربط مزود معتمد. لا ترسل أي عملة قبل ظهور فاتورة صادرة من مزود الدفع.</div></section>
 <section class="panel"><h2 class="section-title">إنشاء فاتورة / رابط دفع</h2><p class="hint">يتطلب إنشاء الفاتورة تسجيل الدخول إلى عضويتك من الصفحة الرئيسية في علامة التبويب نفسها.</p><form id="paymentForm"><div class="row"><div><label for="amount">المبلغ</label><input id="amount" type="number" min="1" max="1000000" step="0.01" placeholder="100.00" required></div><div><label for="priceCurrency">عملة الفاتورة</label><select id="priceCurrency"><option value="usd">USD — دولار أمريكي</option><option value="eur">EUR — يورو</option><option value="try">TRY — ليرة تركية</option><option value="gbp">GBP — جنيه إسترليني</option></select></div></div>
-<div id="cryptoFields"><div class="row"><div><label for="payCurrency">عملة / شبكة الاستلام</label><select id="payCurrency"><option value="usdttrc20">USDT — TRC20</option><option value="usdterc20">USDT — ERC20</option><option value="all">اختيار العميل — كل العملات المتاحة (قد تشمل فيات إذا فُعّلت)</option><option value="usd">USD — دفع فيات عبر On-Ramp</option><option value="btc">Bitcoin (BTC)</option><option value="eth">Ethereum (ETH)</option><option value="trx">TRON (TRX)</option></select></div><div><label for="customerEmail">بريد العميل (اختياري)</label><input id="customerEmail" type="email" placeholder="customer@example.com"></div></div></div>
+<div id="cryptoFields"><div class="row"><div><label for="payCurrency">عملة / شبكة الاستلام</label><select id="payCurrency"><option value="usdttrc20">USDT — TRC20</option><option value="usdterc20">USDT — ERC20</option><option value="all">اختيار العميل — العملات الرقمية المتاحة</option><option value="btc">Bitcoin (BTC)</option><option value="eth">Ethereum (ETH)</option><option value="trx">TRON (TRX)</option></select></div><div><label for="customerEmail">بريد العميل (اختياري)</label><input id="customerEmail" type="email" placeholder="customer@example.com"></div></div></div>
 <label for="description">وصف الفاتورة</label><input id="description" maxlength="180" placeholder="خدمات / استثمار / طلب تجاري" required>
 <button class="primary" id="submitBtn" type="submit">إنشاء رابط فاتورة NOWPayments</button><p class="hint">سيتم فتح صفحة دفع آمنة مستضافة لدى مزود الدفع. لا تدخل بيانات البطاقة أو كلمات المرور في هذه الصفحة.</p></form>
 <div class="result" id="result" aria-live="polite"><h2>تم إنشاء رابط الفاتورة</h2><div class="status" id="resultStatus"></div><a id="invoiceLink" href="#" target="_blank" rel="noopener">فتح صفحة الدفع الآمنة</a><button class="primary" id="copyLink" type="button">نسخ رابط الدفع</button><p class="hint" id="orderRef"></p></div>
@@ -30,32 +30,32 @@
 const WORKER_URL='https://omax-api-105a.oa626114.workers.dev';
 const MEMBER_TOKEN_KEY='afaq_member_token_v1';
 const memberToken=()=>sessionStorage.getItem(MEMBER_TOKEN_KEY)||'';
+const $=id=>document.getElementById(id);
 (function prefillFromWallet(){const q=new URLSearchParams(location.search);const amount=q.get('amount');if(amount&&Number.isFinite(Number(amount))&&Number(amount)>0)$('amount').value=amount;const raw=(q.get('currency')||'').toLowerCase().replace(/\s+/g,'');const map={'usdttrc20':'usdttrc20','usdt—trc20':'usdttrc20','usdt-trc20':'usdttrc20','usdt erc20':'usdterc20','usdterc20':'usdterc20','btc':'btc','bitcoin':'btc','eth':'eth','ethereum':'eth','trx':'trx','tron':'trx'};if(map[raw])$('payCurrency').value=map[raw];})();
 let selectedMethod='crypto';
-const $=id=>document.getElementById(id);
 const methods=[...document.querySelectorAll('[data-method]')];
 methods.forEach(btn=>btn.addEventListener('click',()=>{
  selectedMethod=btn.dataset.method;methods.forEach(x=>x.classList.toggle('active',x===btn));
- const supported=['crypto','card','applepay'].includes(selectedMethod);
+ const supported=selectedMethod==='crypto';
  $('cryptoFields').style.display=supported?'block':'none';
  $('submitBtn').disabled=!supported;
  $('submitBtn').textContent=selectedMethod==='crypto'?'إنشاء رابط فاتورة العملات الرقمية':(selectedMethod==='card'||selectedMethod==='applepay'?'إنشاء رابط دفع فيات عبر On-Ramp (إذا كان مفعّلاً)':'هذه الوسيلة بانتظار تفعيل بوابة مستقلة');
  if(selectedMethod==='card'||selectedMethod==='applepay')$('payCurrency').value='usd';
  else if(selectedMethod==='crypto'&&['usd','eur','gbp','try','cad','aud'].includes($('payCurrency').value))$('payCurrency').value='usdttrc20';
- $('methodNotice').textContent=selectedMethod==='crypto'?'الدفع الرقمي ينشئ فاتورة مستضافة عبر NOWPayments ويمكن مشاركة رابطها.':(selectedMethod==='card'||selectedMethod==='applepay'?'مسار Fiat On-Ramp يعتمد على مزود طرف ثالث. فعّله من NOWPayments > Settings > Fiat Operations / Coins Settings وأكمل KYC/KYB. قد تظهر Visa/Mastercard أو Apple Pay حسب البلد والمزود، وقد تُحوّل الأموال إلى عملة رقمية في محفظتك؛ هذا ليس بالضرورة تسوية بطاقات مباشرة إلى البنك.':'لم يتم ربط حساب تاجر لهذه الوسيلة بعد. لن ننشئ رابطاً وهمياً. يلزم مزود مستقل وحساب تاجر معتمد.');
+ $('methodNotice').textContent='الدفع بالعملات الرقمية فقط متاح حالياً عبر NOWPayments. وسائل البطاقات وApple Pay وPayPal وPapara والتحويل البنكي تنتظر ربط مزود معتمد.';
 }));
 $('paymentForm').addEventListener('submit',async e=>{
- e.preventDefault();if(!['crypto','card','applepay'].includes(selectedMethod))return;
+ e.preventDefault();if(selectedMethod!=='crypto')return;
  const amount=Number($('amount').value);if(!Number.isFinite(amount)||amount<=0){$('result').style.display='block';$('resultStatus').textContent='أدخل مبلغاً صحيحاً.';$('resultStatus').className='status error';return;}
  const btn=$('submitBtn');btn.disabled=true;btn.textContent='جارٍ إنشاء رابط الدفع…';$('result').style.display='block';$('resultStatus').textContent='جارٍ الاتصال بخادم الدفع…';$('resultStatus').className='status';
- try{const payCurrency=(selectedMethod==='card'||selectedMethod==='applepay')?'usd':$('payCurrency').value;
+ try{const payCurrency=$('payCurrency').value;
   const token=memberToken();if(!token)throw new Error('يجب تسجيل الدخول أولاً من الصفحة الرئيسية قبل إنشاء فاتورة.');
    const response=await fetch(WORKER_URL+'/api/payment/create',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},mode:'cors',credentials:'omit',body:JSON.stringify({amount,currency:$('priceCurrency').value,pay_currency:payCurrency,description:$('description').value,success_url:location.href.split('?')[0]+'?payment=success',cancel_url:location.href.split('?')[0]+'?payment=cancel'})});
   const data=await response.json().catch(()=>({}));if(!response.ok||!data.ok||!data.invoice_url)throw new Error(data.error||'لم يرجع مزود الدفع رابط الفاتورة');
   $('invoiceLink').href=data.invoice_url;$('invoiceLink').textContent=data.invoice_url;$('orderRef').textContent='رقم الطلب: '+data.order_id+' · رقم الفاتورة: '+(data.invoice_id||'—');
-  $('resultStatus').textContent=selectedMethod==='crypto'?'تم إنشاء رابط الفاتورة لدى NOWPayments. افتحه وتحقق من العملة والشبكة والمبلغ قبل الدفع.':'تم إنشاء رابط NOWPayments. ظهور الدفع بالبطاقة أو Apple Pay يعتمد على تفعيل On-Ramp وتوفر مزود الفيات في بلد العميل.';$('resultStatus').className='status success';
+  $('resultStatus').textContent='تم إنشاء رابط الفاتورة لدى NOWPayments. افتحه وتحقق من العملة والشبكة والمبلغ قبل الدفع.';$('resultStatus').className='status success';
  }catch(err){$('resultStatus').textContent='تعذر إنشاء رابط الدفع: '+err.message;$('resultStatus').className='status error';}
- finally{btn.disabled=false;btn.textContent=selectedMethod==='crypto'?'إنشاء رابط فاتورة العملات الرقمية':'إنشاء رابط دفع فيات عبر On-Ramp';}
+ finally{btn.disabled=false;btn.textContent='إنشاء رابط فاتورة العملات الرقمية';}
 });
 $('copyLink').addEventListener('click',async()=>{const url=$('invoiceLink').href;if(!url||url.endsWith('#'))return;try{await navigator.clipboard.writeText(url);$('resultStatus').textContent='تم نسخ رابط الدفع.';$('resultStatus').className='status success';}catch(_){$('resultStatus').textContent='تعذر النسخ التلقائي؛ اضغط مطولاً على الرابط لنسخه.';}});
 </script></body></html>

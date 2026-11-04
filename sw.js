@@ -1,5 +1,5 @@
-const CACHE = 'afaq-syria-v6';
-const CORE = ['./','./index.html','./payment.html','./crypto-wallet.html','./global-market.html','./manifest.webmanifest','./icon.svg'];
+const CACHE = 'afaq-syria-v7';
+const CORE = ['./','./index.html','./payment.html','./crypto-wallet.html','./global-market.html','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });

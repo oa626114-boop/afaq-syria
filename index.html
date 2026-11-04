@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b1d2b">
 <title>آفاق سوريا | منصة الأعمال والاستثمار</title>
 <style>
@@ -83,32 +84,58 @@ input,select,textarea{font-size:19px;padding:13px}
  cursor:pointer;font-size:21px;padding:6px}
 .password-toggle:focus-visible{outline:2px solid #e4c15f;outline-offset:2px}
 
-</style></head>
+</style>
+</head>
 <body>
 <section id="authGate" aria-label="تسجيل الدخول والعضوية">
  <div class="auth-card">
-  <div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div>
+  <div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small>
+</div>
   <h1>بوابة المشتركين في آفاق سوريا</h1>
   <p class="muted">اختر الطريقة المناسبة للمتابعة إلى منصة آفاق سوريا.</p>
-  <div class="auth-tabs"><button type="button" id="registerTab" class="btn">تسجيل مشترك جديد</button><button type="button" id="loginTab" class="btn secondary">لدي حساب بالفعل — تسجيل الدخول</button></div>
+  <div class="auth-tabs">
+<button type="button" id="registerTab" class="btn">تسجيل مشترك جديد</button><button type="button" id="loginTab" class="btn secondary">لدي حساب بالفعل — تسجيل الدخول</button>
+</div>
   <p class="auth-choice-note">إذا لم يسبق لك التسجيل اختر «تسجيل مشترك جديد»، وإذا كان لديك حساب سابق اختر «تسجيل الدخول».</p>
   <form id="loginForm" class="hidden">
-   <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="username"></div>
-   <div class="field"><label>كلمة المرور</label><div class="password-wrap"><input name="password" type="password" required autocomplete="current-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
+   <div class="field">
+<label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="username">
+</div>
+   <div class="field">
+<label>كلمة المرور</label><div class="password-wrap">
+<input name="password" type="password" required autocomplete="current-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button>
+</div>
+</div>
    <button class="btn" type="submit">دخول إلى المنصة</button>
   </form>
   <form id="registerForm" class="hidden">
-   <div class="field"><label>الاسم الكامل</label><input name="name" required autocomplete="name" minlength="2"></div>
-   <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="email"></div>
-   <div class="field"><label>كلمة المرور (10 أحرف على الأقل)</label><div class="password-wrap"><input name="password" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
-   <div class="field"><label>تأكيد كلمة المرور</label><div class="password-wrap"><input name="confirmPassword" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="confirmPassword" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
+   <div class="field">
+<label>الاسم الكامل</label><input name="name" required autocomplete="name" minlength="2">
+</div>
+   <div class="field">
+<label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="email">
+</div>
+   <div class="field">
+<label>كلمة المرور (10 أحرف على الأقل)</label><div class="password-wrap">
+<input name="password" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button>
+</div>
+</div>
+   <div class="field">
+<label>تأكيد كلمة المرور</label><div class="password-wrap">
+<input name="confirmPassword" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="confirmPassword" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button>
+</div>
+</div>
    <button class="btn" type="submit">إنشاء حساب مشترك جديد</button>
   </form>
   <p id="authMessage" class="auth-message" role="status" aria-live="polite"></p>
   <div class="notice small">حماية الحسابات والصلاحيات تتطلب خادماً فعلياً. لا يمكن جعل التسجيل آمناً أو حفظ العضويات مركزياً باستخدام ملف HTML وحده. لا تشارك كلمة مرور المالك مع أي شخص.</div>
  </div>
 </section>
-<header class="top"><div><div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div></div><div class="toolbar"><button class="btn secondary mobilemenu" onclick="document.querySelector('aside').classList.toggle('open')">☰ القائمة</button><span id="userBadge">غير مسجل</span><button id="logoutBtn" class="btn secondary" type="button" onclick="logoutUser()">تسجيل الخروج</button><span class="status">نسخة أولية</span></div></header>
+<header class="top"><div><div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small>
+</div></div>
+<div class="toolbar">
+<button class="btn secondary mobilemenu" onclick="document.querySelector('aside').classList.toggle('open')">☰ القائمة</button><span id="userBadge">غير مسجل</span><button id="logoutBtn" class="btn secondary" type="button" onclick="logoutUser()">تسجيل الخروج</button><span class="status">نسخة أولية</span>
+</div></header>
 <div class="layout">
 <aside id="sidebar">
 <button class="navbtn active" data-page="home">⌂ الرئيسية ولوحة التحكم</button>
@@ -129,75 +156,615 @@ input,select,textarea{font-size:19px;padding:13px}
 </aside>
 <main>
 <section id="home" class="page active">
-<div class="hero"><h1>مرحباً بك في آفاق سوريا</h1><div>منصة موحدة لإدارة المشاريع والاستثمارات والشراكات والعمليات.</div><p class="muted">Investment · Infrastructure · Development</p></div>
-<div class="grid">
-<div class="card"><div>المشاريع المسجلة</div><div class="stat" id="sProjects">0</div></div>
-<div class="card"><div>العملاء والشركاء</div><div class="stat" id="sClients">0</div></div>
-<div class="card"><div>الفواتير</div><div class="stat" id="sInvoices">0</div></div>
-<div class="card"><div>سجلات الأرشيف</div><div class="stat" id="sArchive">0</div></div>
+<div class="hero">
+<h1>مرحباً بك في آفاق سوريا</h1>
+<div>منصة موحدة لإدارة المشاريع والاستثمارات والشراكات والعمليات.</div>
+<p class="muted">Investment · Infrastructure · Development</p>
 </div>
-<div class="card"><h2>الوصول السريع</h2><div class="toolbar"><button class="btn" onclick="showPage('projects')">إدارة المشاريع</button><button class="btn secondary" onclick="showPage('invoices')">إنشاء فاتورة</button><button class="btn secondary" onclick="showPage('clients')">إضافة عميل</button><button class="btn secondary" onclick="showPage('api')">فحص API</button></div></div>
+<div class="grid">
+<div class="card">
+<div>المشاريع المسجلة</div>
+<div class="stat" id="sProjects">0</div>
+</div>
+<div class="card">
+<div>العملاء والشركاء</div>
+<div class="stat" id="sClients">0</div>
+</div>
+<div class="card">
+<div>الفواتير</div>
+<div class="stat" id="sInvoices">0</div>
+</div>
+<div class="card">
+<div>سجلات الأرشيف</div>
+<div class="stat" id="sArchive">0</div>
+</div>
+</div>
+<div class="card">
+<h2>الوصول السريع</h2>
+<div class="toolbar">
+<button class="btn" onclick="showPage('projects')">إدارة المشاريع</button><button class="btn secondary" onclick="showPage('invoices')">إنشاء فاتورة</button><button class="btn secondary" onclick="showPage('clients')">إضافة عميل</button><button class="btn secondary" onclick="showPage('api')">فحص API</button>
+</div>
+</div>
 <div class="notice">تنبيه: هذه النسخة تحفظ سجلات الإدارة التجريبية في هذا المتصفح. لا تنفذ تحويلات مصرفية أو تداولاً أو حفظاً فعلياً للعملات الرقمية، ولا تستقبل أموالاً حقيقية.</div>
-<div class="card"><h2>حالة تجهيز الوحدات</h2><p>واجهة الإدارة: <span class="status">متاحة محلياً</span></p><p>قاعدة البيانات المركزية: <span class="status">تحتاج إعداد الخادم</span></p><p>الدفع والمصرف والحفظ الرقمي: <span class="status">تحتاج مزودين مرخصين</span></p><p>استعادة كلمة المرور: <span class="status">تحتاج خادم بريد وتحقق</span></p></div>
+<div class="card">
+<h2>حالة تجهيز الوحدات</h2>
+<p>واجهة الإدارة: <span class="status">متاحة محلياً</span></p>
+<p>قاعدة البيانات المركزية: <span class="status">تحتاج إعداد الخادم</span></p>
+<p>الدفع والمصرف والحفظ الرقمي: <span class="status">تحتاج مزودين مرخصين</span></p>
+<p>استعادة كلمة المرور: <span class="status">تحتاج خادم بريد وتحقق</span></p>
+</div>
 </section>
 
 <section id="projects" class="page">
-<div class="sectionhead"><h2>إدارة المشاريع والملفات الاستثمارية</h2><span class="status">ملف مستقل لكل مشروع</span></div>
-<div class="notice">أنشئ ملفاً متكاملاً لكل مشروع: الصور والوصف والدراسة والتحليل والجدوى والمخاطر والتوصيات. الصور والسجلات في هذه النسخة تحفظ محلياً على هذا الجهاز.</div>
-<div class="card"><h3>إنشاء ملف مشروع جديد</h3><form id="projectForm"><div class="formgrid">
-<div class="field"><label>اسم المشروع</label><input name="name" required></div>
-<div class="field"><label>القطاع</label><select name="sector"><option>بنية تحتية</option><option>استثمار عقاري</option><option>طرق وجسور</option><option>طاقة ومياه</option><option>صناعة وتجارة</option><option>زراعة</option><option>سياحة</option><option>أخرى</option></select></div>
-<div class="field"><label>المحافظة / الموقع</label><input name="location"></div><div class="field"><label>الميزانية التقديرية</label><input name="budget" type="number" min="0" step="0.01"></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>حالة المشروع</label><select name="status"><option>فكرة أولية</option><option>قيد الدراسة</option><option>فرصة استثمارية</option><option>قيد التنفيذ</option><option>مكتمل</option><option>متوقف</option></select></div><div class="field"><label>نسبة الإنجاز %</label><input name="progress" type="number" min="0" max="100" value="0"></div>
+<div class="sectionhead">
+<h2>إدارة المشاريع والملفات الاستثمارية</h2>
+<span class="status">ملف مستقل لكل مشروع</span>
 </div>
-<div class="field"><label>صور المشروع (حتى 6 صور)</label><input name="images" type="file" accept="image/*" multiple><small class="hint">اختر صور الموقع أو المخططات أو التصاميم. سيتم تصغيرها لتناسب التخزين المحلي. يمكنك إضافة صور أخرى لاحقاً من معرض المشروع.</small><div id="newProjectImagePreview" class="image-preview"></div></div>
-<div class="field"><label>الوصف التفصيلي للمشروع</label><textarea name="description" placeholder="فكرة المشروع، مكوناته، نطاق العمل، المستفيدون..."></textarea></div>
-<div class="field"><label>الأهداف والمخرجات المتوقعة</label><textarea name="objectives" placeholder="الأهداف الرئيسية والنتائج المتوقعة..."></textarea></div>
-<div class="field"><label>دراسة وتحليل المشروع</label><textarea name="analysis" placeholder="تحليل الموقع والاحتياج والسوق والبدائل الفنية والتشغيلية..."></textarea></div>
-<div class="field"><label>الجدوى الاستثمارية والمالية</label><textarea name="feasibility" placeholder="مصادر الإيرادات والتكاليف والافتراضات وفترة الاسترداد إن توفرت البيانات..."></textarea></div>
-<div class="field"><label>المخاطر والتحديات</label><textarea name="risks" placeholder="المخاطر الفنية والتمويلية والتنظيمية والتشغيلية..."></textarea></div>
-<div class="field"><label>التوصيات والخطوات التالية</label><textarea name="recommendations" placeholder="التوصيات والإجراءات المقترحة لاستكمال الدراسة أو التنفيذ..."></textarea></div>
-<button class="btn" type="submit">حفظ ملف المشروع كاملاً</button></form></div>
-<div class="sectionhead"><h3>ملفات المشاريع المسجلة</h3><span class="status" id="projectCount">0 مشروع</span></div><div id="projectRows" class="project-list"></div>
+<div class="notice">أنشئ ملفاً متكاملاً لكل مشروع: الصور والوصف والدراسة والتحليل والجدوى والمخاطر والتوصيات. الصور والسجلات في هذه النسخة تحفظ محلياً على هذا الجهاز.</div>
+<div class="card">
+<h3>إنشاء ملف مشروع جديد</h3>
+<form id="projectForm">
+<div class="formgrid">
+<div class="field">
+<label>اسم المشروع</label><input name="name" required>
+</div>
+<div class="field">
+<label>القطاع</label><select name="sector"><option>بنية تحتية</option>
+<option>استثمار عقاري</option>
+<option>طرق وجسور</option>
+<option>طاقة ومياه</option>
+<option>صناعة وتجارة</option>
+<option>زراعة</option>
+<option>سياحة</option>
+<option>أخرى</option></select>
+</div>
+<div class="field">
+<label>المحافظة / الموقع</label><input name="location">
+</div>
+<div class="field">
+<label>الميزانية التقديرية</label><input name="budget" type="number" min="0" step="0.01">
+</div>
+<div class="field">
+<label>العملة</label><select name="currency"><option>USD</option>
+<option>EUR</option>
+<option>TRY</option>
+<option>SYP</option></select>
+</div>
+<div class="field">
+<label>حالة المشروع</label><select name="status"><option>فكرة أولية</option>
+<option>قيد الدراسة</option>
+<option>فرصة استثمارية</option>
+<option>قيد التنفيذ</option>
+<option>مكتمل</option>
+<option>متوقف</option></select>
+</div>
+<div class="field">
+<label>نسبة الإنجاز %</label><input name="progress" type="number" min="0" max="100" value="0">
+</div>
+</div>
+<div class="field">
+<label>صور المشروع (حتى 6 صور)</label><input name="images" type="file" accept="image/*" multiple><small class="hint">اختر صور الموقع أو المخططات أو التصاميم. سيتم تصغيرها لتناسب التخزين المحلي. يمكنك إضافة صور أخرى لاحقاً من معرض المشروع.</small><div id="newProjectImagePreview" class="image-preview"></div>
+</div>
+<div class="field">
+<label>الوصف التفصيلي للمشروع</label><textarea name="description" placeholder="فكرة المشروع، مكوناته، نطاق العمل، المستفيدون..."></textarea>
+</div>
+<div class="field">
+<label>الأهداف والمخرجات المتوقعة</label><textarea name="objectives" placeholder="الأهداف الرئيسية والنتائج المتوقعة..."></textarea>
+</div>
+<div class="field">
+<label>دراسة وتحليل المشروع</label><textarea name="analysis" placeholder="تحليل الموقع والاحتياج والسوق والبدائل الفنية والتشغيلية..."></textarea>
+</div>
+<div class="field">
+<label>الجدوى الاستثمارية والمالية</label><textarea name="feasibility" placeholder="مصادر الإيرادات والتكاليف والافتراضات وفترة الاسترداد إن توفرت البيانات..."></textarea>
+</div>
+<div class="field">
+<label>المخاطر والتحديات</label><textarea name="risks" placeholder="المخاطر الفنية والتمويلية والتنظيمية والتشغيلية..."></textarea>
+</div>
+<div class="field">
+<label>التوصيات والخطوات التالية</label><textarea name="recommendations" placeholder="التوصيات والإجراءات المقترحة لاستكمال الدراسة أو التنفيذ..."></textarea>
+</div>
+<button class="btn" type="submit">حفظ ملف المشروع كاملاً</button>
+</form>
+</div>
+<div class="sectionhead">
+<h3>ملفات المشاريع المسجلة</h3>
+<span class="status" id="projectCount">0 مشروع</span>
+</div>
+<div id="projectRows" class="project-list"></div>
 </section>
 
-<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2><div id="cityMessage" class="notice" role="status" aria-live="polite" style="display:none"></div><div class="card"><form id="cityForm"><div class="formgrid"><div class="field"><label>المحافظة</label><select name="governorate" id="governorate"></select></div><div class="field"><label>اسم المدينة / المنطقة</label><input name="city" required></div></div><button type="button" class="btn" id="addCityBtn" onclick="addCity()">إضافة المدينة</button></form></div><div class="card"><h3>المدن المسجلة</h3><div class="tablewrap"><table><thead><tr><th>المحافظة</th><th>المدينة / المنطقة</th><th>إجراء</th></tr></thead><tbody id="cityRows"></tbody></table></div></div></section>
+<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2>
+<div id="cityMessage" class="notice" role="status" aria-live="polite" style="display:none"></div>
+<div class="card"><form id="cityForm">
+<div class="formgrid">
+<div class="field">
+<label>المحافظة</label><select name="governorate" id="governorate"></select>
+</div>
+<div class="field">
+<label>اسم المدينة / المنطقة</label><input name="city" required>
+</div>
+</div>
+<button type="button" class="btn" id="addCityBtn" onclick="addCity()">إضافة المدينة</button>
+</form></div>
+<div class="card">
+<h3>المدن المسجلة</h3>
+<div class="tablewrap"><table>
+<thead><tr>
+<th>المحافظة</th>
+<th>المدينة / المنطقة</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="cityRows"></tbody>
+</table></div>
+</div></section>
 
-<section id="portfolios" class="page"><h2>الحقائب الاستثمارية</h2><div class="card"><form id="portfolioForm"><div class="formgrid"><div class="field"><label>اسم الحقيبة</label><input name="name" required></div><div class="field"><label>الاسم بالإنجليزية</label><input name="english"></div><div class="field"><label>رمز الحقيبة</label><input name="code"></div><div class="field"><label>القطاع</label><input name="sector"></div></div><div class="field"><label>الوصف</label><textarea name="description"></textarea></div><button class="btn">حفظ الحقيبة</button></form></div><div id="portfolioRows"></div></section>
+<section id="portfolios" class="page"><h2>الحقائب الاستثمارية</h2>
+<div class="card"><form id="portfolioForm">
+<div class="formgrid">
+<div class="field">
+<label>اسم الحقيبة</label><input name="name" required>
+</div>
+<div class="field">
+<label>الاسم بالإنجليزية</label><input name="english">
+</div>
+<div class="field">
+<label>رمز الحقيبة</label><input name="code">
+</div>
+<div class="field">
+<label>القطاع</label><input name="sector">
+</div>
+</div>
+<div class="field">
+<label>الوصف</label><textarea name="description"></textarea>
+</div>
+<button class="btn">حفظ الحقيبة</button>
+</form></div>
+<div id="portfolioRows"></div></section>
 
-<section id="markets" class="page"><h2>الأسواق العالمية ومؤشر آفاق</h2><div class="notice">الأسعار الحية غير مفعلة في هذه النسخة. لا تعرض هذه الصفحة أرقاماً تقديرية على أنها أسعار سوق. يلزم مزود بيانات مرخص ومفتاح محفوظ على الخادم.</div><div class="grid"><div class="card"><h3>المعادن</h3>الذهب · الفضة <p class="muted">بانتظار مزود بيانات الأسعار</p></div><div class="card"><h3>الطاقة</h3>النفط · الغاز <p class="muted">بانتظار مزود بيانات الأسعار</p></div><div class="card"><h3>الأصول الرقمية</h3>Bitcoin · Ethereum <p class="muted">بانتظار مزود بيانات الأسعار</p></div><div class="card"><h3>الأسهم والمؤشرات</h3>S&P 500 · NASDAQ 100 · DAX <p class="muted">بانتظار مزود بيانات مرخص</p></div></div><div class="card"><h3>قائمة المتابعة</h3><form id="watchForm" class="formgrid"><div class="field"><label>رمز الأصل</label><input name="symbol" required placeholder="مثال: BTC"></div><button class="btn">إضافة للقائمة</button></form><ul id="watchRows"></ul></div></section>
+<section id="markets" class="page"><h2>الأسواق العالمية ومؤشر آفاق</h2>
+<div class="notice">الأسعار الحية غير مفعلة في هذه النسخة. لا تعرض هذه الصفحة أرقاماً تقديرية على أنها أسعار سوق. يلزم مزود بيانات مرخص ومفتاح محفوظ على الخادم.</div>
+<div class="grid">
+<div class="card">
+<h3>المعادن</h3>الذهب · الفضة <p class="muted">بانتظار مزود بيانات الأسعار</p>
+</div>
+<div class="card">
+<h3>الطاقة</h3>النفط · الغاز <p class="muted">بانتظار مزود بيانات الأسعار</p>
+</div>
+<div class="card">
+<h3>الأصول الرقمية</h3>Bitcoin · Ethereum <p class="muted">بانتظار مزود بيانات الأسعار</p>
+</div>
+<div class="card">
+<h3>الأسهم والمؤشرات</h3>S&amp;P 500 · NASDAQ 100 · DAX <p class="muted">بانتظار مزود بيانات مرخص</p>
+</div>
+</div>
+<div class="card">
+<h3>قائمة المتابعة</h3>
+<form id="watchForm" class="formgrid">
+<div class="field">
+<label>رمز الأصل</label><input name="symbol" required placeholder="مثال: BTC">
+</div>
+<button class="btn">إضافة للقائمة</button>
+</form>
+<ul id="watchRows"></ul>
+</div></section>
 
-<section id="trading" class="page"><h2>محفظة الاستثمار والشراء والبيع</h2><div class="notice">محاكاة تداول فقط؛ لا ترسل أوامر إلى وسيط ولا تنفذ شراء أو بيعاً حقيقياً.</div><div class="card"><form id="tradeForm"><div class="formgrid"><div class="field"><label>نوع العملية</label><select name="side"><option>شراء</option><option>بيع</option></select></div><div class="field"><label>نوع الأصل</label><select name="type"><option>سهم</option><option>ETF</option><option>صندوق استثماري</option><option>عملة رقمية</option><option>سلعة</option></select></div><div class="field"><label>الرمز</label><input name="symbol" required></div><div class="field"><label>اسم الأصل</label><input name="asset"></div><div class="field"><label>الكمية</label><input name="quantity" type="number" min="0.000001" step="any" required></div><div class="field"><label>سعر الوحدة</label><input name="price" type="number" min="0" step="any" required></div><div class="field"><label>عملة التسعير</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option></select></div></div><button class="btn">تسجيل أمر تجريبي</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>الوقت</th><th>العملية</th><th>الرمز</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>إجراء</th></tr></thead><tbody id="tradeRows"></tbody></table></div></div></section>
+<section id="trading" class="page"><h2>محفظة الاستثمار والشراء والبيع</h2>
+<div class="notice">محاكاة تداول فقط؛ لا ترسل أوامر إلى وسيط ولا تنفذ شراء أو بيعاً حقيقياً.</div>
+<div class="card"><form id="tradeForm">
+<div class="formgrid">
+<div class="field">
+<label>نوع العملية</label><select name="side"><option>شراء</option>
+<option>بيع</option></select>
+</div>
+<div class="field">
+<label>نوع الأصل</label><select name="type"><option>سهم</option>
+<option>ETF</option>
+<option>صندوق استثماري</option>
+<option>عملة رقمية</option>
+<option>سلعة</option></select>
+</div>
+<div class="field">
+<label>الرمز</label><input name="symbol" required>
+</div>
+<div class="field">
+<label>اسم الأصل</label><input name="asset">
+</div>
+<div class="field">
+<label>الكمية</label><input name="quantity" type="number" min="0.000001" step="any" required>
+</div>
+<div class="field">
+<label>سعر الوحدة</label><input name="price" type="number" min="0" step="any" required>
+</div>
+<div class="field">
+<label>عملة التسعير</label><select name="currency"><option>USD</option>
+<option>EUR</option>
+<option>TRY</option></select>
+</div>
+</div>
+<button class="btn">تسجيل أمر تجريبي</button>
+</form></div>
+<div class="card"><div class="tablewrap"><table>
+<thead><tr>
+<th>الوقت</th>
+<th>العملية</th>
+<th>الرمز</th>
+<th>الكمية</th>
+<th>السعر</th>
+<th>الإجمالي</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="tradeRows"></tbody>
+</table></div></div></section>
 
-<section id="clients" class="page"><h2>العملاء والشركاء</h2><div class="card"><form id="clientForm"><div class="formgrid"><div class="field"><label>الاسم</label><input name="name" required></div><div class="field"><label>النوع</label><select name="type"><option>عميل</option><option>شركة شريكة</option><option>مستثمر</option><option>مورد</option></select></div><div class="field"><label>رقم العضوية ID</label><input name="memberId"></div><div class="field"><label>رقم الحساب (مرجع داخلي فقط)</label><input name="account"></div><div class="field"><label>البريد الإلكتروني</label><input name="email" type="email"></div><div class="field"><label>الهاتف</label><input name="phone"></div></div><button class="btn">حفظ جهة الاتصال</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>الاسم</th><th>النوع</th><th>ID</th><th>البريد</th><th>الهاتف</th><th>إجراء</th></tr></thead><tbody id="clientRows"></tbody></table></div></div></section>
+<section id="clients" class="page"><h2>العملاء والشركاء</h2>
+<div class="card"><form id="clientForm">
+<div class="formgrid">
+<div class="field">
+<label>الاسم</label><input name="name" required>
+</div>
+<div class="field">
+<label>النوع</label><select name="type"><option>عميل</option>
+<option>شركة شريكة</option>
+<option>مستثمر</option>
+<option>مورد</option></select>
+</div>
+<div class="field">
+<label>رقم العضوية ID</label><input name="memberId">
+</div>
+<div class="field">
+<label>رقم الحساب (مرجع داخلي فقط)</label><input name="account">
+</div>
+<div class="field">
+<label>البريد الإلكتروني</label><input name="email" type="email">
+</div>
+<div class="field">
+<label>الهاتف</label><input name="phone">
+</div>
+</div>
+<button class="btn">حفظ جهة الاتصال</button>
+</form></div>
+<div class="card"><div class="tablewrap"><table>
+<thead><tr>
+<th>الاسم</th>
+<th>النوع</th>
+<th>ID</th>
+<th>البريد</th>
+<th>الهاتف</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="clientRows"></tbody>
+</table></div></div></section>
 
-<section id="invoices" class="page"><h2>الفواتير والمدفوعات</h2><div class="notice">إنشاء فاتورة لا يعني استلام المبلغ. حالة الدفع لا تتغير إلى مدفوع إلا بعد تأكيد موثوق من مزود الدفع عبر الخادم والتحقق من التوقيع.</div><div class="card"><form id="invoiceForm"><div class="formgrid"><div class="field"><label>اسم العميل</label><input name="client" required></div><div class="field"><label>رقم الفاتورة</label><input name="number" placeholder="تلقائي إذا ترك فارغاً"></div><div class="field"><label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>وسيلة الدفع المقترحة</label><select name="method"><option>تحويل بنكي</option><option>بطاقة دفع</option><option>عملة رقمية</option><option>نقداً</option></select></div></div><div class="field"><label>البيان</label><textarea name="description"></textarea></div><button class="btn">إنشاء فاتورة مسودة</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>رقم الفاتورة</th><th>العميل</th><th>المبلغ</th><th>الوسيلة</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="invoiceRows"></tbody></table></div></div></section>
+<section id="invoices" class="page"><h2>الفواتير والمدفوعات</h2>
+<div class="notice">إنشاء فاتورة لا يعني استلام المبلغ. حالة الدفع لا تتغير إلى مدفوع إلا بعد تأكيد موثوق من مزود الدفع عبر الخادم والتحقق من التوقيع.</div>
+<div class="card"><form id="invoiceForm">
+<div class="formgrid">
+<div class="field">
+<label>اسم العميل</label><input name="client" required>
+</div>
+<div class="field">
+<label>رقم الفاتورة</label><input name="number" placeholder="تلقائي إذا ترك فارغاً">
+</div>
+<div class="field">
+<label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required>
+</div>
+<div class="field">
+<label>العملة</label><select name="currency"><option>USD</option>
+<option>EUR</option>
+<option>TRY</option>
+<option>SYP</option></select>
+</div>
+<div class="field">
+<label>وسيلة الدفع المقترحة</label><select name="method"><option>تحويل بنكي</option>
+<option>بطاقة دفع</option>
+<option>عملة رقمية</option>
+<option>نقداً</option></select>
+</div>
+</div>
+<div class="field">
+<label>البيان</label><textarea name="description"></textarea>
+</div>
+<button class="btn">إنشاء فاتورة مسودة</button>
+</form></div>
+<div class="card"><div class="tablewrap"><table>
+<thead><tr>
+<th>رقم الفاتورة</th>
+<th>العميل</th>
+<th>المبلغ</th>
+<th>الوسيلة</th>
+<th>الحالة</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="invoiceRows"></tbody>
+</table></div></div></section>
 
-<section id="bank" class="page"><h2>الفرع المصرفي متعدد العملات</h2><div class="notice">دفتر حسابات تجريبي محلي، وليس حساباً مصرفياً. لا توجد أموال فعلية ولا تحويلات أو إيداعات حقيقية. لا تدخل بيانات بطاقات أو كلمات مرور مصرفية.</div><div class="card"><form id="bankForm"><div class="formgrid"><div class="field"><label>نوع الحركة</label><select name="type"><option>إيداع / قبض تجريبي</option><option>سحب / صرف تجريبي</option><option>حوالة صادرة تجريبية</option></select></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required></div><div class="field"><label>المستفيد / الجهة</label><input name="beneficiary"></div><div class="field"><label>المرجع</label><input name="reference"></div></div><button class="btn">تسجيل حركة تجريبية</button></form></div><div class="card"><h3>الأرصدة التجريبية حسب العملة</h3><div id="balances"></div></div><div class="card"><h3>سجل الحركات</h3><div class="tablewrap"><table><thead><tr><th>التاريخ</th><th>الحركة</th><th>العملة</th><th>المبلغ</th><th>الجهة</th></tr></thead><tbody id="bankRows"></tbody></table></div></div></section>
+<section id="bank" class="page"><h2>الفرع المصرفي متعدد العملات</h2>
+<div class="notice">دفتر حسابات تجريبي محلي، وليس حساباً مصرفياً. لا توجد أموال فعلية ولا تحويلات أو إيداعات حقيقية. لا تدخل بيانات بطاقات أو كلمات مرور مصرفية.</div>
+<div class="card"><form id="bankForm">
+<div class="formgrid">
+<div class="field">
+<label>نوع الحركة</label><select name="type"><option>إيداع / قبض تجريبي</option>
+<option>سحب / صرف تجريبي</option>
+<option>حوالة صادرة تجريبية</option></select>
+</div>
+<div class="field">
+<label>العملة</label><select name="currency"><option>USD</option>
+<option>EUR</option>
+<option>TRY</option>
+<option>SYP</option></select>
+</div>
+<div class="field">
+<label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required>
+</div>
+<div class="field">
+<label>المستفيد / الجهة</label><input name="beneficiary">
+</div>
+<div class="field">
+<label>المرجع</label><input name="reference">
+</div>
+</div>
+<button class="btn">تسجيل حركة تجريبية</button>
+</form></div>
+<div class="card">
+<h3>الأرصدة التجريبية حسب العملة</h3>
+<div id="balances"></div>
+</div>
+<div class="card">
+<h3>سجل الحركات</h3>
+<div class="tablewrap"><table>
+<thead><tr>
+<th>التاريخ</th>
+<th>الحركة</th>
+<th>العملة</th>
+<th>المبلغ</th>
+<th>الجهة</th>
+</tr></thead>
+<tbody id="bankRows"></tbody>
+</table></div>
+</div></section>
 
-<section id="crypto" class="page"><h2>محفظة العملات الرقمية</h2><div class="notice">واجهة تنظيمية تجريبية فقط. لا توجد أرصدة حقيقية أو عناوين إيداع أو مفاتيح خاصة. لا ترسل أموالاً إلى هذه المنصة. يلزم مزود حفظ مرخص وتوليد العناوين والتحقق على الخادم.</div><div class="grid"><div class="card"><h3>USDT</h3>TRC20 · ERC20 · BEP20</div><div class="card"><h3>Bitcoin</h3>BTC</div><div class="card"><h3>Ethereum</h3>ETH</div><div class="card"><h3>Solana</h3>SOL</div></div><p class="status">الشبكات جاهزة للتخطيط فقط — لا توجد عناوين فعلية</p></section>
+<section id="crypto" class="page"><h2>محفظة العملات الرقمية</h2>
+<div class="notice">واجهة تنظيمية تجريبية فقط. لا توجد أرصدة حقيقية أو عناوين إيداع أو مفاتيح خاصة. لا ترسل أموالاً إلى هذه المنصة. يلزم مزود حفظ مرخص وتوليد العناوين والتحقق على الخادم.</div>
+<div class="grid">
+<div class="card">
+<h3>USDT</h3>TRC20 · ERC20 · BEP20</div>
+<div class="card">
+<h3>Bitcoin</h3>BTC</div>
+<div class="card">
+<h3>Ethereum</h3>ETH</div>
+<div class="card">
+<h3>Solana</h3>SOL</div>
+</div>
+<p class="status">الشبكات جاهزة للتخطيط فقط — لا توجد عناوين فعلية</p></section>
 
-<section id="archive" class="page"><h2>أرشيف الشركة والمستندات</h2><div class="card"><form id="archiveForm"><div class="formgrid"><div class="field"><label>عنوان السجل</label><input name="title" required></div><div class="field"><label>نوع الأرشيف</label><select name="type"><option>الاستثمار العقاري</option><option>البنية التحتية</option><option>الأراضي والعقارات</option><option>العقود والاتفاقيات</option><option>الدراسات والمخططات</option><option>المراسلات والتقارير</option></select></div><div class="field"><label>الموقع / المحافظة</label><input name="location"></div><div class="field"><label>رقم المرجع</label><input name="reference"></div></div><div class="field"><label>الوصف والملاحظات</label><textarea name="notes"></textarea></div><button class="btn">حفظ سجل الأرشيف</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>العنوان</th><th>التصنيف</th><th>الموقع</th><th>المرجع</th><th>إجراء</th></tr></thead><tbody id="archiveRows"></tbody></table></div><p class="hint">لا ترفع مستندات سرية هنا؛ التخزين الحالي محلي ولا يوفر إدارة صلاحيات أو تشفير ملفات على الخادم.</p></div></section>
+<section id="archive" class="page"><h2>أرشيف الشركة والمستندات</h2>
+<div class="card"><form id="archiveForm">
+<div class="formgrid">
+<div class="field">
+<label>عنوان السجل</label><input name="title" required>
+</div>
+<div class="field">
+<label>نوع الأرشيف</label><select name="type"><option>الاستثمار العقاري</option>
+<option>البنية التحتية</option>
+<option>الأراضي والعقارات</option>
+<option>العقود والاتفاقيات</option>
+<option>الدراسات والمخططات</option>
+<option>المراسلات والتقارير</option></select>
+</div>
+<div class="field">
+<label>الموقع / المحافظة</label><input name="location">
+</div>
+<div class="field">
+<label>رقم المرجع</label><input name="reference">
+</div>
+</div>
+<div class="field">
+<label>الوصف والملاحظات</label><textarea name="notes"></textarea>
+</div>
+<button class="btn">حفظ سجل الأرشيف</button>
+</form></div>
+<div class="card">
+<div class="tablewrap"><table>
+<thead><tr>
+<th>العنوان</th>
+<th>التصنيف</th>
+<th>الموقع</th>
+<th>المرجع</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="archiveRows"></tbody>
+</table></div>
+<p class="hint">لا ترفع مستندات سرية هنا؛ التخزين الحالي محلي ولا يوفر إدارة صلاحيات أو تشفير ملفات على الخادم.</p>
+</div></section>
 
-<section id="reports" class="page"><h2>التقارير والتحليلات والتكاليف</h2><div class="card"><form id="costForm"><div class="formgrid"><div class="field"><label>المشروع / الحقيبة</label><input name="project" required></div><div class="field"><label>بند التكلفة</label><input name="item" required></div><div class="field"><label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>التاريخ</label><input name="date" type="date"></div></div><button class="btn">تسجيل التكلفة</button></form></div><div class="card"><h3>سجل التكاليف</h3><div class="tablewrap"><table><thead><tr><th>المشروع</th><th>البند</th><th>المبلغ</th><th>العملة</th><th>التاريخ</th><th>إجراء</th></tr></thead><tbody id="costRows"></tbody></table></div></div><div class="card"><h3>تصدير البيانات</h3><button class="btn secondary" onclick="exportData()">تصدير نسخة JSON</button><button class="btn secondary" onclick="exportCSV()">تصدير العملاء CSV</button></div></section>
+<section id="reports" class="page"><h2>التقارير والتحليلات والتكاليف</h2>
+<div class="card"><form id="costForm">
+<div class="formgrid">
+<div class="field">
+<label>المشروع / الحقيبة</label><input name="project" required>
+</div>
+<div class="field">
+<label>بند التكلفة</label><input name="item" required>
+</div>
+<div class="field">
+<label>المبلغ</label><input name="amount" type="number" min="0.01" step="0.01" required>
+</div>
+<div class="field">
+<label>العملة</label><select name="currency"><option>USD</option>
+<option>EUR</option>
+<option>TRY</option>
+<option>SYP</option></select>
+</div>
+<div class="field">
+<label>التاريخ</label><input name="date" type="date">
+</div>
+</div>
+<button class="btn">تسجيل التكلفة</button>
+</form></div>
+<div class="card">
+<h3>سجل التكاليف</h3>
+<div class="tablewrap"><table>
+<thead><tr>
+<th>المشروع</th>
+<th>البند</th>
+<th>المبلغ</th>
+<th>العملة</th>
+<th>التاريخ</th>
+<th>إجراء</th>
+</tr></thead>
+<tbody id="costRows"></tbody>
+</table></div>
+</div>
+<div class="card">
+<h3>تصدير البيانات</h3>
+<button class="btn secondary" onclick="exportData()">تصدير نسخة JSON</button><button class="btn secondary" onclick="exportCSV()">تصدير العملاء CSV</button>
+</div></section>
 
-<section id="api" class="page"><h2>مركز API والتكاملات</h2><div class="notice">لا تضع مفاتيح سرية أو كلمات مرور في هذا الملف أو المتصفح. تحفظ المفاتيح في Cloudflare Worker Secrets أو مخزن أسرار خادمي. لا تعتبر نتيجة فحص /health دليلاً على جاهزية قاعدة البيانات أو الدفع.</div><div class="card"><div class="field"><label>عنوان API Worker المنشور</label><input id="apiUrl" placeholder="https://your-worker.workers.dev"></div><div class="toolbar"><button class="btn" onclick="saveApi()">حفظ العنوان</button><button class="btn secondary" onclick="testApi()">اختبار الاتصال /health</button></div><p id="apiStatus" class="status">لم يتم الفحص بعد</p><pre id="apiResult" class="small" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre></div><div class="card"><h3>المسارات المقترحة للتنفيذ الخلفي</h3><p><code>GET /health</code> — فحص الخدمة</p><p><code>GET /api/v1/projects</code> و <code>POST /api/v1/projects</code></p><p><code>POST /api/payment/create</code> — إنشاء فاتورة لدى مزود الدفع</p><p><code>GET /api/payment/status?order_id=...</code></p><p><code>POST /api/payment/ipn</code> — إشعار الدفع مع التحقق من التوقيع</p><p><code>POST /api/v1/transfers</code> — لا يفعّل إلا بعد تكامل مالي مرخص وضوابط امتثال</p><p><code>GET/PUT /api/member/profile</code> — بيانات العضو ورقم العضوية والحساب</p><p><code>POST /api/member/verification/email/start|confirm</code> — توثيق البريد</p><p><code>POST /api/member/verification/phone/start|confirm</code> — توثيق الهاتف</p><p><code>POST /api/member/address/submit</code> — إرسال العنوان للتحقق</p><p class="hint">المسارات أعلاه مواصفات مقترحة وليست تأكيداً بأنها منشورة حالياً على خادمك.</p></div></section>
+<section id="api" class="page"><h2>مركز API والتكاملات</h2>
+<div class="notice">لا تضع مفاتيح سرية أو كلمات مرور في هذا الملف أو المتصفح. تحفظ المفاتيح في Cloudflare Worker Secrets أو مخزن أسرار خادمي. لا تعتبر نتيجة فحص /health دليلاً على جاهزية قاعدة البيانات أو الدفع.</div>
+<div class="card">
+<div class="field">
+<label>عنوان API Worker المنشور</label><input id="apiUrl" placeholder="https://your-worker.workers.dev">
+</div>
+<div class="toolbar">
+<button class="btn" onclick="saveApi()">حفظ العنوان</button><button class="btn secondary" onclick="testApi()">اختبار الاتصال /health</button>
+</div>
+<p id="apiStatus" class="status">لم يتم الفحص بعد</p>
+<pre id="apiResult" class="small" style="white-space:pre-wrap;overflow-wrap:anywhere"></pre>
+</div>
+<div class="card">
+<h3>المسارات المقترحة للتنفيذ الخلفي</h3>
+<p><code>GET /health</code> — فحص الخدمة</p>
+<p><code>GET /api/v1/projects</code> و <code>POST /api/v1/projects</code></p>
+<p><code>POST /api/payment/create</code> — إنشاء فاتورة لدى مزود الدفع</p>
+<p><code>GET /api/payment/status?order_id=...</code></p>
+<p><code>POST /api/payment/ipn</code> — إشعار الدفع مع التحقق من التوقيع</p>
+<p><code>POST /api/v1/transfers</code> — لا يفعّل إلا بعد تكامل مالي مرخص وضوابط امتثال</p>
+<p><code>GET/PUT /api/member/profile</code> — بيانات العضو ورقم العضوية والحساب</p>
+<p><code>POST /api/member/verification/email/start|confirm</code> — توثيق البريد</p>
+<p><code>POST /api/member/verification/phone/start|confirm</code> — توثيق الهاتف</p>
+<p><code>POST /api/member/address/submit</code> — إرسال العنوان للتحقق</p>
+<p class="hint">المسارات أعلاه مواصفات مقترحة وليست تأكيداً بأنها منشورة حالياً على خادمك.</p>
+</div></section>
 
 <section id="memberProfile" class="page">
 <h2>حسابي وتوثيق بياناتي</h2>
 <div class="notice">هذه الصفحة مخصصة لكل عضو لإدارة بياناته. لا تُعتبر البيانات موثقة بمجرد إدخالها؛ يجب إتمام التحقق عبر الخادم ورمز التحقق أو مراجعة العنوان.</div>
-<div class="card"><div class="sectionhead"><h3>الهوية المالية للعضو</h3><span id="memberVerifyOverall" class="status">بانتظار تحميل بيانات الحساب</span></div>
-<div class="grid"><div class="card"><div>رقم العضوية</div><div class="stat" id="memberIdDisplay">—</div></div><div class="card"><div>رقم الحساب الداخلي</div><div class="stat" id="accountDisplay">—</div></div><div class="card"><div>IBAN</div><div id="ibanDisplay" class="stat">غير مخصص</div></div></div>
-<p class="hint">رقم العضوية ورقم الحساب الداخلي يصدرهما الخادم. لا يظهر IBAN إلا إذا خصصه بنك أو مزود مالي مرخص فعلياً.</p></div>
-<div class="card"><h3>بيانات الاتصال</h3><form id="memberProfileForm"><div class="formgrid"><div class="field"><label>الاسم الكامل</label><input name="name" autocomplete="name" required></div><div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" autocomplete="email" required></div><div class="field"><label>رقم الهاتف مع مفتاح الدولة</label><input name="phone" type="tel" autocomplete="tel" placeholder="+90..."></div></div><button class="btn" type="submit">حفظ بيانات الاتصال</button></form><p id="profileMessage" class="hint" aria-live="polite"></p></div>
-<div class="grid">
-<div class="card"><h3>توثيق البريد الإلكتروني</h3><p>أرسل رمز تحقق إلى البريد المسجل ثم أدخله لتأكيد ملكيتك له.</p><div class="field"><label>رمز التحقق</label><input id="emailOtp" inputmode="numeric" autocomplete="one-time-code" maxlength="8"></div><div class="toolbar"><button type="button" class="btn secondary" id="sendEmailOtp">إرسال رمز البريد</button><button type="button" class="btn" id="verifyEmailOtp">تأكيد البريد</button></div><span id="emailVerifyStatus" class="status">غير موثق</span></div>
-<div class="card"><h3>توثيق رقم الهاتف</h3><p>أرسل رمز تحقق برسالة SMS إلى الرقم المسجل ثم أكده.</p><div class="field"><label>رمز التحقق</label><input id="phoneOtp" inputmode="numeric" autocomplete="one-time-code" maxlength="8"></div><div class="toolbar"><button type="button" class="btn secondary" id="sendPhoneOtp">إرسال رمز الهاتف</button><button type="button" class="btn" id="verifyPhoneOtp">تأكيد الهاتف</button></div><span id="phoneVerifyStatus" class="status">غير موثق</span></div>
+<div class="card">
+<div class="sectionhead">
+<h3>الهوية المالية للعضو</h3>
+<span id="memberVerifyOverall" class="status">بانتظار تحميل بيانات الحساب</span>
 </div>
-<div class="card"><h3>تثبيت العنوان</h3><form id="memberAddressForm"><div class="formgrid"><div class="field"><label>الدولة</label><input name="country" autocomplete="country-name" required></div><div class="field"><label>المحافظة / الولاية</label><input name="region" required></div><div class="field"><label>المدينة</label><input name="city" required></div><div class="field"><label>الرمز البريدي</label><input name="postalCode" autocomplete="postal-code"></div></div><div class="field"><label>العنوان التفصيلي</label><textarea name="address" autocomplete="street-address" required></textarea></div><button class="btn" type="submit">حفظ العنوان وإرساله للتحقق</button></form><p id="addressVerifyStatus" class="status">لم يُرسل العنوان للتحقق</p><p id="addressMessage" class="hint" aria-live="polite"></p></div>
+<div class="grid">
+<div class="card">
+<div>رقم العضوية</div>
+<div class="stat" id="memberIdDisplay">—</div>
+</div>
+<div class="card">
+<div>رقم الحساب الداخلي</div>
+<div class="stat" id="accountDisplay">—</div>
+</div>
+<div class="card">
+<div>IBAN</div>
+<div id="ibanDisplay" class="stat">غير مخصص</div>
+</div>
+</div>
+<p class="hint">رقم العضوية ورقم الحساب الداخلي يصدرهما الخادم. لا يظهر IBAN إلا إذا خصصه بنك أو مزود مالي مرخص فعلياً.</p>
+</div>
+<div class="card">
+<h3>بيانات الاتصال</h3>
+<form id="memberProfileForm">
+<div class="formgrid">
+<div class="field">
+<label>الاسم الكامل</label><input name="name" autocomplete="name" required>
+</div>
+<div class="field">
+<label>البريد الإلكتروني</label><input name="email" type="email" autocomplete="email" required>
+</div>
+<div class="field">
+<label>رقم الهاتف مع مفتاح الدولة</label><input name="phone" type="tel" autocomplete="tel" placeholder="+90...">
+</div>
+</div>
+<button class="btn" type="submit">حفظ بيانات الاتصال</button>
+</form>
+<p id="profileMessage" class="hint" aria-live="polite"></p>
+</div>
+<div class="grid">
+<div class="card">
+<h3>توثيق البريد الإلكتروني</h3>
+<p>أرسل رمز تحقق إلى البريد المسجل ثم أدخله لتأكيد ملكيتك له.</p>
+<div class="field">
+<label>رمز التحقق</label><input id="emailOtp" inputmode="numeric" autocomplete="one-time-code" maxlength="8">
+</div>
+<div class="toolbar">
+<button type="button" class="btn secondary" id="sendEmailOtp">إرسال رمز البريد</button><button type="button" class="btn" id="verifyEmailOtp">تأكيد البريد</button>
+</div>
+<span id="emailVerifyStatus" class="status">غير موثق</span>
+</div>
+<div class="card">
+<h3>توثيق رقم الهاتف</h3>
+<p>أرسل رمز تحقق برسالة SMS إلى الرقم المسجل ثم أكده.</p>
+<div class="field">
+<label>رمز التحقق</label><input id="phoneOtp" inputmode="numeric" autocomplete="one-time-code" maxlength="8">
+</div>
+<div class="toolbar">
+<button type="button" class="btn secondary" id="sendPhoneOtp">إرسال رمز الهاتف</button><button type="button" class="btn" id="verifyPhoneOtp">تأكيد الهاتف</button>
+</div>
+<span id="phoneVerifyStatus" class="status">غير موثق</span>
+</div>
+</div>
+<div class="card">
+<h3>تثبيت العنوان</h3>
+<form id="memberAddressForm">
+<div class="formgrid">
+<div class="field">
+<label>الدولة</label><input name="country" autocomplete="country-name" required>
+</div>
+<div class="field">
+<label>المحافظة / الولاية</label><input name="region" required>
+</div>
+<div class="field">
+<label>المدينة</label><input name="city" required>
+</div>
+<div class="field">
+<label>الرمز البريدي</label><input name="postalCode" autocomplete="postal-code">
+</div>
+</div>
+<div class="field">
+<label>العنوان التفصيلي</label><textarea name="address" autocomplete="street-address" required></textarea>
+</div>
+<button class="btn" type="submit">حفظ العنوان وإرساله للتحقق</button>
+</form>
+<p id="addressVerifyStatus" class="status">لم يُرسل العنوان للتحقق</p>
+<p id="addressMessage" class="hint" aria-live="polite"></p>
+</div>
 </section>
-<section id="settings" class="page"><h2>إعدادات الشركة</h2><div class="card"><form id="settingsForm"><div class="formgrid"><div class="field"><label>اسم الشركة</label><input name="company" value="آفاق سوريا للاستثمار العقاري والبنية التحتية"></div><div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" value="oali47438@gmail.com"></div><div class="field"><label>الهاتف</label><input name="phone" value="+90 552 315 6980"></div><div class="field"><label>لغة الواجهة</label><select name="language"><option>العربية</option><option>English</option></select></div></div><button class="btn">حفظ الإعدادات</button></form></div><div class="card"><h3>إدارة البيانات المحلية</h3><button class="btn secondary" onclick="exportData()">نسخ احتياطي JSON</button> <button class="btn danger" onclick="clearData()">حذف كل البيانات المحلية</button><p class="hint">الحذف نهائي من هذا المتصفح. صدّر نسخة احتياطية قبل المتابعة.</p></div></section>
+<section id="settings" class="page"><h2>إعدادات الشركة</h2>
+<div class="card"><form id="settingsForm">
+<div class="formgrid">
+<div class="field">
+<label>اسم الشركة</label><input name="company" value="آفاق سوريا للاستثمار العقاري والبنية التحتية">
+</div>
+<div class="field">
+<label>البريد الإلكتروني</label><input name="email" type="email" value="oali47438@gmail.com">
+</div>
+<div class="field">
+<label>الهاتف</label><input name="phone" value="+90 552 315 6980">
+</div>
+<div class="field">
+<label>لغة الواجهة</label><select name="language"><option>العربية</option>
+<option>English</option></select>
+</div>
+</div>
+<button class="btn">حفظ الإعدادات</button>
+</form></div>
+<div class="card">
+<h3>إدارة البيانات المحلية</h3>
+<button class="btn secondary" onclick="exportData()">نسخ احتياطي JSON</button> <button class="btn danger" onclick="clearData()">حذف كل البيانات المحلية</button><p class="hint">الحذف نهائي من هذا المتصفح. صدّر نسخة احتياطية قبل المتابعة.</p>
+</div></section>
 <footer>© AFAQ SYRIA 2026 · منصة أولية قابلة للتطوير · جميع الحقوق محفوظة</footer>
-</main></div>
+</main>
+</div>
 <script>
 const keys=['projects','cities','portfolios','watch','trades','clients','invoices','bank','archive','costs'];
 const read=k=>{try{return JSON.parse(localStorage.getItem('afaq_'+k)||'[]')}catch{return[]}};
@@ -401,4 +968,6 @@ document.querySelectorAll('.password-toggle[data-password-target]').forEach(btn=
  });
 });
 
-</script></body></html>
+</script>
+</body>
+</html>

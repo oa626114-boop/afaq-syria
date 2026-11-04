@@ -55,6 +55,25 @@ body:not(.authenticated) .top,body:not(.authenticated) .layout{display:none!impo
 .auth-card h1{color:var(--gold2);font-size:30px;margin:0 0 8px}.auth-tabs{display:flex;gap:10px;margin:18px 0}.auth-tabs button{flex:1}.auth-message{min-height:28px;color:var(--gold2);font-size:16px}.auth-card .field label{font-size:18px}
 #userBadge{font-size:16px;color:var(--gold2);padding:8px 10px;border:1px solid var(--line);border-radius:9px}
 @media(max-width:480px){#authGate{padding:12px}.auth-card{padding:18px}.auth-card h1{font-size:27px}}
+/* تكبير الخطوط وزر القائمة لتحسين القراءة على الهاتف */
+body{font-size:20px;line-height:2}
+main{font-size:20px}
+.hero, .card, .notice, p, li{font-size:19px}
+.navbtn{font-size:20px;line-height:1.85;padding:16px 14px}
+h1{font-size:clamp(30px,3.4vw,40px)}
+h2,.sectionhead h2{font-size:clamp(27px,2.8vw,32px)}
+h3{font-size:24px}
+.field label{font-size:19px}
+input,select,textarea{font-size:19px;padding:13px}
+.btn{font-size:18px;padding:12px 18px}
+.muted,.hint{font-size:18px}
+.mobilemenu{font-size:22px!important;min-width:76px;min-height:62px;padding:14px 18px!important;border-radius:12px}
+@media(max-width:480px){
+ body{font-size:19px}
+ .mobilemenu{font-size:22px!important;min-width:82px;min-height:64px;padding:14px 18px!important}
+ .navbtn{font-size:20px;padding:17px 14px}
+ .btn{font-size:17px}
+}
 </style></head>
 <body>
 <section id="authGate" aria-label="تسجيل الدخول والعضوية">

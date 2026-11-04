@@ -276,19 +276,41 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-.afaq-member-crypto-card{position:relative;max-width:720px;width:100%;margin:16px 0;border:1px solid #c59b4e;border-radius:18px;overflow:hidden;aspect-ratio:1.53125;background:#061522 url('assets/afaq-crypto-card-art.png') center/cover no-repeat;box-shadow:0 12px 34px #0007;color:#f5d58c;isolation:isolate}
-.afaq-member-crypto-card:before{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(180deg,rgba(4,18,30,.94),#061522 28%,#071a2b 100%);z-index:0}
-.afaq-member-crypto-card .afaq-card-copy{position:absolute;z-index:1;left:4.5%;right:28%;bottom:8%;display:flex;flex-direction:column;gap:5px;text-shadow:0 1px 3px #000}
-.afaq-member-crypto-card .afaq-card-brand{position:absolute;z-index:1;top:7%;left:5%;font-weight:800;font-size:clamp(13px,2.3vw,22px);letter-spacing:.04em;color:#f2d18a;text-shadow:0 2px 5px #000}
-.afaq-member-crypto-card .afaq-card-name{font-size:clamp(13px,2vw,20px);font-weight:700;letter-spacing:.06em}
-.afaq-member-crypto-card .afaq-card-id{font-size:clamp(10px,1.35vw,14px);color:#e8c77f;overflow-wrap:anywhere}
-.afaq-member-crypto-card .afaq-card-label{font-size:clamp(9px,1.1vw,12px);opacity:.9}
-.afaq-member-crypto-card .afaq-card-qrwrap{position:absolute;z-index:2;right:5%;bottom:7%;width:20%;aspect-ratio:1;background:#fff;border:4px solid #d8b45e;border-radius:10px;padding:5px;display:grid;place-items:center}
-.afaq-member-crypto-card .afaq-card-qr{width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
-.afaq-member-crypto-card .afaq-card-qr img,.afaq-member-crypto-card .afaq-card-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
-.afaq-member-crypto-card .afaq-card-qr-note{position:absolute;right:5%;bottom:1.5%;font-size:clamp(7px,.9vw,10px);color:#f0d18b;z-index:2}
-.afaq-member-crypto-card .afaq-card-status{position:absolute;top:7%;right:5%;z-index:2;border:1px solid #c39a4c;background:#071a2bdd;border-radius:20px;padding:4px 9px;font-size:clamp(8px,1vw,11px);color:#f2d18a}
-@media(max-width:520px){.afaq-member-crypto-card{border-radius:12px}.afaq-member-crypto-card .afaq-card-copy{right:30%;bottom:8%}.afaq-member-crypto-card .afaq-card-qrwrap{width:21%;right:4%;bottom:8%;padding:3px}.afaq-member-crypto-card .afaq-card-qr-note{right:4%;bottom:2%}}
+
+/* AFAQ interactive 3D cards */
+.afaq-flip-card{width:100%;max-width:720px;margin:18px auto;perspective:1400px;cursor:pointer;outline:none;touch-action:pan-y}
+.afaq-flip-inner{position:relative;width:100%;aspect-ratio:1.5;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.2,.75,.2,1)}
+.afaq-flip-card.is-flipped .afaq-flip-inner{transform:rotateY(180deg)}
+.afaq-card-face{position:absolute;inset:0;overflow:hidden;border-radius:18px;border:1px solid #d9ae4c;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 14px 34px #0008;background:#061522;color:#f6d889}
+.afaq-card-face img{width:100%;height:100%;object-fit:cover;display:block}
+.afaq-card-front{transform:rotateY(0)}
+.afaq-card-back{transform:rotateY(180deg);background:
+ radial-gradient(ellipse at 82% 8%,#17415a 0,transparent 42%),
+ linear-gradient(145deg,#071522,#0b263a 60%,#061522);padding:0}
+.afaq-card-back:before{content:"";position:absolute;inset:0;border:5px solid #b88b35;border-radius:17px;pointer-events:none}
+.afaq-card-back .magstripe{position:absolute;left:0;right:0;top:13%;height:19%;background:linear-gradient(180deg,#080b10,#252a30 48%,#080b10);border-top:1px solid #c49a48;border-bottom:1px solid #c49a48}
+.afaq-card-back .signature-row{position:absolute;left:6%;right:6%;top:42%;height:14%;display:flex;align-items:center;gap:4%;color:#f5d58c}
+.afaq-card-back .signature{height:100%;flex:1;background:repeating-linear-gradient(0deg,#e9dfc4 0 2px,#d7c9a5 2px 4px);border-radius:4px;display:flex;align-items:center;padding:0 12px;color:#172330;font:italic 700 clamp(10px,1.8vw,18px) Georgia}
+.afaq-card-back .cvv{width:17%;height:75%;background:#f3ead4;border-radius:4px;color:#111;display:grid;place-items:center;font-weight:800;font-size:clamp(10px,1.5vw,16px)}
+.afaq-card-back .back-meta{position:absolute;left:6%;right:6%;bottom:8%;display:flex;justify-content:space-between;align-items:end;gap:10px;font-size:clamp(8px,1.15vw,12px);color:#e8c77f}
+.afaq-card-back .back-qr{width:18%;aspect-ratio:1;background:#071522;border:3px solid #d9ad48;border-radius:8px;padding:4px;display:grid;place-items:center}
+.afaq-card-back .back-qr img,.afaq-card-back .back-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
+.afaq-card-back .back-brand{position:absolute;top:4%;right:6%;font-weight:800;letter-spacing:.08em;font-size:clamp(10px,1.6vw,16px);color:#f4d17c}
+.afaq-card-hint{text-align:center;color:#d6b76d;font-size:12px;margin-top:7px}
+.afaq-virtual-front{position:absolute;inset:0}
+.afaq-virtual-front .virtual-number-mask{position:absolute;left:5%;right:5%;top:48%;height:15%;background:linear-gradient(90deg,rgba(3,17,29,.97),rgba(5,24,39,.98));display:flex;align-items:center;padding:0 2%;border-top:1px solid #a87e32;border-bottom:1px solid #a87e32}
+.afaq-virtual-front .virtual-number{font:clamp(17px,4.4vw,42px) Georgia,serif;letter-spacing:.13em;color:#f1c96e;text-shadow:0 2px 4px #000;white-space:nowrap}
+.afaq-virtual-front .virtual-name-mask{position:absolute;left:5%;bottom:10%;width:43%;height:14%;background:linear-gradient(90deg,rgba(3,17,29,.98),rgba(5,24,39,.98));display:flex;flex-direction:column;justify-content:center;padding:0 2%;border-top:1px solid #a87e32;border-bottom:1px solid #a87e32}
+.afaq-virtual-front .virtual-name{font:700 clamp(11px,2.5vw,22px) Georgia,serif;letter-spacing:.12em;color:#f2cf7d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.afaq-crypto-front{position:absolute;inset:0}
+.afaq-crypto-front .crypto-number{position:absolute;left:6%;top:54%;font:clamp(15px,3.7vw,34px) Georgia,serif;letter-spacing:.12em;color:#f3ce72;text-shadow:0 2px 5px #000}
+.afaq-crypto-front .crypto-name{position:absolute;left:6%;bottom:13%;font:700 clamp(11px,2.4vw,22px) Georgia,serif;letter-spacing:.12em;color:#f3d58c}
+.afaq-crypto-front .crypto-qr{position:absolute;right:7%;bottom:10%;width:17%;aspect-ratio:1;background:#071522;border:3px solid #d9ad48;border-radius:7px;padding:4px}
+.afaq-crypto-front .crypto-qr img,.afaq-crypto-front .crypto-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
+.afaq-card-back .gold-note{position:absolute;left:6%;top:64%;font-size:clamp(8px,1.1vw,12px);color:#e8c77f;max-width:70%}
+@media(max-width:520px){.afaq-card-face{border-radius:12px}.afaq-card-back:before{border-radius:11px}.afaq-card-back .magstripe{top:12%;height:18%}.afaq-card-back .signature-row{top:40%;height:14%}}
+@media(prefers-reduced-motion:reduce){.afaq-flip-inner{transition:none}}
+
 </style>
 
 </head>
@@ -847,9 +869,46 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
 
  function afaqNumericRef(value,length=16){let h1=2166136261>>>0,h2=2246822519>>>0;const s=String(value||'AFAQ');for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^(c+i),3266489917)>>>0;}let digits=String(h1).padStart(10,'0')+String(h2).padStart(10,'0');return digits.slice(0,length).padStart(length,'0')}
 
- function memberCardMarkup(u){const rawId=String(u.member_id||'AFAQ'),memberNo=afaqNumericRef(rawId,12),accountNo=afaqNumericRef(String(u.account_number||rawId)+'-ACCOUNT',16),cardNo=afaqNumericRef(rawId+'-CARD',16);return `<div class="afaq-member-crypto-card"><div class="afaq-card-brand">مصرف آفاق · AFAQ BANK</div><div class="afaq-card-status">بطاقة افتراضية تجريبية</div><div class="afaq-card-copy"><span class="afaq-card-label">حامل البطاقة / CARDHOLDER</span><span class="afaq-card-name">${String(u.name||u.full_name||'مشترك آفاق').replace(/[<>&"]/g,'')}</span><span class="afaq-card-label">رقم البطاقة التجريبي / DEMO CARD</span><span class="afaq-card-id" dir="ltr">${cardNo.replace(/(\d{4})(?=\d)/g,'$1 ')}</span><span class="afaq-card-label">رقم المشترك: ${memberNo} · رقم الحساب التعريفي: ${accountNo}</span></div><div class="afaq-card-qrwrap"><div class="afaq-card-qr" id="afaqMemberQr"></div></div><div class="afaq-card-qr-note">QR تعريف المشترك فقط · البطاقة غير مفعّلة للدفع</div></div>`}
- function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#071522',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح — تحقق من الاتصال';box.style.color='#071522';box.style.fontSize='9px';box.style.textAlign='center';}}
- function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=u.account_number||'—';$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqMemberQr',u)}}
+ function memberCardMarkup(u){
+   const rawId=String(u.member_id||'AFAQ'),memberNo=afaqNumericRef(rawId,12),accountNo=afaqNumericRef(String(u.account_number||rawId)+'-ACCOUNT',16),cardNo=afaqNumericRef(rawId+'-CARD',16);
+   const name=String(u.name||u.full_name||'مشترك آفاق').replace(/[<>&"]/g,'');
+   const fmt=n=>n.replace(/(\d{4})(?=\d)/g,'$1 ');
+   return `<div class="afaq-card-hint">اضغط على البطاقة لقلبها وإظهار الوجه الخلفي</div>
+   <div class="afaq-flip-card" role="button" tabindex="0" aria-label="بطاقة مصرف آفاق الافتراضية، اضغط لقلب البطاقة" aria-pressed="false" data-afaq-flip>
+    <div class="afaq-flip-inner">
+     <div class="afaq-card-face afaq-card-front afaq-virtual-front">
+      <img src="assets/afaq-virtual-card-art.png" alt="تصميم بطاقة مصرف آفاق الافتراضية"/>
+      <div class="virtual-number-mask"><span class="virtual-number" dir="ltr">${fmt(cardNo)}</span></div>
+      <div class="virtual-name-mask"><span style="font-size:clamp(7px,1vw,10px);color:#e8c77f">CARDHOLDER</span><span class="virtual-name">${name}</span></div>
+     </div>
+     <div class="afaq-card-face afaq-card-back">
+      <div class="back-brand">AFAQ BANK · مصرف آفاق</div><div class="magstripe"></div>
+      <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
+      <div class="gold-note">بطاقة افتراضية تجريبية · رقم المشترك ${memberNo}<br/>رقم الحساب التعريفي ${accountNo}<br/>لا توجد بيانات دفع أو CVV فعلي في هذه النسخة</div>
+      <div class="back-meta"><span>VIRTUAL MEMBER CARD<br/>AFAQ BANK · 2026</span><div class="back-qr" id="afaqVirtualBackQr"></div></div>
+     </div>
+    </div>
+   </div>
+   <div class="afaq-card-hint">بطاقة مصرف آفاق الافتراضية · نموذج عرض غير مفعّل للدفع</div>
+   <div class="afaq-flip-card" role="button" tabindex="0" aria-label="بطاقة آفاق للعملات الرقمية، اضغط لقلب البطاقة" aria-pressed="false" data-afaq-flip>
+    <div class="afaq-flip-inner">
+     <div class="afaq-card-face afaq-card-front afaq-crypto-front">
+      <img src="assets/afaq-crypto-card-art.png" alt="تصميم بطاقة محفظة آفاق الرقمية"/>
+      <div class="crypto-number" dir="ltr">${fmt(cardNo)}</div><div class="crypto-name">${name}</div>
+      <div class="crypto-qr" id="afaqCryptoFrontQr"></div>
+     </div>
+     <div class="afaq-card-face afaq-card-back">
+      <div class="back-brand">AFAQ CRYPTO · مصرف آفاق</div><div class="magstripe"></div>
+      <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
+      <div class="gold-note">بطاقة تعريف رقمية فقط · لا تمثل عنوان إيداع بلوكشين<br/>رقم المشترك ${memberNo} · رقم الحساب ${accountNo}</div>
+      <div class="back-meta"><span>CRYPTO WALLET CARD<br/>USDT · ETH · BTC · TRX</span><div class="back-qr" id="afaqCryptoBackQr"></div></div>
+     </div>
+    </div>
+   </div><div class="afaq-card-hint">بطاقة الكريبتو · اضغط للقلب</div>`;
+ }
+ function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#e6b94e',colorLight:'#071522',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح';}}
+ function bindAfaqFlipCards(){document.querySelectorAll('[data-afaq-flip]').forEach(card=>{if(card.dataset.flipBound)return;card.dataset.flipBound='1';const flip=()=>{const on=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(on));};card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});});}
+ function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=u.account_number||'—';$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqVirtualBackQr',u);drawMemberQr('afaqCryptoFrontQr',u);drawMemberQr('afaqCryptoBackQr',u);bindAfaqFlipCards()}}
  async function api(path,options={}){const headers={...(options.headers||{})};const t=sessionStorage.getItem(tokenKey)||'';if(t)headers.Authorization='Bearer '+t;if(options.body!==undefined)headers['Content-Type']='application/json';const r=await fetch(API+path,{...options,headers,mode:'cors',credentials:'omit',cache:'no-store'});const data=await r.json().catch(()=>({}));if(!r.ok||data.ok===false)throw new Error(data.error||'تعذر تنفيذ الطلب ('+r.status+')');return data}
  function activate(data){if(!data.token)throw new Error('لم يُرجع الخادم رمز جلسة صالحاً');sessionStorage.setItem(tokenKey,data.token);paint(data.member||{});gate.classList.remove('show')}
  $('afaqAuthToggle').onclick=()=>{mode=mode==='signup'?'login':'signup';show()};

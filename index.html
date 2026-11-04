@@ -863,14 +863,14 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const API=(localStorage.getItem('afaq_api_base_v1')||'https://omax-api-105a.oa626114.workers.dev').trim().replace(/\/+$/,'');
  const tokenKey='afaq_member_token_v1';let mode='signup',member=null;
  const content=document.querySelector('.content');
- content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب المشترك</h2><p>بيانات المشترك والبطاقات المرتبطة بحسابه</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم المشترك ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>رقم الحساب الداخلي</small><strong id="afaqAccountNo">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div><h3>بطاقة محفظة آفاق الرقمية</h3><div id="afaqMemberCardMount"></div><h3>بيانات المشترك</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية. رمز QR على البطاقة للتعريف برقم المشترك فقط، وليس عنوان إيداع.</div></div></section>`);
+ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب المشترك</h2><p>بيانات المشترك والبطاقات المرتبطة بحسابه</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم المشترك ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>Account number · رقم الحساب</small><strong id="afaqAccountNo" dir="ltr">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div><h3>بطاقة محفظة آفاق الرقمية</h3><div id="afaqMemberCardMount"></div><h3>بيانات المشترك</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية. رمز QR على البطاقة للتعريف برقم المشترك فقط، وليس عنوان إيداع.</div></div></section>`);
  const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
  function show(message=''){gate.classList.add('show');$('afaqAuthMsg').textContent=message;$('afaqAuthNameWrap').style.display=mode==='signup'?'block':'none';$('afaqAuthSubmit').textContent=mode==='signup'?'إنشاء عضوية':'تسجيل الدخول';$('afaqAuthToggle').textContent=mode==='signup'?'لدي حساب':'إنشاء حساب جديد'}
 
  function afaqNumericRef(value,length=16){let h1=2166136261>>>0,h2=2246822519>>>0;const s=String(value||'AFAQ');for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^(c+i),3266489917)>>>0;}let digits=String(h1).padStart(10,'0')+String(h2).padStart(10,'0');return digits.slice(0,length).padStart(length,'0')}
 
  function memberCardMarkup(u){
-   const rawId=String(u.member_id||'AFAQ'),memberNo=afaqNumericRef(rawId,12),accountNo=afaqNumericRef(String(u.account_number||rawId)+'-ACCOUNT',16),cardNo=afaqNumericRef(rawId+'-CARD',16);
+   const rawId=String(u.member_id||'OA00000000'),memberNo=rawId,accountNo=afaqNumericRef(String(u.account_number||rawId)+'-ACCOUNT',16),cardNo=afaqNumericRef(rawId+'-CARD',16);
    const name=String(u.name||u.full_name||'مشترك آفاق').replace(/[<>&"]/g,'');
    const fmt=n=>n.replace(/(\d{4})(?=\d)/g,'$1 ');
    return `<div class="afaq-card-hint">اضغط على البطاقة لقلبها وإظهار الوجه الخلفي</div>
@@ -884,7 +884,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
      <div class="afaq-card-face afaq-card-back">
       <div class="back-brand">AFAQ BANK · مصرف آفاق</div><div class="magstripe"></div>
       <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
-      <div class="gold-note">بطاقة افتراضية تجريبية · رقم المشترك ${memberNo}<br/>رقم الحساب التعريفي ${accountNo}<br/>لا توجد بيانات دفع أو CVV فعلي في هذه النسخة</div>
+      <div class="gold-note">بطاقة افتراضية تجريبية · رقم المشترك ID: ${memberNo}<br/>Account number · رقم الحساب ${accountNo}<br/>لا توجد بيانات دفع أو CVV فعلي في هذه النسخة</div>
       <div class="back-meta"><span>VIRTUAL MEMBER CARD<br/>AFAQ BANK · 2026</span><div class="back-qr" id="afaqVirtualBackQr"></div></div>
      </div>
     </div>
@@ -900,7 +900,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
      <div class="afaq-card-face afaq-card-back">
       <div class="back-brand">AFAQ CRYPTO · مصرف آفاق</div><div class="magstripe"></div>
       <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
-      <div class="gold-note">بطاقة تعريف رقمية فقط · لا تمثل عنوان إيداع بلوكشين<br/>رقم المشترك ${memberNo} · رقم الحساب ${accountNo}</div>
+      <div class="gold-note">بطاقة تعريف رقمية فقط · لا تمثل عنوان إيداع بلوكشين<br/>رقم المشترك ID: ${memberNo} · Account number · رقم الحساب ${accountNo}</div>
       <div class="back-meta"><span>CRYPTO WALLET CARD<br/>USDT · ETH · BTC · TRX</span><div class="back-qr" id="afaqCryptoBackQr"></div></div>
      </div>
     </div>
@@ -908,7 +908,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  }
  function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#e6b94e',colorLight:'#071522',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح';}}
  function bindAfaqFlipCards(){document.querySelectorAll('[data-afaq-flip]').forEach(card=>{if(card.dataset.flipBound)return;card.dataset.flipBound='1';const flip=()=>{const on=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(on));};card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});});}
- function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=u.account_number||'—';$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqVirtualBackQr',u);drawMemberQr('afaqCryptoFrontQr',u);drawMemberQr('afaqCryptoBackQr',u);bindAfaqFlipCards()}}
+ function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=afaqNumericRef(String(u.account_number||u.member_id||'AFAQ')+'-ACCOUNT',16);$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqVirtualBackQr',u);drawMemberQr('afaqCryptoFrontQr',u);drawMemberQr('afaqCryptoBackQr',u);bindAfaqFlipCards()}}
  async function api(path,options={}){const headers={...(options.headers||{})};const t=sessionStorage.getItem(tokenKey)||'';if(t)headers.Authorization='Bearer '+t;if(options.body!==undefined)headers['Content-Type']='application/json';const r=await fetch(API+path,{...options,headers,mode:'cors',credentials:'omit',cache:'no-store'});const data=await r.json().catch(()=>({}));if(!r.ok||data.ok===false)throw new Error(data.error||'تعذر تنفيذ الطلب ('+r.status+')');return data}
  function activate(data){if(!data.token)throw new Error('لم يُرجع الخادم رمز جلسة صالحاً');sessionStorage.setItem(tokenKey,data.token);paint(data.member||{});gate.classList.remove('show')}
  $('afaqAuthToggle').onclick=()=>{mode=mode==='signup'?'login':'signup';show()};

@@ -52,7 +52,7 @@ input,select,textarea{font-size:18px;padding:12px}
 body:not(.authenticated) .top,body:not(.authenticated) .layout{display:none!important}
 #authGate{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at top,#16394d 0,#091a28 58%)}
 .auth-card{width:min(560px,100%);background:linear-gradient(145deg,#102b3d,#0d2434);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 18px 55px #0005}
-.auth-card h1{color:var(--gold2);font-size:30px;margin:0 0 8px}.auth-tabs{display:flex;gap:10px;margin:18px 0}.auth-tabs button{flex:1}.auth-message{min-height:28px;color:var(--gold2);font-size:16px}.auth-card .field label{font-size:18px}
+.auth-card h1{color:var(--gold2);font-size:30px;margin:0 0 8px}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0}.auth-tabs button{width:100%;min-height:62px;font-size:18px;line-height:1.5;white-space:normal}.auth-choice-note{text-align:center;color:var(--muted);margin:12px 0 4px}.auth-message{min-height:28px;color:var(--gold2);font-size:16px}.auth-card .field label{font-size:18px}
 #userBadge{font-size:16px;color:var(--gold2);padding:8px 10px;border:1px solid var(--line);border-radius:9px}
 @media(max-width:480px){#authGate{padding:12px}.auth-card{padding:18px}.auth-card h1{font-size:27px}}
 /* تكبير الخطوط وزر القائمة لتحسين القراءة على الهاتف */
@@ -80,9 +80,10 @@ input,select,textarea{font-size:19px;padding:13px}
  <div class="auth-card">
   <div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div>
   <h1>بوابة أعضاء آفاق سوريا</h1>
-  <p class="muted">يجب تسجيل الدخول للوصول إلى المنصة. يمكن للزوار إنشاء عضوية جديدة، ويُمنح حساب المالك حصراً من إدارة الخادم.</p>
-  <div class="auth-tabs"><button type="button" id="loginTab" class="btn">تسجيل الدخول</button><button type="button" id="registerTab" class="btn secondary">إنشاء عضوية</button></div>
-  <form id="loginForm">
+  <p class="muted">اختر الطريقة المناسبة للمتابعة إلى منصة آفاق سوريا.</p>
+  <div class="auth-tabs"><button type="button" id="registerTab" class="btn">إنشاء حساب جديد</button><button type="button" id="loginTab" class="btn secondary">لدي حساب بالفعل — تسجيل الدخول</button></div>
+  <p class="auth-choice-note">إذا لم يسبق لك التسجيل اختر «إنشاء حساب جديد»، وإذا كان لديك حساب سابق اختر «تسجيل الدخول».</p>
+  <form id="loginForm" class="hidden">
    <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="username"></div>
    <div class="field"><label>كلمة المرور</label><input name="password" type="password" required autocomplete="current-password"></div>
    <button class="btn" type="submit">دخول إلى المنصة</button>
@@ -305,14 +306,15 @@ function exportData(){const data={};keys.forEach(k=>data[k]=read(k));data.settin
 function exportCSV(){const rows=read('clients'),head=['name','type','memberId','account','email','phone'];const csv=[head.join(','),...rows.map(x=>head.map(k=>'"'+String(x[k]||'').replace(/"/g,'""')+'"').join(','))].join('\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'afaq-clients.csv')}
 function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
 function clearData(){if(confirm('هل أنت متأكد من حذف جميع سجلات آفاق سوريا من هذا المتصفح؟')){keys.forEach(k=>localStorage.removeItem('afaq_'+k));render()}}
-document.getElementById('apiUrl').value=localStorage.getItem('afaq_api')||'';
+document.getElementById('apiUrl').value=localStorage.getItem('afaq_api')||'https://omax-api-105a.oa626114.workers.dev';
 const initial=location.hash.slice(1);if(document.getElementById(initial)?.classList.contains('page'))showPage(initial);render();
 </script>
 <script>
 // المصادقة تعتمد على جلسة خادمية عبر Cookie آمن؛ لا تُخزن كلمات المرور أو دور المالك في المتصفح.
 const authState={user:null,base:''};
 const authMsg=t=>{document.getElementById('authMessage').textContent=t||''};
-function authBase(){return (localStorage.getItem('afaq_api')||'').trim().replace(/\/+$/,'')}
+const AFAQ_API_BASE='https://omax-api-105a.oa626114.workers.dev';
+function authBase(){return (localStorage.getItem('afaq_api')||AFAQ_API_BASE).trim().replace(/\/+$/,'')}
 async function authRequest(path,method='GET',data=null){
  const base=authBase(); if(!/^https:\/\/.+/.test(base)) throw new Error('أدخل عنوان خادم API المنشور عبر HTTPS أولاً.');
  localStorage.setItem('afaq_api',base);
@@ -353,8 +355,8 @@ document.getElementById('verifyPhoneOtp').addEventListener('click',async()=>{try
 document.getElementById('memberAddressForm').addEventListener('submit',async e=>{e.preventDefault();try{await verificationAction('/api/member/address/submit',Object.fromEntries(new FormData(e.currentTarget)),'addressMessage');await loadMemberProfile()}catch{}});
 function clearAuthUser(){authState.user=null;document.body.classList.remove('authenticated');document.getElementById('userBadge').textContent='غير مسجل'}
 // تم حذف حقل عنوان API من الواجهة؛ لا نحاول الوصول إلى عنصر غير موجود.
-document.getElementById('loginTab').addEventListener('click',()=>{document.getElementById('loginForm').classList.remove('hidden');document.getElementById('registerForm').classList.add('hidden');document.getElementById('loginTab').className='btn';document.getElementById('registerTab').className='btn secondary';authMsg('')});
-document.getElementById('registerTab').addEventListener('click',()=>{document.getElementById('registerForm').classList.remove('hidden');document.getElementById('loginForm').classList.add('hidden');document.getElementById('registerTab').className='btn';document.getElementById('loginTab').className='btn secondary';authMsg('')});
+document.getElementById('loginTab').addEventListener('click',()=>{document.getElementById('loginForm').classList.remove('hidden');document.getElementById('registerForm').classList.add('hidden');document.getElementById('loginTab').className='btn';document.getElementById('registerTab').className='btn secondary';authMsg('');document.getElementById('loginForm').elements.email.focus()});
+document.getElementById('registerTab').addEventListener('click',()=>{document.getElementById('registerForm').classList.remove('hidden');document.getElementById('loginForm').classList.add('hidden');document.getElementById('registerTab').className='btn';document.getElementById('loginTab').className='btn secondary';authMsg('');document.getElementById('registerForm').elements.name.focus()});
 document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;authMsg('جارٍ التحقق من بيانات الدخول…');try{const d=Object.fromEntries(new FormData(f));const r=await authRequest('/api/auth/login','POST',d);if(!r.user)throw new Error('استجابة الخادم لا تحتوي بيانات العضو.');setAuthUser(r.user);authMsg('');f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
 document.getElementById('registerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');const d=Object.fromEntries(new FormData(f));if(d.password!==d.confirmPassword){authMsg('كلمتا المرور غير متطابقتين.');return}if(d.password.length<10){authMsg('كلمة المرور يجب ألا تقل عن 10 أحرف.');return}delete d.confirmPassword;b.disabled=true;authMsg('جارٍ إنشاء عضويتك…');try{const r=await authRequest('/api/auth/register','POST',d);if(r.user){setAuthUser(r.user);authMsg('تم إنشاء العضوية وتسجيل الدخول.')}else{authMsg(r.message||'تم استلام طلب التسجيل. تحقق من بريدك أو سجّل الدخول بعد تفعيل الحساب.');document.getElementById('loginTab').click()}f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
 async function logoutUser(){try{await authRequest('/api/auth/logout','POST',{});}catch(e){}clearAuthUser();authMsg('تم إنهاء الجلسة. سجّل الدخول للمتابعة.');}

@@ -7,7 +7,28 @@
 <style>
 :root{--bg:#091a28;--panel:#102b3d;--panel2:#14364a;--gold:#d8b45c;--gold2:#f0d58a;--text:#f3e8c9;--muted:#b9b19d;--line:#6d592d;--red:#e47777;--green:#72c69a}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{position:sticky;top:0;z-index:10;background:#0b2030;border-bottom:1px solid var(--line);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:bold;color:var(--gold2);font-size:20px}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:normal}.layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px)}aside{background:#0c2232;border-left:1px solid var(--line);padding:14px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}.navbtn{width:100%;text-align:right;background:transparent;border:1px solid transparent;color:var(--text);padding:10px;border-radius:9px;margin:3px 0}.navbtn:hover,.navbtn.active{background:var(--panel2);border-color:var(--line);color:var(--gold2)}main{padding:24px;max-width:1500px;width:100%;margin:auto}.page{display:none}.page.active{display:block}.hero,.card{background:linear-gradient(145deg,var(--panel),#0d2434);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 18px}.hero h1{color:var(--gold2);margin:0 0 6px}.muted,.hint{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}.stat{font-size:27px;color:var(--gold2);font-weight:bold}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.sectionhead h2,h2,h3{color:var(--gold2);margin:0 0 12px}.btn{background:var(--gold);color:#172331;border:0;border-radius:8px;padding:9px 14px;font-weight:bold}.btn.secondary{background:#17394d;color:var(--gold2);border:1px solid var(--line)}.btn.danger{background:#6b3035;color:#ffe5df}.btn:disabled{opacity:.5;cursor:not-allowed}.field{display:flex;flex-direction:column;gap:5px;margin:9px 0}.field label{font-size:13px;color:var(--gold2)}input,select,textarea{width:100%;background:#091d2b;color:var(--text);border:1px solid #6c5b36;border-radius:8px;padding:10px;outline:none}textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--gold2)}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #51472f;text-align:right}th{background:#143449;color:var(--gold2)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:10px}.notice{border-right:4px solid var(--gold);background:#172d3b;padding:12px;border-radius:8px;margin:12px 0}.status{display:inline-block;padding:3px 8px;border-radius:20px;background:#263b45;color:var(--gold2);font-size:12px}.dangertext{color:var(--red)}.ok{color:var(--green)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.hidden{display:none!important}.mobilemenu{display:none}footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line)}.small{font-size:12px}
-@media(max-width:850px){.layout{display:block}aside{position:fixed;z-index:20;top:60px;right:0;width:280px;height:calc(100vh - 60px);transform:translateX(105%);transition:.2s;box-shadow:0 0 30px #0008}aside.open{transform:translateX(0)}.mobilemenu{display:inline-block}main{padding:14px}.top{padding:10px}.brand{font-size:17px}}
+/* تخطيط متجاوب للأجهزة اللوحية والهواتف */
+@media(max-width:1100px){
+  .layout{display:block;min-height:calc(100vh - 64px)}
+  aside{position:fixed;z-index:30;top:0;right:0;width:min(290px,82vw);height:100dvh;max-height:100dvh;overflow-y:auto;padding:78px 14px 20px;background:#0c2232;border-left:1px solid var(--line);transform:translateX(110%);visibility:hidden;transition:transform .22s ease,visibility .22s ease;box-shadow:0 0 30px #0008}
+  aside.open{transform:translateX(0);visibility:visible}
+  .mobilemenu{display:inline-block}
+  main{padding:14px;width:100%;max-width:none;margin:0}
+  .top{padding:10px;min-height:58px}
+  .brand{font-size:17px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr))}
+  .formgrid{grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr))}
+  .hero,.card{padding:14px}
+}
+@media(max-width:480px){
+  main{padding:10px}
+  .top .status{font-size:10px}
+  .toolbar{gap:5px}
+  .btn{padding:8px 10px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .stat{font-size:22px}
+  .tablewrap table{min-width:560px}
+}
 </style></head>
 <body>
 <header class="top"><div><div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div></div><div class="toolbar"><button class="btn secondary mobilemenu" onclick="document.querySelector('aside').classList.toggle('open')">☰ القائمة</button><span class="status">نسخة تشغيلية محلية تجريبية</span></div></header>
@@ -46,7 +67,7 @@
 <div class="field"><label>اسم المشروع</label><input name="name" required></div><div class="field"><label>القطاع</label><select name="sector"><option>بنية تحتية</option><option>استثمار عقاري</option><option>طرق وجسور</option><option>طاقة ومياه</option><option>صناعة وتجارة</option><option>زراعة</option><option>سياحة</option><option>أخرى</option></select></div>
 <div class="field"><label>المحافظة / الموقع</label><input name="location"></div><div class="field"><label>الميزانية التقديرية</label><input name="budget" type="number" min="0" step="0.01"></div><div class="field"><label>العملة</label><select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></div><div class="field"><label>الحالة</label><select name="status"><option>فكرة أولية</option><option>قيد الدراسة</option><option>فرصة استثمارية</option><option>قيد التنفيذ</option><option>مكتمل</option><option>متوقف</option></select></div></div><div class="field"><label>الوصف</label><textarea name="description"></textarea></div><button class="btn">حفظ المشروع</button></form></div><div class="card"><div class="tablewrap"><table><thead><tr><th>المشروع</th><th>القطاع</th><th>الموقع</th><th>الميزانية</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody id="projectRows"></tbody></table></div></div></section>
 
-<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2><div class="card"><form id="cityForm"><div class="formgrid"><div class="field"><label>المحافظة</label><select name="governorate" id="governorate"></select></div><div class="field"><label>اسم المدينة / المنطقة</label><input name="city" required></div></div><button class="btn">إضافة المدينة</button></form></div><div class="card"><h3>المدن المسجلة</h3><div class="tablewrap"><table><thead><tr><th>المحافظة</th><th>المدينة / المنطقة</th><th>إجراء</th></tr></thead><tbody id="cityRows"></tbody></table></div></div></section>
+<section id="cities" class="page"><h2>حقائب المحافظات والمدن السورية</h2><div id="cityMessage" class="notice" role="status" aria-live="polite" style="display:none"></div><div class="card"><form id="cityForm"><div class="formgrid"><div class="field"><label>المحافظة</label><select name="governorate" id="governorate"></select></div><div class="field"><label>اسم المدينة / المنطقة</label><input name="city" required></div></div><button class="btn">إضافة المدينة</button></form></div><div class="card"><h3>المدن المسجلة</h3><div class="tablewrap"><table><thead><tr><th>المحافظة</th><th>المدينة / المنطقة</th><th>إجراء</th></tr></thead><tbody id="cityRows"></tbody></table></div></div></section>
 
 <section id="portfolios" class="page"><h2>الحقائب الاستثمارية</h2><div class="card"><form id="portfolioForm"><div class="formgrid"><div class="field"><label>اسم الحقيبة</label><input name="name" required></div><div class="field"><label>الاسم بالإنجليزية</label><input name="english"></div><div class="field"><label>رمز الحقيبة</label><input name="code"></div><div class="field"><label>القطاع</label><input name="sector"></div></div><div class="field"><label>الوصف</label><textarea name="description"></textarea></div><button class="btn">حفظ الحقيبة</button></form></div><div id="portfolioRows"></div></section>
 
@@ -79,14 +100,30 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const val=(f,n)=>new FormData(f).get(n)?.toString().trim()||'';
 function addRow(k,obj){const a=read(k);a.push({...obj,id:Date.now()+Math.random()});write(k,a);render();return a[a.length-1]}
 function del(k,id){write(k,read(k).filter(x=>x.id!==id));render()}
-function table(id,k,cols){document.getElementById(id).innerHTML=read(k).map(x=>'<tr>'+cols.map(c=>'<td>'+esc(x[c]??'—')+'</td>').join('')+'<td><button class="btn danger small" onclick="del(\''+k+'\','+x.id+')">حذف</button></td></tr>').join('')||'<tr><td colspan="'+(cols.length+1)+'" class="muted">لا توجد سجلات بعد</td></tr>'}
-function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.page===id));document.querySelector('aside').classList.remove('open');history.replaceState(null,'','#'+id)}
+function table(id,k,cols){document.getElementById(id).innerHTML=read(k).map(x=>'<tr>'+cols.map(c=>'<td>'+esc(x[c]??'—')+'</td>').join('')+'<td><button type="button" class="btn danger small" data-delete-key="'+k+'" data-delete-id="'+x.id+'">حذف</button></td></tr>').join('')||'<tr><td colspan="'+(cols.length+1)+'" class="muted">لا توجد سجلات بعد</td></tr>'}
+function showPage(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.page===id));document.querySelector('aside').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,left:0,behavior:'auto'})}
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.addEventListener('click',e=>{const b=e.target.closest('[data-delete-key][data-delete-id]');if(b){del(b.dataset.deleteKey,Number(b.dataset.deleteId));const m=document.getElementById('cityMessage');if(b.dataset.deleteKey==='cities'&&m){m.textContent='تم حذف سجل المدينة.';m.style.display='block'}}});
 const govs=['دمشق','ريف دمشق','حلب','حمص','حماة','اللاذقية','طرطوس','إدلب','درعا','السويداء','القنيطرة','دير الزور','الرقة','الحسكة'];
 document.getElementById('governorate').innerHTML=govs.map(x=>'<option>'+x+'</option>').join('');
 function bind(formId,k,mapper){document.getElementById(formId).addEventListener('submit',e=>{e.preventDefault();addRow(k,mapper(e.target));e.target.reset()})}
 bind('projectForm','projects',f=>Object.fromEntries(['name','sector','location','budget','currency','status','description'].map(n=>[n,val(f,n)])));
-bind('cityForm','cities',f=>({governorate:val(f,'governorate'),city:val(f,'city')}));
+document.getElementById('cityForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const form=e.currentTarget, governorate=val(form,'governorate'), city=val(form,'city');
+ const msg=document.getElementById('cityMessage');
+ if(!city){form.elements.city.focus();return}
+ try{
+  addRow('cities',{governorate,city});
+  form.reset();
+  msg.textContent='تمت إضافة '+city+' إلى محافظة '+governorate+' بنجاح.';
+  msg.style.display='block';
+ }catch(err){
+  msg.textContent='تعذر حفظ المدينة في هذا المتصفح. تحقق من مساحة التخزين ثم أعد المحاولة.';
+  msg.style.display='block';
+  console.error('City save error:',err);
+ }
+});
 bind('portfolioForm','portfolios',f=>Object.fromEntries(['name','english','code','sector','description'].map(n=>[n,val(f,n)])));
 bind('watchForm','watch',f=>({symbol:val(f,'symbol').toUpperCase()}));
 bind('tradeForm','trades',f=>({...Object.fromEntries(['side','type','symbol','asset','quantity','price','currency'].map(n=>[n,val(f,n)])),total:(Number(val(f,'quantity'))*Number(val(f,'price'))).toFixed(2),date:new Date().toLocaleString('ar')}));

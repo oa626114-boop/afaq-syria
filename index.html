@@ -100,7 +100,7 @@ input,select,textarea{font-size:19px;padding:13px}
   <form id="registerForm" class="hidden">
    <div class="field"><label>الاسم الكامل</label><input name="name" required autocomplete="name" minlength="2"></div>
    <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="email"></div>
-   <div class="field"><label>كلمة المرور (10 أحرف على الأقل)</label><input name="password" type="password" required minlength="10" autocomplete="new-password"></div>
+   <div class="field"><label>كلمة المرور (10 أحرف على الأقل)</label><div class="password-wrap"><input name="password" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
    <div class="field"><label>تأكيد كلمة المرور</label><div class="password-wrap"><input name="confirmPassword" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="confirmPassword" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
    <button class="btn" type="submit">إنشاء حساب مشترك جديد</button>
   </form>
@@ -388,7 +388,7 @@ async function logoutUser(){try{await authRequest('/api/auth/logout','POST',{});
 
 // إظهار/إخفاء كلمة المرور محلياً دون إرسالها أو تخزينها.
 document.querySelectorAll('.password-toggle[data-password-target]').forEach(btn=>{
- const input=document.querySelector('#authGate input[name="'+btn.dataset.passwordTarget+'"]');
+ const input=btn.closest('.password-wrap')?.querySelector('input');
  if(!input)return;
  btn.addEventListener('click',()=>{
   const showing=input.type==='password';

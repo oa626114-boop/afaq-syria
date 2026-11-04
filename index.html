@@ -273,33 +273,25 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 .trade-warning,.payment-help{background:#30271c!important;color:#f0d18b!important;border-color:#806633!important}
 .gold-action,.btn.gold,.portfolio-toolbar button{color:#071522!important}
 
-/* AFAQ SYRIA — clearer, larger right-side navigation labels */
-.nav button,
-.nav-payment{
-  font-size:16px !important;
-  font-weight:600 !important;
-  line-height:1.7 !important;
-  padding:12px 13px !important;
-  gap:12px !important;
-}
-.nav .ico,
-.nav-payment .ico{
-  width:25px !important;
-  flex:0 0 25px !important;
-  font-size:20px !important;
-  line-height:1.2 !important;
-}
-.nav-label{
-  font-size:12px !important;
-  font-weight:700 !important;
-  line-height:1.7 !important;
-}
-@media(max-width:720px){
-  .nav button,.nav-payment{font-size:16px !important;padding:12px 13px !important}
-  .nav .ico,.nav-payment .ico{font-size:20px !important}
-}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-</style></head>
+<style>
+.afaq-member-crypto-card{position:relative;max-width:720px;width:100%;margin:16px 0;border:1px solid #c59b4e;border-radius:18px;overflow:hidden;aspect-ratio:1.53125;background:#061522 url('assets/afaq-crypto-card-art.png') center/cover no-repeat;box-shadow:0 12px 34px #0007;color:#f5d58c;isolation:isolate}
+.afaq-member-crypto-card:before{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(180deg,rgba(4,18,30,.94),#061522 28%,#071a2b 100%);z-index:0}
+.afaq-member-crypto-card .afaq-card-copy{position:absolute;z-index:1;left:4.5%;right:28%;bottom:8%;display:flex;flex-direction:column;gap:5px;text-shadow:0 1px 3px #000}
+.afaq-member-crypto-card .afaq-card-brand{position:absolute;z-index:1;top:7%;left:5%;font-weight:800;font-size:clamp(13px,2.3vw,22px);letter-spacing:.04em;color:#f2d18a;text-shadow:0 2px 5px #000}
+.afaq-member-crypto-card .afaq-card-name{font-size:clamp(13px,2vw,20px);font-weight:700;letter-spacing:.06em}
+.afaq-member-crypto-card .afaq-card-id{font-size:clamp(10px,1.35vw,14px);color:#e8c77f;overflow-wrap:anywhere}
+.afaq-member-crypto-card .afaq-card-label{font-size:clamp(9px,1.1vw,12px);opacity:.9}
+.afaq-member-crypto-card .afaq-card-qrwrap{position:absolute;z-index:2;right:5%;bottom:7%;width:20%;aspect-ratio:1;background:#fff;border:4px solid #d8b45e;border-radius:10px;padding:5px;display:grid;place-items:center}
+.afaq-member-crypto-card .afaq-card-qr{width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.afaq-member-crypto-card .afaq-card-qr img,.afaq-member-crypto-card .afaq-card-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
+.afaq-member-crypto-card .afaq-card-qr-note{position:absolute;right:5%;bottom:1.5%;font-size:clamp(7px,.9vw,10px);color:#f0d18b;z-index:2}
+.afaq-member-crypto-card .afaq-card-status{position:absolute;top:7%;right:5%;z-index:2;border:1px solid #c39a4c;background:#071a2bdd;border-radius:20px;padding:4px 9px;font-size:clamp(8px,1vw,11px);color:#f2d18a}
+@media(max-width:520px){.afaq-member-crypto-card{border-radius:12px}.afaq-member-crypto-card .afaq-card-copy{right:30%;bottom:8%}.afaq-member-crypto-card .afaq-card-qrwrap{width:21%;right:4%;bottom:8%;padding:3px}.afaq-member-crypto-card .afaq-card-qr-note{right:4%;bottom:2%}}
+</style>
+
+</head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
@@ -849,10 +841,12 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const API=(localStorage.getItem('afaq_api_base_v1')||'https://omax-api-105a.oa626114.workers.dev').trim().replace(/\/+$/,'');
  const tokenKey='afaq_member_token_v1';let mode='signup',member=null;
  const content=document.querySelector('.content');
- content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب العضوية</h2><p>بيانات العضو والحساب الداخلي المرتبطة بخادم آفاق سوريا</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم العضوية ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>رقم الحساب الداخلي</small><strong id="afaqAccountNo">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div><h3>بيانات العضو</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية.</div></div></section>`);
- const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب العضوية';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
+ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب المشترك</h2><p>بيانات المشترك والبطاقات المرتبطة بحسابه</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم المشترك ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>رقم الحساب الداخلي</small><strong id="afaqAccountNo">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div><h3>بطاقة محفظة آفاق الرقمية</h3><div id="afaqMemberCardMount"></div><h3>بيانات المشترك</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية. رمز QR على البطاقة للتعريف برقم المشترك فقط، وليس عنوان إيداع.</div></div></section>`);
+ const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
  function show(message=''){gate.classList.add('show');$('afaqAuthMsg').textContent=message;$('afaqAuthNameWrap').style.display=mode==='signup'?'block':'none';$('afaqAuthSubmit').textContent=mode==='signup'?'إنشاء عضوية':'تسجيل الدخول';$('afaqAuthToggle').textContent=mode==='signup'?'لدي حساب':'إنشاء حساب جديد'}
- function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=u.account_number||'—';$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase()}
+ function memberCardMarkup(u){const mid=String(u.member_id||'—');return `<div class="afaq-member-crypto-card"><div class="afaq-card-brand">مصرف آفاق · AFAQ BANK</div><div class="afaq-card-status">بطاقة تعريف رقمية</div><div class="afaq-card-copy"><span class="afaq-card-label">حامل البطاقة / CARDHOLDER</span><span class="afaq-card-name">${String(u.name||u.full_name||'مشترك آفاق').replace(/[<>&"]/g,'')}</span><span class="afaq-card-label">رقم المشترك / MEMBER ID</span><span class="afaq-card-id" dir="ltr">${mid.replace(/[<>&"]/g,'')}</span></div><div class="afaq-card-qrwrap"><div class="afaq-card-qr" id="afaqMemberQr"></div></div><div class="afaq-card-qr-note">QR تعريف المشترك فقط</div></div>`}
+ function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#071522',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح — تحقق من الاتصال';box.style.color='#071522';box.style.fontSize='9px';box.style.textAlign='center';}}
+ function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=u.account_number||'—';$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqMemberQr',u)}}
  async function api(path,options={}){const headers={...(options.headers||{})};const t=sessionStorage.getItem(tokenKey)||'';if(t)headers.Authorization='Bearer '+t;if(options.body!==undefined)headers['Content-Type']='application/json';const r=await fetch(API+path,{...options,headers,mode:'cors',credentials:'omit',cache:'no-store'});const data=await r.json().catch(()=>({}));if(!r.ok||data.ok===false)throw new Error(data.error||'تعذر تنفيذ الطلب ('+r.status+')');return data}
  function activate(data){if(!data.token)throw new Error('لم يُرجع الخادم رمز جلسة صالحاً');sessionStorage.setItem(tokenKey,data.token);paint(data.member||{});gate.classList.remove('show')}
  $('afaqAuthToggle').onclick=()=>{mode=mode==='signup'?'login':'signup';show()};

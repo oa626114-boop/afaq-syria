@@ -1,3 +1,70 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AFAQ CRYPTO WALLET</title><style>
-:root{--n:#071a2b;--p:#10283b;--g:#d9b45b;--b:#39291f;--l:#806633;--w:#f5edda}*{box-sizing:border-box}body{margin:0;background:var(--n);color:var(--w);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:850px;margin:auto;padding:18px}.title{font-size:24px;color:var(--g);font-weight:bold}.panel{background:var(--p);border:1px solid var(--l);border-radius:14px;padding:16px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.coin{background:var(--b);border:1px solid var(--l);padding:14px;border-radius:12px}.coin b{color:var(--g)}label{display:block;margin:9px 0 5px;color:var(--g)}input,select{width:100%;padding:12px;background:#071a2b;color:var(--w);border:1px solid var(--l);border-radius:8px}button{background:var(--g);color:#071a2b;border:0;border-radius:8px;padding:12px 16px;font-weight:bold;margin-top:10px}.warn{font-size:13px;line-height:1.8;color:#f3d89b;background:#30271c;border:1px solid var(--l);border-radius:10px;padding:12px}.back{color:var(--g)}@media(max-width:560px){.grid{grid-template-columns:1fr}}
-</style></head><body><main class="wrap"><a class="back" href="index.html">← العودة للمنصة</a><h1 class="title">AFAQ CRYPTO WALLET</h1><div>محفظة آفاق سوريا للعملات الرقمية</div><section class="panel"><h2 style="color:var(--g)">الأصول المدعومة ضمن واجهة المحفظة</h2><div class="grid"><div class="coin"><b>USDT · TRC20</b><p>شبكة TRON</p></div><div class="coin"><b>USDT · ERC20</b><p>شبكة Ethereum</p></div><div class="coin"><b>BTC</b><p>Bitcoin</p></div><div class="coin"><b>ETH</b><p>Ethereum</p></div><div class="coin"><b>TRX</b><p>TRON</p></div></div></section><section class="panel"><h2 style="color:var(--g)">طلب استقبال / دفع</h2><label>العملة والشبكة</label><select id="coin"><option>USDT TRC20</option><option>USDT ERC20</option><option>BTC</option><option>ETH</option><option>TRX</option></select><label>المبلغ</label><input id="amount" type="number" min="0" step="any" placeholder="أدخل المبلغ"><button onclick="if(!sessionStorage.getItem('afaq_member_token_v1')){document.getElementById('msg').textContent='سجّل الدخول أولاً من الصفحة الرئيسية، ثم أعد المحاولة.';return;}location.href='payment.html?currency='+encodeURIComponent(document.getElementById('coin').value)+'&amount='+encodeURIComponent(document.getElementById('amount').value)">إنشاء فاتورة دفع آمنة</button><p id="msg"></p></section><div class="warn"><b>حالة المحفظة: واجهة أولية غير حاضنة للأموال.</b><br>لا تعرض هذه الصفحة رصيداً حقيقياً ولا تنشئ عناوين بلوكشين أو مفاتيح خاصة. استقبال الأموال والتحويلات الفعلية يتطلب مزود حفظ/محفظة معتمد، تحقق هوية وامتثالاً، وربطاً آمناً من جهة الخادم. لا ترسل أموالاً إلى عنوان غير صادر من فاتورة مؤكدة.</div></main></body></html>
+:root{--n:#071a2b;--p:#10283b;--g:#d9b45b;--b:#39291f;--l:#806633;--w:#f5edda}*{box-sizing:border-box}body{margin:0;background:var(--n);color:var(--w);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:850px;margin:auto;padding:18px}.title{font-size:24px;color:var(--g);font-weight:bold}.panel{background:var(--p);border:1px solid var(--l);border-radius:14px;padding:16px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.coin{background:var(--b);border:1px solid var(--l);padding:14px;border-radius:12px;color:var(--w);text-align:right;width:100%;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}.coin b{color:var(--g)}.coin:hover,.coin:focus-visible{border-color:var(--g);outline:2px solid #d9b45b55;outline-offset:2px}.coin[aria-pressed="true"]{border:2px solid var(--g);background:#49351f;box-shadow:0 0 0 2px #d9b45b22}.coin p{margin:8px 0 0}label{display:block;margin:9px 0 5px;color:var(--g)}input,select{width:100%;padding:12px;background:#071a2b;color:var(--w);border:1px solid var(--l);border-radius:8px}button{background:var(--g);color:#071a2b;border:0;border-radius:8px;padding:12px 16px;font-weight:bold;margin-top:10px}.warn{font-size:13px;line-height:1.8;color:#f3d89b;background:#30271c;border:1px solid var(--l);border-radius:10px;padding:12px}.back{color:var(--g)}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+.afaq-member-crypto-card{position:relative;max-width:720px;width:100%;margin:16px 0;border:1px solid #c59b4e;border-radius:18px;overflow:hidden;aspect-ratio:1.53125;background:#061522 url('assets/afaq-crypto-card-art.png') center/cover no-repeat;box-shadow:0 12px 34px #0007;color:#f5d58c;isolation:isolate}
+.afaq-member-crypto-card:before{content:"";position:absolute;inset:48% 0 0;background:linear-gradient(180deg,rgba(4,18,30,.94),#061522 28%,#071a2b 100%);z-index:0}
+.afaq-member-crypto-card .afaq-card-copy{position:absolute;z-index:1;left:4.5%;right:28%;bottom:8%;display:flex;flex-direction:column;gap:5px;text-shadow:0 1px 3px #000}
+.afaq-member-crypto-card .afaq-card-brand{position:absolute;z-index:1;top:7%;left:5%;font-weight:800;font-size:clamp(13px,2.3vw,22px);letter-spacing:.04em;color:#f2d18a;text-shadow:0 2px 5px #000}
+.afaq-member-crypto-card .afaq-card-name{font-size:clamp(13px,2vw,20px);font-weight:700;letter-spacing:.06em}
+.afaq-member-crypto-card .afaq-card-id{font-size:clamp(10px,1.35vw,14px);color:#e8c77f;overflow-wrap:anywhere}
+.afaq-member-crypto-card .afaq-card-label{font-size:clamp(9px,1.1vw,12px);opacity:.9}
+.afaq-member-crypto-card .afaq-card-qrwrap{position:absolute;z-index:2;right:5%;bottom:7%;width:20%;aspect-ratio:1;background:#fff;border:4px solid #d8b45e;border-radius:10px;padding:5px;display:grid;place-items:center}
+.afaq-member-crypto-card .afaq-card-qr{width:100%;height:100%;display:grid;place-items:center;overflow:hidden}
+.afaq-member-crypto-card .afaq-card-qr img,.afaq-member-crypto-card .afaq-card-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
+.afaq-member-crypto-card .afaq-card-qr-note{position:absolute;right:5%;bottom:1.5%;font-size:clamp(7px,.9vw,10px);color:#f0d18b;z-index:2}
+.afaq-member-crypto-card .afaq-card-status{position:absolute;top:7%;right:5%;z-index:2;border:1px solid #c39a4c;background:#071a2bdd;border-radius:20px;padding:4px 9px;font-size:clamp(8px,1vw,11px);color:#f2d18a}
+@media(max-width:520px){.afaq-member-crypto-card{border-radius:12px}.afaq-member-crypto-card .afaq-card-copy{right:30%;bottom:8%}.afaq-member-crypto-card .afaq-card-qrwrap{width:21%;right:4%;bottom:8%;padding:3px}.afaq-member-crypto-card .afaq-card-qr-note{right:4%;bottom:2%}}
+</style>
+
+</head><body><main class="wrap"><a class="back" href="index.html">← العودة للمنصة</a><h1 class="title">AFAQ CRYPTO WALLET</h1><div>محفظة آفاق سوريا للعملات الرقمية</div>
+<section class="panel" aria-label="بطاقة الكريبتو الشخصية"><h2 style="color:var(--g)">بطاقة الكريبتو الخاصة بالمشترك</h2><div id="afaqWalletMemberCard"><p class="warn">جارٍ تحميل بيانات المشترك…</p></div><p class="warn">رمز QR هنا يعرّف رقم المشترك فقط. لا يمثل عنوان إيداع أو محفظة بلوكشين، ولن يستقبل الأموال.</p></section><section class="panel"><h2 style="color:var(--g)">الأصول المدعومة ضمن واجهة المحفظة</h2><div class="grid" id="coinOptions"><button class="coin" type="button" data-coin="USDT TRC20" aria-pressed="true"><b>USDT · TRC20</b><p>شبكة TRON</p></button><button class="coin" type="button" data-coin="USDT ERC20" aria-pressed="false"><b>USDT · ERC20</b><p>شبكة Ethereum</p></button><button class="coin" type="button" data-coin="BTC" aria-pressed="false"><b>BTC</b><p>Bitcoin</p></button><button class="coin" type="button" data-coin="ETH" aria-pressed="false"><b>ETH</b><p>Ethereum</p></button><button class="coin" type="button" data-coin="TRX" aria-pressed="false"><b>TRX</b><p>TRON</p></button></div></section><section class="panel"><h2 style="color:var(--g)">طلب استقبال / دفع</h2><label>العملة والشبكة</label><select id="coin" aria-label="العملة والشبكة"><option value="USDT TRC20">USDT TRC20</option><option value="USDT ERC20">USDT ERC20</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="TRX">TRX</option></select><label>المبلغ</label><input id="amount" type="number" min="0" step="any" placeholder="أدخل المبلغ"><button id="createInvoice" type="button">إنشاء فاتورة دفع آمنة</button><p id="msg" role="status" aria-live="polite"></p></section><div class="warn"><b>حالة المحفظة: واجهة أولية غير حاضنة للأموال.</b><br>لا تعرض هذه الصفحة رصيداً حقيقياً ولا تنشئ عناوين بلوكشين أو مفاتيح خاصة. استقبال الأموال والتحويلات الفعلية يتطلب مزود حفظ/محفظة معتمد، تحقق هوية وامتثالاً، وربطاً آمناً من جهة الخادم. لا ترسل أموالاً إلى عنوان غير صادر من فاتورة مؤكدة.</div><script>
+(function(){
+ const select=document.getElementById('coin');
+ const amount=document.getElementById('amount');
+ const msg=document.getElementById('msg');
+
+ async function loadMemberCard(){
+   const host=document.getElementById('afaqWalletMemberCard'),token=sessionStorage.getItem('afaq_member_token_v1');
+   if(!token){host.innerHTML='<p class="warn">سجّل الدخول من الصفحة الرئيسية لعرض بطاقة المشترك الخاصة بك.</p>';return;}
+   const apiBase=(localStorage.getItem('afaq_api_base_v1')||'https://omax-api-105a.oa626114.workers.dev').trim().replace(/\/+$/,'');
+   try{
+     const res=await fetch(apiBase+'/api/member/me',{headers:{Authorization:'Bearer '+token},cache:'no-store'});
+     const data=await res.json();if(!res.ok||data.ok===false)throw new Error(data.error||'تعذر جلب بيانات الحساب');
+     const u=data.member||{},mid=String(u.member_id||'');
+     if(!mid)throw new Error('لم يرجع الخادم رقم المشترك');
+     const safe=s=>String(s||'').replace(/[<>&"]/g,'');
+     host.innerHTML=`<div class="afaq-member-crypto-card"><div class="afaq-card-brand">مصرف آفاق · AFAQ BANK</div><div class="afaq-card-status">بطاقة تعريف رقمية</div><div class="afaq-card-copy"><span class="afaq-card-label">حامل البطاقة / CARDHOLDER</span><span class="afaq-card-name">${safe(u.name||u.full_name||'مشترك آفاق')}</span><span class="afaq-card-label">رقم المشترك / MEMBER ID</span><span class="afaq-card-id" dir="ltr">${safe(mid)}</span></div><div class="afaq-card-qrwrap"><div class="afaq-card-qr" id="afaqWalletMemberQr"></div></div><div class="afaq-card-qr-note">QR تعريف المشترك فقط</div></div>`;
+     const q=document.getElementById('afaqWalletMemberQr');
+     if(window.QRCode)new QRCode(q,{text:'AFAQ-MEMBER:'+mid,width:180,height:180,colorDark:'#071522',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+     else q.textContent='QR غير متاح — تحقق من الاتصال';
+   }catch(e){host.innerHTML='<p class="warn">'+safeError(e.message)+'</p>';}
+ }
+ function safeError(s){return String(s||'تعذر تحميل البطاقة').replace(/[<>&"]/g,'');}
+ loadMemberCard();
+
+ const cards=[...document.querySelectorAll('[data-coin]')];
+ function selectCoin(value){
+   select.value=value;
+   cards.forEach(card=>card.setAttribute('aria-pressed',String(card.dataset.coin===value)));
+   msg.textContent='تم اختيار '+value;
+ }
+ cards.forEach(card=>card.addEventListener('click',()=>selectCoin(card.dataset.coin)));
+ select.addEventListener('change',()=>selectCoin(select.value));
+ document.getElementById('createInvoice').addEventListener('click',()=>{
+   const value=Number(amount.value);
+   if(!amount.value || !Number.isFinite(value) || value<=0){
+     msg.textContent='يرجى إدخال مبلغ صحيح أكبر من صفر.';
+     amount.focus();
+     return;
+   }
+   if(!sessionStorage.getItem('afaq_member_token_v1')){
+     msg.textContent='سجّل الدخول أولاً من الصفحة الرئيسية، ثم أعد المحاولة.';
+     return;
+   }
+   const url='payment.html?currency='+encodeURIComponent(select.value)+'&amount='+encodeURIComponent(String(value));
+   location.href=url;
+ });
+})();
+</script></main></body></html>

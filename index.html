@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071522"><meta name="description" content="آفاق سوريا — منصة إدارة المشاريع والاستثمار والتنمية">
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>آفاق سوريا | منصة الأعمال والاستثمار المتكاملة</title>
+<title>آفاق سوريا | منصة الأعمال والاستثمار</title>
 <meta name="color-scheme" content="dark">
 <style>
 :root{--navy:#071522;--navy2:#102b40;--navy3:#17394f;--gold:#d9b15f;--gold2:#f0d18b;--paper:#f4f6f8;--ink:#172633;--muted:#70808c;--line:#e4e9ed;--white:#fff;--green:#16845b;--red:#b94a48;--shadow:0 10px 30px #06152212}
@@ -246,85 +246,19 @@ tbody tr:hover td{background:#102b40}
 .invoice-link{display:inline-flex;gap:6px;align-items:center;color:#f0d18b;text-decoration:underline;font-size:11px}
 .invoice-method{color:#f0d18b;font-size:10px}
 
-
-/* Multi-currency financial branch */
-.bank-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
-.bank-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
-.bank-balance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.bank-balance{border:1px solid #806633;border-radius:10px;padding:12px;background:linear-gradient(145deg,#102b40,#071522);min-width:0}
-.bank-balance b{display:block;color:#f0d18b;font-size:14px}
-.bank-balance strong{display:block;color:#fff;font-size:18px;direction:ltr;text-align:right;overflow-wrap:anywhere;margin-top:5px}
-.bank-balance small{color:#c4b68f}
-.bank-actions{display:flex;gap:8px;flex-wrap:wrap}
-.bank-ledger{min-width:900px}
-.bank-ledger td{vertical-align:top;white-space:normal;min-width:90px}
-.bank-ledger td:last-child{min-width:145px;max-width:230px;overflow-wrap:anywhere}
-.bank-type{display:inline-block;border:1px solid #806633;border-radius:20px;padding:3px 8px;color:#f0d18b;font-size:10px;white-space:nowrap}
-.bank-positive{color:#65d9a5!important}.bank-negative{color:#ff9a9e!important}
-#bank-branch .trade-warning{margin-top:0}
-@media(max-width:850px){.bank-layout{grid-template-columns:1fr}}
-@media(max-width:600px){.bank-summary{grid-template-columns:1fr}.bank-balance-grid{grid-template-columns:1fr 1fr}.bank-actions{width:100%}.bank-actions button{flex:1}}
-</style>
-<style id="afaq-comprehensive-style">
-.afaq-control-center .quick-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
-.afaq-control-center .quick{min-height:78px}
-.check-list{margin:0;padding:0 20px 0 0;line-height:2.1;color:#e5c982;font-size:12px}
-.record-list .record{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid #263d50}
-@media(max-width:720px){.afaq-control-center .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-</style>
-</head>
+</style></head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><button type="button" class="nav-payment" data-view="global-market"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</button><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="bank-branch"><span class="ico">🏦</span>الفرع المصرفي متعدد العملات</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><button type="button" class="nav-payment" data-view="payment-center"><span class="ico">💳</span>مركز الدفع والتحصيل</button><button type="button" class="nav-payment" data-view="crypto-wallet"><span class="ico">₿</span>محفظة العملات الرقمية</button><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
 <div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
 <section class="view active" id="dashboard"><div class="welcome"><div><h1>مرحباً بك في آفاق سوريا</h1><p>منصة موحدة لإدارة المشاريع والاستثمارات والشراكات والعمليات.</p></div><div class="welcome-mark">✦</div></div>
 <div class="stats"><div class="stat"><div class="stat-top"><span>المشاريع المسجلة</span><span class="stat-icon">🏗</span></div><strong id="projectCount">08</strong><small>محافظ عمل متخصصة</small></div><div class="stat"><div class="stat-top"><span>العملاء والشركاء</span><span class="stat-icon">♙</span></div><strong id="clientCount">03</strong><small>سجلات تجريبية</small></div><div class="stat"><div class="stat-top"><span>الفواتير</span><span class="stat-icon">▧</span></div><strong id="invoiceCount">02</strong><small>سجلات تجريبية</small></div><div class="stat"><div class="stat-top"><span>المستندات</span><span class="stat-icon">▣</span></div><strong>—</strong><small>بانتظار ربط التخزين</small></div></div>
 <div class="panel"><div class="panel-head"><h3>الوصول السريع</h3><small>اختر وحدة العمل</small></div><div class="quick-grid"><button class="quick" data-go="projects"><span>🏗</span>إضافة مشروع</button><button class="quick" data-go="clients"><span>♙</span>إضافة عميل</button><button class="quick" data-go="invoices"><span>▧</span>إنشاء فاتورة</button><button class="quick" data-go="documents"><span>▣</span>المستندات</button></div></div>
-<div class="grid2"><div class="panel"><div class="panel-head"><h3>أحدث المشاريع</h3><small>نظرة عامة</small></div><div class="table-wrap"><table><thead><tr><th>المشروع</th><th>القطاع</th><th>الحالة</th></tr></thead><tbody id="recentProjects"><tr><td>تطوير البنية التحتية</td><td>الطرق والجسور</td><td><span class="status pending">قيد الدراسة</span></td></tr><tr><td>مجمع سكني نموذجي</td><td>العقارات</td><td><span class="status">فرصة استثمارية</span></td></tr><tr><td>محطة طاقة شمسية</td><td>الطاقة</td><td><span class="status pending">قيد التخطيط</span></td></tr></tbody></table></div></div><div class="panel"><div class="panel-head"><h3>تنبيه تشغيلي</h3><small>مهم</small></div><p style="font-size:12px;color:#687984;margin:0">هذه نسخة أولية للواجهة. يلزم ربط خادم وقاعدة بيانات ومزود دفع قبل استخدام بيانات حقيقية أو استقبال أموال.</p><p style="font-size:11px;color:#9a762e;margin-bottom:0">لا تُدخل بيانات مصرفية أو معلومات حساسة في هذه النسخة التجريبية.</p></div></div>
-
-<div class="panel afaq-control-center">
- <div class="panel-head"><h3>مركز إدارة المنصة الشامل</h3><small>الوصول إلى جميع وحدات آفاق سوريا</small></div>
- <div class="quick-grid">
-  <button class="quick" data-go="bank-branch"><span>🏦</span>الفرع المصرفي</button>
-  <button class="quick" data-go="crypto-wallet"><span>₿</span>محفظة العملات الرقمية</button>
-  <button class="quick" data-go="payment-center"><span>💳</span>مركز الدفع والتحصيل</button>
-  <button class="quick" data-go="global-market"><span>🌐</span>الأسواق العالمية</button>
-  <button class="quick" data-go="portfolios"><span>🗂</span>الحقائب الاستثمارية</button>
-  <button class="quick" data-go="api"><span>⌘</span>مركز API</button>
-  <button class="quick" data-go="member-account"><span>♙</span>حساب العضوية</button>
-  <button class="quick" data-go="reports"><span>▤</span>التقارير والتحليلات</button>
- </div>
-</div>
-<div class="grid2">
- <div class="panel">
-  <div class="panel-head"><h3>حالة تجهيز الوحدات</h3><small>لوحة متابعة التطوير</small></div>
-  <div class="record-list">
-   <div class="record"><b>إدارة المشاريع والحقائب</b><span class="status">واجهة وتجربة محلية</span></div>
-   <div class="record"><b>الفرع المصرفي متعدد العملات</b><span class="status pending">يحتاج شريكاً مالياً مرخصاً</span></div>
-   <div class="record"><b>محفظة الأصول الرقمية</b><span class="status pending">تحتاج مزوّد حفظ واتصالاً آمناً</span></div>
-   <div class="record"><b>الفواتير ومركز الدفع</b><span class="status pending">يحتاج ربط مزوّد الدفع</span></div>
-   <div class="record"><b>قاعدة البيانات والمزامنة</b><span class="status pending">بانتظار إعداد الخادم</span></div>
-   <div class="record"><b>استعادة كلمة المرور بالبريد</b><span class="status pending">تحتاج خدمة بريد وخادم تحقق</span></div>
-  </div>
- </div>
- <div class="panel">
-  <div class="panel-head"><h3>متطلبات ما قبل الإطلاق</h3><small>قائمة تحقق</small></div>
-  <ul class="check-list">
-   <li>تجهيز قاعدة بيانات مركزية وصلاحيات الأعضاء.</li>
-   <li>إعداد خادم API وحماية مسارات الإدارة.</li>
-   <li>إعداد خدمة البريد ورموز التحقق واستعادة كلمة المرور.</li>
-   <li>التعاقد مع مزود مالي مرخص للخدمات المصرفية.</li>
-   <li>التعاقد مع مزود حفظ أصول رقمية وتوليد عناوين.</li>
-   <li>اختبار النسخ الاحتياطي وسجلات التدقيق والأمان.</li>
-  </ul>
-  <p class="settings-note">لا تعتبر هذه العناصر مفعّلة حتى يتم تنفيذ الربط واختباره فعلياً.</p>
- </div>
-</div>
-</section>
+<div class="grid2"><div class="panel"><div class="panel-head"><h3>أحدث المشاريع</h3><small>نظرة عامة</small></div><div class="table-wrap"><table><thead><tr><th>المشروع</th><th>القطاع</th><th>الحالة</th></tr></thead><tbody id="recentProjects"><tr><td>تطوير البنية التحتية</td><td>الطرق والجسور</td><td><span class="status pending">قيد الدراسة</span></td></tr><tr><td>مجمع سكني نموذجي</td><td>العقارات</td><td><span class="status">فرصة استثمارية</span></td></tr><tr><td>محطة طاقة شمسية</td><td>الطاقة</td><td><span class="status pending">قيد التخطيط</span></td></tr></tbody></table></div></div><div class="panel"><div class="panel-head"><h3>تنبيه تشغيلي</h3><small>مهم</small></div><p style="font-size:12px;color:#687984;margin:0">هذه نسخة أولية للواجهة. يلزم ربط خادم وقاعدة بيانات ومزود دفع قبل استخدام بيانات حقيقية أو استقبال أموال.</p><p style="font-size:11px;color:#9a762e;margin-bottom:0">لا تُدخل بيانات مصرفية أو معلومات حساسة في هذه النسخة التجريبية.</p></div></div></section>
 <section class="view" id="projects"><div class="view-head"><div><h2>إدارة المشاريع</h2><p>تسجيل المشاريع ومتابعة القطاع والحالة والميزانية.</p></div><button class="btn gold" data-add="project">＋ مشروع جديد</button></div><div class="toolbar"><input id="projectSearch" placeholder="ابحث عن مشروع..."></div><div class="panel table-wrap"><table><thead><tr><th>اسم المشروع</th><th>القطاع</th><th>الموقع</th><th>الحالة</th><th>الميزانية التقديرية</th></tr></thead><tbody id="projectsTable"></tbody></table></div></section>
 <section class="view" id="syrian-locations">
  <div class="view-head"><div><h2>حقائب المحافظات والمدن السورية</h2><p>كل محافظة في حقيبة مستقلة؛ افتح الحقيبة لإدارة المدن والمشاريع التابعة لها.</p></div><button type="button" class="btn gold" id="governorateAddFocus">＋ إضافة مدينة</button></div>
@@ -377,7 +311,7 @@ tbody tr:hover td{background:#102b40}
  <div class="panel"><div class="panel-head"><h3>سجل أوامر الشراء والبيع</h3><small>سجل محلي قابل للتصدير لاحقاً</small></div><div class="table-wrap"><table><thead><tr><th>الوقت</th><th>العملية</th><th>الرمز</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th><th>العملة</th><th>الحالة</th></tr></thead><tbody id="iwOrders"></tbody></table></div></div>
  <div class="trade-warning"><b>مهم:</b> هذه محفظة محاكاة وإدارة سجلات وليست حساب وساطة أو محفظة أموال. لا يتم إرسال أوامر إلى بورصة أو تحويل أموال. التنفيذ الحقيقي يتطلب وسيطاً مرخصاً، حساباً موثقاً، API آمن على الخادم، وضوابط الامتثال في بلد التشغيل. العملات المتاحة هي عملات تسعير للسجلات وليست دعماً لتحويلها تلقائياً.</div>
 </section>
-<section class="view" id="clients"><div class="view-head"><div><h2>العملاء والشركاء</h2><p>سجل جهات الاتصال والعلاقات التجارية.</p></div><button class="btn gold" data-add="client">＋ جهة جديدة</button></div><div class="toolbar"><input id="clientSearch" placeholder="ابحث بالاسم أو البريد..."></div><div class="panel table-wrap"><table><thead><tr><th>الاسم</th><th>النوع</th><th>رقم العضوية ID</th><th>رقم الحساب</th><th>البريد الإلكتروني</th><th>الهاتف</th></tr></thead><tbody id="clientsTable"></tbody></table></div></section>
+<section class="view" id="clients"><div class="view-head"><div><h2>العملاء والشركاء</h2><p>سجل جهات الاتصال والعلاقات التجارية.</p></div><button class="btn gold" data-add="client">＋ جهة جديدة</button></div><div class="toolbar"><input id="clientSearch" placeholder="ابحث بالاسم أو البريد..."></div><div class="panel table-wrap"><table><thead><tr><th>الاسم</th><th>النوع</th><th>البريد الإلكتروني</th><th>الهاتف</th></tr></thead><tbody id="clientsTable"></tbody></table></div></section>
 <section class="view" id="invoices">
 <div class="view-head"><div><h2>الفواتير والمدفوعات والاستثمار</h2><p>الفواتير وسجل أوامر شراء وبيع الأسهم — النسخة الحالية تجريبية وغير متصلة بوسيط تداول.</p></div><button class="btn gold" data-add="invoice">＋ إنشاء فاتورة</button></div>
 <div class="panel">
@@ -482,105 +416,8 @@ Authorization: Bearer YOUR_SERVER_TOKEN
     <div class="field"><span>حالة الاتصال</span><strong id="afaqApiStatus" class="api-badge">لم يتم الفحص بعد</strong></div>
     <div class="field"><span>الإجراءات</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn gold" id="afaqApiSave">حفظ العنوان</button><button type="button" class="btn" id="afaqApiTest">اختبار الاتصال</button><button type="button" class="btn ghost" id="afaqApiSync">مزامنة البيانات</button></div></div>
    </div>
-   <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة متاحة لحساب المالك المحدد في ADMIN_EMAIL بعد تسجيل الدخول. لا تفتح الجلسة على جهاز عام أو غير موثوق.</p>
+   <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access. لا تضغط مزامنة على جهاز عام أو غير موثوق.</p>
   </div>
-</section>
-
-<section class="view" id="bank-branch">
- <div class="view-head"><div><h2>الفرع المصرفي متعدد العملات</h2><p>إدارة أرصدة نقدية متعددة العملات، تسجيل الحركات، والتحويل بين حساباتك في سجل مستقل عن المحفظة الرقمية.</p></div><span class="api-badge">سجل مالي تجريبي محلي</span></div>
- <div class="finance-summary bank-summary">
-  <div class="stat"><span>عدد العملات المتاحة</span><strong id="bankCurrencyCount">0</strong></div>
-  <div class="stat"><span>عدد الحركات المسجلة</span><strong id="bankTransactionCount">0</strong></div>
-  <div class="stat"><span>آخر حركة</span><strong id="bankLastTransaction">—</strong></div>
- </div>
- <div class="trade-warning"><b>تنبيه تشغيلي:</b> هذا الفرع في هذه المرحلة دفتر حسابات تجريبي يحفظ البيانات على الجهاز فقط. لا يفتح حساباً مصرفياً ولا ينفذ حوالات أو إيداعات حقيقية. لا تدخل بيانات بطاقات أو كلمات مرور أو بيانات مصرفية سرية.</div>
-
- <style>
- #bank-branch .papara-shell{background:#0d2031;border:1px solid #5e5033;border-radius:15px;padding:14px;margin:12px 0;color:#efd18b}
- #bank-branch .papara-hero{background:linear-gradient(130deg,#102b42,#163c55);border:1px solid #77613b;border-radius:15px;padding:16px;margin-bottom:12px}
- #bank-branch .papara-hero strong{font-size:26px;display:block;margin:7px 0}
- #bank-branch .papara-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
- #bank-branch .papara-tile{background:#10283b;border:1px solid #394d5e;color:#efd18b;border-radius:11px;padding:12px;text-align:right;min-height:58px}
- #bank-branch .papara-tile b{display:block;margin-bottom:5px}
- #bank-branch .papara-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
- #bank-branch .papara-actions button{background:#18364c;border:1px solid #806b43;color:#efd18b;border-radius:9px;padding:10px}
- #bank-branch .papara-section{display:none;margin-top:12px}
- #bank-branch .papara-section.active{display:block}
- #bank-branch .papara-list{display:grid;gap:7px}
- #bank-branch .papara-row{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#10283b;border:1px solid #34495b;border-radius:10px;padding:11px}
- #bank-branch .papara-muted{font-size:12px;line-height:1.8;color:#d5c49c}
- @media(max-width:560px){#bank-branch .papara-grid{grid-template-columns:1fr 1fr}}
- </style>
- <div class="papara-shell" id="afaqBankApp">
-  <div class="papara-hero">
-   <div class="papara-muted">الحساب الرئيسي · حساب تجريبي متعدد العملات</div>
-   <strong>••••••••</strong>
-   <div class="papara-muted">الرصيد الحقيقي غير متصل حالياً — لا توجد أموال مصرفية فعلية</div>
-   <div class="papara-actions"><button type="button" data-bank-action="deposit">إيداع / قبض</button><button type="button" data-bank-action="send">إرسال</button><button type="button" data-bank-action="receive">طلب أموال</button></div>
-  </div>
-  <div class="papara-grid">
-   <button type="button" class="papara-tile" data-bank-page="cards"><b>💳 البطاقات</b><span class="papara-muted">بطاقات افتراضية وتجريبية</span></button>
-   <button type="button" class="papara-tile" data-bank-page="payments"><b>🧾 المدفوعات</b><span class="papara-muted">فواتير وخدمات</span></button>
-   <button type="button" class="papara-tile" data-bank-page="transfers"><b>⇄ التحويلات</b><span class="papara-muted">داخلية ودولية</span></button>
-   <button type="button" class="papara-tile" data-bank-page="accounts"><b>🏦 الحسابات البنكية</b><span class="papara-muted">حسابات وعملات</span></button>
-  </div>
-  <div class="papara-section active" id="bankPage-home">
-   <h3>الخدمات السريعة</h3><div class="papara-grid">
-    <button class="papara-tile" type="button" data-bank-action="send">إرسال الأموال</button><button class="papara-tile" type="button" data-bank-action="request">طلب الأموال</button>
-    <button class="papara-tile" type="button" data-bank-action="international">حوالة دولية</button><button class="papara-tile" type="button" data-bank-action="scheduled">حوالة مجدولة</button>
-    <button class="papara-tile" type="button" data-bank-action="split">تقسيم فاتورة</button><button class="papara-tile" type="button" data-bank-action="atm">البحث عن صراف ATM</button>
-   </div>
-   <h3 style="margin-top:14px">المدفوعات والخدمات</h3><div class="papara-list">
-    <div class="papara-row">🎮 <span>الألعاب والرموز الرقمية</span><span>›</span></div><div class="papara-row">✈️ <span>بطاقات السفر</span><span>›</span></div><div class="papara-row">📱 <span>الهاتف والإنترنت</span><span>›</span></div><div class="papara-row">💧 <span>المياه والكهرباء والغاز</span><span>›</span></div><div class="papara-row">🎁 <span>بطاقات الهدايا</span><span>›</span></div>
-   </div>
-  </div>
-  <div class="papara-section" id="bankPage-cards"><h3>البطاقات</h3><div class="papara-list"><div class="papara-row">💳 بطاقة افتراضية <span>غير مفعّلة</span></div><div class="papara-row">💳 بطاقة فعلية <span>تتطلب شريك إصدار مرخص</span></div></div><p class="papara-muted">لا يتم إنشاء أرقام بطاقات أو بيانات دفع حقيقية في هذه النسخة.</p></div>
-  <div class="papara-section" id="bankPage-payments"><h3>مركز المدفوعات</h3><div class="papara-list"><div class="papara-row">الألعاب والرموز الرقمية <span>›</span></div><div class="papara-row">بطاقات السفر <span>›</span></div><div class="papara-row">الهاتف والإنترنت <span>›</span></div><div class="papara-row">المياه والكهرباء والغاز <span>›</span></div><div class="papara-row">GSM / شحن الرصيد <span>›</span></div><div class="papara-row">بطاقات الهدايا <span>›</span></div></div><p class="papara-muted">قنوات الدفع غير متصلة حالياً.</p></div>
-  <div class="papara-section" id="bankPage-transfers"><h3>التحويلات المالية</h3><div class="papara-grid"><button class="papara-tile" data-bank-action="internal" type="button">تحويل داخلي بين الأعضاء</button><button class="papara-tile" data-bank-action="international" type="button">حوالة دولية</button><button class="papara-tile" data-bank-action="scheduled" type="button">حوالة مجدولة</button><button class="papara-tile" data-bank-action="request" type="button">طلب تحويل</button></div><p class="papara-muted">تتطلب التحويلات الحقيقية حسابات مصرفية/مزود دفع مرخصاً والتحقق من هوية الأطراف.</p></div>
-  <div class="papara-section" id="bankPage-accounts"><h3>الحسابات البنكية</h3><div class="papara-list"><div class="papara-row">حساب USD <span>تجريبي</span></div><div class="papara-row">حساب EUR <span>تجريبي</span></div><div class="papara-row">حساب TRY <span>تجريبي</span></div><div class="papara-row">حساب SYP <span>تجريبي</span></div></div><p class="papara-muted">أرقام الحسابات وIBAN الفعلية لا تصدر إلا من بنك أو مؤسسة مالية مرخصة.</p></div>
-  <div class="papara-actions"><button type="button" data-bank-page="profile">القائمة الشخصية ⚙</button><button type="button" data-bank-page="activity">الحركات</button><button type="button" data-bank-page="limits">الرسوم والحدود</button><button type="button" data-bank-page="support">الدعم والأسئلة الشائعة</button></div>
-  <div class="papara-section" id="bankPage-profile"><h3>الحساب الشخصي</h3><div class="papara-list"><div class="papara-row">تفاصيل الحساب <span>›</span></div><div class="papara-row">حركات الحساب <span>›</span></div><div class="papara-row">الحسابات البنكية <span>›</span></div><div class="papara-row">بطاقات الخصم والائتمان <span>›</span></div><div class="papara-row">إدارة العناوين <span>›</span></div><div class="papara-row">الإشعارات <span>›</span></div><div class="papara-row">إعدادات الأمان <span>›</span></div></div></div>
-  <div class="papara-section" id="bankPage-activity"><h3>ملخص الحركات الشهرية</h3><p class="papara-muted">سيتم عرض ملخص الإيداعات والسحوبات والمدفوعات بعد ربط قاعدة البيانات.</p></div>
-  <div class="papara-section" id="bankPage-limits"><h3>الرسوم والحدود</h3><p class="papara-muted">لم يتم تحديد رسوم أو حدود تشغيلية؛ ستعرض هنا الرسوم المعتمدة من الشريك المالي قبل تفعيل أي خدمة.</p></div>
-  <div class="papara-section" id="bankPage-support"><h3>المساعدة والدعم</h3><div class="papara-list"><div class="papara-row">الأسئلة الشائعة <span>›</span></div><div class="papara-row">التواصل مع الدعم <span>›</span></div><div class="papara-row">تقديم شكوى <span>›</span></div></div></div>
-  <div class="papara-section" id="bankPage-action" aria-live="polite"></div>
- </div>
- <script>
- (function(){const root=document.getElementById('afaqBankApp');if(!root||root.dataset.ready)return;root.dataset.ready='1';
- function page(id){root.querySelectorAll('.papara-section').forEach(x=>x.classList.toggle('active',x.id==='bankPage-'+id));}
- root.querySelectorAll('[data-bank-page]').forEach(b=>b.addEventListener('click',()=>page(b.dataset.bankPage)));
- const messages={deposit:'الإيداع والقبض: ستتم إتاحة الإيداعات بعد ربط بنك أو مزود دفع مرخص.',send:'إرسال الأموال: التحويل الحقيقي معطل حتى ربط الخادم والتحقق من المستلم والرصيد.',receive:'طلب الأموال: يمكن تجهيز طلب دفع، لكن لا توجد قناة تحصيل متصلة حالياً.',request:'طلب الأموال: تتطلب الميزة إرسال إشعار للمستلم عبر الخادم.',international:'الحوالات الدولية: تتطلب شريك تحويل مرخصاً وفحوص الامتثال.',scheduled:'الحوالات المجدولة: تتطلب خدمة تنفيذ آمنة على الخادم.',split:'تقسيم الفاتورة: يمكن تطويرها كطلب مشاركة بين أعضاء المنصة.',atm:'البحث عن صراف ATM: يتطلب مزود بيانات مواقع أجهزة الصراف.',internal:'التحويل الداخلي: يتطلب قاعدة بيانات مركزية ومعاملة ذرية وتحققاً من هوية الحسابين.'};
- root.querySelectorAll('[data-bank-action]').forEach(b=>b.addEventListener('click',()=>{const box=root.querySelector('#bankPage-action');page('action');box.innerHTML='<h3>'+b.textContent+'</h3><p class="papara-muted">'+(messages[b.dataset.bankAction]||'الخدمة قيد التجهيز.')+'</p><button type="button" class="btn secondary" id="bankActionBack">العودة</button>';box.querySelector('#bankActionBack').onclick=()=>page('home');}));
- })();
- </script>
- <div class="bank-layout">
-  <div class="panel">
-   <div class="panel-head"><h3>تسجيل حركة مالية</h3><small>اختر نوع العملية والعملة</small></div>
-   <form id="bankTransactionForm" class="form-grid">
-    <label class="field">نوع الحركة<select id="bankType" required><option value="deposit">إيداع / قبض</option><option value="withdrawal">سحب / صرف</option><option value="transfer">حوالة صادرة تجريبية</option><option value="exchange">تبديل عملات بين حساباتك</option></select></label>
-    <label class="field">عملة الحساب<select id="bankCurrency" required></select></label>
-    <label class="field">المبلغ<input id="bankAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
-    <label class="field bank-destination" id="bankDestinationWrap" hidden>العملة المستلمة<select id="bankDestinationCurrency"></select></label>
-    <label class="field bank-rate" id="bankRateWrap" hidden>سعر الصرف (كم وحدة مستلمة لكل 1 من المصدر)<input id="bankRate" type="number" min="0.00000001" step="any" placeholder="مثال: 0.92"></label>
-    <label class="field bank-recipient" id="bankRecipientWrap" hidden>اسم المستفيد / الجهة<input id="bankRecipient" maxlength="100" placeholder="اسم المستفيد"></label>
-    <label class="field">المرجع<input id="bankReference" maxlength="80" placeholder="رقم مرجعي اختياري"></label>
-    <label class="field full">ملاحظات<textarea id="bankNotes" rows="2" maxlength="500" placeholder="تفاصيل الحركة (اختياري)"></textarea></label>
-    <div class="field full"><button class="btn gold" type="submit">＋ تسجيل الحركة</button></div>
-   </form>
-   <p class="settings-note">في التبديل بين العملات، أدخل سعر الصرف بنفسك. لا يتم جلب أسعار مباشرة أو احتساب رسوم مصرفية تلقائياً.</p>
-  </div>
-  <div class="panel">
-   <div class="panel-head"><h3>حساباتي وأرصدتي</h3><small>الرصيد المسجل لكل عملة</small></div>
-   <div class="toolbar"><input id="bankBalanceSearch" placeholder="ابحث عن عملة أو رمز..."></div>
-   <div id="bankBalances" class="bank-balance-grid"></div>
-  </div>
- </div>
- <div class="panel">
-  <div class="panel-head"><h3>سجل الحركات المالية</h3><div class="bank-actions"><button type="button" class="btn ghost" id="bankExportCsv">تصدير CSV</button><button type="button" class="btn ghost" id="bankPrint">طباعة الكشف</button></div></div>
-  <div class="toolbar"><input id="bankLedgerSearch" placeholder="ابحث بالعملة أو نوع الحركة أو المرجع..."><select id="bankLedgerFilter"><option value="">كل الحركات</option><option value="deposit">إيداع / قبض</option><option value="withdrawal">سحب / صرف</option><option value="transfer">حوالة صادرة تجريبية</option><option value="exchange">تبديل عملات</option></select></div>
-  <div class="table-wrap"><table class="bank-ledger"><thead><tr><th>التاريخ والوقت</th><th>نوع الحركة</th><th>من / العملة</th><th>المبلغ</th><th>إلى / المستفيد</th><th>المبلغ المستلم</th><th>المرجع والملاحظات</th><th>الحالة</th></tr></thead><tbody id="bankLedger"></tbody></table></div>
-  <p id="bankLedgerEmpty" class="empty" hidden>لا توجد حركات مطابقة للبحث.</p>
- </div>
 </section>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
 <section class="view" id="reports"><div class="view-head"><div><h2>التقارير والتحليلات</h2><p>إدارة التقارير والتكاليف والشركات المشاركة بالمشاريع.</p></div></div>
@@ -597,95 +434,6 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="report-pane" id="report-partners"><div class="panel"><h3>إضافة شركة مشاركة</h3><form id="partnerForm" class="form-grid">
 <label class="field">اسم الشركة<input name="name" required></label><label class="field">المشروع المرتبط<select name="project" id="partnerProject"></select></label><label class="field">الدور / المشاركة<input name="role" placeholder="مستثمر، مقاول، استشاري..."></label><label class="field">قيمة المشاركة<input name="value" placeholder="القيمة والعملة"></label><label class="field">البريد الإلكتروني<input name="email" type="email"></label><label class="field">الهاتف<input name="phone"></label><label class="field full">ملاحظات<textarea name="notes" rows="2"></textarea></label><div class="field full"><button class="btn gold">＋ إضافة الشركة</button></div></form></div><div class="panel"><h3>الشركات المشاركة <small id="partnerCount"></small></h3><div id="partnerList" class="record-list"></div></div></div></section>
 <section class="view" id="settings"><div class="view-head"><div><h2>إعدادات الشركة</h2><p>تعديل وحفظ التفضيلات الأساسية.</p></div></div><div class="panel"><form id="settingsForm" class="form-grid"><label class="field">اسم الشركة<input name="company" value="آفاق سوريا للاستثمار العقاري والبنية التحتية والتنمية"></label><label class="field">الاسم التجاري<input name="brand" value="AFAQ SYRIA"></label><label class="field">بريد المالك<input name="email" value="oali47438@gmail.com" readonly></label><label class="field">الهاتف<input name="phone" value="+90 552 315 6980"></label><label class="field">لغة الواجهة<select name="language"><option value="ar">العربية</option><option value="en">English</option></select></label><label class="field">نمط الواجهة<select name="theme"><option value="navy">كحلي وذهبي</option><option value="dark">داكن</option></select></label><div class="field full"><button class="btn gold">حفظ الإعدادات</button></div></form><p class="settings-note">الإعدادات تحفظ محلياً حالياً. تأمين حساب المالك ومزامنة البيانات يتطلبان ربط خادم وقاعدة بيانات.</p></div></section>
-<style>
-/* AFAQ SYRIA — new operational modules; navy/gold visual system */
-.afaq-module .panel,.afaq-module .stat,.afaq-module .module-card{background:linear-gradient(145deg,#102b40,#091b2a)!important;border:1px solid #806633!important;color:#f0d18b!important}
-.afaq-module h2,.afaq-module h3,.afaq-module b,.afaq-module strong,.afaq-module label,.afaq-module p,.afaq-module small,.afaq-module th,.afaq-module td{color:#f0d18b!important}
-.afaq-module .field,.afaq-module .muted{color:#d9b15f!important}
-.afaq-module input,.afaq-module select,.afaq-module textarea{background:#071522!important;color:#f0d18b!important;border:1px solid #806633!important;border-radius:8px;padding:10px;min-width:0;width:100%}
-.afaq-module .btn{background:#d9b15f!important;color:#071522!important;border:1px solid #f0d18b!important}
-.afaq-module .btn.secondary{background:#102b40!important;color:#f0d18b!important}
-.afaq-module .module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.afaq-module .asset-card{border:1px solid #806633;border-radius:12px;padding:15px;background:linear-gradient(145deg,#102b40,#071522)}
-.afaq-module .asset-card .ticker{font-size:12px;color:#d9b15f}.afaq-module .asset-card strong{display:block;font-size:22px;margin:8px 0}
-.afaq-module .warning{border:1px solid #a77c35;background:#3a2c16;color:#ffe0a0;padding:13px;border-radius:10px;line-height:1.8;margin:12px 0}
-.afaq-module .pill{display:inline-block;border:1px solid #806633;border-radius:30px;padding:4px 10px;color:#f0d18b;font-size:11px}
-.afaq-module .table-wrap{overflow:auto}.afaq-module table{min-width:620px}.afaq-module th{background:#102b40!important}.afaq-module td{border-color:#294358!important}
-@media(max-width:720px){.afaq-module .module-grid{grid-template-columns:1fr}.afaq-module .form-grid{grid-template-columns:1fr}}
-</style>
-<section class="view afaq-module" id="crypto-wallet">
-<style>
-#crypto-wallet{color:#f0d18b}#crypto-wallet .cw-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-#crypto-wallet .cw-balance{background:linear-gradient(135deg,#142f49,#0b1c2b);border:1px solid #705c35;border-radius:16px;padding:18px;margin-bottom:12px}
-#crypto-wallet .cw-balance strong{font-size:30px;display:block;margin:7px 0;color:#f2d38c}
-#crypto-wallet .cw-actions,#crypto-wallet .cw-tabs{display:flex;gap:7px;overflow:auto;padding:5px 0;margin:8px 0}
-#crypto-wallet .cw-actions button,#crypto-wallet .cw-tabs button{white-space:nowrap;border:1px solid #675633;background:#10283c;color:#f0d18b;border-radius:10px;padding:10px 13px}
-#crypto-wallet .cw-tabs button.active{background:#b88d42;color:#081725}
-#crypto-wallet .cw-search{width:100%;box-sizing:border-box;background:#10263a;border:1px solid #40546a;color:#f0d18b;border-radius:10px;padding:12px;margin:8px 0}
-#crypto-wallet .cw-list{display:grid;gap:7px}
-#crypto-wallet .cw-coin{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;background:#10263a;border:1px solid #293f55;border-radius:11px;padding:10px}
-#crypto-wallet .cw-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#243e5d;font-weight:bold;color:#f5d58c}
-#crypto-wallet .cw-coin b{display:block;color:#f2d38c}#crypto-wallet .cw-coin small{color:#c4b58f}
-#crypto-wallet .cw-coin .cw-amount{text-align:left}#crypto-wallet .cw-note{font-size:12px;color:#d8c79f;line-height:1.8}
-#crypto-wallet .cw-panel{background:#10263a;border:1px solid #5e5033;border-radius:13px;padding:14px;margin-top:12px}
-#crypto-wallet .cw-panel h3{margin:0 0 10px;color:#f0d18b}
-#crypto-wallet .cw-locked{opacity:.65;cursor:not-allowed}
-@media(max-width:600px){#crypto-wallet .cw-coin{grid-template-columns:34px 1fr auto;padding:8px}#crypto-wallet .cw-balance strong{font-size:25px}}
-</style>
-<div class="view-head"><div><h2>محفظة العملات الرقمية</h2><p>محفظة متعددة الأصول — واجهة تجريبية بانتظار ربط مزوّد حفظ مرخّص</p></div><span class="pill">وضع تجريبي</span></div>
-<div class="warning">هذه واجهة محفظة تجريبية فقط. لا توجد أرصدة حقيقية أو عناوين إيداع أو مفاتيح خاصة. لا ترسل أي أموال إلى المنصة قبل ربط مزوّد حفظ مرخّص واختبار الأمان.</div>
-<div class="cw-balance"><div class="cw-top"><span>إجمالي قيمة المحفظة التقديرية</span><span class="pill">DEMO</span></div><strong>$0.00 USD</strong><div class="cw-note">الرصيد الفعلي سيظهر بعد ربط حساب الحفظ ومزامنة الأرصدة من الخادم.</div>
-<div class="cw-actions"><button type="button" data-cw-action="receive">↓ استلام</button><button type="button" data-cw-action="send">↑ إرسال</button><button type="button" data-cw-action="buy">＋ شراء</button><button type="button" data-cw-action="swap">⇄ تبديل</button></div></div>
-<div class="cw-tabs" role="tablist"><button class="active" data-cw-tab="wallet">المحفظة</button><button data-cw-tab="buy">شراء</button><button data-cw-tab="swap">تبديل</button><button data-cw-tab="perps">العقود</button><button data-cw-tab="poly">الأسواق</button><button data-cw-tab="earn">العوائد</button></div>
-<div id="cwWalletPane">
-<input class="cw-search" id="cwSearch" type="search" placeholder="ابحث عن عملة أو رمز...">
-<div class="cw-list" id="cwCoinList"></div>
-</div>
-<div id="cwActionPane" class="cw-panel" hidden></div>
-<div class="cw-panel"><h3>الشبكات والعناوين</h3><div class="cw-note">USDT على TRC20 وERC20 وBEP20، إضافة إلى Bitcoin وEthereum وSolana وغيرها. اختيار الشبكة لا ينشئ عنواناً تلقائياً؛ يجب أن يصدر العنوان من مزوّد الحفظ على الخادم.</div><div class="cw-actions"><button type="button" data-cw-network="TRC20">USDT · TRC20</button><button type="button" data-cw-network="ERC20">USDT · ERC20</button><button type="button" data-cw-network="BEP20">USDT · BEP20</button><button type="button" data-cw-network="BTC">Bitcoin</button></div><div class="cw-note" id="cwNetworkInfo">حالة الشبكات: جاهزة للربط — لا توجد عناوين فعلية حالياً.</div></div>
-<div class="cw-panel"><h3>سجل العمليات</h3><div class="cw-note">لا توجد عمليات مسجلة. ستظهر الإيداعات والسحوبات والتحويلات بعد ربط الخادم ومزوّد الحفظ.</div></div>
-<div class="cw-panel"><h3>الأمان والإعدادات</h3><div class="cw-actions"><button type="button" data-cw-action="security">الأمان</button><button type="button" data-cw-action="tokens">إضافة أصل</button><button type="button" data-cw-action="notifications">الإشعارات</button></div><div class="cw-note">لن يتم تخزين المفاتيح الخاصة أو عبارات الاسترداد في المتصفح.</div></div>
-</section>
-<script>
-(function(){
-const root=document.getElementById('crypto-wallet');if(!root||root.dataset.ready)return;root.dataset.ready='1';
-const coins=[
-['BTC','Bitcoin','₿'],['ETH','Ethereum','Ξ'],['BERA','Berachain','B'],['HYPE','Hyperliquid','H'],['IP','Story','I'],['S','Sonic','S'],['GAS','Gas','G'],['QTUM','Qtum','Q'],['ZEC','Zcash','Z'],['BCH','Bitcoin Cash','B'],['DGB','DigiByte','D'],['DOGE','Dogecoin','Ð'],['BAND','Band Protocol','B'],['DOT','Polkadot','P'],['SOL','Solana','S'],['NEAR','NEAR Protocol','N'],['FET','Artificial Superintelligence','F'],['BNB','BNB','B'],['ADA','Cardano','A'],['TRX','TRON','T'],['USDT','Tether USD','₮'],['USDC','USD Coin','$'],['XRP','XRP','X'],['LINK','Chainlink','L'],['AVAX','Avalanche','A']
-];
-const list=root.querySelector('#cwCoinList'),search=root.querySelector('#cwSearch'),pane=root.querySelector('#cwActionPane'),wallet=root.querySelector('#cwWalletPane');
-function render(q=''){list.innerHTML='';coins.filter(c=>(c[0]+' '+c[1]).toLowerCase().includes(q.toLowerCase())).forEach(c=>{const el=document.createElement('div');el.className='cw-coin';el.innerHTML='<span class="cw-icon"></span><span><b></b><small></small></span><span class="cw-amount"><b>0</b><small>رصيد تجريبي</small></span>';el.querySelector('.cw-icon').textContent=c[2];el.querySelector('span:nth-child(2) b').textContent=c[0];el.querySelector('span:nth-child(2) small').textContent=c[1];list.appendChild(el)});}
-render();search.addEventListener('input',()=>render(search.value));
-function show(title,msg){wallet.hidden=true;pane.hidden=false;pane.innerHTML='<h3>'+title+'</h3><p class="cw-note">'+msg+'</p><button type="button" class="btn secondary" id="cwBack">العودة إلى المحفظة</button>';pane.querySelector('#cwBack').onclick=()=>{pane.hidden=true;wallet.hidden=false;};}
-root.querySelectorAll('[data-cw-tab]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('[data-cw-tab]').forEach(x=>x.classList.toggle('active',x===b));const t=b.dataset.cwTab;if(t==='wallet'){pane.hidden=true;wallet.hidden=false;return;}const labels={buy:'شراء العملات',swap:'تبديل العملات',perps:'العقود',poly:'الأسواق',earn:'العوائد'};const msgs={buy:'خدمة الشراء غير مفعّلة حتى ربط مزوّد دفع/تنفيذ مرخّص والتحقق من الحساب.',swap:'التبديل يحتاج إلى مزوّد سيولة وتنفيذ متصل. لا يتم تنفيذ أي مبادلة حالياً.',perps:'العقود والمشتقات عالية المخاطر ومنظمة؛ هذا القسم للعرض فقط وغير متاح للتداول.',poly:'الأسواق التنبؤية غير مفعّلة. يلزم التحقق من التراخيص والقوانين قبل إتاحتها.',earn:'منتجات العوائد والتخزين غير متاحة حالياً؛ لا توجد وعود بعائد أو أرباح.'};show(labels[t],msgs[t]);}));
-root.querySelectorAll('[data-cw-action]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.cwAction;const map={receive:['استلام العملات','سيتم عرض عنوان الإيداع بعد ربط مزوّد حفظ مرخّص وإصدار عنوان فريد من الخادم. لا تستخدم أي عنوان خارجي أو تجريبي.'],send:['إرسال العملات','السحب والتحويل غير متاحين في الوضع التجريبي. يتطلبان تحققاً من الهوية والرصيد والشبكة وتأكيداً آمناً من الخادم.'],buy:['شراء العملات','شراء العملات غير متاح حتى ربط مزوّد مرخّص.'],swap:['تبديل العملات','التبديل غير متاح حتى ربط مزوّد تنفيذ وسيولة.'],security:['أمان المحفظة','ستتم إضافة المصادقة الثنائية وإدارة الجلسات وتأكيد السحب بعد تجهيز الخادم.'],tokens:['إضافة أصل رقمي','يمكن إضافة الأصول إلى قائمة العرض بعد التحقق من العقد والشبكة من مصدر موثوق.'],notifications:['إشعارات المحفظة','سيتم تفعيل تنبيهات الإيداع والسحب وتغيّر حالة المعاملات بعد ربط الخادم.']};show(...map[a]);}));
-root.querySelectorAll('[data-cw-network]').forEach(b=>b.addEventListener('click',()=>{root.querySelector('#cwNetworkInfo').textContent='الشبكة المختارة: '+b.dataset.cwNetwork+' — لا يوجد عنوان إيداع صادر حتى الآن.';}));
-})();
-</script>
-<section class="view afaq-module" id="payment-center">
- <div class="view-head"><div><h2>مركز الدفع والتحصيل</h2><p>إدارة قنوات الدفع والفواتير وربط مزوّدي الخدمة</p></div><span class="pill">إعداد تجريبي</span></div>
- <div class="warning">إنشاء فاتورة داخل المنصة لا يعني أن الدفع قد تم. لا يتم تأكيد أي دفعة إلا من إشعار موثّق من مزوّد الدفع عبر الخادم والتحقق من التوقيع والحالة.</div>
- <div class="module-grid"><article class="asset-card"><b>بطاقات الدفع</b><p>يتطلب مزوّد دفع مرخّص وحساب تاجر معتمد.</p><span class="pill">غير مربوط</span></article><article class="asset-card"><b>التحويلات البنكية</b><p>تتطلب حساب شركة لدى بنك أو مؤسسة دفع.</p><span class="pill">غير مربوط</span></article><article class="asset-card"><b>مدفوعات العملات الرقمية</b><p>تتطلب مزوّد معالجة/حفظ متوافقاً.</p><span class="pill">غير مربوط</span></article></div>
- <div class="panel"><h3>الانتقال إلى إدارة الفواتير</h3><p>تُدار الفواتير الحالية من قسم الفواتير والمدفوعات، وتبقى حالتها مسودة أو بانتظار الدفع حتى وصول تأكيد موثوق.</p><button class="btn" type="button" data-go="invoices">فتح الفواتير والمدفوعات</button></div>
- <div class="panel"><h3>متطلبات الربط قبل التفعيل</h3><ol><li>اختيار مزوّد دفع متاح قانونياً في بلد تسجيل الشركة.</li><li>إعداد مفاتيح API كأسرار في الخادم فقط، لا داخل ملف HTML.</li><li>إنشاء Webhook والتحقق من التوقيع ومنع تكرار الإشعارات.</li><li>اختبار الدفع والاسترداد والتسوية قبل الإنتاج.</li></ol></div>
-</section>
-<section class="view afaq-module" id="global-market">
- <div class="view-head"><div><h2>مؤشر آفاق سوريا العالمي</h2><p>قائمة متابعة الأصول والأسواق — لا تمثل أسعاراً مباشرة</p></div><span class="pill">بيانات السوق غير متصلة</span></div>
- <div class="warning">هذه الصفحة لا تعرض أسعاراً لحظية حالياً. لن نعرض أرقاماً تقديرية على أنها أسعار سوق. يلزم ربط مزوّد بيانات سوق موثوق أو مخططات مرخّصة قبل تفعيل الأسعار والشموع.</div>
- <div class="module-grid"><article class="asset-card"><span class="ticker">المعادن</span><b>الذهب · الفضة</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الطاقة</span><b>النفط · الغاز</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأصول الرقمية</span><b>Bitcoin · Ethereum</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">العملات</span><b>مؤشرات العملات الرئيسية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأسهم</span><b>الأسواق العالمية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الرسوم البيانية</span><b>شموع يابانية</b><p>يتم تجهيز تكامل المخططات بعد تحديد مزوّد مرخّص.</p></article></div>
- <div class="panel"><h3>قائمة المتابعة</h3><div class="toolbar"><input id="marketWatchInput" placeholder="أضف رمزاً إلى قائمة المتابعة مثل XAUUSD أو BTCUSD"><button class="btn" id="marketWatchAdd" type="button">إضافة</button></div><div id="marketWatchList"><p class="empty">لا توجد رموز في قائمة المتابعة.</p></div></div>
-</section>
-<script>
-(()=>{'use strict';
- const key='afaq_market_watch_v1';const $=id=>document.getElementById(id);
- let watch=[];try{watch=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(watch))watch=[]}catch(_){watch=[]}
- function render(){const host=$('marketWatchList');if(!host)return;host.innerHTML=watch.length?watch.map((v,i)=>`<div class="asset-card" style="display:flex;justify-content:space-between;align-items:center;margin:7px 0"><b dir="ltr">${String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</b><button class="btn secondary" type="button" data-watch-remove="${i}">حذف</button></div>`).join(''):'<p class="empty">لا توجد رموز في قائمة المتابعة.</p>'}
- $('marketWatchAdd')?.addEventListener('click',()=>{const v=$('marketWatchInput').value.trim().toUpperCase();if(!/^[A-Z0-9._-]{2,20}$/.test(v)){if(window.showToast)showToast('أدخل رمزاً صحيحاً');return}if(watch.includes(v)){showToast('الرمز موجود بالفعل');return}watch.push(v);localStorage.setItem(key,JSON.stringify(watch));$('marketWatchInput').value='';render()});
- $('marketWatchList')?.addEventListener('click',e=>{const b=e.target.closest('[data-watch-remove]');if(!b)return;watch.splice(Number(b.dataset.watchRemove),1);localStorage.setItem(key,JSON.stringify(watch));render()});
- $('cryptoExport')?.addEventListener('click',()=>{const csv='date,asset,network,type,amount,status\r\n';const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='afaq-crypto-ledger.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});
- render();
-})();
-</script>
-
 </div><div class="footer">© 2026 AFAQ SYRIA · منصة أولية قابلة للتطوير · جميع الحقوق محفوظة</div></main></div>
 <div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h3 id="modalTitle">إضافة سجل</h3><button class="close" id="closeModal">✕</button></div><form id="recordForm"><div id="formFields" class="form-grid"></div><div class="modal-actions"><button class="btn gold" type="submit">حفظ السجل</button><button class="btn ghost" type="button" id="cancelModal">إلغاء</button></div></form></div></div><div class="gallery-lightbox" id="galleryLightbox" onclick="closeGalleryLightbox()"><button type="button" aria-label="إغلاق" onclick="event.stopPropagation();closeGalleryLightbox()">×</button><img id="galleryLargeImage" alt="صورة مكبرة" onclick="event.stopPropagation()"></div>
 <div class="toast" id="toast"></div>
@@ -714,33 +462,18 @@ const customPortfolios=safeReadStore(customPortfolioKey,[]);
 if(Array.isArray(customPortfolios))portfolios.push(...customPortfolios);
 
 function safeReadStore(key, fallback){try{const raw=localStorage.getItem(key);return raw===null?fallback:JSON.parse(raw)}catch(error){console.warn('AFAQ storage recovery:',key,error);return fallback}}
-// Member identity: stable unique ID and separate financial account number.
-// Browser-generated values are provisional until server-side allocation is enabled.
-function nextMemberIdentity(){
- const counterKey='afaq_member_identity_counter_v1';
- const existing=Array.isArray(clients)?clients:[];
- let n=Math.max(0,Number(localStorage.getItem(counterKey))||0);
- const usedIds=new Set(existing.map(x=>x.memberId).filter(Boolean));
- const usedAccounts=new Set(existing.map(x=>x.accountNumber).filter(Boolean));
- let memberId,accountNumber;
- do{n++;memberId='AFQ-'+String(n).padStart(6,'0');accountNumber='AFQ-ACC-'+String(n).padStart(6,'0')}
- while(usedIds.has(memberId)||usedAccounts.has(accountNumber));
- localStorage.setItem(counterKey,String(n));
- return {memberId,accountNumber,identityStatus:'محلي — يتطلب اعتماد الخادم'};
-}
-
 const seedProjects=[{name:'تطوير البنية التحتية',sector:'الطرق والجسور',location:'سوريا',status:'قيد الدراسة',budget:'يحدد لاحقاً'},{name:'مجمع سكني نموذجي',sector:'العقارات والإنشاءات',location:'سوريا',status:'فرصة استثمارية',budget:'يحدد لاحقاً'},{name:'محطة طاقة شمسية',sector:'الطاقة النظيفة',location:'سوريا',status:'قيد التخطيط',budget:'يحدد لاحقاً'}];
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=safeReadStore('afaq_projects',null)||seedProjects,clients=safeReadStore('afaq_clients',null)||seedClients,invoices=safeReadStore('afaq_invoices',null)||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
 let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
-const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية','crypto-wallet':'محفظة العملات الرقمية','payment-center':'مركز الدفع والتحصيل','global-market':'مؤشر آفاق سوريا العالمي'};
+const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
 document.addEventListener('click',e=>{const side=document.getElementById('sidebar'),menu=document.getElementById('menuBtn');if(side.classList.contains('open')&&!side.contains(e.target)&&!menu.contains(e.target))side.classList.remove('open')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('sidebar').classList.remove('open');document.getElementById('modal')?.classList.remove('open')}});
-function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${c.memberId?`<b dir="ltr">${esc(c.memberId)}</b>`:'—'}</td><td>${c.accountNumber?`<b dir="ltr">${esc(c.accountNumber)}</b>`:'—'}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td><span class="invoice-method">${esc(i.paymentMethodLabel||'غير محدد')}</span></td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button> ${i.paymentUrl?`<a class="invoice-link" href="${esc(i.paymentUrl)}" target="_blank" rel="noopener">فتح رابط الدفع</a> <button class="btn ghost" onclick="copyInvoiceLink(${n})">نسخ الرابط</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>{const bag=bagRecords[i]||{},count=(bag.projects||[]).length;return `<article class="portfolio-card"><div class="module-card"><div class="portfolio-card-top"><span class="symbol">${esc(p.icon||'💼')}</span><span class="portfolio-count">📁 ${count} مشروع</span></div><h3>${esc(p.name)}</h3><p>${esc(p.en||'INVESTMENT PORTFOLIO')}</p><p class="portfolio-description">${esc(p.description||'إدارة المشاريع والفرص الاستثمارية والمستندات الخاصة بهذا القطاع.')}</p><div class="portfolio-card-actions"><button type="button" class="btn gold" data-portfolio="${i}">فتح الحقيبة ←</button><button type="button" class="btn ghost" data-portfolio-add="${i}">＋ إضافة مشروع</button></div></div></article>`}).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.querySelectorAll('[data-portfolio-add]').forEach(b=>b.addEventListener('click',()=>{openPortfolio(Number(b.dataset.portfolio));document.getElementById('bagProjectForm').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#bagProjectForm [name=name]')?.focus()}));const pOverview=document.getElementById('portfolioOverview');if(pOverview){const total=portfolios.reduce((n,p,i)=>n+((bagRecords[i]?.projects||[]).length),0);pOverview.innerHTML=`<div class="portfolio-overview-stat"><small>عدد الحقائب</small><b>${portfolios.length}</b></div><div class="portfolio-overview-stat"><small>المشاريع داخل الحقائب</small><b>${total}</b></div><div class="portfolio-overview-stat"><small>القطاعات المتاحة</small><b>${new Set(portfolios.map(p=>p.en||p.name)).size}</b></div>`;}document.getElementById('tradeOrdersTable').innerHTML=shareOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${o.side==='buy'?'شراء':o.side==='sell'?'بيع':o.side==='deposit-demo'?'إضافة رصيد تجريبي':'—'}</td><td>${esc(o.symbol)}</td><td>${esc(o.qty)}</td><td>${esc(o.customer)}</td><td><span class="status pending">بانتظار المراجعة</span></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد طلبات أسهم مسجلة</td></tr>';document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}
+function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td><span class="invoice-method">${esc(i.paymentMethodLabel||'غير محدد')}</span></td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button> ${i.paymentUrl?`<a class="invoice-link" href="${esc(i.paymentUrl)}" target="_blank" rel="noopener">فتح رابط الدفع</a> <button class="btn ghost" onclick="copyInvoiceLink(${n})">نسخ الرابط</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>{const bag=bagRecords[i]||{},count=(bag.projects||[]).length;return `<article class="portfolio-card"><div class="module-card"><div class="portfolio-card-top"><span class="symbol">${esc(p.icon||'💼')}</span><span class="portfolio-count">📁 ${count} مشروع</span></div><h3>${esc(p.name)}</h3><p>${esc(p.en||'INVESTMENT PORTFOLIO')}</p><p class="portfolio-description">${esc(p.description||'إدارة المشاريع والفرص الاستثمارية والمستندات الخاصة بهذا القطاع.')}</p><div class="portfolio-card-actions"><button type="button" class="btn gold" data-portfolio="${i}">فتح الحقيبة ←</button><button type="button" class="btn ghost" data-portfolio-add="${i}">＋ إضافة مشروع</button></div></div></article>`}).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.querySelectorAll('[data-portfolio-add]').forEach(b=>b.addEventListener('click',()=>{openPortfolio(Number(b.dataset.portfolio));document.getElementById('bagProjectForm').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#bagProjectForm [name=name]')?.focus()}));const pOverview=document.getElementById('portfolioOverview');if(pOverview){const total=portfolios.reduce((n,p,i)=>n+((bagRecords[i]?.projects||[]).length),0);pOverview.innerHTML=`<div class="portfolio-overview-stat"><small>عدد الحقائب</small><b>${portfolios.length}</b></div><div class="portfolio-overview-stat"><small>المشاريع داخل الحقائب</small><b>${total}</b></div><div class="portfolio-overview-stat"><small>القطاعات المتاحة</small><b>${new Set(portfolios.map(p=>p.en||p.name)).size}</b></div>`;}document.getElementById('tradeOrdersTable').innerHTML=shareOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${o.side==='buy'?'شراء':o.side==='sell'?'بيع':o.side==='deposit-demo'?'إضافة رصيد تجريبي':'—'}</td><td>${esc(o.symbol)}</td><td>${esc(o.qty)}</td><td>${esc(o.customer)}</td><td><span class="status pending">بانتظار المراجعة</span></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد طلبات أسهم مسجلة</td></tr>';document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}
 
 document.getElementById('toggleNewPortfolio')?.addEventListener('click',()=>{const panel=document.getElementById('newPortfolioPanel');panel.hidden=!panel.hidden;if(!panel.hidden)panel.scrollIntoView({behavior:'smooth',block:'center'});});
 document.getElementById('newPortfolioForm')?.addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget,d=new FormData(f),name=String(d.get('name')||'').trim();if(!name)return;if(portfolios.some(x=>x.name.toLowerCase()===name.toLowerCase())){showToast('توجد حقيبة بهذا الاسم بالفعل');return;}const item={name,en:String(d.get('en')||'').trim()||'INVESTMENT PORTFOLIO',icon:String(d.get('icon')||'💼').trim()||'💼',description:String(d.get('description')||'').trim(),photos:[]};portfolios.push(item);const custom=portfolios.filter(x=>x.custom===true);item.custom=true;custom.push(item);localStorage.setItem(customPortfolioKey,JSON.stringify(custom));f.reset();document.getElementById('newPortfolioPanel').hidden=true;render();showToast('تم إنشاء الحقيبة وحفظها على هذا الجهاز');});
@@ -818,13 +551,13 @@ document.getElementById('stockForm').addEventListener('submit',e=>{
 });
 renderStocks();
 let kind='';const modal=document.getElementById('modal');function field(label,name,placeholder='',type='text',required=true){return `<label class="field">${label}<input name="${name}" type="${type}" placeholder="${placeholder}" ${required?'required':''}></label>`}
-function openAdd(k){kind=k;let html='';if(k==='project'){document.getElementById('modalTitle').textContent='إضافة مشروع جديد';html=field('اسم المشروع','name','اسم المشروع')+field('القطاع','sector','مثال: الطاقة النظيفة')+field('الموقع','location','المحافظة / المدينة')+field('الحالة','status','قيد الدراسة')+field('الميزانية التقديرية','budget','مثال: يحدد لاحقاً', 'text',false)}if(k==='client'){document.getElementById('modalTitle').textContent='إضافة عضو أو جهة';html=field('الاسم','name','الاسم الكامل أو اسم الجهة')+`<label class="field">نوع السجل<select name="type"><option value="عضو">عضو آفاق سوريا</option><option value="عميل">عميل</option><option value="شريك">شريك</option><option value="مورد">مورد</option></select></label>`+field('البريد الإلكتروني','email','name@example.com','email',false)+field('الهاتف','phone','رقم الهاتف', 'tel',false)+`<div class="field full"><div class="payment-help">عند اختيار «عضو آفاق سوريا» يُنشأ تلقائياً رقم عضوية مثل AFQ-000001 ورقم حساب مستقل مثل AFQ-ACC-000001. أرقام هذه النسخة محلية مؤقتة حتى اعتماد التوليد الفريد من الخادم وقاعدة البيانات.</div></div>`}if(k==='invoice'){document.getElementById('modalTitle').textContent='إنشاء فاتورة ورابط دفع';html=field('اسم العميل','client','اسم العميل')+field('المبلغ','amount','مثال: 1500','number')+`<label class="field">عملة الفاتورة<select name="currency"><option value="usd">USD — دولار</option><option value="eur">EUR — يورو</option><option value="try">TRY — ليرة تركية</option><option value="gbp">GBP — جنيه إسترليني</option></select></label><label class="field">طريقة الدفع<select name="paymentMethod" id="invoicePaymentMethod"><option value="crypto">عملة رقمية — NOWPayments</option><option value="card">بطاقة / دفع فيات عبر NOWPayments On-Ramp (مشروط)</option><option value="applepay">Apple Pay — يتطلب تفعيل التاجر</option><option value="paypal">PayPal — يتطلب حساباً مؤهلاً</option><option value="papara">Papara — حسب أهلية التاجر والتوفر</option><option value="bank">تحويل بنكي</option></select></label><label class="field full">شبكة / عملة الدفع الرقمي<select name="pay_currency" id="invoicePayCurrency"><option value="all">اختيار العميل — كل الطرق المتاحة في NOWPayments</option><option value="usd">USD — بطاقة/فيات عبر On-Ramp إذا كانت مفعّلة</option><option value="usdttrc20">USDT — TRC20</option><option value="usdterc20">USDT — ERC20</option><option value="btc">Bitcoin (BTC)</option><option value="eth">Ethereum (ETH)</option><option value="trx">TRON (TRX)</option></select></label>`+field('تاريخ الإصدار','date',new Date().toISOString().slice(0,10),'date')+field('رقم الفاتورة','number','AFQ-2026-003')+`<div class="field full"><div class="payment-help">العملات الرقمية يمكنها إنشاء رابط فاتورة عبر NOWPayments عند نجاح اتصال الخادم. قد يظهر الدفع بالبطاقة عبر Fiat On-Ramp إذا فُعّل في NOWPayments وأُكملت إجراءات KYC/KYB؛ أما Apple Pay فيعتمد على البلد والمزود. PayPal وPapara يحتاجان تكاملاً مستقلاً وحساباً مؤهلاً.</div><div class="payment-method-status"><span>● NOWPayments: جاهز للاختبار</span><span>○ بطاقة/فيات: يتطلب On-Ramp وKYC/KYB</span><span>○ PayPal/Papara: بوابة مستقلة مطلوبة</span></div></div>`}document.getElementById('formFields').innerHTML=html;modal.classList.add('open')}
+function openAdd(k){kind=k;let html='';if(k==='project'){document.getElementById('modalTitle').textContent='إضافة مشروع جديد';html=field('اسم المشروع','name','اسم المشروع')+field('القطاع','sector','مثال: الطاقة النظيفة')+field('الموقع','location','المحافظة / المدينة')+field('الحالة','status','قيد الدراسة')+field('الميزانية التقديرية','budget','مثال: يحدد لاحقاً', 'text',false)}if(k==='client'){document.getElementById('modalTitle').textContent='إضافة عميل أو شريك';html=field('الاسم','name','الاسم الكامل أو اسم الجهة')+field('النوع','type','عميل / شريك / مورد')+field('البريد الإلكتروني','email','name@example.com','email',false)+field('الهاتف','phone','رقم الهاتف', 'tel',false)}if(k==='invoice'){document.getElementById('modalTitle').textContent='إنشاء فاتورة ورابط دفع';html=field('اسم العميل','client','اسم العميل')+field('المبلغ','amount','مثال: 1500','number')+`<label class="field">عملة الفاتورة<select name="currency"><option value="usd">USD — دولار</option><option value="eur">EUR — يورو</option><option value="try">TRY — ليرة تركية</option><option value="gbp">GBP — جنيه إسترليني</option></select></label><label class="field">طريقة الدفع<select name="paymentMethod" id="invoicePaymentMethod"><option value="crypto">عملة رقمية — NOWPayments</option><option value="card">بطاقة / دفع فيات عبر NOWPayments On-Ramp (مشروط)</option><option value="applepay">Apple Pay — يتطلب تفعيل التاجر</option><option value="paypal">PayPal — يتطلب حساباً مؤهلاً</option><option value="papara">Papara — حسب أهلية التاجر والتوفر</option><option value="bank">تحويل بنكي</option></select></label><label class="field full">شبكة / عملة الدفع الرقمي<select name="pay_currency" id="invoicePayCurrency"><option value="all">اختيار العميل — كل الطرق المتاحة في NOWPayments</option><option value="usd">USD — بطاقة/فيات عبر On-Ramp إذا كانت مفعّلة</option><option value="usdttrc20">USDT — TRC20</option><option value="usdterc20">USDT — ERC20</option><option value="btc">Bitcoin (BTC)</option><option value="eth">Ethereum (ETH)</option><option value="trx">TRON (TRX)</option></select></label>`+field('تاريخ الإصدار','date',new Date().toISOString().slice(0,10),'date')+field('رقم الفاتورة','number','AFQ-2026-003')+`<div class="field full"><div class="payment-help">العملات الرقمية يمكنها إنشاء رابط فاتورة عبر NOWPayments عند نجاح اتصال الخادم. قد يظهر الدفع بالبطاقة عبر Fiat On-Ramp إذا فُعّل في NOWPayments وأُكملت إجراءات KYC/KYB؛ أما Apple Pay فيعتمد على البلد والمزود. PayPal وPapara يحتاجان تكاملاً مستقلاً وحساباً مؤهلاً.</div><div class="payment-method-status"><span>● NOWPayments: جاهز للاختبار</span><span>○ بطاقة/فيات: يتطلب On-Ramp وKYC/KYB</span><span>○ PayPal/Papara: بوابة مستقلة مطلوبة</span></div></div>`}document.getElementById('formFields').innerHTML=html;modal.classList.add('open')}
 document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>openAdd(b.dataset.add)));function close(){modal.classList.remove('open')}document.getElementById('closeModal').onclick=close;document.getElementById('cancelModal').onclick=close;
-document.getElementById('recordForm').onsubmit=async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target).entries());if(kind==='project')projects.unshift(d);if(kind==='client'){if(d.type==='عضو'){Object.assign(d,nextMemberIdentity());d.createdAt=new Date().toISOString()}clients.unshift(d);}if(kind==='invoice'){const amount=Number(d.amount);if(!Number.isFinite(amount)||amount<=0){showToast('أدخل مبلغاً صحيحاً للفاتورة');return}d.amount=amount.toFixed(2)+' '+String(d.currency||'usd').toUpperCase();d.paymentMethodLabel=({crypto:'عملة رقمية · NOWPayments',card:'بطاقة/فيات · NOWPayments On-Ramp',applepay:'Apple Pay (حسب مزود الدفع)',paypal:'PayPal',papara:'Papara',bank:'تحويل بنكي'})[d.paymentMethod]||'غير محدد';d.status='مسودة';d.paymentUrl='';if(d.paymentMethod==='crypto'||d.paymentMethod==='card'||d.paymentMethod==='applepay'){try{if(!window.AFAQ_API)throw new Error('مركز API غير جاهز؛ أعد تحميل الصفحة');const result=await window.AFAQ_API.request('/api/payment/create',{method:'POST',body:JSON.stringify({amount,currency:d.currency||'usd',pay_currency:(d.paymentMethod==='card'||d.paymentMethod==='applepay')?'usd':(d.pay_currency||'usdttrc20'),description:'AFAQ SYRIA invoice '+(d.number||''),success_url:location.origin+location.pathname+'?payment=success',cancel_url:location.origin+location.pathname+'?payment=cancel'})});if(!result.invoice_url)throw new Error('لم يرجع مزود الدفع رابط الفاتورة');d.paymentUrl=result.invoice_url;d.orderId=result.order_id;d.status='بانتظار الدفع';d.paymentMethodLabel+=' · '+String((d.paymentMethod==='card'||d.paymentMethod==='applepay')?'USD On-Ramp':(d.pay_currency||'usdttrc20')).toUpperCase();}catch(err){showToast('لم يُنشأ رابط الدفع: '+err.message);return}}else if(d.paymentMethod==='bank'){d.status='بانتظار تعليمات التحويل';}else{d.status='مسودة — بوابة الدفع غير مفعّلة';showToast('حُفظت الفاتورة كمسودة. لا يمكن إنشاء رابط '+d.paymentMethodLabel+' قبل ربط حساب التاجر المعتمد.')}invoices.unshift(d);}save();render();close();e.target.reset();if(kind!=='invoice')showToast('تم حفظ السجل');else if(d.paymentUrl){showToast('تم إنشاء رابط فاتورة NOWPayments؛ استخدم زر فتح رابط الدفع في سجل الفواتير.');}else if(d.paymentMethod==='bank')showToast('حُفظت الفاتورة بانتظار تعليمات التحويل');};
+document.getElementById('recordForm').onsubmit=async e=>{e.preventDefault();let d=Object.fromEntries(new FormData(e.target).entries());if(kind==='project')projects.unshift(d);if(kind==='client')clients.unshift(d);if(kind==='invoice'){const amount=Number(d.amount);if(!Number.isFinite(amount)||amount<=0){showToast('أدخل مبلغاً صحيحاً للفاتورة');return}d.amount=amount.toFixed(2)+' '+String(d.currency||'usd').toUpperCase();d.paymentMethodLabel=({crypto:'عملة رقمية · NOWPayments',card:'بطاقة/فيات · NOWPayments On-Ramp',applepay:'Apple Pay (حسب مزود الدفع)',paypal:'PayPal',papara:'Papara',bank:'تحويل بنكي'})[d.paymentMethod]||'غير محدد';d.status='مسودة';d.paymentUrl='';if(d.paymentMethod==='crypto'||d.paymentMethod==='card'||d.paymentMethod==='applepay'){try{if(!window.AFAQ_API)throw new Error('مركز API غير جاهز؛ أعد تحميل الصفحة');const result=await window.AFAQ_API.request('/api/payment/create',{method:'POST',body:JSON.stringify({amount,currency:d.currency||'usd',pay_currency:(d.paymentMethod==='card'||d.paymentMethod==='applepay')?'usd':(d.pay_currency||'usdttrc20'),description:'AFAQ SYRIA invoice '+(d.number||''),success_url:location.origin+location.pathname+'?payment=success',cancel_url:location.origin+location.pathname+'?payment=cancel'})});if(!result.invoice_url)throw new Error('لم يرجع مزود الدفع رابط الفاتورة');d.paymentUrl=result.invoice_url;d.orderId=result.order_id;d.status='بانتظار الدفع';d.paymentMethodLabel+=' · '+String((d.paymentMethod==='card'||d.paymentMethod==='applepay')?'USD On-Ramp':(d.pay_currency||'usdttrc20')).toUpperCase();}catch(err){showToast('لم يُنشأ رابط الدفع: '+err.message);return}}else if(d.paymentMethod==='bank'){d.status='بانتظار تعليمات التحويل';}else{d.status='مسودة — بوابة الدفع غير مفعّلة';showToast('حُفظت الفاتورة كمسودة. لا يمكن إنشاء رابط '+d.paymentMethodLabel+' قبل ربط حساب التاجر المعتمد.')}invoices.unshift(d);}save();render();close();e.target.reset();if(kind!=='invoice')showToast('تم حفظ السجل');else if(d.paymentUrl){showToast('تم إنشاء رابط فاتورة NOWPayments؛ استخدم زر فتح رابط الدفع في سجل الفواتير.');}else if(d.paymentMethod==='bank')showToast('حُفظت الفاتورة بانتظار تعليمات التحويل');};
 function copyInvoiceLink(n){const url=invoices[n]?.paymentUrl;if(!url){showToast('لا يوجد رابط دفع لهذه الفاتورة');return}if(!navigator.clipboard){showToast('تعذر النسخ التلقائي؛ افتح الرابط وانسخه يدوياً');return}navigator.clipboard.writeText(url).then(()=>showToast('تم نسخ رابط الدفع')).catch(()=>showToast('تعذر النسخ؛ افتح الرابط وانسخه يدوياً'))}
 async function refreshInvoiceStatuses(silent=false){if(!window.AFAQ_API)return;const pending=invoices.filter(x=>x.orderId&&x.paymentUrl);if(!pending.length){if(!silent)showToast('لا توجد فواتير رقمية لمراجعة حالتها');return}let changed=false;await Promise.all(pending.map(async inv=>{try{const r=await window.AFAQ_API.request('/api/payment/status?order_id='+encodeURIComponent(inv.orderId));const st=String(r.payment?.status||'').toLowerCase();let label=inv.status;if(['finished','confirmed'].includes(st))label='مدفوعة';else if(st==='partially_paid')label='مدفوعة جزئياً';else if(['failed','expired','refunded'].includes(st))label=st==='failed'?'فشل الدفع':st==='expired'?'انتهت صلاحية الدفع':'تم رد المبلغ';else if(['waiting','confirming','sending'].includes(st))label=st==='confirming'?'قيد تأكيد الشبكة':st==='sending'?'قيد الإرسال':'بانتظار الدفع';if(label!==inv.status){inv.status=label;changed=true}}catch(err){console.warn('AFAQ invoice status refresh:',err.message)}}));if(changed){save();render()}if(!silent)showToast(changed?'تم تحديث حالات الفواتير من الخادم':'لا توجد تغييرات جديدة في حالات الدفع')}
 function printInvoice(n){let i=invoices[n];let w=window.open('','_blank');w.document.write(`<html dir="rtl"><meta charset="utf-8"><title>فاتورة ${esc(i.number)}</title><body style="font-family:Tahoma;padding:40px;background:#071522;color:#f4f1e8"><h1 style="color:#d9b15f">آفاق سوريا | AFAQ SYRIA</h1><h2 style="color:#f0d18b">فاتورة ${i.paymentUrl?'دفع':'أولية'}</h2><hr style="border-color:#806633"><p>رقم الفاتورة: ${esc(i.number)}</p><p>العميل: ${esc(i.client)}</p><p>التاريخ: ${esc(i.date)}</p><h2>المبلغ: ${esc(i.amount)}</h2><p>وسيلة الدفع: ${esc(i.paymentMethodLabel||'—')}</p><p>الحالة: ${esc(i.status)}</p>${i.paymentUrl?`<p>رابط الدفع: <a href="${esc(i.paymentUrl)}" style="color:#f0d18b">${esc(i.paymentUrl)}</a></p>`:'<p>لم يتم إنشاء رابط دفع لهذه الفاتورة بعد.</p>'}<hr><p>تأكيد استلام المبلغ يعتمد على إشعار مزود الدفع الموثّق، وليس على صورة الفاتورة أو رسالة العميل.</p><script>window.print()<\/script></body></html>`);w.document.close()}
-document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities','company-archive':'Company Archive','investment-wallet':'Investment Wallet','bank-branch':'Multi-Currency Banking Branch',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri','company-archive':'Şirket Arşivi','investment-wallet':'Yatırım Cüzdanı','bank-branch':'Çoklu Para Birimli Bankacılık',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه','company-archive':'بایگانی شرکت','investment-wallet':'کیف پول سرمایه‌گذاری','bank-branch':'شعبه بانکی چندارزی',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
+document.getElementById('projectSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#projectsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});document.getElementById('clientSearch').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('#clientsTable tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')});const languageLabels={ar:{'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة','investment-wallet':'محفظة الاستثمار والشراء والبيع',dashboard:'لوحة التحكم',projects:'المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة والأسهم',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',api:'مركز API والتكاملات',reports:'التقارير',settings:'الإعدادات'},en:{'syrian-locations':'Syrian Governorates & Cities','company-archive':'Company Archive','investment-wallet':'Investment Wallet',dashboard:'Dashboard',projects:'Projects',portfolios:'Investment Portfolios',stocks:'Markets & Stocks','investment-wallet':'Investment Wallet',clients:'Clients & Partners',invoices:'Invoices & Payments',documents:'Documents & Contracts',api:'API & Integrations',reports:'Reports',settings:'Settings'},tr:{'syrian-locations':'Suriye İlleri ve Şehirleri','company-archive':'Şirket Arşivi','investment-wallet':'Yatırım Cüzdanı',dashboard:'Kontrol Paneli',projects:'Projeler',portfolios:'Yatırım Portföyleri',stocks:'Piyasalar ve Hisseler','investment-wallet':'Yatırım Cüzdanı',clients:'Müşteriler ve Ortaklar',invoices:'Faturalar ve Ödemeler',documents:'Belgeler ve Sözleşmeler',api:'API ve Entegrasyonlar',reports:'Raporlar',settings:'Ayarlar'},fa:{'syrian-locations':'استان‌ها و شهرهای سوریه','company-archive':'بایگانی شرکت','investment-wallet':'کیف پول سرمایه‌گذاری',dashboard:'داشبورد',projects:'پروژه‌ها',portfolios:'سبدهای سرمایه‌گذاری',stocks:'بازار و سهام','investment-wallet':'کیف پول سرمایه‌گذاری',clients:'مشتریان و شرکا',invoices:'فاکتورها و پرداخت‌ها',documents:'اسناد و قراردادها',api:'API و یکپارچه‌سازی',reports:'گزارش‌ها',settings:'تنظیمات'}};
 let activeLanguage=localStorage.getItem('afaq_ui_language')||'ar';
 function applyShellLanguage(lang){activeLanguage=lang;localStorage.setItem('afaq_ui_language',lang);const labels=languageLabels[lang]||languageLabels.ar;document.querySelectorAll('.nav button[data-view]').forEach(b=>{const icon=b.querySelector('.ico'),key=b.dataset.view;if(icon){const text=labels[key]||languageLabels.ar[key]||key;b.innerHTML='';b.append(icon);b.append(document.createTextNode(text))}});document.getElementById('pageTitle').textContent=labels[document.querySelector('.view.active')?.id]||labels.dashboard;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'||lang==='fa'?'rtl':'ltr';document.getElementById('langBtn').value=lang;}
 document.getElementById('langBtn').addEventListener('change',e=>{const next=e.target.value;applyShellLanguage(next);showToast(({ar:'تم تغيير لغة القوائم إلى العربية',en:'Navigation language changed to English',tr:'Menü dili Türkçe olarak değiştirildi',fa:'زبان منوها به فارسی تغییر کرد'})[next])});
@@ -1027,49 +760,22 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const say=(text,ok=null)=>{message.textContent=text;status.textContent=ok===true?'Worker متصل':ok===false?'غير متصل':'بحاجة إلى إعداد';status.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';status.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b';if(topBadge){topBadge.textContent=ok===true?'Cloudflare Worker متصل':ok===false?'Cloudflare Worker غير متصل':'لم يتم فحص الخادم';topBadge.style.background=ok===true?'#123a32':ok===false?'#48252b':'#172b37';topBadge.style.color=ok===true?'#9be0bd':ok===false?'#ffb1b1':'#f0d18b'}};
  async function request(path,options={}){
    if(!apiBase)throw new Error('أدخل عنوان API Worker أولاً');
-   const headers={...(options.headers||{})};
-   const memberToken=sessionStorage.getItem('afaq_member_token_v1')||'';
-   if(memberToken&&!headers.Authorization)headers.Authorization='Bearer '+memberToken;
-   if(options.body!==undefined&&!headers['Content-Type']&&!headers['content-type'])headers['Content-Type']='application/json';
-   const response=await fetch(apiBase+path,{...options,cache:'no-store',mode:'cors',credentials:'omit',headers});
-   const raw=await response.text();let data={};
-   if(raw){try{data=JSON.parse(raw)}catch(_){data={message:raw.trim()}}}
+   const headers={...(options.headers||{})};const memberToken=sessionStorage.getItem('afaq_member_token_v1')||'';if(memberToken&&!headers.Authorization)headers.Authorization='Bearer '+memberToken;if(options.body!==undefined&&!headers['Content-Type']&&!headers['content-type'])headers['Content-Type']='application/json';const response=await fetch(apiBase+path,{...options,cache:'no-store',mode:'cors',credentials:'omit',headers});
+   const data=await response.json().catch(()=>({}));
    if(!response.ok)throw new Error(data.error||data.message||('HTTP '+response.status));
-   if(data&&data.ok===false)throw new Error(data.error||data.message||'رفض الخادم الطلب');
    return data;
  }
- async function test(){
-   try{
-     say('جارٍ اختبار الاتصال…');
-     const r=await request('/health',{method:'GET'});
-     // A successful HTTP health response is valid even if the Worker returns
-     // plain text or uses a status field instead of the exact {ok:true} shape.
-     if(r.status&&/error|fail|down/i.test(String(r.status)))throw new Error(r.message||'الخادم يعلن حالة غير سليمة');
-     say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true);
-     return true;
-   }catch(e){
-     const detail=e instanceof TypeError?'تعذر الوصول إلى Worker: تحقق من عنوانه المنشور وإعدادات CORS للسماح لموقع GitHub Pages.':e.message;
-     say('فشل الاتصال: '+detail,false);return false;
-   }
- }
+ async function test(){try{say('جارٍ اختبار الاتصال…');const r=await request('/health',{method:'GET'});if(r.ok!==true)throw new Error('استجابة فحص الصحة غير سليمة');say('تم الاتصال بالخادم بنجاح · '+(r.service||'AFAQ API'),true)}catch(e){const detail=e instanceof TypeError?'تعذر الوصول إلى Worker (تحقق من عنوانه ونشره وإعداد CORS في Cloudflare؛ قد يظهر Failed to fetch عند عدم السماح لأصل GitHub Pages).':e.message;say('فشل الاتصال: '+detail,false)}}
  function collect(){
    const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(fallback))}catch(_){return fallback}};
    return {
     projects:read('afaq_projects',[]), clients:read('afaq_clients',[]), invoices:read('afaq_invoices',[]),
-    shareOrders:read('afaq_share_orders',[]), bankBranch:read('afaq_bank_branch_v1',{balances:{},transactions:[]}), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
+    shareOrders:read('afaq_share_orders',[]), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
     archive:read('afaq_company_archive_v1',[]), syrianCities:read('afaq_syrian_city_directory_v1',{}), cityProjects:read('afaq_syrian_city_projects_v1',[]), reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
     partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
  }
- async function sync(){
-   try{
-     say('جارٍ التحقق من الخادم قبل المزامنة…');
-     const healthy=await test();if(!healthy)throw new Error('تعذر إثبات اتصال الخادم؛ لم تُرسل أي بيانات');
-     say('تم التحقق. جارٍ إرسال السجلات…');
-     const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});
-     say('أكد الخادم استلام طلب المزامنة'+(r.saved!==undefined?' · '+r.saved+' مجموعة بيانات':''),true);
-   }catch(e){say('تعذرت المزامنة: '+e.message,false)}
- }
+ async function sync(){try{say('جارٍ التحقق من الخادم قبل المزامنة…');const health=await request('/health',{method:'GET'});if(health.ok!==true)throw new Error('الخادم لم يؤكد جاهزيته عبر /health');say('تم التحقق. جارٍ إرسال السجلات…');const r=await request('/api/v1/sync',{method:'POST',body:JSON.stringify({records:collect()})});say('اكتملت المزامنة · '+(r.saved??'تم قبول الطلب')+' مجموعة بيانات',true)}catch(e){say('تعذرت المزامنة: '+e.message,false)}}
  $('afaqApiSave').addEventListener('click',()=>{apiBase=normalize(input.value);if(!/^https:\/\//i.test(apiBase)){say('يجب إدخال عنوان HTTPS صحيح',false);return}localStorage.setItem(key,apiBase);say('تم حفظ عنوان الخادم على هذا الجهاز');test()});
  $('afaqApiTest').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));test()});
  $('afaqApiSync').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));sync()});
@@ -1079,122 +785,11 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  window.addEventListener('focus',()=>refreshInvoiceStatuses(true));
 })();
 </script>
-
-<script>
-/* AFAQ SYRIA — multi-currency cash ledger (local demo; not a bank connection) */
-(()=>{
- 'use strict';
- const $=id=>document.getElementById(id);
- const form=$('bankTransactionForm'); if(!form)return;
- const storeKey='afaq_bank_branch_v1';
- const currencies=[
-  ['USD','دولار أمريكي'],['EUR','يورو'],['TRY','ليرة تركية'],['GBP','جنيه إسترليني'],
-  ['CHF','فرنك سويسري'],['CAD','دولار كندي'],['AUD','دولار أسترالي'],['NZD','دولار نيوزيلندي'],
-  ['JPY','ين ياباني'],['CNY','يوان صيني'],['HKD','دولار هونغ كونغي'],['SGD','دولار سنغافوري'],
-  ['AED','درهم إماراتي'],['SAR','ريال سعودي'],['QAR','ريال قطري'],['KWD','دينار كويتي'],
-  ['BHD','دينار بحريني'],['OMR','ريال عماني'],['JOD','دينار أردني'],['SYP','ليرة سورية'],
-  ['EGP','جنيه مصري'],['MAD','درهم مغربي'],['TND','دينار تونسي'],['DZD','دينار جزائري'],
-  ['IQD','دينار عراقي'],['LBP','ليرة لبنانية'],['PKR','روبية باكستانية'],['INR','روبية هندية'],
-  ['BRL','ريال برازيلي'],['MXN','بيزو مكسيكي'],['ZAR','راند جنوب أفريقي'],['RUB','روبل روسي'],
-  ['SEK','كرونة سويدية'],['NOK','كرونة نرويجية'],['DKK','كرونة دنماركية'],['PLN','زلوتي بولندي'],
-  ['CZK','كرونة تشيكية'],['HUF','فورنت مجري'],['RON','ليو روماني'],['BGN','ليف بلغاري'],
-  ['UAH','هريفنيا أوكرانية'],['GEL','لاري جورجي'],['AZN','مانات أذربيجاني'],['KRW','وون كوري']
- ];
- const names=Object.fromEntries(currencies);
- const blank=()=>({balances:{},transactions:[]});
- const read=()=>{try{const x=JSON.parse(localStorage.getItem(storeKey)||'null');return x&&typeof x==='object'?{...blank(),...x,balances:x.balances||{},transactions:Array.isArray(x.transactions)?x.transactions:[]}:blank()}catch(_){return blank()}};
- let data=read();
- const save=()=>{try{localStorage.setItem(storeKey,JSON.stringify(data));return true}catch(e){alert('تعذر حفظ السجل على هذا الجهاز. قد تكون مساحة المتصفح ممتلئة.');return false}};
- const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const fmt=(n)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
- const typeNames={deposit:'إيداع / قبض',withdrawal:'سحب / صرف',transfer:'حوالة صادرة تجريبية',exchange:'تبديل عملات'};
- const selectOptions=currencies.map(([c,n])=>`<option value="${c}">${c} — ${n}</option>`).join('');
- $('bankCurrency').innerHTML=selectOptions;
- $('bankDestinationCurrency').innerHTML=selectOptions;
- $('bankDestinationCurrency').value='EUR';
- function toggleFields(){
-  const t=$('bankType').value,exchange=t==='exchange',transfer=t==='transfer';
-  $('bankDestinationWrap').hidden=!exchange;
-  $('bankRateWrap').hidden=!exchange;
-  $('bankRecipientWrap').hidden=!transfer;
-  $('bankRate').required=exchange;
-  $('bankDestinationCurrency').required=exchange;
-  $('bankRecipient').required=transfer;
- }
- $('bankType').addEventListener('change',toggleFields);
- $('bankCurrency').addEventListener('change',()=>{if($('bankDestinationCurrency').value===$('bankCurrency').value){$('bankDestinationCurrency').value=currencies.find(x=>x[0]!==$('bankCurrency').value)?.[0]||'EUR'}});
- function renderBalances(){
-  const q=($('bankBalanceSearch').value||'').toLowerCase();
-  const rows=currencies.filter(([c,n])=>(Number(data.balances[c])||0)!==0||['USD','EUR','TRY','GBP'].includes(c)).filter(([c,n])=>!q||(c+' '+n).toLowerCase().includes(q));
-  $('bankBalances').innerHTML=rows.map(([c,n])=>`<article class="bank-balance"><b>${c} · ${n}</b><strong>${fmt(data.balances[c]||0)}</strong><small>رصيد مسجل تجريبياً</small></article>`).join('')||'<div class="empty">لا توجد عملات مطابقة.</div>';
-  $('bankCurrencyCount').textContent=String(currencies.length);
- }
- function renderLedger(){
-  const q=($('bankLedgerSearch').value||'').toLowerCase(),filter=$('bankLedgerFilter').value;
-  const rows=data.transactions.filter(x=>(!filter||x.type===filter)&&(!q||[x.type,x.currency,x.destinationCurrency,x.recipient,x.reference,x.notes].join(' ').toLowerCase().includes(q)));
-  $('bankLedger').innerHTML=rows.map(x=>{
-   const outgoing=['withdrawal','transfer','exchange'].includes(x.type);
-   const fromAmount=`<span class="${outgoing?'bank-negative':'bank-positive'}">${outgoing?'−':'+'}${fmt(x.amount)} ${esc(x.currency)}</span>`;
-   const to=x.type==='exchange'?`${esc(x.destinationCurrency)}`:x.type==='transfer'?esc(x.recipient||'مستفيد غير محدد'):'—';
-   const received=x.type==='exchange'?`<span class="bank-positive">+${fmt(x.receivedAmount)} ${esc(x.destinationCurrency)}</span>`:'—';
-   return `<tr><td>${new Date(x.time).toLocaleString('ar')}</td><td><span class="bank-type">${typeNames[x.type]||'حركة'}</span></td><td>${esc(x.currency)}</td><td>${fromAmount}</td><td>${to}</td><td>${received}</td><td>${esc(x.reference||'—')}<br><small>${esc(x.notes||'')}</small></td><td><span class="status pending">مسجلة محلياً</span></td></tr>`;
-  }).join('');
-  $('bankLedgerEmpty').hidden=rows.length>0;
-  $('bankTransactionCount').textContent=String(data.transactions.length);
-  $('bankLastTransaction').textContent=data.transactions[0]?new Date(data.transactions[0].time).toLocaleDateString('ar'):'—';
- }
- function render(){renderBalances();renderLedger()}
- form.addEventListener('submit',e=>{
-  e.preventDefault();
-  const type=$('bankType').value,currency=$('bankCurrency').value,amount=Number($('bankAmount').value);
-  if(!Number.isFinite(amount)||amount<=0){alert('أدخل مبلغاً صحيحاً أكبر من صفر.');return}
-  const current=Number(data.balances[currency])||0;
-  if(['withdrawal','transfer','exchange'].includes(type)&&current<amount){alert('الرصيد المسجل غير كافٍ بهذه العملة.');return}
-  const row={id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()),type,currency,amount,time:new Date().toISOString(),reference:$('bankReference').value.trim(),notes:$('bankNotes').value.trim()};
-  if(type==='deposit')data.balances[currency]=current+amount;
-  if(type==='withdrawal')data.balances[currency]=current-amount;
-  if(type==='transfer'){
-   row.recipient=$('bankRecipient').value.trim();
-   data.balances[currency]=current-amount;
-  }
-  if(type==='exchange'){
-   const destinationCurrency=$('bankDestinationCurrency').value,rate=Number($('bankRate').value);
-   if(destinationCurrency===currency){alert('اختر عملة مستلمة مختلفة عن عملة المصدر.');return}
-   if(!Number.isFinite(rate)||rate<=0){alert('أدخل سعر صرف صحيحاً أكبر من صفر.');return}
-   const receivedAmount=amount*rate;
-   row.destinationCurrency=destinationCurrency;row.rate=rate;row.receivedAmount=receivedAmount;
-   data.balances[currency]=current-amount;
-   data.balances[destinationCurrency]=(Number(data.balances[destinationCurrency])||0)+receivedAmount;
-  }
-  data.transactions.unshift(row);
-  if(save()){form.reset();$('bankDestinationCurrency').value='EUR';toggleFields();render();if(window.showToast)showToast('تم تسجيل الحركة محلياً بنجاح')}
- });
- $('bankBalanceSearch').addEventListener('input',renderBalances);
- $('bankLedgerSearch').addEventListener('input',renderLedger);
- $('bankLedgerFilter').addEventListener('change',renderLedger);
- $('bankExportCsv').addEventListener('click',()=>{
-  const head=['date','type','currency','amount','destinationCurrency','receivedAmount','recipient','reference','notes'];
-  const rows=data.transactions.map(x=>[x.time,typeNames[x.type]||x.type,x.currency,x.amount,x.destinationCurrency||'',x.receivedAmount||'',x.recipient||'',x.reference||'',x.notes||'']);
-  const csv=[head,...rows].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
-  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='afaq-multi-currency-ledger.csv';a.click();URL.revokeObjectURL(url);
- });
- $('bankPrint').addEventListener('click',()=>{
-  const rows=data.transactions.map(x=>`<tr><td>${esc(new Date(x.time).toLocaleString())}</td><td>${esc(typeNames[x.type]||x.type)}</td><td>${esc(x.currency)}</td><td>${fmt(x.amount)}</td><td>${esc(x.destinationCurrency||x.recipient||'—')}</td><td>${x.receivedAmount?fmt(x.receivedAmount):'—'}</td><td>${esc(x.reference||'')}</td></tr>`).join('');
-  const w=window.open('','_blank');if(!w){alert('اسمح بالنوافذ المنبثقة لطباعة الكشف.');return}
-  w.document.write(`<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>كشف الفرع المصرفي - آفاق سوريا</title><style>body{font-family:Tahoma,Arial;padding:24px;color:#111}h2{color:#80601e}table{width:100%;border-collapse:collapse}td,th{border:1px solid #aaa;padding:8px;text-align:right}</style><h2>آفاق سوريا — كشف الحركات متعددة العملات</h2><p>كشف سجل محلي تجريبي وليس كشفاً مصرفياً رسمياً.</p><table><thead><tr><th>التاريخ</th><th>العملية</th><th>العملة</th><th>المبلغ</th><th>إلى</th><th>المستلم</th><th>المرجع</th></tr></thead><tbody>${rows}</tbody></table><script>window.print()<\\/script></html>`);
-  w.document.close();
- });
- toggleFields();render();
-})();
-</script>
-
-
 <style>
 #afaqAuthGate{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at top,#17394f,#071522 65%);display:none;align-items:center;justify-content:center;padding:18px;color:#f0d18b}#afaqAuthGate.show{display:flex}#afaqAuthGate .auth-card{width:min(460px,100%);background:#0b2030;border:1px solid #806633;border-radius:18px;padding:24px;box-shadow:0 20px 70px #0009}#afaqAuthGate h1{margin:0;color:#f0d18b;font-size:25px}#afaqAuthGate p{color:#eee2c6;font-size:12px;line-height:1.8}#afaqAuthGate label{display:block;margin:12px 0 5px;font-size:12px}#afaqAuthGate input{width:100%;padding:12px;border-radius:8px;border:1px solid #806633;background:#071522;color:#fff}#afaqAuthGate .auth-actions{display:flex;gap:8px;margin-top:16px}#afaqAuthGate button{border:1px solid #806633;border-radius:8px;padding:11px 14px;background:#d9b15f;color:#071522;font-weight:bold;flex:1}#afaqAuthGate button.secondary{background:#102b40;color:#f0d18b}#afaqAuthMsg{min-height:22px;color:#ffcf8a}
 #afaqAuthGate .afaq-forgot{display:block;width:100%;margin-top:10px;background:transparent!important;color:#f0d18b!important;border:0!important;text-decoration:underline;font-size:12px}#afaqResetWrap{margin-top:12px;padding:12px;border:1px solid #806633;border-radius:10px}#afaqResetWrap[hidden]{display:none}#afaqResetWrap button{width:100%;margin-top:10px}
 </style>
-<div id="afaqAuthGate" role="dialog" aria-modal="true" aria-labelledby="afaqAuthTitle"><div class="auth-card"><h1 id="afaqAuthTitle">آفاق سوريا</h1><p>بوابة عضوية آفاق سوريا المرتبطة بالخادم وقاعدة البيانات. أنشئ حساباً أو سجّل الدخول باستخدام بريدك وكلمة مرور قوية.</p><div id="afaqAuthNameWrap"><label for="afaqAuthName">الاسم الكامل</label><input id="afaqAuthName" autocomplete="name"></div><label for="afaqAuthEmail">البريد الإلكتروني</label><input id="afaqAuthEmail" type="email" autocomplete="username"><label for="afaqAuthPassword">كلمة المرور (10 أحرف على الأقل)</label><input id="afaqAuthPassword" type="password" autocomplete="current-password"><div class="auth-actions"><button id="afaqAuthSubmit">إنشاء عضوية</button><button class="secondary" id="afaqAuthToggle">لدي حساب</button></div><button type="button" id="afaqForgotLink" class="afaq-forgot">نسيت كلمة المرور؟ أرسل رمزاً إلى بريدي</button><div id="afaqResetWrap" hidden><label for="afaqResetCode">رمز التحقق المرسل إلى بريدك</label><input id="afaqResetCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"><label for="afaqResetPassword">كلمة المرور الجديدة</label><input id="afaqResetPassword" type="password" autocomplete="new-password" minlength="10"><button type="button" id="afaqResetSubmit">تأكيد الرمز وتغيير كلمة المرور</button></div><p id="afaqAuthMsg" aria-live="polite"></p><p style="font-size:10px">استخدم كلمة مرور قوية وفريدة ولا تشارك رمز الجلسة أو بيانات الدخول.</p></div></div>
+<div id="afaqAuthGate" role="dialog" aria-modal="true" aria-labelledby="afaqAuthTitle"><div class="auth-card"><h1 id="afaqAuthTitle">آفاق سوريا</h1><p>بوابة عضوية آفاق سوريا المرتبطة بالخادم وقاعدة البيانات. أنشئ حساباً أو سجّل الدخول باستخدام بريدك وكلمة مرور قوية.</p><div id="afaqAuthNameWrap"><label for="afaqAuthName">الاسم الكامل</label><input id="afaqAuthName" autocomplete="name"></div><label for="afaqAuthEmail">البريد الإلكتروني</label><input id="afaqAuthEmail" type="email" autocomplete="username"><label for="afaqAuthPassword">كلمة المرور (10 أحرف على الأقل)</label><input id="afaqAuthPassword" type="password" autocomplete="current-password"><div class="auth-actions"><button id="afaqAuthSubmit">إنشاء عضوية</button><button class="secondary" id="afaqAuthToggle">لدي حساب</button></div><button type="button" id="afaqForgotLink" class="afaq-forgot">نسيت كلمة المرور؟</button><p id="afaqAuthMsg" aria-live="polite"></p><p style="font-size:10px">استخدم كلمة مرور قوية وفريدة ولا تشارك رمز الجلسة أو بيانات الدخول.</p></div></div>
 <script>
 (()=>{'use strict';
  const $=id=>document.getElementById(id),gate=$('afaqAuthGate');if(!gate)return;
@@ -1209,12 +804,10 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  function activate(data){if(!data.token)throw new Error('لم يُرجع الخادم رمز جلسة صالحاً');sessionStorage.setItem(tokenKey,data.token);paint(data.member||{});gate.classList.remove('show')}
  $('afaqAuthToggle').onclick=()=>{mode=mode==='signup'?'login':'signup';show()};
  $('afaqAuthSubmit').onclick=async()=>{const email=$('afaqAuthEmail').value.trim().toLowerCase(),password=$('afaqAuthPassword').value,name=$('afaqAuthName').value.trim(),msg=$('afaqAuthMsg');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.textContent='أدخل بريداً إلكترونياً صحيحاً.';return}if(password.length<10){msg.textContent='كلمة المرور يجب ألا تقل عن 10 أحرف.';return}if(mode==='signup'&&name.length<2){msg.textContent='أدخل الاسم الكامل.';return}const btn=$('afaqAuthSubmit');btn.disabled=true;msg.textContent='جارٍ الاتصال بالخادم الآمن…';try{const result=await api(mode==='signup'?'/api/member/register':'/api/member/login',{method:'POST',body:JSON.stringify(mode==='signup'?{name,email,password}:{login:email,password})});activate(result)}catch(e){msg.textContent=e.message}finally{btn.disabled=false}};
- $('afaqForgotLink').onclick=()=>{$('afaqAuthMsg').textContent='استعادة كلمة المرور عبر البريد غير مفعّلة في الخادم الحالي. يجب إعداد خدمة البريد ورموز الاستعادة قبل استخدامها.'};
- $('afaqResetSubmit').onclick=()=>{$('afaqAuthMsg').textContent='خدمة التحقق من رمز الاستعادة لم تُفعّل بعد؛ لم يتم إرسال أو قبول أي رمز.'};
+ $('afaqForgotLink').onclick=()=>{$('afaqAuthMsg').textContent='استعادة كلمة المرور عبر البريد غير مفعّلة حالياً. لا تدخل رمزاً هنا قبل تفعيل خدمة البريد على الخادم.'};
  async function restore(){const token=sessionStorage.getItem(tokenKey);if(!token){show();return}try{const data=await api('/api/member/me',{method:'GET'});paint(data.member||{});gate.classList.remove('show')}catch(_){sessionStorage.removeItem(tokenKey);mode='login';show('انتهت الجلسة أو تعذر التحقق منها. سجّل الدخول مجدداً.')}}
  const out=document.createElement('button');out.className='nav-payment';out.textContent='تسجيل الخروج';out.onclick=async()=>{try{await api('/api/member/logout',{method:'POST'})}catch(_){}sessionStorage.removeItem(tokenKey);member=null;mode='login';show('تم إنهاء الجلسة على هذا الجهاز.')};nav.appendChild(out);
  restore();
 })();
 </script>
-<div class="afaq-build-stamp" style="display:none" data-build="AFAQ-SYRIA-COMPLETE-2026-11"></div>
 </body></html>

@@ -1,7 +1,6 @@
 {
-  "name": "آفاق سوريا | AFAQ SYRIA",
-  "short_name": "آفاق سوريا",
-  "description": "منصة الأعمال والاستثمار وإدارة المحافظ والأسواق",
+  "name": "AFAQ SYRIA | آفاق سوريا",
+  "short_name": "AFAQ SYRIA",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
@@ -10,6 +9,11 @@
   "background_color": "#071522",
   "theme_color": "#071522",
   "icons": [
-    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }

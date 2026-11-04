@@ -74,26 +74,35 @@ input,select,textarea{font-size:19px;padding:13px}
  .navbtn{font-size:20px;padding:17px 14px}
  .btn{font-size:17px}
 }
+
+.password-wrap{position:relative;display:flex;align-items:center}
+.password-wrap input{width:100%;padding-left:58px!important}
+.password-toggle{position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;
+ min-width:42px;min-height:42px;border:1px solid #c9a44b;border-radius:9px;
+ background:#102d40;color:#e4c15f;display:inline-flex;align-items:center;justify-content:center;
+ cursor:pointer;font-size:21px;padding:6px}
+.password-toggle:focus-visible{outline:2px solid #e4c15f;outline-offset:2px}
+
 </style></head>
 <body>
 <section id="authGate" aria-label="تسجيل الدخول والعضوية">
  <div class="auth-card">
   <div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div>
-  <h1>بوابة أعضاء آفاق سوريا</h1>
+  <h1>بوابة المشتركين في آفاق سوريا</h1>
   <p class="muted">اختر الطريقة المناسبة للمتابعة إلى منصة آفاق سوريا.</p>
-  <div class="auth-tabs"><button type="button" id="registerTab" class="btn">إنشاء حساب جديد</button><button type="button" id="loginTab" class="btn secondary">لدي حساب بالفعل — تسجيل الدخول</button></div>
-  <p class="auth-choice-note">إذا لم يسبق لك التسجيل اختر «إنشاء حساب جديد»، وإذا كان لديك حساب سابق اختر «تسجيل الدخول».</p>
+  <div class="auth-tabs"><button type="button" id="registerTab" class="btn">تسجيل مشترك جديد</button><button type="button" id="loginTab" class="btn secondary">لدي حساب بالفعل — تسجيل الدخول</button></div>
+  <p class="auth-choice-note">إذا لم يسبق لك التسجيل اختر «تسجيل مشترك جديد»، وإذا كان لديك حساب سابق اختر «تسجيل الدخول».</p>
   <form id="loginForm" class="hidden">
    <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="username"></div>
-   <div class="field"><label>كلمة المرور</label><input name="password" type="password" required autocomplete="current-password"></div>
+   <div class="field"><label>كلمة المرور</label><div class="password-wrap"><input name="password" type="password" required autocomplete="current-password"><button class="password-toggle" type="button" data-password-target="password" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
    <button class="btn" type="submit">دخول إلى المنصة</button>
   </form>
   <form id="registerForm" class="hidden">
    <div class="field"><label>الاسم الكامل</label><input name="name" required autocomplete="name" minlength="2"></div>
    <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="email"></div>
    <div class="field"><label>كلمة المرور (10 أحرف على الأقل)</label><input name="password" type="password" required minlength="10" autocomplete="new-password"></div>
-   <div class="field"><label>تأكيد كلمة المرور</label><input name="confirmPassword" type="password" required minlength="10" autocomplete="new-password"></div>
-   <button class="btn" type="submit">إنشاء حساب عضو</button>
+   <div class="field"><label>تأكيد كلمة المرور</label><div class="password-wrap"><input name="confirmPassword" type="password" required minlength="10" autocomplete="new-password"><button class="password-toggle" type="button" data-password-target="confirmPassword" aria-label="إظهار كلمة المرور" aria-pressed="false" title="إظهار أو إخفاء كلمة المرور"><span aria-hidden="true">◉</span></button></div></div>
+   <button class="btn" type="submit">إنشاء حساب مشترك جديد</button>
   </form>
   <p id="authMessage" class="auth-message" role="status" aria-live="polite"></p>
   <div class="notice small">حماية الحسابات والصلاحيات تتطلب خادماً فعلياً. لا يمكن جعل التسجيل آمناً أو حفظ العضويات مركزياً باستخدام ملف HTML وحده. لا تشارك كلمة مرور المالك مع أي شخص.</div>
@@ -306,7 +315,7 @@ function exportData(){const data={};keys.forEach(k=>data[k]=read(k));data.settin
 function exportCSV(){const rows=read('clients'),head=['name','type','memberId','account','email','phone'];const csv=[head.join(','),...rows.map(x=>head.map(k=>'"'+String(x[k]||'').replace(/"/g,'""')+'"').join(','))].join('\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'afaq-clients.csv')}
 function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
 function clearData(){if(confirm('هل أنت متأكد من حذف جميع سجلات آفاق سوريا من هذا المتصفح؟')){keys.forEach(k=>localStorage.removeItem('afaq_'+k));render()}}
-document.getElementById('apiUrl').value=localStorage.getItem('afaq_api')||'https://omax-api-105a.oa626114.workers.dev';
+document.getElementById('apiUrl').value='https://omax-api-105a.oa626114.workers.dev';
 const initial=location.hash.slice(1);if(document.getElementById(initial)?.classList.contains('page'))showPage(initial);render();
 </script>
 <script>
@@ -314,13 +323,28 @@ const initial=location.hash.slice(1);if(document.getElementById(initial)?.classL
 const authState={user:null,base:''};
 const authMsg=t=>{document.getElementById('authMessage').textContent=t||''};
 const AFAQ_API_BASE='https://omax-api-105a.oa626114.workers.dev';
-function authBase(){return (localStorage.getItem('afaq_api')||AFAQ_API_BASE).trim().replace(/\/+$/,'')}
+// عنوان خدمة العضويات المعتمد؛ تجاهل أي عنوان قديم محفوظ محلياً.
+function authBase(){return AFAQ_API_BASE}
 async function authRequest(path,method='GET',data=null){
- const base=authBase(); if(!/^https:\/\/.+/.test(base)) throw new Error('أدخل عنوان خادم API المنشور عبر HTTPS أولاً.');
- localStorage.setItem('afaq_api',base);
- const res=await fetch(base+path,{method,credentials:'include',headers:{'Accept':'application/json',...(data?{'Content-Type':'application/json'}:{})},...(data?{body:JSON.stringify(data)}:{})});
- let body={};try{body=await res.json()}catch{}
- if(!res.ok)throw new Error(body.message||body.error||('تعذر إكمال الطلب (HTTP '+res.status+')'));
+ const base=authBase();
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),15000);
+ let res;
+ try{
+  res=await fetch(base+path,{method,credentials:'include',signal:controller.signal,headers:{'Accept':'application/json',...(data?{'Content-Type':'application/json'}:{})},...(data?{body:JSON.stringify(data)}:{})});
+ }catch(err){
+  if(err.name==='AbortError') throw new Error('انتهت مهلة الاتصال بخادم العضويات بعد 15 ثانية. الخادم لا يستجيب حالياً.');
+  throw new Error('تعذر الاتصال بخادم العضويات. تحقق من نشر Cloudflare Worker وإعدادات CORS والسماح بالطلبات من نطاق GitHub Pages. التفاصيل: '+(err.message||'NetworkError'));
+ }finally{clearTimeout(timer)}
+ const raw=await res.text();
+ let body={};
+ try{body=raw?JSON.parse(raw):{}}catch{throw new Error('الخادم أعاد استجابة غير صالحة (HTTP '+res.status+'). تحقق من مسار API وأنه يعيد JSON.')}
+ if(!res.ok){
+  const detail=body.message||body.error||body.detail||('HTTP '+res.status);
+  if(res.status===404) throw new Error('المسار '+path+' غير موجود على خادم العضويات (404). يجب نشر مسارات المصادقة على Worker.');
+  if(res.status===401||res.status===403) throw new Error('رفض الخادم الطلب: '+detail);
+  throw new Error('فشل طلب الخادم: '+detail);
+ }
  return body;
 }
 function setAuthUser(user){
@@ -358,7 +382,23 @@ function clearAuthUser(){authState.user=null;document.body.classList.remove('aut
 document.getElementById('loginTab').addEventListener('click',()=>{document.getElementById('loginForm').classList.remove('hidden');document.getElementById('registerForm').classList.add('hidden');document.getElementById('loginTab').className='btn';document.getElementById('registerTab').className='btn secondary';authMsg('');document.getElementById('loginForm').elements.email.focus()});
 document.getElementById('registerTab').addEventListener('click',()=>{document.getElementById('registerForm').classList.remove('hidden');document.getElementById('loginForm').classList.add('hidden');document.getElementById('registerTab').className='btn';document.getElementById('loginTab').className='btn secondary';authMsg('');document.getElementById('registerForm').elements.name.focus()});
 document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;authMsg('جارٍ التحقق من بيانات الدخول…');try{const d=Object.fromEntries(new FormData(f));const r=await authRequest('/api/auth/login','POST',d);if(!r.user)throw new Error('استجابة الخادم لا تحتوي بيانات العضو.');setAuthUser(r.user);authMsg('');f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
-document.getElementById('registerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');const d=Object.fromEntries(new FormData(f));if(d.password!==d.confirmPassword){authMsg('كلمتا المرور غير متطابقتين.');return}if(d.password.length<10){authMsg('كلمة المرور يجب ألا تقل عن 10 أحرف.');return}delete d.confirmPassword;b.disabled=true;authMsg('جارٍ إنشاء عضويتك…');try{const r=await authRequest('/api/auth/register','POST',d);if(r.user){setAuthUser(r.user);authMsg('تم إنشاء العضوية وتسجيل الدخول.')}else{authMsg(r.message||'تم استلام طلب التسجيل. تحقق من بريدك أو سجّل الدخول بعد تفعيل الحساب.');document.getElementById('loginTab').click()}f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
+document.getElementById('registerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');const d=Object.fromEntries(new FormData(f));if(d.password!==d.confirmPassword){authMsg('كلمتا المرور غير متطابقتين.');return}if(d.password.length<10){authMsg('كلمة المرور يجب ألا تقل عن 10 أحرف.');return}delete d.confirmPassword;b.disabled=true;authMsg('جارٍ إنشاء حسابك الجديد…');try{const r=await authRequest('/api/auth/register','POST',d);if(r.user){setAuthUser(r.user);authMsg('تم إنشاء الحساب وتسجيل الدخول.')}else{authMsg(r.message||'تم استلام طلب التسجيل. تحقق من بريدك أو سجّل الدخول بعد تفعيل الحساب.');document.getElementById('loginTab').click()}f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
 async function logoutUser(){try{await authRequest('/api/auth/logout','POST',{});}catch(e){}clearAuthUser();authMsg('تم إنهاء الجلسة. سجّل الدخول للمتابعة.');}
 (async()=>{const base=authBase();if(!base){authMsg('أدخل عنوان API الذي يستضيف خدمة العضويات وتسجيل الدخول.');return}authMsg('جارٍ التحقق من جلسة العضوية…');try{const r=await authRequest('/api/auth/me');if(r.user){setAuthUser(r.user);authMsg('')}else authMsg('يرجى تسجيل الدخول للمتابعة.')}catch(e){authMsg('لم يتم التحقق من الجلسة: '+e.message)}})();
+
+// إظهار/إخفاء كلمة المرور محلياً دون إرسالها أو تخزينها.
+document.querySelectorAll('.password-toggle[data-password-target]').forEach(btn=>{
+ const input=document.querySelector('#authGate input[name="'+btn.dataset.passwordTarget+'"]');
+ if(!input)return;
+ btn.addEventListener('click',()=>{
+  const showing=input.type==='password';
+  input.type=showing?'text':'password';
+  btn.setAttribute('aria-pressed',String(showing));
+  btn.setAttribute('aria-label',showing?'إخفاء كلمة المرور':'إظهار كلمة المرور');
+  btn.title=showing?'إخفاء كلمة المرور':'إظهار كلمة المرور';
+  btn.innerHTML=showing?'<span aria-hidden="true">⊘</span>':'<span aria-hidden="true">◉</span>';
+  input.focus();
+ });
+});
+
 </script></body></html>

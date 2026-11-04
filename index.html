@@ -29,6 +29,30 @@
   .stat{font-size:22px}
   .tablewrap table{min-width:560px}
 }
+
+/* تحسين وضوح الفهرس والعناوين */
+.navbtn{font-size:16px;font-weight:600;line-height:1.8;padding:12px 11px;min-height:46px}
+.page h2,.sectionhead h2{font-size:23px;line-height:1.6;font-weight:700}
+.page h3{font-size:19px;line-height:1.6}
+/* إعادة تنسيق قسم المحافظات والمدن بالبطاقات الأصلية */
+#cities>h2{font-size:23px;margin:0 0 14px;color:var(--gold2)}
+#cities>.card{background:linear-gradient(145deg,#102b3d,#0d2434);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+#cities .formgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:end}
+#cities .field{margin:6px 0}
+#cities .field label{font-size:14px;font-weight:600}
+#cities #addCityBtn{min-width:132px;margin-top:8px;padding:11px 16px}
+#cities .tablewrap{border-radius:10px;background:#0b2030}
+#cities table{min-width:100%;width:100%}
+#cities th,#cities td{padding:12px 10px;font-size:14px}
+#cities th{background:#143449;color:var(--gold2)}
+@media(max-width:600px){
+ .navbtn{font-size:16px;min-height:48px;padding:12px 10px}
+ .page h2,.sectionhead h2,#cities>h2{font-size:22px}
+ #cities .formgrid{grid-template-columns:1fr;gap:4px}
+ #cities>.card{padding:14px}
+ #cities th,#cities td{font-size:13px;padding:10px 8px}
+}
+
 </style></head>
 <body>
 <header class="top"><div><div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div></div><div class="toolbar"><button class="btn secondary mobilemenu" onclick="document.querySelector('aside').classList.toggle('open')">☰ القائمة</button><span class="status">نسخة تشغيلية محلية تجريبية</span></div></header>

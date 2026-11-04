@@ -887,7 +887,7 @@ const initial=location.hash.slice(1);if(document.getElementById(initial)?.classL
 </script>
 <script>
 // المصادقة تعتمد على جلسة خادمية عبر Cookie آمن؛ لا تُخزن كلمات المرور أو دور المالك في المتصفح.
-const authState={user:null,base:''};
+const authState={user:null,base:'',token:sessionStorage.getItem('afaq_session_token')||''};
 const authMsg=t=>{document.getElementById('authMessage').textContent=t||''};
 const AFAQ_API_BASE='https://omax-api-105a.oa626114.workers.dev';
 // عنوان خدمة العضويات المعتمد؛ تجاهل أي عنوان قديم محفوظ محلياً.
@@ -898,7 +898,7 @@ async function authRequest(path,method='GET',data=null){
  const timer=setTimeout(()=>controller.abort(),15000);
  let res;
  try{
-  res=await fetch(base+path,{method,credentials:'include',signal:controller.signal,headers:{'Accept':'application/json',...(data?{'Content-Type':'application/json'}:{})},...(data?{body:JSON.stringify(data)}:{})});
+  res=await fetch(base+path,{method,credentials:'omit',signal:controller.signal,headers:{'Accept':'application/json',...(data?{'Content-Type':'application/json'}:{}),...(authState.token?{'Authorization':'Bearer '+authState.token}:{})},...(data?{body:JSON.stringify(data)}:{})});
  }catch(err){
   if(err.name==='AbortError') throw new Error('انتهت مهلة الاتصال بخادم العضويات بعد 15 ثانية. الخادم لا يستجيب حالياً.');
   throw new Error('تعذر الاتصال بخادم العضويات. تحقق من نشر Cloudflare Worker وإعدادات CORS والسماح بالطلبات من نطاق GitHub Pages. التفاصيل: '+(err.message||'NetworkError'));
@@ -916,12 +916,15 @@ async function authRequest(path,method='GET',data=null){
 }
 function setAuthUser(user){
  authState.user=user;document.body.classList.add('authenticated');
+ document.getElementById('memberIdDisplay').textContent=user.member_id||user.memberId||'—';
+ document.getElementById('accountDisplay').textContent=user.account_number||user.accountNumber||'—';
+ document.getElementById('ibanDisplay').textContent=user.iban||'غير مخصص من بنك أو مزود مرخص';
  const role=String(user.role||'member').toLowerCase();
  document.getElementById('userBadge').textContent=(user.name||user.email||'عضو')+' · '+(role==='owner'?'المالك':role==='admin'?'مدير':'عضو');
  // أدوات إدارة الخادم لا تظهر للأعضاء؛ التفويض الحقيقي يجب أن يطبقه الخادم أيضاً.
  document.querySelectorAll('.navbtn[data-page="api"],.navbtn[data-page="settings"]').forEach(b=>b.classList.toggle('hidden',!['owner','admin'].includes(role)));
  document.querySelector('.navbtn[data-page="memberProfile"]').classList.remove('hidden');
- loadMemberProfile().catch(e=>profileMessage(e.message));
+ // بيانات الملف التفصيلية والتوثيق تحتاج مسارات خادمية مستقلة غير موجودة في نسخة Worker الحالية.
  if(location.hash){const id=location.hash.slice(1);if(document.getElementById(id)?.classList.contains('page'))showPage(id)}
 }
 function profileMessage(t){const el=document.getElementById('profileMessage');if(el)el.textContent=t||''}
@@ -948,10 +951,10 @@ function clearAuthUser(){authState.user=null;document.body.classList.remove('aut
 // تم حذف حقل عنوان API من الواجهة؛ لا نحاول الوصول إلى عنصر غير موجود.
 document.getElementById('loginTab').addEventListener('click',()=>{document.getElementById('loginForm').classList.remove('hidden');document.getElementById('registerForm').classList.add('hidden');document.getElementById('loginTab').className='btn';document.getElementById('registerTab').className='btn secondary';authMsg('');document.getElementById('loginForm').elements.email.focus()});
 document.getElementById('registerTab').addEventListener('click',()=>{document.getElementById('registerForm').classList.remove('hidden');document.getElementById('loginForm').classList.add('hidden');document.getElementById('registerTab').className='btn';document.getElementById('loginTab').className='btn secondary';authMsg('');document.getElementById('registerForm').elements.name.focus()});
-document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;authMsg('جارٍ التحقق من بيانات الدخول…');try{const d=Object.fromEntries(new FormData(f));const r=await authRequest('/api/auth/login','POST',d);if(!r.user)throw new Error('استجابة الخادم لا تحتوي بيانات العضو.');setAuthUser(r.user);authMsg('');f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
-document.getElementById('registerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');const d=Object.fromEntries(new FormData(f));if(d.password!==d.confirmPassword){authMsg('كلمتا المرور غير متطابقتين.');return}if(d.password.length<10){authMsg('كلمة المرور يجب ألا تقل عن 10 أحرف.');return}delete d.confirmPassword;b.disabled=true;authMsg('جارٍ إنشاء حسابك الجديد…');try{const r=await authRequest('/api/auth/register','POST',d);if(r.user){setAuthUser(r.user);authMsg('تم إنشاء الحساب وتسجيل الدخول.')}else{authMsg(r.message||'تم استلام طلب التسجيل. تحقق من بريدك أو سجّل الدخول بعد تفعيل الحساب.');document.getElementById('loginTab').click()}f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
-async function logoutUser(){try{await authRequest('/api/auth/logout','POST',{});}catch(e){}clearAuthUser();authMsg('تم إنهاء الجلسة. سجّل الدخول للمتابعة.');}
-(async()=>{const base=authBase();if(!base){authMsg('أدخل عنوان API الذي يستضيف خدمة العضويات وتسجيل الدخول.');return}authMsg('جارٍ التحقق من جلسة العضوية…');try{const r=await authRequest('/api/auth/me');if(r.user){setAuthUser(r.user);authMsg('')}else authMsg('يرجى تسجيل الدخول للمتابعة.')}catch(e){authMsg('لم يتم التحقق من الجلسة: '+e.message)}})();
+document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');b.disabled=true;authMsg('جارٍ التحقق من بيانات الدخول…');try{const d=Object.fromEntries(new FormData(f));const r=await authRequest('/api/member/login','POST',{login:d.email,password:d.password});if(!r.member||!r.token)throw new Error('استجابة الخادم لا تحتوي بيانات العضو أو رمز الجلسة.');authState.token=r.token;sessionStorage.setItem('afaq_session_token',r.token);setAuthUser(r.member);authMsg('');f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
+document.getElementById('registerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,b=f.querySelector('button[type="submit"]');const d=Object.fromEntries(new FormData(f));if(d.password!==d.confirmPassword){authMsg('كلمتا المرور غير متطابقتين.');return}if(d.password.length<10){authMsg('كلمة المرور يجب ألا تقل عن 10 أحرف.');return}delete d.confirmPassword;b.disabled=true;authMsg('جارٍ إنشاء حسابك الجديد…');try{const r=await authRequest('/api/member/register','POST',d);if(r.member&&r.token){authState.token=r.token;sessionStorage.setItem('afaq_session_token',r.token);setAuthUser(r.member);authMsg('تم إنشاء الحساب وتسجيل الدخول.')}else{authMsg(r.message||'تم استلام طلب التسجيل. تحقق من بريدك أو سجّل الدخول بعد تفعيل الحساب.');document.getElementById('loginTab').click()}f.reset()}catch(err){authMsg(err.message)}finally{b.disabled=false}});
+async function logoutUser(){try{await authRequest('/api/member/logout','POST',{});}catch(e){}authState.token='';sessionStorage.removeItem('afaq_session_token');clearAuthUser();authMsg('تم إنهاء الجلسة. سجّل الدخول للمتابعة.');}
+(async()=>{const base=authBase();if(!base){authMsg('أدخل عنوان API الذي يستضيف خدمة العضويات وتسجيل الدخول.');return}authMsg('جارٍ التحقق من جلسة العضوية…');try{const r=await authRequest('/api/member/me');if(r.member){setAuthUser(r.member);authMsg('')}else authMsg('يرجى تسجيل الدخول للمتابعة.')}catch(e){authState.token='';sessionStorage.removeItem('afaq_session_token');authMsg('لم يتم استرجاع الجلسة: '+e.message+' — يمكنك تسجيل الدخول من جديد.')}})();
 
 // إظهار/إخفاء كلمة المرور محلياً دون إرسالها أو تخزينها.
 document.querySelectorAll('.password-toggle[data-password-target]').forEach(btn=>{

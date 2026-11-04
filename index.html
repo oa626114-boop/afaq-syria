@@ -269,7 +269,7 @@ tbody tr:hover td{background:#102b40}
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="bank-branch"><span class="ico">🏦</span>الفرع المصرفي متعدد العملات</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><button type="button" class="nav-payment" data-view="global-market"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</button><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="bank-branch"><span class="ico">🏦</span>الفرع المصرفي متعدد العملات</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><button type="button" class="nav-payment" data-view="payment-center"><span class="ico">💳</span>مركز الدفع والتحصيل</button><button type="button" class="nav-payment" data-view="crypto-wallet"><span class="ico">₿</span>محفظة العملات الرقمية</button><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
 <div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
@@ -537,7 +537,7 @@ const seedProjects=[{name:'تطوير البنية التحتية',sector:'ال�
 const seedClients=[{name:'شريك استثماري تجريبي',type:'شريك',email:'—',phone:'—'},{name:'عميل تجريبي',type:'عميل',email:'—',phone:'—'},{name:'مورد تجريبي',type:'مورد',email:'—',phone:'—'}];
 let projects=safeReadStore('afaq_projects',null)||seedProjects,clients=safeReadStore('afaq_clients',null)||seedClients,invoices=safeReadStore('afaq_invoices',null)||[{number:'AFQ-2026-001',client:'فاتورة تجريبية',amount:'2500 USD',date:'2026-11-02',status:'مسودة'},{number:'AFQ-2026-002',client:'فاتورة تجريبية',amount:'1200 USD',date:'2026-11-02',status:'بانتظار الدفع'}];
 let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
-const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
+const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع','bank-branch':'الفرع المصرفي متعدد العملات',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية','crypto-wallet':'محفظة العملات الرقمية','payment-center':'مركز الدفع والتحصيل','global-market':'مؤشر آفاق سوريا العالمي'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
 function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
@@ -824,7 +824,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const $=id=>document.getElementById(id);
  const key='afaq_api_base_v1';
  const normalize=s=>String(s||'').trim().replace(/\/+$/,'');
- let apiBase=normalize(localStorage.getItem(key)||'https://omax-api-105a.oa626114.workers.dev');
+ let apiBase=normalize(localStorage.getItem(key)||'');
  const input=$('afaqApiBase'), status=$('afaqApiStatus'), message=$('afaqApiMessage'), topBadge=$('apiTopBadge');
  if(!input||!status||!message)return;
  input.value=apiBase;
@@ -988,6 +988,72 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
   w.document.close();
  });
  toggleFields();render();
+})();
+</script>
+
+
+<style>
+/* AFAQ SYRIA — new operational modules; navy/gold visual system */
+.afaq-module .panel,.afaq-module .stat,.afaq-module .module-card{background:linear-gradient(145deg,#102b40,#091b2a)!important;border:1px solid #806633!important;color:#f0d18b!important}
+.afaq-module h2,.afaq-module h3,.afaq-module b,.afaq-module strong,.afaq-module label,.afaq-module p,.afaq-module small,.afaq-module th,.afaq-module td{color:#f0d18b!important}
+.afaq-module .field,.afaq-module .muted{color:#d9b15f!important}
+.afaq-module input,.afaq-module select,.afaq-module textarea{background:#071522!important;color:#f0d18b!important;border:1px solid #806633!important;border-radius:8px;padding:10px;min-width:0;width:100%}
+.afaq-module .btn{background:#d9b15f!important;color:#071522!important;border:1px solid #f0d18b!important}
+.afaq-module .btn.secondary{background:#102b40!important;color:#f0d18b!important}
+.afaq-module .module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.afaq-module .asset-card{border:1px solid #806633;border-radius:12px;padding:15px;background:linear-gradient(145deg,#102b40,#071522)}
+.afaq-module .asset-card .ticker{font-size:12px;color:#d9b15f}.afaq-module .asset-card strong{display:block;font-size:22px;margin:8px 0}
+.afaq-module .warning{border:1px solid #a77c35;background:#3a2c16;color:#ffe0a0;padding:13px;border-radius:10px;line-height:1.8;margin:12px 0}
+.afaq-module .pill{display:inline-block;border:1px solid #806633;border-radius:30px;padding:4px 10px;color:#f0d18b;font-size:11px}
+.afaq-module .table-wrap{overflow:auto}.afaq-module table{min-width:620px}.afaq-module th{background:#102b40!important}.afaq-module td{border-color:#294358!important}
+@media(max-width:720px){.afaq-module .module-grid{grid-template-columns:1fr}.afaq-module .form-grid{grid-template-columns:1fr}}
+</style>
+<section class="view afaq-module" id="crypto-wallet">
+ <div class="view-head"><div><h2>محفظة العملات الرقمية</h2><p>لوحة الأصول والشبكات وسجل الحركة — بيئة تجريبية غير حاضنة</p></div><span class="pill">غير مفعّلة للتحويل الحقيقي</span></div>
+ <div class="warning"><b>تنبيه أمان وترخيص:</b> لا توجد حالياً عناوين إيداع فعلية أو مفاتيح خاصة أو اتصال بمزوّد حفظ. لا ترسل أموالاً إلى هذه المنصة. ستظهر عناوين الإيداع بعد ربط مزوّد مرخّص وإتمام اختبارات الأمان والامتثال.</div>
+ <div class="module-grid" id="cryptoAssetCards">
+  <article class="asset-card"><span class="ticker">BTC · Bitcoin</span><strong>0.00000000</strong><small>رصيد تجريبي غير قابل للسحب</small></article>
+  <article class="asset-card"><span class="ticker">ETH · Ethereum</span><strong>0.00000000</strong><small>رصيد تجريبي غير قابل للسحب</small></article>
+  <article class="asset-card"><span class="ticker">USDT · Tether</span><strong>0.00</strong><small>رصيد تجريبي غير قابل للسحب</small></article>
+ </div>
+ <div class="panel"><div class="panel-head"><h3>الشبكات المدعومة عند التكامل</h3><span class="pill">قائمة تجهيز فقط</span></div>
+  <div class="module-grid">
+   <article class="asset-card"><b>USDT — TRC20</b><p>شبكة TRON</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+   <article class="asset-card"><b>USDT — ERC20</b><p>شبكة Ethereum</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+   <article class="asset-card"><b>BTC</b><p>Bitcoin Network</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+   <article class="asset-card"><b>ETH</b><p>Ethereum Network</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+   <article class="asset-card"><b>USDC — ERC20</b><p>شبكة Ethereum</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+   <article class="asset-card"><b>BNB — BEP20</b><p>BNB Smart Chain</p><span class="pill">بانتظار مزوّد العناوين</span></article>
+  </div>
+ </div>
+ <div class="panel"><div class="panel-head"><h3>طلب إصدار عنوان إيداع</h3><span class="pill">معطّل حالياً</span></div>
+  <div class="form-grid"><label class="field">الأصل<select id="cryptoAsset"><option>USDT</option><option>BTC</option><option>ETH</option><option>USDC</option><option>BNB</option></select></label><label class="field">الشبكة<select id="cryptoNetwork"><option value="TRC20">TRC20 — TRON</option><option value="ERC20">ERC20 — Ethereum</option><option value="BEP20">BEP20 — BNB Smart Chain</option><option value="BTC">Bitcoin</option></select></label></div>
+  <div class="warning" id="cryptoAddressState">لا يمكن إصدار عنوان الآن. يتطلب ذلك ربط مزوّد حفظ مرخّص وتوليد عنوان فريد من الخادم.</div><button class="btn secondary" type="button" disabled>إصدار عنوان — غير متاح</button>
+ </div>
+ <div class="panel"><div class="panel-head"><h3>سجل حركة المحفظة</h3><button class="btn secondary" type="button" id="cryptoExport">تصدير السجل</button></div><div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>الأصل</th><th>الشبكة</th><th>النوع</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody id="cryptoLedger"><tr><td colspan="6" class="empty">لا توجد حركات. ستظهر الحركات بعد ربط مزوّد الحفظ.</td></tr></tbody></table></div></div>
+</section>
+<section class="view afaq-module" id="payment-center">
+ <div class="view-head"><div><h2>مركز الدفع والتحصيل</h2><p>إدارة قنوات الدفع والفواتير وربط مزوّدي الخدمة</p></div><span class="pill">إعداد تجريبي</span></div>
+ <div class="warning">إنشاء فاتورة داخل المنصة لا يعني أن الدفع قد تم. لا يتم تأكيد أي دفعة إلا من إشعار موثّق من مزوّد الدفع عبر الخادم والتحقق من التوقيع والحالة.</div>
+ <div class="module-grid"><article class="asset-card"><b>بطاقات الدفع</b><p>يتطلب مزوّد دفع مرخّص وحساب تاجر معتمد.</p><span class="pill">غير مربوط</span></article><article class="asset-card"><b>التحويلات البنكية</b><p>تتطلب حساب شركة لدى بنك أو مؤسسة دفع.</p><span class="pill">غير مربوط</span></article><article class="asset-card"><b>مدفوعات العملات الرقمية</b><p>تتطلب مزوّد معالجة/حفظ متوافقاً.</p><span class="pill">غير مربوط</span></article></div>
+ <div class="panel"><h3>الانتقال إلى إدارة الفواتير</h3><p>تُدار الفواتير الحالية من قسم الفواتير والمدفوعات، وتبقى حالتها مسودة أو بانتظار الدفع حتى وصول تأكيد موثوق.</p><button class="btn" type="button" data-go="invoices">فتح الفواتير والمدفوعات</button></div>
+ <div class="panel"><h3>متطلبات الربط قبل التفعيل</h3><ol><li>اختيار مزوّد دفع متاح قانونياً في بلد تسجيل الشركة.</li><li>إعداد مفاتيح API كأسرار في الخادم فقط، لا داخل ملف HTML.</li><li>إنشاء Webhook والتحقق من التوقيع ومنع تكرار الإشعارات.</li><li>اختبار الدفع والاسترداد والتسوية قبل الإنتاج.</li></ol></div>
+</section>
+<section class="view afaq-module" id="global-market">
+ <div class="view-head"><div><h2>مؤشر آفاق سوريا العالمي</h2><p>قائمة متابعة الأصول والأسواق — لا تمثل أسعاراً مباشرة</p></div><span class="pill">بيانات السوق غير متصلة</span></div>
+ <div class="warning">هذه الصفحة لا تعرض أسعاراً لحظية حالياً. لن نعرض أرقاماً تقديرية على أنها أسعار سوق. يلزم ربط مزوّد بيانات سوق موثوق أو مخططات مرخّصة قبل تفعيل الأسعار والشموع.</div>
+ <div class="module-grid"><article class="asset-card"><span class="ticker">المعادن</span><b>الذهب · الفضة</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الطاقة</span><b>النفط · الغاز</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأصول الرقمية</span><b>Bitcoin · Ethereum</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">العملات</span><b>مؤشرات العملات الرئيسية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأسهم</span><b>الأسواق العالمية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الرسوم البيانية</span><b>شموع يابانية</b><p>يتم تجهيز تكامل المخططات بعد تحديد مزوّد مرخّص.</p></article></div>
+ <div class="panel"><h3>قائمة المتابعة</h3><div class="toolbar"><input id="marketWatchInput" placeholder="أضف رمزاً إلى قائمة المتابعة مثل XAUUSD أو BTCUSD"><button class="btn" id="marketWatchAdd" type="button">إضافة</button></div><div id="marketWatchList"><p class="empty">لا توجد رموز في قائمة المتابعة.</p></div></div>
+</section>
+<script>
+(()=>{'use strict';
+ const key='afaq_market_watch_v1';const $=id=>document.getElementById(id);
+ let watch=[];try{watch=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(watch))watch=[]}catch(_){watch=[]}
+ function render(){const host=$('marketWatchList');if(!host)return;host.innerHTML=watch.length?watch.map((v,i)=>`<div class="asset-card" style="display:flex;justify-content:space-between;align-items:center;margin:7px 0"><b dir="ltr">${String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</b><button class="btn secondary" type="button" data-watch-remove="${i}">حذف</button></div>`).join(''):'<p class="empty">لا توجد رموز في قائمة المتابعة.</p>'}
+ $('marketWatchAdd')?.addEventListener('click',()=>{const v=$('marketWatchInput').value.trim().toUpperCase();if(!/^[A-Z0-9._-]{2,20}$/.test(v)){if(window.showToast)showToast('أدخل رمزاً صحيحاً');return}if(watch.includes(v)){showToast('الرمز موجود بالفعل');return}watch.push(v);localStorage.setItem(key,JSON.stringify(watch));$('marketWatchInput').value='';render()});
+ $('marketWatchList')?.addEventListener('click',e=>{const b=e.target.closest('[data-watch-remove]');if(!b)return;watch.splice(Number(b.dataset.watchRemove),1);localStorage.setItem(key,JSON.stringify(watch));render()});
+ $('cryptoExport')?.addEventListener('click',()=>{const csv='date,asset,network,type,amount,status\r\n';const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='afaq-crypto-ledger.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)});
+ render();
 })();
 </script>
 

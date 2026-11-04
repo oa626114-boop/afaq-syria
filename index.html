@@ -81,7 +81,6 @@ input,select,textarea{font-size:19px;padding:13px}
   <div class="brand">آفاق سوريا <small>AFAQ SYRIA · BUSINESS PLATFORM</small></div>
   <h1>بوابة أعضاء آفاق سوريا</h1>
   <p class="muted">يجب تسجيل الدخول للوصول إلى المنصة. يمكن للزوار إنشاء عضوية جديدة، ويُمنح حساب المالك حصراً من إدارة الخادم.</p>
-  <div class="field"><label for="authApiBase">عنوان خادم المنصة API</label><input id="authApiBase" type="url" placeholder="https://your-worker.workers.dev" autocomplete="url"></div>
   <div class="auth-tabs"><button type="button" id="loginTab" class="btn">تسجيل الدخول</button><button type="button" id="registerTab" class="btn secondary">إنشاء عضوية</button></div>
   <form id="loginForm">
    <div class="field"><label>البريد الإلكتروني</label><input name="email" type="email" required autocomplete="username"></div>
@@ -313,7 +312,7 @@ const initial=location.hash.slice(1);if(document.getElementById(initial)?.classL
 // المصادقة تعتمد على جلسة خادمية عبر Cookie آمن؛ لا تُخزن كلمات المرور أو دور المالك في المتصفح.
 const authState={user:null,base:''};
 const authMsg=t=>{document.getElementById('authMessage').textContent=t||''};
-function authBase(){return (document.getElementById('authApiBase').value||localStorage.getItem('afaq_api')||'').trim().replace(/\/+$/,'')}
+function authBase(){return (localStorage.getItem('afaq_api')||'').trim().replace(/\/+$/,'')}
 async function authRequest(path,method='GET',data=null){
  const base=authBase(); if(!/^https:\/\/.+/.test(base)) throw new Error('أدخل عنوان خادم API المنشور عبر HTTPS أولاً.');
  localStorage.setItem('afaq_api',base);

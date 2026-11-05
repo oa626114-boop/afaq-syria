@@ -297,7 +297,7 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 .afaq-card-back .back-qr img,.afaq-card-back .back-qr canvas{width:100%!important;height:100%!important;object-fit:contain}
 .afaq-card-back .back-brand{position:absolute;top:4%;right:6%;font-weight:800;letter-spacing:.08em;font-size:clamp(10px,1.6vw,16px);color:#f4d17c}
 .afaq-card-hint{text-align:center;color:#d6b76d;font-size:12px;margin-top:7px}
-.afaq-virtual-front{position:absolute;inset:0}
+.afaq-virtual-front{position:absolute;inset:0}.afaq-physical-front .physical-card-label{position:absolute;right:5%;top:5%;padding:4px 9px;border:1px solid #d9ae4c;border-radius:6px;background:rgba(3,17,29,.94);color:#f1c96e;font-size:clamp(7px,1.1vw,11px);font-weight:700;letter-spacing:.04em;z-index:2}
 .afaq-virtual-front .virtual-number-mask{position:absolute;left:5%;right:5%;top:48%;height:15%;background:linear-gradient(90deg,rgba(3,17,29,.97),rgba(5,24,39,.98));display:flex;align-items:center;padding:0 2%;border-top:1px solid #a87e32;border-bottom:1px solid #a87e32}
 .afaq-virtual-front .virtual-number{font:clamp(17px,4.4vw,42px) Georgia,serif;letter-spacing:.13em;color:#f1c96e;text-shadow:0 2px 4px #000;white-space:nowrap}
 .afaq-virtual-front .virtual-name-mask{position:absolute;left:5%;bottom:10%;width:43%;height:14%;background:linear-gradient(90deg,rgba(3,17,29,.98),rgba(5,24,39,.98));display:flex;flex-direction:column;justify-content:center;padding:0 2%;border-top:1px solid #a87e32;border-bottom:1px solid #a87e32}
@@ -877,7 +877,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
    <div class="afaq-flip-card" role="button" tabindex="0" aria-label="بطاقة مصرف آفاق الافتراضية، اضغط لقلب البطاقة" aria-pressed="false" data-afaq-flip>
     <div class="afaq-flip-inner">
      <div class="afaq-card-face afaq-card-front afaq-virtual-front">
-      <img src="afaq-virtual-card-art.png" alt="تصميم بطاقة مصرف آفاق الافتراضية"/>
+      <img src="assets/afaq-virtual-card-art.png" alt="تصميم بطاقة مصرف آفاق الافتراضية"/>
       <div class="virtual-number-mask"><span class="virtual-number" dir="ltr">${fmt(cardNo)}</span></div>
       <div class="virtual-name-mask"><span style="font-size:clamp(7px,1vw,10px);color:#e8c77f">CARDHOLDER</span><span class="virtual-name">${name}</span></div>
      </div>
@@ -889,22 +889,23 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
      </div>
     </div>
    </div>
-   <div class="afaq-card-hint">بطاقة مصرف آفاق الافتراضية · نموذج عرض غير مفعّل للدفع</div>
-   <div class="afaq-flip-card" role="button" tabindex="0" aria-label="بطاقة آفاق للعملات الرقمية، اضغط لقلب البطاقة" aria-pressed="false" data-afaq-flip>
+   <div class="afaq-card-hint">البطاقة المصرفية الافتراضية · نموذج عرض غير مفعّل للدفع</div>
+   <div class="afaq-flip-card" role="button" tabindex="0" aria-label="بطاقة فيزا فعلية من مصرف آفاق، اضغط لقلب البطاقة" aria-pressed="false" data-afaq-flip>
     <div class="afaq-flip-inner">
-     <div class="afaq-card-face afaq-card-front afaq-crypto-front">
-      <img src="afaq-crypto-card-art.png" alt="تصميم بطاقة محفظة آفاق الرقمية"/>
-      <div class="crypto-number" dir="ltr">${fmt(cardNo)}</div><div class="crypto-name">${name}</div>
-      <div class="crypto-qr" id="afaqCryptoFrontQr"></div>
+     <div class="afaq-card-face afaq-card-front afaq-virtual-front afaq-physical-front">
+      <img src="assets/afaq-virtual-card-art.png" alt="تصميم تصوري لبطاقة فيزا فعلية من مصرف آفاق"/>
+      <div class="physical-card-label">PHYSICAL VISA · بطاقة فعلية</div>
+      <div class="virtual-number-mask"><span class="virtual-number" dir="ltr">${fmt(cardNo)}</span></div>
+      <div class="virtual-name-mask"><span style="font-size:clamp(7px,1vw,10px);color:#e8c77f">CARDHOLDER</span><span class="virtual-name">${name}</span></div>
      </div>
      <div class="afaq-card-face afaq-card-back">
-      <div class="back-brand">AFAQ CRYPTO · مصرف آفاق</div><div class="magstripe"></div>
+      <div class="back-brand">AFAQ BANK · PHYSICAL VISA</div><div class="magstripe"></div>
       <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
-      <div class="gold-note">بطاقة تعريف رقمية فقط · لا تمثل عنوان إيداع بلوكشين<br/>رقم المشترك ID: ${memberNo} · Account number · رقم الحساب ${accountNo}</div>
-      <div class="back-meta"><span>CRYPTO WALLET CARD<br/>USDT · ETH · BTC · TRX</span><div class="back-qr" id="afaqCryptoBackQr"></div></div>
+      <div class="gold-note">تصميم تصوري لبطاقة Visa فعلية · الإصدار والتفعيل والتوصيل تتطلب جهة مصرفية مرخصة<br/>رقم المشترك ID: ${memberNo}<br/>Account number · رقم الحساب ${accountNo}</div>
+      <div class="back-meta"><span>PHYSICAL VISA CARD<br/>AFAQ BANK · 2026</span><div class="back-qr" id="afaqPhysicalBackQr"></div></div>
      </div>
     </div>
-   </div><div class="afaq-card-hint">بطاقة الكريبتو · اضغط للقلب</div>`;
+   </div><div class="afaq-card-hint">بطاقة Visa فعلية · نموذج تصميم غير مُصدَر مصرفياً</div>`;
  }
  function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#e6b94e',colorLight:'#071522',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح';}}
  function bindAfaqFlipCards(){document.querySelectorAll('[data-afaq-flip]').forEach(card=>{if(card.dataset.flipBound)return;card.dataset.flipBound='1';const flip=()=>{const on=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(on));};card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});});}

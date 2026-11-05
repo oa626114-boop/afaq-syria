@@ -217,7 +217,7 @@ async function handle(req, env) {
       members: true,
       payments: { crypto: !!env.NOWPAYMENTS_API_KEY && !!env.NOWPAYMENTS_IPN_SECRET, cards: false },
       endpoints: ["/api/member/register", "/api/member/login", "/api/member/me",
-        "/api/member/logout", "/api/member/transfer", "/api/member/transfers", "/api/bank/overview", "/api/bank/transactions", "/api/bank/withdrawals",
+        "/api/member/logout", "/api/member/transfer", "/api/member/transfers", "/api/bank/overview", "/api/bank/transactions", "/api/bank/withdrawals", "/api/bank/withdrawals/:id/cancel", "/api/admin/bank/withdrawals", "/api/admin/bank/withdrawals/:id/mark-paid", "/api/admin/bank/withdrawals/:id/reject",
         "/api/payment/create", "/api/payment/status", "/api/payment/ipn"],
       time: now()
     }, database ? 200 : 503);

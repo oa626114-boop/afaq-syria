@@ -131,6 +131,27 @@ public class MainActivity extends Activity {
         JSONObject member=me.optJSONObject("member"); if(member==null) member=new JSONObject();
         begin("مرحباً "+member.optString("name","بك"));
         panel(text("رقم العضوية: "+member.optString("member_id","—")+"\nرقم الحساب: "+member.optString("account_number","—"),13,false));
+        LinearLayout beeCard = new LinearLayout(this);
+        beeCard.setOrientation(LinearLayout.VERTICAL); beeCard.setGravity(Gravity.CENTER);
+        TextView homeBee = text("🐝",58,true); homeBee.setGravity(Gravity.CENTER);
+        TextView beeHint = text("اضغط على النحلة لبدء تعدين AOB",15,true);
+        beeHint.setGravity(Gravity.CENTER); beeHint.setTextColor(GOLD);
+        TextView beeState = text("النحلة جاهزة",12,false); beeState.setGravity(Gravity.CENTER);
+        beeCard.addView(homeBee,lp()); beeCard.addView(beeHint,lp()); beeCard.addView(beeState,lp());
+        panel(beeCard);
+        View.OnClickListener startHomeMining = v -> {
+            if (beeAnimator != null && beeAnimator.isRunning()) {
+                stopBee(); beeState.setText("تم إيقاف الحركة"); beeHint.setText("اضغط على النحلة للتشغيل مجدداً");
+                return;
+            }
+            beeAnimator = ValueAnimator.ofFloat(-dp(11),dp(11));
+            beeAnimator.setDuration(520); beeAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            beeAnimator.setRepeatCount(ValueAnimator.INFINITE); beeAnimator.setInterpolator(new LinearInterpolator());
+            beeAnimator.addUpdateListener(a -> homeBee.setTranslationY((Float)a.getAnimatedValue()));
+            beeAnimator.start(); beeState.setText("🐝 النحلة تتحرك — تعدين AOB تجريبي");
+            beeHint.setText("اضغط مرة أخرى لإيقاف الحركة");
+        };
+        homeBee.setOnClickListener(startHomeMining); beeHint.setOnClickListener(startHomeMining);
         TextView title=text("الأرصدة حسب العملة",17,true); page.addView(title,lp()); gap(8);
         JSONArray balances=me.optJSONArray("balances");
         if(balances!=null) for(int i=0;i<balances.length();i++){

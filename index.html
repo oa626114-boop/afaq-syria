@@ -293,6 +293,13 @@ body,.content p,.content label,.content small,.content span,.content td,.content
   .sidebar .nav button{font-size:16px !important;min-height:48px;padding:12px !important}
 }
 
+
+.nav-sub-label{color:#d9b15f;font-size:12px;font-weight:bold;padding:8px 22px 3px;opacity:.95}
+.nav-hint{font-size:11px;line-height:1.7;color:#c1b18a;padding:5px 14px 10px}
+.nav a.nav-sub{padding-right:28px;font-size:12px;opacity:.95}
+.nav a.nav-payment{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;margin:3px 0;border:1px solid #806633;border-radius:9px;background:#102b40;color:#dce5eb;text-decoration:none;text-align:right;font-size:13px;line-height:1.6}
+.nav a.nav-payment:hover{background:#ffffff16;color:#f0d18b}
+
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -355,9 +362,48 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
-<div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>مركز شراء وبيع العملات</a><a class="nav-payment" href="media-center.html"><span class="ico">▧</span>مركز الإعلام والإعلانات</a><a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>الدردشة والاتصال</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
-<div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>إعدادات الشركة</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
+<div class="nav-label">الرئيسية</div>
+<button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
+
+<div class="nav-label">1 ـ إدارة الأعمال</div>
+<button data-view="projects"><span class="ico">🏗</span>المشاريع</button>
+<button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن</button>
+<button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button>
+<button data-view="reports"><span class="ico">◫</span>التحليل والإدارة</button>
+<button data-view="reports"><span class="ico">▤</span>التقارير</button>
+<button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة وإنجازات العمل</button>
+<button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button>
+
+<div class="nav-label">2 ـ الأمور المالية</div>
+<a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>المحفظة الرقمية</a>
+<button data-view="member-account"><span class="ico">🏦</span>مصرف آفاق</button>
+<a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a>
+<div class="nav-sub-label">فواتير الخدمات</div>
+<a class="nav-payment nav-sub" href="payment.html"><span class="ico">⚡</span>فواتير الكهرباء</a>
+<a class="nav-payment nav-sub" href="payment.html"><span class="ico">💧</span>فواتير الماء</a>
+<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🔥</span>فواتير الغاز</a>
+<a class="nav-payment nav-sub" href="payment.html"><span class="ico">☎</span>فواتير الهاتف</a>
+<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🌐</span>فواتير الإنترنت</a>
+<a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>بيع وشراء العملات الرقمية B2B</a>
+
+<div class="nav-label">3 ـ الإعلام والاتصالات</div>
+<a class="nav-payment" href="media-center.html"><span class="ico">📢</span>مركز الإعلام العام</a>
+<div class="nav-sub-label">الدردشة الخاصة والمجموعات العامة</div>
+<a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>محادثات الأعضاء</a>
+<a class="nav-payment nav-sub" href="chat-center.html#voiceCall"><span class="ico">☎</span>اتصل عبر التطبيق</a>
+<a class="nav-payment nav-sub" href="chat-center.html#videoCall"><span class="ico">▣</span>اتصال فيديو</a>
+<div class="nav-hint">تصفح مركز الإعلام متاح للأعضاء، والمحادثات خاصة بين الأعضاء. يمكن إنشاء مجموعات عامة بعد تفعيل الخادم.</div>
+
+<div class="nav-label">4 ـ التحليل والإدارة التقنية</div>
+<button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم المالية</button>
+<a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a>
+<button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار وشراء وبيع أسهم المشاريع</button>
+<button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+
+<div class="nav-label">5 ـ الإعدادات</div>
+<button data-view="settings"><span class="ico">⚙</span>إعدادات المنصة</button>
+<button data-view="member-settings"><span class="ico">🛡</span>توثيق الهوية والحساب</button>
+</div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
 <section class="view active" id="dashboard"><div class="welcome"><div><h1>مرحباً بك في آفاق سوريا</h1><p>منصة موحدة لإدارة المشاريع والاستثمارات والشراكات والعمليات.</p></div><div class="welcome-mark">✦</div></div>
@@ -930,8 +976,8 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  <div class="settings-panel" id="setting-notifications" hidden><h3>الإشعارات</h3><label><input type="checkbox" checked disabled> إشعارات أمان الحساب</label><label><input type="checkbox" checked disabled> إشعارات التحويلات والمدفوعات</label><p class="settings-note">تفضيلات الإشعارات ستُحفظ على الخادم بعد إضافة واجهة إعداداتها.</p></div>
  <div class="settings-panel" id="setting-referrals" hidden><h3>الإحالات</h3><p>سيظهر رمز الإحالة ومكافآتها هنا بعد تفعيل برنامج الإحالات واعتماد قواعده.</p></div>
  <div class="settings-panel" id="setting-preferences" hidden><h3>التفضيلات</h3><label>اللغة<select id="memberLanguage"><option value="ar">العربية</option><option value="en">English</option><option value="tr">Türkçe</option></select></label><label>العملة المفضلة<select id="memberCurrency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></label><p class="settings-note">التفضيلات المعروضة محلية حالياً، ولا تؤثر على أرصدة الحساب.</p></div></div></section>`);
- const memberSettingsBtn=document.createElement('button');memberSettingsBtn.innerHTML='<span class="ico">⚙</span>إعدادات العضوية';memberSettingsBtn.dataset.view='member-settings';nav.appendChild(memberSettingsBtn);memberSettingsBtn.addEventListener('click',()=>go('member-settings'));
-const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
+ const memberSettingsBtn=document.createElement('button');memberSettingsBtn.innerHTML='<span class="ico">⚙</span>إعدادات العضوية';memberSettingsBtn.dataset.view='member-settings';memberSettingsBtn.style.display='none';memberSettingsBtn.addEventListener('click',()=>go('member-settings'));
+const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';accountBtn.style.display='none';accountBtn.addEventListener('click',()=>go('member-account'));
  function show(message=''){gate.classList.add('show');$('afaqAuthMsg').textContent=message;$('afaqAuthNameWrap').style.display=mode==='signup'?'block':'none';$('afaqAuthSubmit').textContent=mode==='signup'?'إنشاء عضوية':'تسجيل الدخول';$('afaqAuthToggle').textContent=mode==='signup'?'لدي حساب':'إنشاء حساب جديد'}
 
  function afaqNumericRef(value,length=16){let h1=2166136261>>>0,h2=2246822519>>>0;const s=String(value||'AFAQ');for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^(c+i),3266489917)>>>0;}let digits=String(h1).padStart(10,'0')+String(h2).padStart(10,'0');return digits.slice(0,length).padStart(length,'0')}

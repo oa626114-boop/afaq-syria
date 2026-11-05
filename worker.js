@@ -1,6 +1,6 @@
 // AFAQ SYRIA — Cloudflare Worker: payments + member accounts + internal transfers
 // Bindings: D1 database named DB
-// Secrets: NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET, SESSION_PEPPER, ADMIN_API_TOKEN
+// Secrets: NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET, SESSION_PEPPER
 // Vars: ALLOWED_ORIGIN=https://oa626114-boop.github.io (exact origin)
 // IMPORTANT: Member account numbers are internal identifiers, NOT bank IBANs.
 // A real IBAN must be issued by a licensed bank/payment partner.
@@ -55,7 +55,10 @@ function safeEqual(a, b) {
   return n === 0;
 }
 function newMemberId() {
-  return "AFQ-" + randomToken(9).toUpperCase().replace(/[-_]/g, "").slice(0, 12);
+  // Public member ID format: OA + 8 digits (10 characters total).
+  const bytes = new Uint8Array(8);
+  crypto.getRandomValues(bytes);
+  return "OA" + Array.from(bytes, b => String(b % 10)).join("");
 }
 function newAccountNumber() {
   return "AQ" + randomToken(10).toUpperCase().replace(/[-_]/g, "").slice(0, 16);
@@ -165,8 +168,9 @@ async function getAuth(req, env) {
 function amountToMinor(value) {
   const n = Number(value);
   if (!Number.isFinite(n) || n <= 0 || n > 100000000) return null;
-  const minor = Math.round(n * 100);
-  if (!Number.isSafeInteger(minor) || minor <= 0) return null;
+  const scaled = n * 100;
+  const minor = Math.round(scaled);
+  if (!Number.isSafeInteger(minor) || minor <= 0 || Math.abs(scaled - minor) > 1e-7) return null;
   return minor;
 }
 const currencies = new Set(["USD", "EUR", "TRY", "SYP", "GBP", "CAD", "AUD", "AED", "SAR"]);
@@ -206,6 +210,7 @@ async function handle(req, env) {
       payments: { crypto: !!env.NOWPAYMENTS_API_KEY && !!env.NOWPAYMENTS_IPN_SECRET, cards: false },
       endpoints: ["/api/member/register", "/api/member/login", "/api/member/me",
         "/api/member/logout", "/api/member/transfer", "/api/member/transfers",
+        "/api/chat/members", "/api/chat/conversations", "/api/chat/conversations/:id/messages", "/api/calls/signal", "/api/calls/signals",
         "/api/payment/create", "/api/payment/status", "/api/payment/ipn"],
       time: now()
     }, database ? 200 : 503);
@@ -299,6 +304,171 @@ async function handle(req, env) {
     return reply(req, env, { ok:true, member:{ member_id:auth.public_member_id,
       account_number:auth.account_number, email:auth.email, name:auth.full_name || '', iban:null, iban_status:"pending_bank_partner" },
       balances:(balances.results || []).map(x => ({ currency:x.currency, balance:Number(x.balance_minor)/100 })) });
+  }
+
+
+  // Secure member-to-member messaging and WebRTC signaling (D1).
+  // Media uploads are intentionally not accepted until a private R2 bucket and
+  // malware/content scanning pipeline are configured.
+  const chatTables = [
+    `CREATE TABLE IF NOT EXISTS chat_conversations (
+      id TEXT PRIMARY KEY, member_a TEXT NOT NULL, member_b TEXT NOT NULL,
+      created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+      UNIQUE(member_a, member_b), CHECK(member_a < member_b)
+    )`,
+    `CREATE TABLE IF NOT EXISTS chat_messages (
+      id TEXT PRIMARY KEY, conversation_id TEXT NOT NULL, sender_id TEXT NOT NULL,
+      body TEXT NOT NULL, created_at TEXT NOT NULL, read_at TEXT,
+      FOREIGN KEY(conversation_id) REFERENCES chat_conversations(id)
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_chat_messages_conversation ON chat_messages(conversation_id, created_at)`,
+    `CREATE TABLE IF NOT EXISTS chat_blocks (
+      blocker_id TEXT NOT NULL, blocked_id TEXT NOT NULL, created_at TEXT NOT NULL,
+      PRIMARY KEY(blocker_id, blocked_id)
+    )`,
+    `CREATE TABLE IF NOT EXISTS chat_reports (
+      id TEXT PRIMARY KEY, reporter_id TEXT NOT NULL, reported_id TEXT NOT NULL,
+      reason TEXT NOT NULL, details TEXT, created_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending'
+    )`,
+    `CREATE TABLE IF NOT EXISTS call_signals (
+      id TEXT PRIMARY KEY, call_id TEXT NOT NULL, sender_id TEXT NOT NULL,
+      recipient_id TEXT NOT NULL, event_type TEXT NOT NULL, payload TEXT,
+      created_at TEXT NOT NULL, consumed_at TEXT
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_call_signals_recipient ON call_signals(recipient_id, created_at)`
+  ];
+  for (const sql of chatTables) await env.DB.prepare(sql).run();
+
+  const chatAuth = await getAuth(req, env);
+  const chatJson = async () => { try { return await req.json(); } catch { return null; } };
+  const isBlocked = async (a,b) => !!(await env.DB.prepare(
+    "SELECT 1 FROM chat_blocks WHERE (blocker_id=? AND blocked_id=?) OR (blocker_id=? AND blocked_id=?) LIMIT 1"
+  ).bind(a,b,b,a).first());
+  const conversationFor = async (id, memberId) => env.DB.prepare(
+    "SELECT * FROM chat_conversations WHERE id=? AND (member_a=? OR member_b=?)"
+  ).bind(id,memberId,memberId).first();
+
+  if (path.startsWith("/api/chat/") || path.startsWith("/api/calls/")) {
+    if (!chatAuth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
+
+    if (req.method === "GET" && path === "/api/chat/members") {
+      const q = String(url.searchParams.get("q") || "").trim().toUpperCase();
+      if (q.length < 2) return reply(req, env, {ok:true,members:[]});
+      const rows = await env.DB.prepare(
+        `SELECT member_id,full_name FROM members
+         WHERE status='active' AND id<>? AND (upper(member_id)=? OR upper(member_id) LIKE ?)
+         ORDER BY CASE WHEN upper(member_id)=? THEN 0 ELSE 1 END LIMIT 20`
+      ).bind(chatAuth.member_id,q,q+"%",q).all();
+      return reply(req, env, {ok:true,members:rows.results || []});
+    }
+
+    if (req.method === "GET" && path === "/api/chat/conversations") {
+      const rows = await env.DB.prepare(
+        `SELECT c.id,c.updated_at,
+          CASE WHEN c.member_a=? THEN mb.member_id ELSE ma.member_id END AS peer_member_id,
+          CASE WHEN c.member_a=? THEN mb.full_name ELSE ma.full_name END AS peer_name,
+          (SELECT body FROM chat_messages m WHERE m.conversation_id=c.id ORDER BY created_at DESC LIMIT 1) AS last_message,
+          (SELECT COUNT(*) FROM chat_messages m WHERE m.conversation_id=c.id AND m.sender_id<>? AND m.read_at IS NULL) AS unread
+         FROM chat_conversations c
+         JOIN members ma ON ma.id=c.member_a JOIN members mb ON mb.id=c.member_b
+         WHERE c.member_a=? OR c.member_b=? ORDER BY c.updated_at DESC LIMIT 100`
+      ).bind(chatAuth.member_id,chatAuth.member_id,chatAuth.member_id,chatAuth.member_id,chatAuth.member_id).all();
+      return reply(req, env, {ok:true,conversations:rows.results || []});
+    }
+
+    if (req.method === "POST" && path === "/api/chat/conversations") {
+      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
+      const target=String(body.member_id || "").trim().toUpperCase();
+      const peer=await env.DB.prepare("SELECT id,member_id FROM members WHERE upper(member_id)=? AND status='active'").bind(target).first();
+      if(!peer) return reply(req,env,{ok:false,error:"Member not found"},404);
+      if(peer.id===chatAuth.member_id) return reply(req,env,{ok:false,error:"Cannot message yourself"},400);
+      if(await isBlocked(chatAuth.member_id,peer.id)) return reply(req,env,{ok:false,error:"Messaging is unavailable"},403);
+      const [a,b]=[chatAuth.member_id,peer.id].sort();
+      const id=crypto.randomUUID(), stamp=now();
+      await env.DB.prepare("INSERT OR IGNORE INTO chat_conversations(id,member_a,member_b,created_at,updated_at) VALUES(?,?,?,?,?)")
+        .bind(id,a,b,stamp,stamp).run();
+      const row=await env.DB.prepare("SELECT id FROM chat_conversations WHERE member_a=? AND member_b=?").bind(a,b).first();
+      return reply(req,env,{ok:true,conversation_id:row.id},201);
+    }
+
+    const msgMatch=path.match(/^\/api\/chat\/conversations\/([0-9a-f-]+)\/messages$/i);
+    if(msgMatch && req.method==="GET"){
+      const conv=await conversationFor(msgMatch[1],chatAuth.member_id);
+      if(!conv) return reply(req,env,{ok:false,error:"Conversation not found"},404);
+      const before=String(url.searchParams.get("before")||"");
+      const rows=await env.DB.prepare(
+        `SELECT id,(sender_id=?) AS mine,body,created_at,read_at FROM chat_messages
+         WHERE conversation_id=? ${before ? "AND created_at<?" : ""}
+         ORDER BY created_at DESC LIMIT 100`
+      ).bind(...(before?[chatAuth.member_id,conv.id,before]:[chatAuth.member_id,conv.id])).all();
+      await env.DB.prepare("UPDATE chat_messages SET read_at=? WHERE conversation_id=? AND sender_id<>? AND read_at IS NULL")
+        .bind(now(),conv.id,chatAuth.member_id).run();
+      return reply(req,env,{ok:true,messages:(rows.results||[]).reverse()});
+    }
+    if(msgMatch && req.method==="POST"){
+      const conv=await conversationFor(msgMatch[1],chatAuth.member_id);
+      if(!conv) return reply(req,env,{ok:false,error:"Conversation not found"},404);
+      const peer=conv.member_a===chatAuth.member_id?conv.member_b:conv.member_a;
+      if(await isBlocked(chatAuth.member_id,peer)) return reply(req,env,{ok:false,error:"Messaging is unavailable"},403);
+      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
+      const message=String(body.body||"").trim();
+      if(!message || message.length>4000) return reply(req,env,{ok:false,error:"Message must be 1–4000 characters"},400);
+      const id=crypto.randomUUID(), stamp=now();
+      await env.DB.batch([
+        env.DB.prepare("INSERT INTO chat_messages(id,conversation_id,sender_id,body,created_at) VALUES(?,?,?,?,?)").bind(id,conv.id,chatAuth.member_id,message,stamp),
+        env.DB.prepare("UPDATE chat_conversations SET updated_at=? WHERE id=?").bind(stamp,conv.id)
+      ]);
+      return reply(req,env,{ok:true,message:{id,sender_id:chatAuth.member_id,body:message,created_at:stamp}},201);
+    }
+
+    if(req.method==="POST" && path==="/api/chat/block"){
+      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
+      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=?").bind(String(body.member_id||"").trim().toUpperCase()).first();
+      if(!peer || peer.id===chatAuth.member_id) return reply(req,env,{ok:false,error:"Invalid member"},400);
+      await env.DB.prepare("INSERT OR IGNORE INTO chat_blocks(blocker_id,blocked_id,created_at) VALUES(?,?,?)").bind(chatAuth.member_id,peer.id,now()).run();
+      return reply(req,env,{ok:true});
+    }
+
+    if(req.method==="POST" && path==="/api/chat/report"){
+      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
+      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=?").bind(String(body.member_id||"").trim().toUpperCase()).first();
+      const reason=String(body.reason||"").trim().slice(0,80);
+      if(!peer || peer.id===chatAuth.member_id || !reason) return reply(req,env,{ok:false,error:"Member and report reason are required"},400);
+      await env.DB.prepare("INSERT INTO chat_reports(id,reporter_id,reported_id,reason,details,created_at) VALUES(?,?,?,?,?,?)")
+        .bind(crypto.randomUUID(),chatAuth.member_id,peer.id,reason,String(body.details||"").slice(0,1000),now()).run();
+      return reply(req,env,{ok:true},201);
+    }
+
+    if(path==="/api/calls/signal" && req.method==="POST"){
+      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
+      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=? AND status='active'")
+        .bind(String(body.peer_member_id||"").trim().toUpperCase()).first();
+      const types=new Set(["offer","answer","ice","reject","hangup","busy"]);
+      const type=String(body.event_type||"");
+      const callId=String(body.call_id||"");
+      if(!peer || peer.id===chatAuth.member_id || !types.has(type) || !/^[A-Za-z0-9-]{12,80}$/.test(callId))
+        return reply(req,env,{ok:false,error:"Invalid call signal"},400);
+      if(await isBlocked(chatAuth.member_id,peer.id)) return reply(req,env,{ok:false,error:"Call unavailable"},403);
+      const payload=JSON.stringify(body.payload||{});
+      if(payload.length>12000) return reply(req,env,{ok:false,error:"Signal payload too large"},413);
+      const id=crypto.randomUUID(),stamp=now();
+      await env.DB.prepare("INSERT INTO call_signals(id,call_id,sender_id,recipient_id,event_type,payload,created_at) VALUES(?,?,?,?,?,?,?)")
+        .bind(id,callId,chatAuth.member_id,peer.id,type,payload,stamp).run();
+      return reply(req,env,{ok:true,signal_id:id},201);
+    }
+    if(path==="/api/calls/signals" && req.method==="GET"){
+      const since=String(url.searchParams.get("since")||"");
+      const rows=await env.DB.prepare(
+        `SELECT id,call_id,sender_id,event_type,payload,created_at FROM call_signals
+         WHERE recipient_id=? AND consumed_at IS NULL ${since?"AND created_at>?":""}
+         ORDER BY created_at ASC LIMIT 100`
+      ).bind(...(since?[chatAuth.member_id,since]:[chatAuth.member_id])).all();
+      const signals=rows.results||[];
+      if(signals.length) await env.DB.prepare(
+        `UPDATE call_signals SET consumed_at=? WHERE id IN (${signals.map(()=>"?").join(",")})`
+      ).bind(now(),...signals.map(x=>x.id)).run();
+      return reply(req,env,{ok:true,signals:signals.map(x=>({...x,payload:JSON.parse(x.payload||"{}")}))});
+    }
   }
 
   // Internal member transfer. Idempotency-Key is mandatory to prevent duplicate submissions.
@@ -411,8 +581,15 @@ async function handle(req, env) {
     if (paymentStatus === "finished") {
       const amountMinor = amountToMinor(payment.amount);
       const creditCurrency = String(payment.currency || "").toUpperCase();
-      if (!payment.created_by || !amountMinor || !currencies.has(creditCurrency))
-        return json({ok:false,error:"Payment cannot be credited; account or currency is invalid"},409);
+      const callbackPrice = Number(event.price_amount);
+      const callbackCurrency = String(event.price_currency || "").toLowerCase();
+      const storedCurrency = String(payment.currency || "").toLowerCase();
+      const amountMatches = Number.isFinite(callbackPrice) && Math.abs(callbackPrice - Number(payment.amount)) <= 0.01;
+      const currencyMatches = callbackCurrency === storedCurrency;
+      const invoiceMatches = !event.invoice_id || !payment.invoice_id || String(event.invoice_id) === String(payment.invoice_id);
+      if (!payment.created_by || !amountMinor || !currencies.has(creditCurrency) ||
+          !amountMatches || !currencyMatches || !invoiceMatches)
+        return json({ok:false,error:"Payment callback does not match the stored invoice; credit was not applied"},409);
 
       // INSERT OR IGNORE succeeds only once per order_id. The trigger credits
       // the member balance only when this unique row is first inserted.
@@ -443,22 +620,32 @@ async function handle(req, env) {
     let body; try { body = await req.json(); } catch { return reply(req, env, { ok:false, error:"Invalid JSON" }, 400); }
     const amount = Number(body.amount), currency = String(body.currency || "usd").toLowerCase();
     const payCurrency = String(body.pay_currency || "usdttrc20").toLowerCase();
-    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000)
-      return reply(req, env, { ok:false, error:"Invalid amount" }, 400);
+    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000 || !amountToMinor(amount))
+      return reply(req, env, { ok:false, error:"Invalid amount; use at most two decimal places" }, 400);
     if (!/^[a-z]{3,5}$/.test(currency)) return reply(req, env, { ok:false, error:"Unsupported invoice currency code" }, 400);
     const allowedCrypto = new Set(["usdttrc20","usdterc20","btc","eth","trx"]);
     const allowedFiat = new Set(["usd","eur","gbp","try","cad","aud"]);
     if (!allowedFiat.has(currency))
       return reply(req, env, { ok:false, error:"Unsupported invoice price currency" }, 400);
-    if (payCurrency !== "all" && !allowedCrypto.has(payCurrency) && !allowedFiat.has(payCurrency))
-      return reply(req, env, { ok:false, error:"Unsupported payment currency or network" }, 400);
+    if (payCurrency !== "all" && !allowedCrypto.has(payCurrency))
+      return reply(req, env, { ok:false, error:"Unsupported crypto payment currency or network" }, 400);
     const orderId = "AFQ-" + crypto.randomUUID();
     const payload = { price_amount:amount, price_currency:currency, order_id:orderId,
       order_description:String(body.description || "AFAQ SYRIA invoice").slice(0,200),
       ipn_callback_url:url.origin + "/api/payment/ipn" };
     if (payCurrency !== "all") payload.pay_currency = payCurrency;
-    if (body.success_url) payload.success_url = String(body.success_url).slice(0,500);
-    if (body.cancel_url) payload.cancel_url = String(body.cancel_url).slice(0,500);
+    const siteOrigin = String(env.ALLOWED_ORIGIN || "").split(",")[0].trim();
+    for (const key of ["success_url", "cancel_url"]) {
+      if (!body[key]) continue;
+      try {
+        const target = new URL(String(body[key]));
+        if (target.protocol !== "https:" || target.origin !== siteOrigin)
+          return reply(req, env, {ok:false,error:"Redirect URL must use the configured HTTPS website origin"}, 400);
+        payload[key] = target.toString().slice(0,500);
+      } catch {
+        return reply(req, env, {ok:false,error:"Invalid redirect URL"}, 400);
+      }
+    }
     const provider = await fetch("https://api.nowpayments.io/v1/invoice", {
       method:"POST", headers:{"x-api-key":env.NOWPAYMENTS_API_KEY,"Content-Type":"application/json"},
       body:JSON.stringify(payload)

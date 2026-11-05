@@ -865,10 +865,18 @@ export default {
         return json({ok:false,error:"Origin not allowed"}, 403);
       return await handle(req, env);
     } catch (e) {
+      // Safe server-side diagnostics: never log request bodies, passwords, tokens, or headers.
+      try {
+        console.error("[AFAQ_WORKER_ERROR]", {
+          name: e && e.name ? String(e.name) : "Error",
+          message: e && e.message ? String(e.message).slice(0, 500) : String(e).slice(0, 500),
+          stack: e && e.stack ? String(e.stack).slice(0, 3000) : ""
+        });
+      } catch {}
       const origin = req.headers.get("Origin") || "";
       const allowed = String(env.ALLOWED_ORIGIN || "").split(",").map(x => x.trim()).filter(Boolean);
       const headers = origin && allowed.includes(origin) ? {"Access-Control-Allow-Origin":origin,"Vary":"Origin"} : {};
-      return json({ok:false,error:"Internal server error",detail:env.DEBUG === "true" ? String(e) : undefined}, 500, headers);
+      return json({ok:false,error:"Internal server error"}, 500, headers);
     }
   }
 };

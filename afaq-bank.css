@@ -42,5 +42,5 @@
 #afaqBankPro .ab-account>div{padding:11px;border:1px solid #405a67;border-radius:9px;background:#102a3a;min-width:0}
 #afaqBankPro .ab-account small{display:block;color:#c7b98f;font-size:10px}
 #afaqBankPro .ab-account b{display:block;color:#f0d18b;overflow-wrap:anywhere;margin-top:5px}
-#member-account>.panel>.finance-summary,#member-account>.panel>.wallet-hub{display:none!important}
+#member-account>.panel{display:none!important}
 @media(max-width:560px){#afaqBankPro{padding:12px;border-radius:14px}#afaqBankPro .ab-actions{grid-template-columns:repeat(2,minmax(0,1fr))}#afaqBankPro .ab-grid,#afaqBankPro .ab-account{grid-template-columns:1fr}#afaqBankPro .ab-field.full{grid-column:auto}}

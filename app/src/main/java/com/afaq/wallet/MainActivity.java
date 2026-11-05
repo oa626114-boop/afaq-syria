@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.animation.ValueAnimator;
+import android.view.animation.LinearInterpolator;
 import android.widget.*;
 import android.content.SharedPreferences;
 import android.security.keystore.KeyGenParameterSpec;
@@ -38,6 +40,7 @@ public class MainActivity extends Activity {
     private SharedPreferences prefs;
     private LinearLayout page;
     private String token = "";
+    private ValueAnimator beeAnimator;
 
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -135,6 +138,8 @@ public class MainActivity extends Activity {
             panel(text(x.optString("currency")+"      "+String.format(Locale.US,"%.2f",x.optDouble("balance")),15,true));
         }
         Button refresh=button("تحديث الأرصدة",true); page.addView(refresh,lp()); refresh.setOnClickListener(v->loadAccount());
+        gap(8); Button mining=button("🐝 تعدين عملة AFAQ",false); page.addView(mining,lp());
+        mining.setOnClickListener(v->showMining());
         gap(8); Button transfer=button("تحويل داخلي إلى عضو",false); page.addView(transfer,lp());
         transfer.setOnClickListener(v->transferForm()); gap(18);
         page.addView(text("سجل التحويلات",17,true),lp()); gap(8);
@@ -151,6 +156,36 @@ public class MainActivity extends Activity {
                 clearToken();token="";runOnUiThread(this::showLogin);});
         });
         gap(12); panel(text("نسخة تجريبية: الإيداع والسحب الخارجي غير متاحين حتى إتمام ربط مزود دفع مرخّص واختباره. التحويلات الداخلية تتطلب رصيداً كافياً.",11,false));
+    }
+    private void showMining() {
+        stopBee();
+        begin("تعدين عملة AFAQ");
+        panel(text("🐝",64,true)).setGravity(Gravity.CENTER);
+        TextView bee = (TextView) page.getChildAt(page.getChildCount()-1);
+        bee.setGravity(Gravity.CENTER);
+        beeAnimator = ValueAnimator.ofFloat(-dp(9), dp(9));
+        beeAnimator.setDuration(650); beeAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        beeAnimator.setRepeatCount(ValueAnimator.INFINITE); beeAnimator.setInterpolator(new LinearInterpolator());
+        beeAnimator.addUpdateListener(a -> bee.setTranslationY((Float)a.getAnimatedValue()));
+        TextView status=text("النحلة جاهزة لبدء جلسة التعدين",16,true); status.setGravity(Gravity.CENTER); panel(status);
+        TextView balance=text("رصيد التعدين: يُعرض بعد اعتماد المكافآت من الخادم",13,false);
+        panel(balance);
+        Button start=button("ابدأ التعدين",true); page.addView(start,lp());
+        Button stop=button("إيقاف التعدين",false); page.addView(stop,lp());
+        start.setOnClickListener(v -> {
+            if(beeAnimator!=null && beeAnimator.isRunning()) return;
+            beeAnimator.start(); status.setText("🐝 النحلة تعمل — جلسة تجريبية");
+            toast("بدأ العرض التجريبي. لم تُحتسب عملات في الرصيد بعد.");
+        });
+        stop.setOnClickListener(v -> {
+            stopBee(); status.setText("تم إيقاف جلسة التعدين التجريبية");
+        });
+        gap(10); Button back=button("العودة إلى المحفظة",false); page.addView(back,lp());
+        back.setOnClickListener(v->{stopBee();loadAccount();});
+        gap(12); panel(text("تنبيه: هذه واجهة تجريبية للحركة فقط. لا يوجد حالياً API تعدين موثّق في الخادم، لذلك لا تُنشأ مكافآت ولا يُضاف رصيد AFAQ تلقائياً. لن نعرض أرباحاً وهمية.",11,false));
+    }
+    private void stopBee() {
+        if(beeAnimator!=null){beeAnimator.cancel();beeAnimator=null;}
     }
     private void transferForm() {
         begin("تحويل داخلي بين أعضاء آفاق سوريا");
@@ -224,5 +259,5 @@ public class MainActivity extends Activity {
     private void clearToken(){prefs.edit().remove("token_iv").remove("token_data").apply();}
     private String err(Exception e){return e.getMessage()==null?"خطأ في الاتصال بالخادم":e.getMessage();}
     private void toast(String s){Toast.makeText(this,s,Toast.LENGTH_LONG).show();}
-    @Override protected void onDestroy(){super.onDestroy();io.shutdown();}
+    @Override protected void onDestroy(){stopBee();super.onDestroy();io.shutdown();}
 }

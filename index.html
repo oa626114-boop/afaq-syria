@@ -362,45 +362,70 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
-<div class="nav-label">الرئيسية</div>
-<button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-
-<div class="nav-label">1 ـ إدارة الأعمال</div>
+<style>
+.nav-group{margin:7px 0}
+.nav-group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #d9b15f55;background:#102b40;color:#f0d18b;padding:13px 12px;border-radius:10px;text-align:right;font-size:13px;font-weight:bold}
+.nav-group-toggle:hover,.nav-group-toggle[aria-expanded="true"]{background:#17394f;border-color:#d9b15f}
+.nav-group-toggle .group-title{display:flex;align-items:center;gap:10px}
+.nav-group-toggle .group-chevron{transition:transform .2s}
+.nav-group-toggle[aria-expanded="true"] .group-chevron{transform:rotate(180deg)}
+.nav-group-items{display:none;padding:6px 7px 5px;margin:4px 5px 8px;border-right:2px solid #d9b15f66}
+.nav-group.open .nav-group-items{display:block}
+.nav-group-items button,.nav-group-items a{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:#e2d5b4;padding:9px 10px;border-radius:7px;text-align:right;font-size:12px;margin:2px 0;text-decoration:none}
+.nav-group-items button:hover,.nav-group-items a:hover,.nav-group-items button.active{background:#ffffff16;color:#f0d18b}
+.nav-group-items .ico{width:20px;text-align:center}
+.nav-group-items .nav-sub-label{padding:8px 10px 2px;color:#c7ad72;font-size:10px}
+.nav-group-items .nav-hint{padding:5px 10px;color:#9fb0bb;font-size:10px;line-height:1.7}
+</style>
+<div class="nav-group">
+<button type="button" class="nav-group-toggle" aria-expanded="false"><span class="group-title"><span>🏢</span>إدارة الأعمال</span><span class="group-chevron">⌄</span></button>
+<div class="nav-group-items">
+<button data-view="dashboard" class="active"><span class="ico">▦</span>لوحة التحكم الرئيسية</button>
 <button data-view="projects"><span class="ico">🏗</span>المشاريع</button>
-<button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن</button>
+<button data-view="portfolios"><span class="ico">💼</span>الحقائب الاستثمارية</button>
+<button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button>
 <button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button>
 <button data-view="reports"><span class="ico">◫</span>التحليل والإدارة</button>
-<button data-view="reports"><span class="ico">▤</span>التقارير</button>
+<button data-view="report-analysis"><span class="ico">▤</span>التقارير والتحليلات</button>
 <button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة وإنجازات العمل</button>
 <button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button>
-
-<div class="nav-label">2 ـ الأمور المالية</div>
-<a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>المحفظة الرقمية</a>
-<button data-view="member-account"><span class="ico">🏦</span>مصرف آفاق</button>
-<a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a>
+</div></div>
+<div class="nav-group">
+<button type="button" class="nav-group-toggle" aria-expanded="false"><span class="group-title"><span>🏦</span>الأمور المالية</span><span class="group-chevron">⌄</span></button>
+<div class="nav-group-items">
+<a href="crypto-wallet.html"><span class="ico">₿</span>المحفظة الرقمية</a>
+<button data-view="member-account"><span class="ico">🏦</span>مصرف آفاق وحسابات الأعضاء</button>
+<a href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a>
 <div class="nav-sub-label">فواتير الخدمات</div>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">⚡</span>فواتير الكهرباء</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">💧</span>فواتير الماء</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🔥</span>فواتير الغاز</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">☎</span>فواتير الهاتف</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🌐</span>فواتير الإنترنت</a>
-<a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>بيع وشراء العملات الرقمية B2B</a>
-
-<div class="nav-label">3 ـ الإعلام والاتصالات</div>
-<a class="nav-payment" href="media-center.html"><span class="ico">📢</span>مركز الإعلام العام</a>
-<div class="nav-sub-label">الدردشة الخاصة والمجموعات العامة</div>
-<a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>محادثات الأعضاء</a>
-<div class="nav-hint">تصفح مركز الإعلام متاح للأعضاء، والمحادثات خاصة بين الأعضاء مع إمكانية إنشاء مجموعات عامة بعد تفعيل الخادم.</div>
-
-<div class="nav-label">4 ـ التحليل والإدارة التقنية</div>
+<a href="payment.html"><span class="ico">⚡</span>فواتير الكهرباء</a>
+<a href="payment.html"><span class="ico">💧</span>فواتير الماء</a>
+<a href="payment.html"><span class="ico">🔥</span>فواتير الغاز</a>
+<a href="payment.html"><span class="ico">☎</span>فواتير الهاتف</a>
+<a href="payment.html"><span class="ico">🌐</span>فواتير الإنترنت</a>
+<a href="exchange-center.html"><span class="ico">⇄</span>بيع وشراء العملات الرقمية B2B</a>
+<button data-view="invoices"><span class="ico">▧</span>الفواتير وسجل المدفوعات</button>
+</div></div>
+<div class="nav-group">
+<button type="button" class="nav-group-toggle" aria-expanded="false"><span class="group-title"><span>📡</span>الإعلام والاتصالات</span><span class="group-chevron">⌄</span></button>
+<div class="nav-group-items">
+<a href="media-center.html"><span class="ico">📢</span>مركز الإعلام العام</a>
+<a href="chat-center.html"><span class="ico">✉</span>محادثات الأعضاء</a>
+<div class="nav-hint">المحادثات الخاصة والمجموعات العامة بين الأعضاء.</div>
+</div></div>
+<div class="nav-group">
+<button type="button" class="nav-group-toggle" aria-expanded="false"><span class="group-title"><span>📊</span>التحليل والإدارة التقنية</span><span class="group-chevron">⌄</span></button>
+<div class="nav-group-items">
 <button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم المالية</button>
-<a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a>
-<button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار وشراء وبيع أسهم المشاريع</button>
+<a href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a>
+<button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار وشراء وبيع الأسهم</button>
 <button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
-
-<div class="nav-label">5 ـ الإعدادات</div>
+</div></div>
+<div class="nav-group">
+<button type="button" class="nav-group-toggle" aria-expanded="false"><span class="group-title"><span>⚙️</span>الإعدادات</span><span class="group-chevron">⌄</span></button>
+<div class="nav-group-items">
 <button data-view="settings"><span class="ico">⚙</span>إعدادات المنصة</button>
 <button data-view="member-settings"><span class="ico">🛡</span>توثيق الهوية والحساب</button>
+</div></div>
 </div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
@@ -618,8 +643,10 @@ let shareOrders=safeReadStore('afaq_share_orders',[]),tradeSide='buy';
 const titles={'syrian-locations':'المحافظات والمدن السورية','company-archive':'أرشيف الشركة',dashboard:'لوحة التحكم',projects:'إدارة المشاريع',portfolios:'المحافظ الاستثمارية',stocks:'البورصة ومحفظة الأسهم','investment-wallet':'محفظة الاستثمار والشراء والبيع',clients:'العملاء والشركاء',invoices:'الفواتير والمدفوعات',documents:'المستندات والعقود',reports:'التقارير والتحليلات',settings:'إعدادات الشركة',api:'مركز API والتكاملات',portfolioGalleryView:'الحقيبة الاستثمارية'};
 function save(){localStorage.setItem('afaq_projects',JSON.stringify(projects));localStorage.setItem('afaq_clients',JSON.stringify(clients));localStorage.setItem('afaq_invoices',JSON.stringify(invoices))}
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600)}
-function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
+function go(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id|| (id==='portfolioGalleryView'&&b.dataset.view==='portfolios')));document.querySelectorAll('.nav-group').forEach(g=>{const active=!!g.querySelector('.nav-group-items [data-view].active');g.classList.toggle('open',active);g.querySelector('.nav-group-toggle')?.setAttribute('aria-expanded',String(active))});document.getElementById('pageTitle').textContent=titles[id]||'آفاق سوريا';document.getElementById('sidebar').classList.remove('open');history.replaceState(null,'','#'+id);window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav-group-toggle').forEach(b=>b.addEventListener('click',()=>{const g=b.closest('.nav-group'),open=!g.classList.contains('open');document.querySelectorAll('.nav-group').forEach(x=>{x.classList.remove('open');x.querySelector('.nav-group-toggle')?.setAttribute('aria-expanded','false')});if(open){g.classList.add('open');b.setAttribute('aria-expanded','true')}}));
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
 document.addEventListener('click',e=>{const side=document.getElementById('sidebar'),menu=document.getElementById('menuBtn');if(side.classList.contains('open')&&!side.contains(e.target)&&!menu.contains(e.target))side.classList.remove('open')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('sidebar').classList.remove('open');document.getElementById('modal')?.classList.remove('open')}});
 function render(){document.getElementById('projectCount').textContent=String(projects.length).padStart(2,'0');document.getElementById('clientCount').textContent=String(clients.length).padStart(2,'0');document.getElementById('invoiceCount').textContent=String(invoices.length).padStart(2,'0');document.getElementById('projectsTable').innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td>${esc(p.location)}</td><td><span class="status pending">${esc(p.status)}</span></td><td>${esc(p.budget)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">لا توجد مشاريع مسجلة</td></tr>';document.getElementById('clientsTable').innerHTML=clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.type)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد جهات مسجلة</td></tr>';document.getElementById('invoicesTable').innerHTML=invoices.map((i,n)=>`<tr><td>${esc(i.number)}</td><td>${esc(i.client)}</td><td>${esc(i.amount)}</td><td><span class="invoice-method">${esc(i.paymentMethodLabel||'غير محدد')}</span></td><td>${esc(i.date)}</td><td><span class="status pending">${esc(i.status)}</span></td><td><button class="btn ghost" onclick="printInvoice(${n})">طباعة</button> ${i.paymentUrl?`<a class="invoice-link" href="${esc(i.paymentUrl)}" target="_blank" rel="noopener">فتح رابط الدفع</a> <button class="btn ghost" onclick="copyInvoiceLink(${n})">نسخ الرابط</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">لا توجد فواتير</td></tr>';document.getElementById('portfolioCards').innerHTML=portfolios.map((p,i)=>{const bag=bagRecords[i]||{},count=(bag.projects||[]).length;return `<article class="portfolio-card"><div class="module-card"><div class="portfolio-card-top"><span class="symbol">${esc(p.icon||'💼')}</span><span class="portfolio-count">📁 ${count} مشروع</span></div><h3>${esc(p.name)}</h3><p>${esc(p.en||'INVESTMENT PORTFOLIO')}</p><p class="portfolio-description">${esc(p.description||'إدارة المشاريع والفرص الاستثمارية والمستندات الخاصة بهذا القطاع.')}</p><div class="portfolio-card-actions"><button type="button" class="btn gold" data-portfolio="${i}">فتح الحقيبة ←</button><button type="button" class="btn ghost" data-portfolio-add="${i}">＋ إضافة مشروع</button></div></div></article>`}).join('');document.querySelectorAll('[data-portfolio]').forEach(b=>b.addEventListener('click',()=>openPortfolio(Number(b.dataset.portfolio))));document.querySelectorAll('[data-portfolio-add]').forEach(b=>b.addEventListener('click',()=>{openPortfolio(Number(b.dataset.portfolio));document.getElementById('bagProjectForm').scrollIntoView({behavior:'smooth',block:'center'});document.querySelector('#bagProjectForm [name=name]')?.focus()}));const pOverview=document.getElementById('portfolioOverview');if(pOverview){const total=portfolios.reduce((n,p,i)=>n+((bagRecords[i]?.projects||[]).length),0);pOverview.innerHTML=`<div class="portfolio-overview-stat"><small>عدد الحقائب</small><b>${portfolios.length}</b></div><div class="portfolio-overview-stat"><small>المشاريع داخل الحقائب</small><b>${total}</b></div><div class="portfolio-overview-stat"><small>القطاعات المتاحة</small><b>${new Set(portfolios.map(p=>p.en||p.name)).size}</b></div>`;}document.getElementById('tradeOrdersTable').innerHTML=shareOrders.map(o=>`<tr><td>${esc(o.ref)}</td><td>${o.side==='buy'?'شراء':o.side==='sell'?'بيع':o.side==='deposit-demo'?'إضافة رصيد تجريبي':'—'}</td><td>${esc(o.symbol)}</td><td>${esc(o.qty)}</td><td>${esc(o.customer)}</td><td><span class="status pending">بانتظار المراجعة</span></td></tr>`).join('')||'<tr><td colspan="6" class="empty">لا توجد طلبات أسهم مسجلة</td></tr>';document.getElementById('recentProjects').innerHTML=projects.slice(0,4).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sector)}</td><td><span class="status pending">${esc(p.status)}</span></td></tr>`).join('')}

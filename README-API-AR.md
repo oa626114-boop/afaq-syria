@@ -62,6 +62,7 @@
 - `POST /api/bank/withdrawals/{withdrawal_id}/cancel` — إلغاء طلب سحب ما زال قيد الانتظار.
 - `GET /api/admin/bank/withdrawals` — قائمة طلبات السحب للمالك فقط.
 - `POST /api/admin/bank/withdrawals/{withdrawal_id}/mark-paid` — تسجيل الدفع بعد تنفيذه فعلياً عبر مزود مرخص. يتطلب `ADMIN_EMAIL` يطابق بريد حساب المالك المسجل، ورقم مرجع دفع خارجي.
+- `POST /api/admin/bank/withdrawals/{withdrawal_id}/reject` — رفض طلب معلق؛ لا يتم خصم الرصيد.
 
 ### الإيداع
 واجهة الإيداع تستخدم `POST /api/payment/create` الموجود مسبقاً لإنشاء فاتورة NOWPayments، وتضيف الرصيد فقط عبر IPN موثّق ومطابق للطلب. نجاح إنشاء الفاتورة لا يعني أن الرصيد زاد.

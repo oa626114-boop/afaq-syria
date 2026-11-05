@@ -160,9 +160,7 @@ public class MainActivity extends Activity {
     private void showMining() {
         stopBee();
         begin("تعدين عملة AFAQ");
-        panel(text("🐝",64,true)).setGravity(Gravity.CENTER);
-        TextView bee = (TextView) page.getChildAt(page.getChildCount()-1);
-        bee.setGravity(Gravity.CENTER);
+        TextView bee = text("🐝",64,true); bee.setGravity(Gravity.CENTER); panel(bee);
         beeAnimator = ValueAnimator.ofFloat(-dp(9), dp(9));
         beeAnimator.setDuration(650); beeAnimator.setRepeatMode(ValueAnimator.REVERSE);
         beeAnimator.setRepeatCount(ValueAnimator.INFINITE); beeAnimator.setInterpolator(new LinearInterpolator());

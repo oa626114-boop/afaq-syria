@@ -1,0 +1,46 @@
+/* AFAQ BANK — member banking dashboard */
+#afaqBankPro{--abg:#0c2638;--abg2:#12364b;--agold:#e5bd68;--awhite:#f7f2e7;color:var(--awhite);background:linear-gradient(145deg,#0a2030,#102f43);border:1px solid #8a6b35;border-radius:18px;padding:16px;margin:14px 0 20px;box-shadow:0 16px 38px #06152255}
+#afaqBankPro *{box-sizing:border-box}
+#afaqBankPro .ab-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+#afaqBankPro .ab-brand{font-weight:900;letter-spacing:.08em;color:var(--agold);font-size:19px}
+#afaqBankPro .ab-sub{font-size:11px;color:#d8c79e}
+#afaqBankPro .ab-status{border:1px solid #8a6b35;border-radius:30px;padding:5px 10px;color:var(--agold);font-size:10px}
+#afaqBankPro .ab-hero{background:radial-gradient(circle at 12% 5%,#2a5264 0,transparent 45%),linear-gradient(120deg,#163e53,#0b1e2d);border:1px solid #9c793e;border-radius:15px;padding:17px;margin-bottom:12px}
+#afaqBankPro .ab-hero-label{font-size:11px;color:#e2d2ae}
+#afaqBankPro .ab-hero-value{font-size:clamp(24px,5vw,34px);font-weight:800;color:#f1d38b;margin:7px 0;direction:ltr;text-align:right}
+#afaqBankPro .ab-balances{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+#afaqBankPro .ab-balance-chip{border:1px solid #725c37;border-radius:9px;padding:7px 10px;background:#071b2a;color:#f4d991;font-size:11px;direction:ltr}
+#afaqBankPro .ab-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+#afaqBankPro button{font:inherit;cursor:pointer}
+#afaqBankPro .ab-action{border:1px solid #80663b;border-radius:11px;background:#15384c;color:#f0d18b;padding:12px 7px;min-height:74px;font-size:11px}
+#afaqBankPro .ab-action span{display:block;font-size:22px;margin-bottom:4px}
+#afaqBankPro .ab-tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 10px}
+#afaqBankPro .ab-tab{white-space:nowrap;border:1px solid #6e5b3c;border-radius:9px;background:#0b2131;color:#e8d4a6;padding:9px 13px;font-size:11px}
+#afaqBankPro .ab-tab.active{background:linear-gradient(135deg,#f0d18b,#c99a43);color:#102536;border-color:#f0d18b;font-weight:bold}
+#afaqBankPro .ab-pane{display:none;background:#0a1d2b;border:1px solid #3c5663;border-radius:13px;padding:14px}
+#afaqBankPro .ab-pane.active{display:block}
+#afaqBankPro .ab-pane h3{margin:0 0 10px;color:#f0d18b;font-size:15px}
+#afaqBankPro .ab-muted{color:#c6c1b1;font-size:11px;line-height:1.8}
+#afaqBankPro .ab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#afaqBankPro .ab-field{display:flex;flex-direction:column;gap:5px;color:#e8d6ae;font-size:11px}
+#afaqBankPro .ab-field.full{grid-column:1/-1}
+#afaqBankPro input,#afaqBankPro select{width:100%;min-height:43px;border:1px solid #7a633e;border-radius:8px;background:#102b3d;color:#fff4d9;padding:9px}
+#afaqBankPro .ab-primary{border:0;border-radius:9px;background:linear-gradient(135deg,#f1d48e,#c99a43);color:#102536;font-weight:800;padding:11px 16px;min-height:43px}
+#afaqBankPro .ab-primary:disabled{opacity:.55;cursor:wait}
+#afaqBankPro .ab-note{border-right:3px solid #d9b15f;background:#172d3a;padding:10px 12px;border-radius:8px;color:#e4d3ad;font-size:11px;line-height:1.8;margin:10px 0}
+#afaqBankPro .ab-list{display:grid;gap:8px}
+#afaqBankPro .ab-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px;border:1px solid #385363;border-radius:9px;background:#102a3a;font-size:11px}
+#afaqBankPro .ab-row b{color:#f0d18b}
+#afaqBankPro .ab-row small{display:block;color:#c4c4b8;margin-top:3px}
+#afaqBankPro .ab-card{border:1px solid #b18a47;border-radius:14px;padding:16px;min-height:155px;background:radial-gradient(circle at 90% 10%,#416276,transparent 42%),linear-gradient(135deg,#183e54,#071a28);color:#f0d18b}
+#afaqBankPro .ab-card strong{display:block;font-size:17px;letter-spacing:.08em}
+#afaqBankPro .ab-card .ab-card-no{font:18px Georgia,serif;letter-spacing:.12em;margin:24px 0 12px}
+#afaqBankPro .ab-card small{color:#e6d5ad}
+#afaqBankPro .ab-empty{padding:18px;text-align:center;color:#c5c1b5;font-size:12px}
+#afaqBankPro .ab-message{min-height:22px;color:#f0d18b;font-size:11px;margin-top:9px}
+#afaqBankPro .ab-account{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#afaqBankPro .ab-account>div{padding:11px;border:1px solid #405a67;border-radius:9px;background:#102a3a;min-width:0}
+#afaqBankPro .ab-account small{display:block;color:#c7b98f;font-size:10px}
+#afaqBankPro .ab-account b{display:block;color:#f0d18b;overflow-wrap:anywhere;margin-top:5px}
+#member-account>.panel>.finance-summary,#member-account>.panel>.wallet-hub{display:none!important}
+@media(max-width:560px){#afaqBankPro{padding:12px;border-radius:14px}#afaqBankPro .ab-actions{grid-template-columns:repeat(2,minmax(0,1fr))}#afaqBankPro .ab-grid,#afaqBankPro .ab-account{grid-template-columns:1fr}#afaqBankPro .ab-field.full{grid-column:auto}}

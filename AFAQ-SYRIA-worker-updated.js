@@ -117,6 +117,14 @@ async function ensureTables(env) {
           NEW.amount_minor,'payment_in',NEW.created_at);
       END`,
     `CREATE INDEX IF NOT EXISTS idx_ledger_member ON account_ledger(member_id, created_at)`,
+    `CREATE TABLE IF NOT EXISTS bank_withdrawal_requests (
+      withdrawal_id TEXT PRIMARY KEY, idempotency_key TEXT NOT NULL UNIQUE,
+      member_id TEXT NOT NULL, currency TEXT NOT NULL, amount_minor INTEGER NOT NULL CHECK(amount_minor > 0),
+      method TEXT NOT NULL DEFAULT 'bank_transfer', note TEXT,
+      status TEXT NOT NULL DEFAULT 'pending', payout_reference TEXT UNIQUE,
+      created_at TEXT NOT NULL, processed_at TEXT, processed_by TEXT
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_bank_withdrawals_member ON bank_withdrawal_requests(member_id, created_at)`,
     `CREATE TABLE IF NOT EXISTS auth_rate_limits (
       rate_key TEXT PRIMARY KEY, window_start INTEGER NOT NULL, attempts INTEGER NOT NULL
     )`,
@@ -209,7 +217,7 @@ async function handle(req, env) {
       members: true,
       payments: { crypto: !!env.NOWPAYMENTS_API_KEY && !!env.NOWPAYMENTS_IPN_SECRET, cards: false },
       endpoints: ["/api/member/register", "/api/member/login", "/api/member/me",
-        "/api/member/logout", "/api/member/transfer", "/api/member/transfers",
+        "/api/member/logout", "/api/member/transfer", "/api/member/transfers", "/api/bank/overview", "/api/bank/transactions", "/api/bank/withdrawals",
         "/api/payment/create", "/api/payment/status", "/api/payment/ipn"],
       time: now()
     }, database ? 200 : 503);
@@ -390,6 +398,111 @@ async function handle(req, env) {
     if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
     const rows = await env.DB.prepare("SELECT amount_units,seconds_mined,created_at FROM afaq_mining_rewards WHERE member_id=? ORDER BY created_at DESC LIMIT 50").bind(auth.member_id).all();
     return reply(req, env, {ok:true,rewards:rows.results||[]});
+  }
+
+  // AFAQ BANK member banking endpoints. Ledger and balances are server-owned.
+  if (req.method === "GET" && path === "/api/bank/overview") {
+    const auth = await getAuth(req, env);
+    if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
+    const [balances, totals, latest] = await Promise.all([
+      env.DB.prepare("SELECT currency,balance_minor,updated_at FROM member_balances WHERE member_id=? ORDER BY currency").bind(auth.member_id).all(),
+      env.DB.prepare("SELECT COUNT(*) AS transaction_count,MAX(created_at) AS last_activity FROM account_ledger WHERE member_id=?").bind(auth.member_id).first(),
+      env.DB.prepare("SELECT entry_id,transfer_id,currency,amount_minor,entry_type,created_at FROM account_ledger WHERE member_id=? ORDER BY created_at DESC LIMIT 10").bind(auth.member_id).all()
+    ]);
+    return reply(req, env, {ok:true,member:{member_id:auth.public_member_id,account_number:auth.account_number,email:auth.email,name:auth.full_name||""},
+      balances:(balances.results||[]).map(x=>({currency:x.currency,balance:Number(x.balance_minor)/100,updated_at:x.updated_at})),
+      transaction_count:Number(totals?.transaction_count||0),last_activity:totals?.last_activity||null,
+      recent_transactions:(latest.results||[]).map(x=>({id:x.entry_id,reference:x.transfer_id,currency:x.currency,amount:Number(x.amount_minor)/100,type:x.entry_type,created_at:x.created_at}))});
+  }
+
+  if (req.method === "GET" && path === "/api/bank/transactions") {
+    const auth = await getAuth(req, env);
+    if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
+    const rawLimit = Number(url.searchParams.get("limit") || 100);
+    const limit = Number.isInteger(rawLimit) ? Math.max(1,Math.min(200,rawLimit)) : 100;
+    const rows = await env.DB.prepare(
+      `SELECT l.entry_id,l.transfer_id,l.currency,l.amount_minor,l.entry_type,l.created_at,
+       CASE WHEN l.entry_type='transfer_out' THEN r.member_id
+            WHEN l.entry_type='transfer_in' THEN s.member_id ELSE NULL END AS other_member_id,
+       t.note AS note FROM account_ledger l
+       LEFT JOIN internal_transfers t ON t.transfer_id=l.transfer_id
+       LEFT JOIN members s ON s.id=t.sender_id LEFT JOIN members r ON r.id=t.recipient_id
+       WHERE l.member_id=? ORDER BY l.created_at DESC LIMIT ?`
+    ).bind(auth.member_id,limit).all();
+    return reply(req, env, {ok:true,transactions:(rows.results||[]).map(x=>({
+      id:x.entry_id,reference:x.transfer_id,currency:x.currency,amount:Number(x.amount_minor)/100,
+      type:x.entry_type,direction:Number(x.amount_minor)>=0?"in":"out",other_member_id:x.other_member_id,
+      note:x.note||"",created_at:x.created_at
+    }))});
+  }
+
+  if (req.method === "POST" && path === "/api/bank/withdrawals") {
+    const auth = await getAuth(req, env);
+    if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
+    let body; try { body=await req.json(); } catch { return reply(req, env, {ok:false,error:"Invalid JSON"},400); }
+    const currency=String(body.currency||"").trim().toUpperCase(), minor=amountToMinor(body.amount);
+    const idem=String(req.headers.get("Idempotency-Key")||body.idempotency_key||"").trim();
+    const method=String(body.method||"bank_transfer"), note=String(body.note||"").trim().slice(0,160);
+    if(!minor||!currencies.has(currency)||!/^[-A-Za-z0-9_]{16,100}$/.test(idem)||!["bank_transfer","manual"].includes(method))
+      return reply(req,env,{ok:false,error:"Valid amount, supported currency and idempotency key are required"},400);
+    const balance=await env.DB.prepare("SELECT balance_minor FROM member_balances WHERE member_id=? AND currency=?").bind(auth.member_id,currency).first();
+    const pending=await env.DB.prepare("SELECT COALESCE(SUM(amount_minor),0) AS amount FROM bank_withdrawal_requests WHERE member_id=? AND currency=? AND status='pending'").bind(auth.member_id,currency).first();
+    if(Number(balance?.balance_minor||0)-Number(pending?.amount||0)<minor)
+      return reply(req,env,{ok:false,error:"Insufficient available balance after pending withdrawal requests"},409);
+    const id="AFW-"+crypto.randomUUID(),stamp=now();
+    try{
+      await env.DB.prepare("INSERT INTO bank_withdrawal_requests(withdrawal_id,idempotency_key,member_id,currency,amount_minor,method,note,status,created_at) VALUES(?,?,?,?,?,?,?,'pending',?)")
+        .bind(id,idem,auth.member_id,currency,minor,method,note,stamp).run();
+    }catch(e){
+      const duplicate=await env.DB.prepare("SELECT withdrawal_id,status FROM bank_withdrawal_requests WHERE idempotency_key=?").bind(idem).first();
+      if(duplicate) return reply(req,env,{ok:false,error:"This withdrawal request was already submitted",withdrawal:duplicate},409);
+      throw e;
+    }
+    return reply(req,env,{ok:true,withdrawal:{withdrawal_id:id,currency,amount:Number(minor)/100,status:"pending",created_at:stamp},
+      message:"Request recorded. No balance was deducted; payout awaits review and an authorized payout partner."},201);
+  }
+
+  if (req.method === "GET" && path === "/api/bank/withdrawals") {
+    const auth=await getAuth(req,env);
+    if(!auth) return reply(req,env,{ok:false,error:"Unauthorized"},401);
+    const rows=await env.DB.prepare("SELECT withdrawal_id,currency,amount_minor,method,note,status,payout_reference,created_at,processed_at FROM bank_withdrawal_requests WHERE member_id=? ORDER BY created_at DESC LIMIT 100").bind(auth.member_id).all();
+    return reply(req,env,{ok:true,withdrawals:(rows.results||[]).map(x=>({...x,amount:Number(x.amount_minor)/100}))});
+  }
+
+  if (req.method === "POST" && /^\/api\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/cancel$/.test(path)) {
+    const auth=await getAuth(req,env);
+    if(!auth) return reply(req,env,{ok:false,error:"Unauthorized"},401);
+    const id=path.split("/")[4];
+    const result=await env.DB.prepare("UPDATE bank_withdrawal_requests SET status='cancelled' WHERE withdrawal_id=? AND member_id=? AND status='pending'").bind(id,auth.member_id).run();
+    if(!result.meta?.changes) return reply(req,env,{ok:false,error:"Pending withdrawal not found or cannot be cancelled"},409);
+    return reply(req,env,{ok:true,withdrawal_id:id,status:"cancelled"});
+  }
+
+  if (req.method === "GET" && path === "/api/admin/bank/withdrawals") {
+    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
+    const rows=await env.DB.prepare("SELECT w.withdrawal_id,m.member_id,m.full_name,w.currency,w.amount_minor,w.method,w.note,w.status,w.created_at FROM bank_withdrawal_requests w JOIN members m ON m.id=w.member_id ORDER BY w.created_at DESC LIMIT 200").all();
+    return reply(req,env,{ok:true,withdrawals:(rows.results||[]).map(x=>({...x,amount:Number(x.amount_minor)/100}))});
+  }
+
+  if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/mark-paid$/.test(path)) {
+    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
+    let body; try{body=await req.json()}catch{return reply(req,env,{ok:false,error:"Invalid JSON"},400)}
+    const payoutRef=String(body.payout_reference||"").trim().slice(0,100);
+    if(payoutRef.length<6) return reply(req,env,{ok:false,error:"External payout reference (at least 6 characters) is required"},400);
+    const id=path.split("/")[5], stamp=now(), admin=String(env.ADMIN_EMAIL||"").trim().toLowerCase();
+    const reqRow=await env.DB.prepare("SELECT member_id,currency,amount_minor,status FROM bank_withdrawal_requests WHERE withdrawal_id=?").bind(id).first();
+    if(!reqRow) return reply(req,env,{ok:false,error:"Withdrawal request not found"},404);
+    if(reqRow.status==="paid") return reply(req,env,{ok:true,withdrawal_id:id,status:"paid",message:"Already processed"});
+    const results=await env.DB.batch([
+      env.DB.prepare("UPDATE bank_withdrawal_requests SET status='paid',payout_reference=?,processed_at=?,processed_by=? WHERE withdrawal_id=? AND status='pending' AND EXISTS (SELECT 1 FROM member_balances WHERE member_id=? AND currency=? AND balance_minor>=?)")
+        .bind(payoutRef,stamp,admin,id,reqRow.member_id,reqRow.currency,reqRow.amount_minor),
+      env.DB.prepare("UPDATE member_balances SET balance_minor=balance_minor-?,updated_at=? WHERE member_id=? AND currency=? AND balance_minor>=? AND EXISTS (SELECT 1 FROM bank_withdrawal_requests WHERE withdrawal_id=? AND status='paid') AND NOT EXISTS (SELECT 1 FROM account_ledger WHERE transfer_id=?)")
+        .bind(reqRow.amount_minor,stamp,reqRow.member_id,reqRow.currency,reqRow.amount_minor,id,"WDR-"+id),
+      env.DB.prepare("INSERT INTO account_ledger(entry_id,transfer_id,member_id,currency,amount_minor,entry_type,created_at) SELECT ?,?,?,?,-?,'withdrawal_out',? WHERE EXISTS (SELECT 1 FROM bank_withdrawal_requests WHERE withdrawal_id=? AND status='paid') AND NOT EXISTS (SELECT 1 FROM account_ledger WHERE transfer_id=?)")
+        .bind(crypto.randomUUID(),"WDR-"+id,reqRow.member_id,reqRow.currency,reqRow.amount_minor,stamp,id,"WDR-"+id)
+    ]);
+    if(!results[0]?.meta?.changes) return reply(req,env,{ok:false,error:"Withdrawal could not be paid: it may not be pending or available balance is insufficient"},409);
+    return reply(req,env,{ok:true,withdrawal_id:id,status:"paid",payout_reference:payoutRef});
   }
 
   // Internal member transfer. Idempotency-Key is mandatory to prevent duplicate submissions.

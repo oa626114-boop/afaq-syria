@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
             panel(text(x.optString("currency")+"      "+String.format(Locale.US,"%.2f",x.optDouble("balance")),15,true));
         }
         Button refresh=button("تحديث الأرصدة",true); page.addView(refresh,lp()); refresh.setOnClickListener(v->loadAccount());
-        gap(8); Button mining=button("🐝 تعدين عملة AFAQ",false); page.addView(mining,lp());
+        gap(8); Button mining=button("🐝 تعدين عملة AOB",false); page.addView(mining,lp());
         mining.setOnClickListener(v->showMining());
         gap(8); Button transfer=button("تحويل داخلي إلى عضو",false); page.addView(transfer,lp());
         transfer.setOnClickListener(v->transferForm()); gap(18);
@@ -159,14 +159,14 @@ public class MainActivity extends Activity {
     }
     private void showMining() {
         stopBee();
-        begin("تعدين عملة AFAQ");
+        begin("تعدين عملة AOB – AFAQ ORBIT");
         TextView bee = text("🐝",64,true); bee.setGravity(Gravity.CENTER); panel(bee);
         beeAnimator = ValueAnimator.ofFloat(-dp(9), dp(9));
         beeAnimator.setDuration(650); beeAnimator.setRepeatMode(ValueAnimator.REVERSE);
         beeAnimator.setRepeatCount(ValueAnimator.INFINITE); beeAnimator.setInterpolator(new LinearInterpolator());
         beeAnimator.addUpdateListener(a -> bee.setTranslationY((Float)a.getAnimatedValue()));
         TextView status=text("النحلة جاهزة لبدء جلسة التعدين",16,true); status.setGravity(Gravity.CENTER); panel(status);
-        TextView balance=text("رصيد التعدين: يُعرض بعد اعتماد المكافآت من الخادم",13,false);
+        TextView balance=text("رصيد AOB: يُعرض بعد اعتماد المكافآت من الخادم",13,false);
         panel(balance);
         Button start=button("ابدأ التعدين",true); page.addView(start,lp());
         Button stop=button("إيقاف التعدين",false); page.addView(stop,lp());
@@ -180,7 +180,7 @@ public class MainActivity extends Activity {
         });
         gap(10); Button back=button("العودة إلى المحفظة",false); page.addView(back,lp());
         back.setOnClickListener(v->{stopBee();loadAccount();});
-        gap(12); panel(text("تنبيه: هذه واجهة تجريبية للحركة فقط. لا يوجد حالياً API تعدين موثّق في الخادم، لذلك لا تُنشأ مكافآت ولا يُضاف رصيد AFAQ تلقائياً. لن نعرض أرباحاً وهمية.",11,false));
+        gap(12); panel(text("تنبيه: هذه واجهة تجريبية للحركة فقط. لا يوجد حالياً API تعدين موثّق في الخادم، لذلك لا تُنشأ مكافآت ولا يُضاف رصيد AOB تلقائياً. لن نعرض أرباحاً وهمية.",11,false));
     }
     private void stopBee() {
         if(beeAnimator!=null){beeAnimator.cancel();beeAnimator=null;}

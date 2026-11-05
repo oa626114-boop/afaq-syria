@@ -19,3 +19,31 @@ CREATE TRIGGER IF NOT EXISTS trg_payment_credit_balance AFTER INSERT ON payment_
  INSERT INTO account_ledger(entry_id,transfer_id,member_id,currency,amount_minor,entry_type,created_at)
  VALUES(lower(hex(randomblob(16))),'PAY-' || NEW.order_id,NEW.member_id,NEW.currency,NEW.amount_minor,'payment_in',NEW.created_at);
 END;
+
+
+-- Private member chat and call signaling tables.
+CREATE TABLE IF NOT EXISTS chat_conversations (
+ id TEXT PRIMARY KEY, member_a TEXT NOT NULL, member_b TEXT NOT NULL,
+ created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+ UNIQUE(member_a,member_b), CHECK(member_a < member_b)
+);
+CREATE TABLE IF NOT EXISTS chat_messages (
+ id TEXT PRIMARY KEY, conversation_id TEXT NOT NULL, sender_id TEXT NOT NULL,
+ body TEXT NOT NULL, created_at TEXT NOT NULL, read_at TEXT,
+ FOREIGN KEY(conversation_id) REFERENCES chat_conversations(id)
+);
+CREATE INDEX IF NOT EXISTS idx_chat_messages_conversation ON chat_messages(conversation_id,created_at);
+CREATE TABLE IF NOT EXISTS chat_blocks (
+ blocker_id TEXT NOT NULL, blocked_id TEXT NOT NULL, created_at TEXT NOT NULL,
+ PRIMARY KEY(blocker_id,blocked_id)
+);
+CREATE TABLE IF NOT EXISTS chat_reports (
+ id TEXT PRIMARY KEY, reporter_id TEXT NOT NULL, reported_id TEXT NOT NULL,
+ reason TEXT NOT NULL, details TEXT, created_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending'
+);
+CREATE TABLE IF NOT EXISTS call_signals (
+ id TEXT PRIMARY KEY, call_id TEXT NOT NULL, sender_id TEXT NOT NULL,
+ recipient_id TEXT NOT NULL, event_type TEXT NOT NULL, payload TEXT,
+ created_at TEXT NOT NULL, consumed_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_call_signals_recipient ON call_signals(recipient_id,created_at);

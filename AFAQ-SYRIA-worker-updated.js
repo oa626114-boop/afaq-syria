@@ -445,14 +445,23 @@ async function handle(req, env) {
     const method=String(body.method||"bank_transfer"), note=String(body.note||"").trim().slice(0,160);
     if(!minor||!currencies.has(currency)||!/^[-A-Za-z0-9_]{16,100}$/.test(idem)||!["bank_transfer","manual"].includes(method))
       return reply(req,env,{ok:false,error:"Valid amount, supported currency and idempotency key are required"},400);
-    const balance=await env.DB.prepare("SELECT balance_minor FROM member_balances WHERE member_id=? AND currency=?").bind(auth.member_id,currency).first();
-    const pending=await env.DB.prepare("SELECT COALESCE(SUM(amount_minor),0) AS amount FROM bank_withdrawal_requests WHERE member_id=? AND currency=? AND status='pending'").bind(auth.member_id,currency).first();
-    if(Number(balance?.balance_minor||0)-Number(pending?.amount||0)<minor)
-      return reply(req,env,{ok:false,error:"Insufficient available balance after pending withdrawal requests"},409);
     const id="AFW-"+crypto.randomUUID(),stamp=now();
     try{
-      await env.DB.prepare("INSERT INTO bank_withdrawal_requests(withdrawal_id,idempotency_key,member_id,currency,amount_minor,method,note,status,created_at) VALUES(?,?,?,?,?,?,?,'pending',?)")
-        .bind(id,idem,auth.member_id,currency,minor,method,note,stamp).run();
+      const inserted=await env.DB.prepare(
+        `INSERT INTO bank_withdrawal_requests(withdrawal_id,idempotency_key,member_id,currency,amount_minor,method,note,status,created_at)
+         SELECT ?,?,?,?,?,?,?,'pending',?
+         WHERE EXISTS (
+           SELECT 1 FROM member_balances b
+           WHERE b.member_id=? AND b.currency=?
+             AND b.balance_minor-COALESCE((
+               SELECT SUM(amount_minor) FROM bank_withdrawal_requests
+               WHERE member_id=? AND currency=? AND status='pending'
+             ),0)>=?
+         )`
+      ).bind(id,idem,auth.member_id,currency,minor,method,note,stamp,
+        auth.member_id,currency,auth.member_id,currency,minor).run();
+      if(!inserted.meta?.changes)
+        return reply(req,env,{ok:false,error:"Insufficient available balance after pending withdrawal requests"},409);
     }catch(e){
       const duplicate=await env.DB.prepare("SELECT withdrawal_id,status FROM bank_withdrawal_requests WHERE idempotency_key=?").bind(idem).first();
       if(duplicate) return reply(req,env,{ok:false,error:"This withdrawal request was already submitted",withdrawal:duplicate},409);

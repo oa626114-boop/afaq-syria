@@ -570,6 +570,14 @@ async function handle(req, env) {
   }
 
   // Use only after the payout was actually completed through an authorized partner.
+  if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/reject$/.test(path)) {
+    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
+    const id=path.split("/")[5], stamp=now(), admin=String(env.ADMIN_EMAIL||"").trim().toLowerCase();
+    const result=await env.DB.prepare("UPDATE bank_withdrawal_requests SET status='rejected',processed_at=?,processed_by=? WHERE withdrawal_id=? AND status='pending'").bind(stamp,admin,id).run();
+    if(!result.meta?.changes) return reply(req,env,{ok:false,error:"Pending withdrawal not found or cannot be rejected"},409);
+    return reply(req,env,{ok:true,withdrawal_id:id,status:"rejected"});
+  }
+
   if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/mark-paid$/.test(path)) {
     if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
     let body; try{body=await req.json()}catch{return reply(req,env,{ok:false,error:"Invalid JSON"},400)}

@@ -300,6 +300,22 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 .nav a.nav-payment{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;margin:3px 0;border:1px solid #806633;border-radius:9px;background:#102b40;color:#dce5eb;text-decoration:none;text-align:right;font-size:13px;line-height:1.6}
 .nav a.nav-payment:hover{background:#ffffff16;color:#f0d18b}
 
+
+/* Collapsible top-level navigation bags */
+.nav-group{margin:7px 0;border:1px solid #29485b;border-radius:11px;background:#0c2233;overflow:hidden}
+.nav-group>summary{list-style:none;display:flex;align-items:center;gap:11px;min-height:48px;padding:11px 12px;color:#f0d18b;font-size:13px;font-weight:bold;cursor:pointer;user-select:none}
+.nav-group>summary::-webkit-details-marker{display:none}
+.nav-group>summary .ico{width:22px;text-align:center;font-size:17px}
+.nav-group>summary .nav-chevron{margin-right:auto;color:#d9b15f;font-size:17px;transition:transform .18s}
+.nav-group[open]>summary{background:#d9b15f18;border-bottom:1px solid #806633}
+.nav-group[open]>summary .nav-chevron{transform:rotate(180deg)}
+.nav-group-items{padding:5px 7px 8px}
+.nav-group-items button,.nav-group-items .nav-payment{min-height:42px;font-size:12px}
+.nav-group-items .nav-sub{padding-right:27px;font-size:11px}
+.nav-group-items .nav-sub-label{padding-right:13px}
+.nav-group-items .nav-hint{padding:5px 12px 9px}
+.nav>button[data-view="dashboard"]{margin:0 0 9px;background:#ffffff0d;color:#f0d18b;border:1px solid #806633}
+@media(max-width:720px){.nav-group>summary{min-height:47px}.nav-group-items{padding-inline:6px}}
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -362,47 +378,63 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
-<div class="nav-label">الرئيسية</div>
 <button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
 
-<div class="nav-label">1 ـ إدارة الأعمال</div>
-<button data-view="projects"><span class="ico">🏗</span>المشاريع</button>
-<button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن</button>
-<button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button>
-<button data-view="reports"><span class="ico">◫</span>التحليل والإدارة</button>
-<button data-view="reports"><span class="ico">▤</span>التقارير</button>
-<button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة وإنجازات العمل</button>
-<button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button>
+<details class="nav-group">
+ <summary><span class="ico">💼</span><span>1 ـ إدارة الأعمال</span><span class="nav-chevron">⌄</span></summary>
+ <div class="nav-group-items">
+  <button data-view="projects"><span class="ico">🏗</span>المشاريع</button>
+  <button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button>
+  <button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button>
+  <button data-view="reports"><span class="ico">◫</span>التحليل والإدارة</button>
+  <button data-view="reports"><span class="ico">▤</span>التقارير</button>
+  <button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة وأعمالها</button>
+  <button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button>
+ </div>
+</details>
 
-<div class="nav-label">2 ـ الأمور المالية</div>
-<a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>المحفظة الرقمية</a>
-<button data-view="member-account"><span class="ico">🏦</span>مصرف آفاق</button>
-<a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a>
-<div class="nav-sub-label">فواتير الخدمات</div>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">⚡</span>فواتير الكهرباء</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">💧</span>فواتير الماء</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🔥</span>فواتير الغاز</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">☎</span>فواتير الهاتف</a>
-<a class="nav-payment nav-sub" href="payment.html"><span class="ico">🌐</span>فواتير الإنترنت</a>
-<a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>بيع وشراء العملات الرقمية B2B</a>
+<details class="nav-group">
+ <summary><span class="ico">🏦</span><span>2 ـ الشؤون المالية</span><span class="nav-chevron">⌄</span></summary>
+ <div class="nav-group-items">
+  <a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>المحفظة الرقمية</a>
+  <button data-view="member-account"><span class="ico">🏦</span>مصرف آفاق</button>
+  <a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a>
+  <div class="nav-sub-label">فواتير الخدمات</div>
+  <a class="nav-payment nav-sub" href="payment.html"><span class="ico">⚡</span>فواتير الكهرباء</a>
+  <a class="nav-payment nav-sub" href="payment.html"><span class="ico">💧</span>فواتير الماء</a>
+  <a class="nav-payment nav-sub" href="payment.html"><span class="ico">🔥</span>فواتير الغاز</a>
+  <a class="nav-payment nav-sub" href="payment.html"><span class="ico">☎</span>فواتير الهاتف</a>
+  <a class="nav-payment nav-sub" href="payment.html"><span class="ico">🌐</span>فواتير الإنترنت</a>
+  <a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>بيع وشراء العملات الرقمية B2B</a>
+ </div>
+</details>
 
-<div class="nav-label">3 ـ الإعلام والاتصالات</div>
-<a class="nav-payment" href="media-center.html"><span class="ico">📢</span>مركز الإعلام العام</a>
-<div class="nav-sub-label">الدردشة الخاصة والمجموعات العامة</div>
-<a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>محادثات الأعضاء</a>
-<a class="nav-payment nav-sub" href="chat-center.html#voiceCall"><span class="ico">☎</span>اتصل عبر التطبيق</a>
-<a class="nav-payment nav-sub" href="chat-center.html#videoCall"><span class="ico">▣</span>اتصال فيديو</a>
-<div class="nav-hint">تصفح مركز الإعلام متاح للأعضاء، والمحادثات خاصة بين الأعضاء. يمكن إنشاء مجموعات عامة بعد تفعيل الخادم.</div>
+<details class="nav-group">
+ <summary><span class="ico">📢</span><span>3 ـ الإعلام والاتصالات</span><span class="nav-chevron">⌄</span></summary>
+ <div class="nav-group-items">
+  <a class="nav-payment" href="media-center.html"><span class="ico">📢</span>مركز الإعلام العام</a>
+  <a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>الدردشة والاتصال</a>
+  <div class="nav-hint">المحادثات الخاصة والمجموعات العامة، مع خيارات الاتصال الصوتي والمرئي داخل قسم الدردشة.</div>
+ </div>
+</details>
 
-<div class="nav-label">4 ـ التحليل والإدارة التقنية</div>
-<button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم المالية</button>
-<a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a>
-<button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار وشراء وبيع أسهم المشاريع</button>
-<button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<details class="nav-group">
+ <summary><span class="ico">📊</span><span>4 ـ التحليل والإدارة التقنية</span><span class="nav-chevron">⌄</span></summary>
+ <div class="nav-group-items">
+  <button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم المالية</button>
+  <a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a>
+  <button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button>
+  <button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+ </div>
+</details>
 
-<div class="nav-label">5 ـ الإعدادات</div>
-<button data-view="settings"><span class="ico">⚙</span>إعدادات المنصة</button>
-<button data-view="member-settings"><span class="ico">🛡</span>توثيق الهوية والحساب</button>
+<details class="nav-group">
+ <summary><span class="ico">⚙</span><span>5 ـ إعدادات المنصة</span><span class="nav-chevron">⌄</span></summary>
+ <div class="nav-group-items">
+  <button data-view="settings"><span class="ico">⚙</span>إعدادات المنصة</button>
+  <button data-view="member-settings"><span class="ico">🛡</span>توثيق الهوية والحساب</button>
+ </div>
+</details>
 </div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">

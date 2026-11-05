@@ -1,5 +1,18 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AFAQ CRYPTO WALLET</title><style>
 :root{--n:#071a2b;--p:#10283b;--g:#d9b45b;--b:#39291f;--l:#806633;--w:#f5edda}*{box-sizing:border-box}body{margin:0;background:var(--n);color:var(--w);font-family:Arial,Tahoma,sans-serif}.wrap{max-width:850px;margin:auto;padding:18px}.title{font-size:24px;color:var(--g);font-weight:bold}.panel{background:var(--p);border:1px solid var(--l);border-radius:14px;padding:16px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.coin{background:var(--b);border:1px solid var(--l);padding:14px;border-radius:12px;color:var(--w);text-align:right;width:100%;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}.coin b{color:var(--g)}.coin:hover,.coin:focus-visible{border-color:var(--g);outline:2px solid #d9b45b55;outline-offset:2px}.coin[aria-pressed="true"]{border:2px solid var(--g);background:#49351f;box-shadow:0 0 0 2px #d9b45b22}.coin p{margin:8px 0 0}label{display:block;margin:9px 0 5px;color:var(--g)}input,select{width:100%;padding:12px;background:#071a2b;color:var(--w);border:1px solid var(--l);border-radius:8px}button{background:var(--g);color:#071a2b;border:0;border-radius:8px;padding:12px 16px;font-weight:bold;margin-top:10px}.warn{font-size:13px;line-height:1.8;color:#f3d89b;background:#30271c;border:1px solid var(--l);border-radius:10px;padding:12px}.back{color:var(--g)}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+
+.coin-legend{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0;color:#d9c58f;font-size:12px}
+.coin-legend span{display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}.dot.live{background:#45c995}.dot.catalog{background:#c49a48}
+.coin{display:flex;align-items:center;gap:10px;min-height:72px}
+.coin .coin-logo{width:40px;height:40px;min-width:40px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px;color:#071a2b;border:1px solid #f0d18b;background:var(--coin-color,#d9b45b);direction:ltr}
+.coin .coin-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.coin .coin-info b{font-size:14px}.coin .coin-info small{color:#d8c89d;font-size:11px}
+.coin .coin-state{margin-inline-start:auto;font-size:10px;color:#9ee3bc;white-space:nowrap}
+.coin.catalog-only{opacity:.78;border-style:dashed}
+.coin.catalog-only .coin-state{color:#f0d18b}
+.coin:disabled{cursor:not-allowed;opacity:.72}
+#coinSearch{margin-bottom:10px}
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -41,7 +54,15 @@
 </style>
 
 </head><body><main class="wrap"><a class="back" href="index.html">← العودة للمنصة</a><h1 class="title">AFAQ CRYPTO WALLET</h1><div>محفظة آفاق سوريا للعملات الرقمية</div>
-<section class="panel" aria-label="بطاقة الكريبتو الشخصية"><h2 style="color:var(--g)">بطاقة الكريبتو الخاصة بالمشترك</h2><div id="afaqWalletMemberCard"><p class="warn">جارٍ تحميل بيانات المشترك…</p></div><p class="warn">رمز QR هنا يعرّف رقم المشترك فقط. لا يمثل عنوان إيداع أو محفظة بلوكشين، ولن يستقبل الأموال.</p></section><section class="panel"><h2 style="color:var(--g)">الأصول المدعومة ضمن واجهة المحفظة</h2><div class="grid" id="coinOptions"><button class="coin" type="button" data-coin="USDT TRC20" aria-pressed="true"><b>USDT · TRC20</b><p>شبكة TRON</p></button><button class="coin" type="button" data-coin="USDT ERC20" aria-pressed="false"><b>USDT · ERC20</b><p>شبكة Ethereum</p></button><button class="coin" type="button" data-coin="BTC" aria-pressed="false"><b>BTC</b><p>Bitcoin</p></button><button class="coin" type="button" data-coin="ETH" aria-pressed="false"><b>ETH</b><p>Ethereum</p></button><button class="coin" type="button" data-coin="TRX" aria-pressed="false"><b>TRX</b><p>TRON</p></button></div></section><section class="panel"><h2 style="color:var(--g)">طلب استقبال / دفع</h2><label>العملة والشبكة</label><select id="coin" aria-label="العملة والشبكة"><option value="USDT TRC20">USDT TRC20</option><option value="USDT ERC20">USDT ERC20</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="TRX">TRX</option></select><label>المبلغ</label><input id="amount" type="number" min="0" step="any" placeholder="أدخل المبلغ"><button id="createInvoice" type="button">إنشاء فاتورة دفع آمنة</button><p id="msg" role="status" aria-live="polite"></p></section><div class="warn"><b>حالة المحفظة: واجهة أولية غير حاضنة للأموال.</b><br>لا تعرض هذه الصفحة رصيداً حقيقياً ولا تنشئ عناوين بلوكشين أو مفاتيح خاصة. استقبال الأموال والتحويلات الفعلية يتطلب مزود حفظ/محفظة معتمد، تحقق هوية وامتثالاً، وربطاً آمناً من جهة الخادم. لا ترسل أموالاً إلى عنوان غير صادر من فاتورة مؤكدة.</div><script>
+<section class="panel" aria-label="بطاقة الكريبتو الشخصية"><h2 style="color:var(--g)">بطاقة الكريبتو الخاصة بالمشترك</h2><div id="afaqWalletMemberCard"><p class="warn">جارٍ تحميل بيانات المشترك…</p></div><p class="warn">رمز QR هنا يعرّف رقم المشترك فقط. لا يمثل عنوان إيداع أو محفظة بلوكشين، ولن يستقبل الأموال.</p></section><section class="panel" aria-label="دليل العملات الرقمية">
+<h2 style="color:var(--g)">دليل العملات الرقمية والأصول</h2>
+<p class="hint">تظهر هنا أشهر العملات والرموز والشبكات مع شعارات رمزية واضحة. العملات التي لا يدعمها إعداد NOWPayments الحالي ستبقى ظاهرة في الدليل، لكنها لن تُستخدم لإنشاء فاتورة حتى تفعيلها والتحقق من دعم المزود لها.</p>
+<label for="coinSearch">ابحث عن عملة أو رمز</label>
+<input id="coinSearch" type="search" placeholder="مثال: Bitcoin أو BTC أو USDT" autocomplete="off">
+<div class="coin-legend"><span><i class="dot live"></i> متاحة حالياً عبر إعدادات الخادم</span><span><i class="dot catalog"></i> في الدليل — تحتاج تفعيلاً</span></div>
+<div class="grid" id="coinOptions" aria-live="polite"></div>
+<p class="warn" id="coinCatalogNote">المتاح حالياً لإنشاء فاتورة محددة: USDT على TRC20 وERC20 وBitcoin وEthereum وTRON. خيار «اختيار تلقائي» يترك لمزود الدفع عرض العملات المتاحة في حساب التاجر.</p>
+</section><section class="panel"><h2 style="color:var(--g)">طلب استقبال / دفع</h2><label>العملة والشبكة</label><select id="coin" aria-label="العملة والشبكة"><option value="all">اختيار تلقائي — العملات المتاحة لدى مزود الدفع</option><option value="USDT TRC20">USDT · TRC20</option><option value="USDT ERC20">USDT · ERC20</option><option value="BTC">Bitcoin · BTC</option><option value="ETH">Ethereum · ETH</option><option value="TRX">TRON · TRX</option></select><label>المبلغ</label><input id="amount" type="number" min="0" step="any" placeholder="أدخل المبلغ"><button id="createInvoice" type="button">إنشاء فاتورة دفع آمنة</button><p id="msg" role="status" aria-live="polite"></p></section><div class="warn"><b>حالة المحفظة: واجهة أولية غير حاضنة للأموال.</b><br>لا تعرض هذه الصفحة رصيداً حقيقياً ولا تنشئ عناوين بلوكشين أو مفاتيح خاصة. استقبال الأموال والتحويلات الفعلية يتطلب مزود حفظ/محفظة معتمد، تحقق هوية وامتثالاً، وربطاً آمناً من جهة الخادم. لا ترسل أموالاً إلى عنوان غير صادر من فاتورة مؤكدة.</div><script>
 (function(){
  const select=document.getElementById('coin');
  const amount=document.getElementById('amount');
@@ -70,7 +91,7 @@
          <div class="back-brand">AFAQ CRYPTO · مصرف آفاق</div><div class="magstripe"></div>
          <div class="signature-row"><div class="signature">${name}</div><div class="cvv">•••</div></div>
          <div class="gold-note">بطاقة تعريف رقمية فقط · لا تمثل عنوان إيداع بلوكشين<br/>رقم المشترك ${memberNo} · رقم الحساب ${accountNo}</div>
-         <div class="back-meta"><span>CRYPTO WALLET CARD<br/>USDT · ETH · BTC · TRX</span><div class="back-qr" id="afaqWalletCryptoBackQr"></div></div>
+         <div class="back-meta"><span>CRYPTO WALLET CARD<br/>BTC · ETH · USDT · TRX · +50 ASSETS</span><div class="back-qr" id="afaqWalletCryptoBackQr"></div></div>
         </div>
        </div>
       </div><div class="afaq-card-hint">بطاقة الكريبتو · اضغط للقلب</div>`;
@@ -82,14 +103,81 @@
  function safeError(s){return String(s||'تعذر تحميل البطاقة').replace(/[<>&"]/g,'');}
  loadMemberCard();
 
- const cards=[...document.querySelectorAll('[data-coin]')];
- function selectCoin(value){
-   select.value=value;
-   cards.forEach(card=>card.setAttribute('aria-pressed',String(card.dataset.coin===value)));
-   msg.textContent='تم اختيار '+value;
+ const supported = [
+   {id:'USDT TRC20',symbol:'₮',name:'Tether USD',network:'TRON · TRC20',color:'#26a17b',enabled:true},
+   {id:'USDT ERC20',symbol:'₮',name:'Tether USD',network:'Ethereum · ERC20',color:'#26a17b',enabled:true},
+   {id:'BTC',symbol:'₿',name:'Bitcoin',network:'Bitcoin network',color:'#f7931a',enabled:true},
+   {id:'ETH',symbol:'Ξ',name:'Ethereum',network:'Ethereum network',color:'#627eea',enabled:true},
+   {id:'TRX',symbol:'TRX',name:'TRON',network:'TRON network',color:'#ef0027',enabled:true},
+   {id:'USDC',symbol:'USDC',name:'USD Coin',network:'Ethereum / Polygon / Solana',color:'#2775ca'},
+   {id:'BNB',symbol:'BNB',name:'BNB',network:'BNB Chain',color:'#f3ba2f'},
+   {id:'XRP',symbol:'XRP',name:'XRP',network:'XRP Ledger',color:'#aeb8c4'},
+   {id:'SOL',symbol:'SOL',name:'Solana',network:'Solana',color:'#8b5cf6'},
+   {id:'ADA',symbol:'ADA',name:'Cardano',network:'Cardano',color:'#3468d1'},
+   {id:'DOGE',symbol:'Ð',name:'Dogecoin',network:'Dogecoin',color:'#c2a633'},
+   {id:'LTC',symbol:'Ł',name:'Litecoin',network:'Litecoin',color:'#b8c2cc'},
+   {id:'BCH',symbol:'BCH',name:'Bitcoin Cash',network:'Bitcoin Cash',color:'#8dc351'},
+   {id:'DOT',symbol:'DOT',name:'Polkadot',network:'Polkadot',color:'#e6007a'},
+   {id:'LINK',symbol:'LINK',name:'Chainlink',network:'Ethereum / Multi-chain',color:'#2a5ada'},
+   {id:'AVAX',symbol:'AVAX',name:'Avalanche',network:'Avalanche C-Chain',color:'#e84142'},
+   {id:'XLM',symbol:'XLM',name:'Stellar',network:'Stellar',color:'#9aa4b2'},
+   {id:'TON',symbol:'TON',name:'Toncoin',network:'TON',color:'#0098ea'},
+   {id:'XMR',symbol:'XMR',name:'Monero',network:'Monero',color:'#ff6600'},
+   {id:'ETC',symbol:'ETC',name:'Ethereum Classic',network:'Ethereum Classic',color:'#328332'},
+   {id:'ATOM',symbol:'ATOM',name:'Cosmos',network:'Cosmos Hub',color:'#6f7390'},
+   {id:'NEAR',symbol:'NEAR',name:'NEAR Protocol',network:'NEAR',color:'#d7d7d7'},
+   {id:'APT',symbol:'APT',name:'Aptos',network:'Aptos',color:'#4bdbc3'},
+   {id:'SUI',symbol:'SUI',name:'Sui',network:'Sui',color:'#6fbcf0'},
+   {id:'ARB',symbol:'ARB',name:'Arbitrum',network:'Arbitrum One',color:'#2d7dd2'},
+   {id:'OP',symbol:'OP',name:'Optimism',network:'Optimism',color:'#ff0420'},
+   {id:'MATIC',symbol:'POL',name:'Polygon Ecosystem Token',network:'Polygon PoS',color:'#8247e5'},
+   {id:'SHIB',symbol:'SHIB',name:'Shiba Inu',network:'Ethereum',color:'#fda32b'},
+   {id:'DAI',symbol:'DAI',name:'Dai',network:'Ethereum',color:'#f5ac37'},
+   {id:'TUSD',symbol:'TUSD',name:'TrueUSD',network:'Multi-chain',color:'#2b78c5'},
+   {id:'FDUSD',symbol:'FDUSD',name:'First Digital USD',network:'BNB Chain / Ethereum',color:'#4a9c8b'},
+   {id:'EURC',symbol:'EURC',name:'Euro Coin',network:'Ethereum / Base',color:'#2775ca'},
+   {id:'PAXG',symbol:'PAXG',name:'PAX Gold',network:'Ethereum',color:'#d4af37'},
+   {id:'WBTC',symbol:'WBTC',name:'Wrapped Bitcoin',network:'Ethereum',color:'#f09242'},
+   {id:'CRO',symbol:'CRO',name:'Cronos',network:'Cronos',color:'#173f7a'},
+   {id:'FIL',symbol:'FIL',name:'Filecoin',network:'Filecoin',color:'#0090ff'},
+   {id:'ICP',symbol:'ICP',name:'Internet Computer',network:'Internet Computer',color:'#29abe2'},
+   {id:'VET',symbol:'VET',name:'VeChain',network:'VeChain',color:'#15bdff'},
+   {id:'ALGO',symbol:'ALGO',name:'Algorand',network:'Algorand',color:'#111111'},
+   {id:'EOS',symbol:'EOS',name:'EOS',network:'EOS',color:'#e8e8e8'},
+   {id:'XTZ',symbol:'XTZ',name:'Tezos',network:'Tezos',color:'#2c7df7'},
+   {id:'AAVE',symbol:'AAVE',name:'Aave',network:'Ethereum / Multi-chain',color:'#9275c9'},
+   {id:'UNI',symbol:'UNI',name:'Uniswap',network:'Ethereum',color:'#ff007a'},
+   {id:'MKR',symbol:'MKR',name:'Maker',network:'Ethereum',color:'#1aab9b'},
+   {id:'CRV',symbol:'CRV',name:'Curve DAO',network:'Ethereum',color:'#f34b4b'},
+   {id:'SAND',symbol:'SAND',name:'The Sandbox',network:'Ethereum',color:'#00adef'},
+   {id:'MANA',symbol:'MANA',name:'Decentraland',network:'Ethereum',color:'#ff2d55'},
+   {id:'GRT',symbol:'GRT',name:'The Graph',network:'Ethereum',color:'#6747ed'},
+   {id:'THETA',symbol:'THETA',name:'Theta Network',network:'Theta',color:'#2ab8e6'},
+   {id:'APE',symbol:'APE',name:'ApeCoin',network:'Ethereum',color:'#0054f9'},
+   {id:'PEPE',symbol:'PEPE',name:'Pepe',network:'Ethereum',color:'#3c9b3c'}
+ ];
+ const catalog=document.getElementById('coinOptions');
+ const search=document.getElementById('coinSearch');
+ const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function renderCoins(query=''){
+   const q=query.trim().toLowerCase();
+   const rows=supported.filter(c=>!q||[c.id,c.symbol,c.name,c.network].join(' ').toLowerCase().includes(q));
+   catalog.innerHTML=rows.map(c=>`<button class="coin ${c.enabled?'':'catalog-only'}" type="button" data-coin="${escapeHtml(c.id)}" ${c.enabled?'':'disabled'} aria-pressed="${select.value===c.id}">
+     <span class="coin-logo" style="--coin-color:${c.color}">${escapeHtml(c.symbol)}</span>
+     <span class="coin-info"><b>${escapeHtml(c.name)} · ${escapeHtml(c.id)}</b><small>${escapeHtml(c.network)}</small></span>
+     <span class="coin-state">${c.enabled?'متاحة':'قريباً'}</span>
+   </button>`).join('')||'<p class="warn">لا توجد عملة مطابقة لبحثك.</p>';
+   catalog.querySelectorAll('[data-coin]').forEach(card=>card.addEventListener('click',()=>selectCoin(card.dataset.coin)));
  }
- cards.forEach(card=>card.addEventListener('click',()=>selectCoin(card.dataset.coin)));
+ function selectCoin(value){
+   if(value!=='all'&&!supported.some(c=>c.id===value&&c.enabled)){msg.textContent='هذه العملة ظاهرة في دليل الأصول، لكنها غير مفعّلة للدفع حالياً.';return;}
+   select.value=value;
+   renderCoins(search.value);
+   msg.textContent=value==='all'?'سيختار مزود الدفع من العملات المتاحة في حساب التاجر.':'تم اختيار '+value;
+ }
+ search.addEventListener('input',()=>renderCoins(search.value));
  select.addEventListener('change',()=>selectCoin(select.value));
+ renderCoins();
  document.getElementById('createInvoice').addEventListener('click',()=>{
    const value=Number(amount.value);
    if(!amount.value || !Number.isFinite(value) || value<=0){
@@ -101,7 +189,8 @@
      msg.textContent='سجّل الدخول أولاً من الصفحة الرئيسية، ثم أعد المحاولة.';
      return;
    }
-   const url='payment.html?currency='+encodeURIComponent(select.value)+'&amount='+encodeURIComponent(String(value));
+   const walletCurrency=select.value==='all'?'all':select.value==='USDT TRC20'?'usdttrc20':select.value==='USDT ERC20'?'usdterc20':select.value.toLowerCase();
+   const url='payment.html?currency='+encodeURIComponent(walletCurrency)+'&amount='+encodeURIComponent(String(value));
    location.href=url;
  });
 })();

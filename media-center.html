@@ -1,0 +1,26 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071522"><title>مركز الإعلام | آفاق سوريا</title><style>
+:root{--navy:#071522;--navy2:#102b40;--navy3:#17394f;--gold:#d9b15f;--gold2:#f0d18b;--text:#f3e7c8;--muted:#c1b18a;--line:#806633;--panel:#0d2436}
+*{box-sizing:border-box}body{margin:0;background:var(--navy);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+a{color:var(--gold2)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.wrap{max-width:1050px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #806633;padding:12px 0 18px}
+.brand{color:var(--gold2);font-weight:bold;font-size:22px}.sub{font-size:12px;color:var(--muted)}
+h1,h2,h3{color:var(--gold2);margin:.25em 0}.panel{background:linear-gradient(145deg,#102b40,#0b1e2e);border:1px solid var(--line);border-radius:15px;padding:16px;margin:15px 0;box-shadow:0 12px 28px #0003}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin:8px 0;color:var(--gold2);font-size:13px}
+input,select,textarea{width:100%;background:#071a2b;color:var(--text);border:1px solid #806633;border-radius:9px;padding:11px;min-width:0}
+.btn{border:1px solid #d9b15f;border-radius:9px;background:#d9b15f;color:#071522;padding:10px 15px;font-weight:bold}
+.btn.secondary{background:#17394f;color:var(--gold2)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.notice{background:#30271c;color:#f0d18b;border:1px solid #806633;padding:12px;border-radius:10px;font-size:13px}
+.tile{background:#102b40;border:1px solid #806633;border-radius:12px;padding:14px}.muted{color:var(--muted);font-size:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}
+.badge{border:1px solid #806633;color:#f0d18b;border-radius:20px;padding:3px 9px;font-size:11px}
+table{width:100%;border-collapse:collapse}td,th{padding:10px;border-bottom:1px solid #294456;text-align:right;font-size:13px}
+footer{border-top:1px solid #294456;margin-top:28px;padding:14px;color:var(--muted);font-size:11px}
+@media(max-width:600px){.wrap{padding:12px}.panel{padding:12px}}
+</style></head><body><main class="wrap">
+<header class="top"><div><div class="brand">آفاق سوريا · مركز الإعلام والإعلانات</div><div class="sub">منشورات وصور إعلانية فقط</div></div><a href="index.html">العودة إلى المنصة</a></header>
+<section class="panel"><h1>مركز الإعلام</h1><p class="muted">مساحة مخصصة لنشر الإعلانات والمنشورات والصور الترويجية للأعضاء والجهات المعتمدة.</p><div class="notice">هذا القسم للإعلانات والمنشورات والصور فقط. لا يدعم المحادثات أو إرسال الفيديو بين الأعضاء؛ ذلك متاح في مركز الدردشة.</div></section>
+<section class="panel"><h2>إضافة منشور إعلاني</h2><label class="field">عنوان الإعلان<input id="adTitle" maxlength="120" placeholder="عنوان واضح للإعلان"></label><label class="field">نص المنشور<textarea id="adBody" rows="4" maxlength="3000" placeholder="اكتب تفاصيل الإعلان"></textarea></label><label class="field">رفع صور إعلانية<input id="adImages" type="file" accept="image/*" multiple></label><div id="imagePreview" class="grid"></div><button class="btn" disabled title="يتطلب خادم تخزين ومراجعة المحتوى">نشر الإعلان — يتطلب تفعيل الخادم</button><p class="muted">لن تُرفع الصور إلى الخادم قبل تفعيل تخزين آمن، حدود أحجام الملفات، فحص الملفات، ومراجعة الإعلانات.</p></section>
+<section class="panel"><h2>منشورات الأعضاء</h2><div class="tile"><b>لا توجد منشورات منشورة بعد</b><p class="muted">ستظهر الإعلانات المعتمدة هنا بعد ربط خدمة النشر والمراجعة.</p></div></section>
+<footer>آفاق سوريا · محتوى إعلاني فقط · يمنع نشر بيانات شخصية أو محتوى مضلل أو غير مصرح به.</footer></main><script>
+document.getElementById('adImages').addEventListener('change',e=>{const box=document.getElementById('imagePreview');box.innerHTML='';[...e.target.files].slice(0,6).forEach(f=>{if(!f.type.startsWith('image/'))return;const url=URL.createObjectURL(f),im=document.createElement('img');im.src=url;im.alt='معاينة صورة الإعلان';im.style.cssText='width:100%;max-height:180px;object-fit:contain;border:1px solid #806633;border-radius:10px';box.appendChild(im);});});
+</script></body></html>

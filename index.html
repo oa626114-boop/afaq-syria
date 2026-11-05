@@ -273,6 +273,26 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 .trade-warning,.payment-help{background:#30271c!important;color:#f0d18b!important;border-color:#806633!important}
 .gold-action,.btn.gold,.portfolio-toolbar button{color:#071522!important}
 
+
+/* تحسين وضوح قائمة الجانب الأيمن */
+.sidebar .nav button{
+  font-size:17px !important;
+  line-height:1.7;
+  padding:14px 14px !important;
+  min-height:52px;
+  gap:13px;
+}
+.sidebar .nav-label{
+  font-size:13px !important;
+  line-height:1.6;
+  padding:15px 12px 7px !important;
+}
+.sidebar .nav .ico{font-size:20px;width:25px}
+.sidebar .side-foot{font-size:13px;line-height:1.7}
+@media(max-width:900px){
+  .sidebar .nav button{font-size:16px !important;min-height:48px;padding:12px !important}
+}
+
 </style><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -313,13 +333,31 @@ body,.content p,.content label,.content small,.content span,.content td,.content
 
 </style>
 
+
+<style id="afaq-member-wallet-settings-css">
+#member-account .wallet-hub,#member-settings .settings-hub{background:#102b40;border:1px solid #806633;border-radius:14px;padding:16px;margin:16px 0;color:#f2dfb5}
+#member-account .wallet-balance{background:linear-gradient(135deg,#12384b,#0b2030);border:1px solid #b28b42;border-radius:12px;padding:18px;margin-bottom:12px}
+#member-account .wallet-balance small{color:#e4c77f}#member-account .wallet-balance strong{display:block;font-size:clamp(24px,5vw,34px);color:#f2d17b;margin:8px 0}
+#member-account .wallet-actions,#member-settings .settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#member-account .wallet-actions button,#member-settings .settings-grid button{background:#173c50;color:#f2d17b;border:1px solid #806633;border-radius:10px;padding:13px 8px;font-weight:bold}
+#member-account .wallet-actions button span{display:block;font-size:20px;margin-bottom:5px}
+#member-account .wallet-panel,#member-settings .settings-panel{background:#0b2030;border:1px solid #806633;border-radius:11px;padding:13px;margin-top:12px}
+#member-account .wallet-panel[hidden],#member-settings .settings-panel[hidden]{display:none}
+#member-account .wallet-row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #334b5c;padding:9px 0}
+#member-account .wallet-hub input,#member-account .wallet-hub select,#member-settings input,#member-settings select{background:#071a2b;color:#f2dfb5;border:1px solid #806633;border-radius:8px;padding:10px;width:100%;margin:5px 0}
+#member-account .wallet-hub label,#member-settings label{display:block;color:#e4c77f;margin-top:9px}
+#member-account .wallet-hub .gold-action,#member-settings .gold-action{background:#d9b15f;color:#071522;padding:10px 15px;border-radius:8px;border:0;font-weight:bold}
+#member-settings .settings-grid button{text-align:right;min-height:58px}
+#member-settings .settings-note{color:#e4c77f;font-size:12px;line-height:1.8}
+@media(max-width:560px){#member-account .wallet-actions,#member-settings .settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
 </head>
 <body>
 <div class="shell">
 <aside class="sidebar" id="sidebar"><div class="brand"><b>آفاق سوريا</b><small>AFAQ SYRIA · BUSINESS PLATFORM</small></div><div class="nav">
 <div class="nav-label">الرئيسية</div><button class="active" data-view="dashboard"><span class="ico">▦</span>لوحة التحكم</button>
-<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
-<div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>الإعدادات</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
+<div class="nav-label">إدارة الأعمال</div><button data-view="projects"><span class="ico">🏗</span>المشاريع</button><button data-view="syrian-locations"><span class="ico">📍</span>المحافظات والمدن السورية</button><button data-view="portfolios"><span class="ico">▤</span>المحافظ الاستثمارية</button><button data-view="stocks" class="stock-nav"><span class="ico">📈</span>البورصة والأسهم</button><a class="nav-payment" href="global-market.html"><span class="ico">🌐</span>مؤشر آفاق سوريا العالمي</a><button data-view="investment-wallet"><span class="ico">💼</span>محفظة الاستثمار والشراء والبيع</button><button data-view="clients"><span class="ico">♙</span>العملاء والشركاء</button><button data-view="invoices"><span class="ico">▧</span>الفواتير والمدفوعات</button><a class="nav-payment" href="payment.html"><span class="ico">💳</span>مركز الدفع والتحصيل</a><a class="nav-payment" href="crypto-wallet.html"><span class="ico">₿</span>محفظة العملات الرقمية</a><a class="nav-payment" href="exchange-center.html"><span class="ico">⇄</span>مركز شراء وبيع العملات</a><a class="nav-payment" href="media-center.html"><span class="ico">▧</span>مركز الإعلام والإعلانات</a><a class="nav-payment" href="chat-center.html"><span class="ico">✉</span>الدردشة والاتصال</a><button data-view="documents"><span class="ico">▣</span>المستندات والعقود</button><button data-view="company-archive"><span class="ico">🗄</span>أرشيف الشركة</button><button data-view="api"><span class="ico">⌘</span>مركز API والتكاملات</button>
+<div class="nav-label">التحليل والإدارة</div><button data-view="reports"><span class="ico">◫</span>التقارير</button><button data-view="settings"><span class="ico">⚙</span>إعدادات الشركة</button></div><div class="side-foot">AFAQ SYRIA<br>Investment · Infrastructure · Development<br><span style="color:#e4bd67">نسخة هيكل أولي — بيانات تجريبية</span></div></aside>
 <main class="main"><header class="topbar"><div class="top-left"><button class="btn ghost mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">منصة الأعمال والاستثمار</div><div class="page-title" id="pageTitle">لوحة التحكم</div></div></div><div class="top-right"><select class="language-mini" id="langBtn" aria-label="اختيار اللغة"><option value="ar">العربية</option><option value="en">EN</option><option value="tr">TR</option><option value="fa">فا</option></select><button class="btn gold" id="installBtn" hidden>تثبيت التطبيق</button><div class="avatar">A</div></div></header>
 <div class="content">
 <section class="view active" id="dashboard"><div class="welcome"><div><h1>مرحباً بك في آفاق سوريا</h1><p>منصة موحدة لإدارة المشاريع والاستثمارات والشراكات والعمليات.</p></div><div class="welcome-mark">✦</div></div>
@@ -863,8 +901,37 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const API=(localStorage.getItem('afaq_api_base_v1')||'https://omax-api-105a.oa626114.workers.dev').trim().replace(/\/+$/,'');
  const tokenKey='afaq_member_token_v1';let mode='signup',member=null;
  const content=document.querySelector('.content');
- content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب المشترك</h2><p>بيانات المشترك والبطاقات المرتبطة بحسابه</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم المشترك ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>Account number · رقم الحساب</small><strong id="afaqAccountNo" dir="ltr">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div><h3>بطاقة محفظة آفاق الرقمية</h3><div id="afaqMemberCardMount"></div><h3>بيانات المشترك</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية. رمز QR على البطاقة للتعريف برقم المشترك فقط، وليس عنوان إيداع.</div></div></section>`);
- const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
+ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><div class="view-head"><div><h2>حساب المشترك</h2><p>بيانات المشترك والبطاقات المرتبطة بحسابه</p></div><span class="api-badge">حساب خادمي</span></div><div class="panel"><div class="finance-summary"><div class="stat"><small>رقم المشترك ID</small><strong id="afaqMemberId">—</strong></div><div class="stat"><small>Account number · رقم الحساب</small><strong id="afaqAccountNo" dir="ltr">—</strong></div><div class="stat"><small>الحالة</small><strong id="afaqMemberStatus">موثق بالخادم</strong></div></div>
+<div class="wallet-hub" id="afaqWalletHub">
+ <div class="wallet-balance"><small>ملخص الأرصدة المتاحة · من الخادم</small><strong id="afaqWalletTotal">—</strong><small id="afaqWalletSub">يتم تحميل الأرصدة الفعلية بعد التحقق من الجلسة</small></div>
+ <div id="afaqWalletCurrencies"></div>
+ <div class="wallet-actions">
+  <button type="button" data-wallet-panel="receive"><span>↓</span>استقبال الأموال</button>
+  <button type="button" data-wallet-panel="send"><span>↑</span>إرسال الأموال</button>
+  <button type="button" data-wallet-panel="history"><span>▤</span>المعاملات</button>
+  <button type="button" data-wallet-panel="limits"><span>◷</span>سعة الحساب</button>
+ </div>
+ <div class="wallet-panel" id="walletPanel-receive" hidden><h3>استقبال الأموال</h3><p>اختر استقبال دفعة عبر بوابة الدفع. لا تشارك كلمة المرور أو رمز الدخول.</p><button type="button" class="gold-action" id="afaqOpenCryptoWallet">فتح محفظة العملات الرقمية</button><p class="trade-warning">الإيداع لا يضاف إلى الرصيد إلا بعد تأكيد مزود الدفع والتحقق من إشعار الخادم.</p></div>
+ <div class="wallet-panel" id="walletPanel-send" hidden><h3>تحويل داخلي بين الأعضاء</h3><form id="afaqTransferForm"><label>رقم العضوية أو رقم الحساب<input name="recipient" required maxlength="80" autocomplete="off"></label><label>العملة<select name="currency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option><option>GBP</option><option>AED</option><option>SAR</option></select></label><label>المبلغ<input name="amount" type="number" min="0.01" step="0.01" required></label><label>ملاحظة اختيارية<input name="note" maxlength="160"></label><button class="gold-action" type="submit">مراجعة وإرسال التحويل</button><p id="afaqTransferMsg" role="status"></p></form></div>
+ <div class="wallet-panel" id="walletPanel-history" hidden><h3>آخر المعاملات</h3><div id="afaqWalletHistory">جارٍ التحميل…</div></div>
+ <div class="wallet-panel" id="walletPanel-limits" hidden><h3>سعة الحساب وحدود الاستخدام</h3><p>حدود الإيداع والسحب والتحويل تعتمد على مستوى التوثيق وسياسات الامتثال. لم تُضبط حدود مالية على الخادم بعد، لذلك لن نعرض أرقاماً تقديرية على أنها حدود فعلية.</p><p class="settings-note">مستوى التوثيق الحالي: <b id="afaqKycLevel">غير موثق</b></p></div>
+</div>
+<h3>بطاقة محفظة آفاق الرقمية</h3><div id="afaqMemberCardMount"></div><h3>بيانات المشترك</h3><p id="afaqMemberName">—</p><h3>IBAN</h3><p dir="ltr" id="afaqDemoIban">غير متاح — يتطلب شريكاً مصرفياً مرخصاً</p><div class="trade-warning">رقم الحساب الداخلي ليس IBAN مصرفياً. لا يمكن استخدامه لاستقبال حوالات مصرفية خارجية. رمز QR على البطاقة للتعريف برقم المشترك فقط، وليس عنوان إيداع.</div></div></section>`);
+ 
+ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-settings"><div class="view-head"><div><h2>إعدادات العضوية والأمان</h2><p>إدارة الملف التعريفي والتوثيق والتحقيق الأمني والإشعارات والإحالات والتفضيلات</p></div><span class="api-badge">إعدادات العضو</span></div>
+ <div class="settings-hub"><div class="settings-grid">
+ <button type="button" data-setting="identity">🪪 توثيق الحساب</button><button type="button" data-setting="security">🛡 التحقيق الأمني</button>
+ <button type="button" data-setting="profile">♙ الملف التعريفي</button><button type="button" data-setting="notifications">🔔 الإشعارات</button>
+ <button type="button" data-setting="referrals">♧ الإحالات</button><button type="button" data-setting="preferences">⚙ التفضيلات</button>
+ </div>
+ <div class="settings-panel" id="setting-identity" hidden><h3>توثيق الحساب وإثبات الهوية</h3><p class="settings-note">المرحلة الأولى: توثيق البريد الإلكتروني ورقم الهاتف برموز تحقق لمرة واحدة.</p><label>البريد الإلكتروني<input id="kycEmail" type="email" readonly></label><label>رقم الهاتف مع رمز الدولة<input id="kycPhone" type="tel" placeholder="+90…"></label><p>المرحلة الثانية: إثبات الهوية بأحد المستندات التالية:</p><label>نوع المستند<select id="kycDocType"><option value="">اختر نوع المستند</option><option>جواز سفر</option><option>بطاقة هوية</option><option>رخصة قيادة</option></select></label><label>ملف المستند<input id="kycDocument" type="file" accept="image/jpeg,image/png,application/pdf" disabled></label><label>صورة الوجه والتحقق من الحيوية<input id="kycSelfie" type="file" accept="image/jpeg,image/png" disabled></label><p class="settings-note">بعد التحقق من المستند، يجب إجراء فحص حيوية مباشر يطلب من العضو تحريك رأسه يميناً ويساراً ثم للأعلى والأسفل، وبعدها تتم مراجعة الطلب واعتماده من فريق مختص.</p><p class="trade-warning">رفع المستندات وفحص الوجه غير مفعّلين للإرسال حالياً. يلزم ربط مزود KYC معتمد وآمن قبل جمع صور الهوية أو البيانات البيومترية. لن تُحفظ هذه الملفات في المتصفح أو تُرسل إلى خادم غير مجهز.</p><p id="kycStatus" role="status">حالة التوثيق: لم يبدأ</p></div>
+ <div class="settings-panel" id="setting-security" hidden><h3>التحقيق الأمني والتحقق بخطوتين</h3><p>يتم اعتماد البريد الإلكتروني ورقم الهاتف المسجلين كقنوات تحقق.</p><label>رقم الهاتف<input id="securityPhone" type="tel" placeholder="+90…"></label><label>البريد الإلكتروني<input id="securityEmail" type="email" readonly></label><p class="settings-note">إرسال رموز OTP وإدارة المحاولات وانتهاء الصلاحية يتطلب إعداد خدمة رسائل وبريد على الخادم. لا نستخدم رمزاً ثابتاً أو تحققاً محلياً بديلاً عن ذلك.</p><button type="button" class="gold-action" disabled>إرسال رمز التحقق — يتطلب ربط مزود الرسائل والبريد</button><p>حالة التحقق: <b>بانتظار ربط خدمة OTP الآمنة</b></p></div>
+ <div class="settings-panel" id="setting-profile" hidden><h3>الملف التعريفي</h3><label>الاسم الكامل<input id="profileName" readonly></label><label>البريد الإلكتروني<input id="profileEmail" readonly></label><label>رقم العضوية<input id="profileMemberId" readonly></label></div>
+ <div class="settings-panel" id="setting-notifications" hidden><h3>الإشعارات</h3><label><input type="checkbox" checked disabled> إشعارات أمان الحساب</label><label><input type="checkbox" checked disabled> إشعارات التحويلات والمدفوعات</label><p class="settings-note">تفضيلات الإشعارات ستُحفظ على الخادم بعد إضافة واجهة إعداداتها.</p></div>
+ <div class="settings-panel" id="setting-referrals" hidden><h3>الإحالات</h3><p>سيظهر رمز الإحالة ومكافآتها هنا بعد تفعيل برنامج الإحالات واعتماد قواعده.</p></div>
+ <div class="settings-panel" id="setting-preferences" hidden><h3>التفضيلات</h3><label>اللغة<select id="memberLanguage"><option value="ar">العربية</option><option value="en">English</option><option value="tr">Türkçe</option></select></label><label>العملة المفضلة<select id="memberCurrency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option></select></label><p class="settings-note">التفضيلات المعروضة محلية حالياً، ولا تؤثر على أرصدة الحساب.</p></div></div></section>`);
+ const memberSettingsBtn=document.createElement('button');memberSettingsBtn.innerHTML='<span class="ico">⚙</span>إعدادات العضوية';memberSettingsBtn.dataset.view='member-settings';nav.appendChild(memberSettingsBtn);memberSettingsBtn.addEventListener('click',()=>go('member-settings'));
+const nav=document.querySelector('.nav'),accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>حساب المشترك';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));
  function show(message=''){gate.classList.add('show');$('afaqAuthMsg').textContent=message;$('afaqAuthNameWrap').style.display=mode==='signup'?'block':'none';$('afaqAuthSubmit').textContent=mode==='signup'?'إنشاء عضوية':'تسجيل الدخول';$('afaqAuthToggle').textContent=mode==='signup'?'لدي حساب':'إنشاء حساب جديد'}
 
  function afaqNumericRef(value,length=16){let h1=2166136261>>>0,h2=2246822519>>>0;const s=String(value||'AFAQ');for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^(c+i),3266489917)>>>0;}let digits=String(h1).padStart(10,'0')+String(h2).padStart(10,'0');return digits.slice(0,length).padStart(length,'0')}
@@ -909,8 +976,22 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  }
  function drawMemberQr(targetId,u){const box=$(targetId);if(!box)return;box.innerHTML='';if(window.QRCode){new QRCode(box,{text:'AFAQ-MEMBER:'+String(u.member_id||''),width:180,height:180,colorDark:'#e6b94e',colorLight:'#071522',correctLevel:QRCode.CorrectLevel.M});}else{box.textContent='QR غير متاح';}}
  function bindAfaqFlipCards(){document.querySelectorAll('[data-afaq-flip]').forEach(card=>{if(card.dataset.flipBound)return;card.dataset.flipBound='1';const flip=()=>{const on=card.classList.toggle('is-flipped');card.setAttribute('aria-pressed',String(on));};card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});});}
- function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=afaqNumericRef(String(u.account_number||u.member_id||'AFAQ')+'-ACCOUNT',16);$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqVirtualBackQr',u);drawMemberQr('afaqCryptoFrontQr',u);drawMemberQr('afaqCryptoBackQr',u);bindAfaqFlipCards()}}
+ function paint(u){member=u;$('afaqMemberId').textContent=u.member_id||'—';$('afaqAccountNo').textContent=afaqNumericRef(String(u.account_number||u.member_id||'AFAQ')+'-ACCOUNT',16);$('afaqMemberName').textContent=(u.name||u.full_name||'')+' · '+(u.email||'');$('afaqDemoIban').textContent=u.iban||'غير متاح — يتطلب شريكاً مصرفياً مرخصاً';const a=document.querySelector('.avatar');if(a)a.textContent=(u.name||u.email||'A').charAt(0).toUpperCase();['kycEmail','securityEmail','profileEmail'].forEach(id=>{if($(id))$(id).value=u.email||''});if($('profileName'))$('profileName').value=u.name||u.full_name||'';if($('profileMemberId'))$('profileMemberId').value=u.member_id||'';const mount=$('afaqMemberCardMount');if(mount){mount.innerHTML=memberCardMarkup(u);drawMemberQr('afaqVirtualBackQr',u);drawMemberQr('afaqCryptoFrontQr',u);drawMemberQr('afaqCryptoBackQr',u);bindAfaqFlipCards()}loadWallet().catch(e=>{$('afaqWalletSub').textContent='تعذر تحميل الرصيد: '+e.message})}
  async function api(path,options={}){const headers={...(options.headers||{})};const t=sessionStorage.getItem(tokenKey)||'';if(t)headers.Authorization='Bearer '+t;if(options.body!==undefined)headers['Content-Type']='application/json';const r=await fetch(API+path,{...options,headers,mode:'cors',credentials:'omit',cache:'no-store'});const data=await r.json().catch(()=>({}));if(!r.ok||data.ok===false)throw new Error(data.error||'تعذر تنفيذ الطلب ('+r.status+')');return data}
+
+ async function loadWallet(){
+  const data=await api('/api/member/me',{method:'GET'}),balances=Array.isArray(data.balances)?data.balances:[];
+  $('afaqWalletCurrencies').innerHTML=balances.map(x=>`<div class="wallet-row"><span>${String(x.currency)}</span><b dir="ltr">${Number(x.balance||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} ${String(x.currency)}</b></div>`).join('')||'<p>لا توجد أرصدة مسجلة.</p>';
+  $('afaqWalletTotal').textContent=balances.length+' عملات مسجلة';
+  $('afaqWalletSub').textContent='الأرصدة مفصولة حسب العملة ولا يتم جمع عملات مختلفة دون سعر صرف موثوق.';
+  $('afaqKycLevel').textContent='غير موثق — قيد استكمال إجراءات التحقق';
+  const h=await api('/api/member/transfers',{method:'GET'}).catch(()=>({transfers:[]}));
+  $('afaqWalletHistory').innerHTML=(h.transfers||[]).map(x=>`<div class="wallet-row"><span>${x.direction==='in'?'وارد من':'صادر إلى'} ${String(x.other_member_id||'').replace(/[<>&"]/g,'')}<small> · ${new Date(x.created_at).toLocaleString('ar')}</small></span><b dir="ltr">${Number(x.amount).toFixed(2)} ${String(x.currency)}</b></div>`).join('')||'<p>لا توجد تحويلات مسجلة حتى الآن.</p>';
+ }
+ document.querySelectorAll('[data-wallet-panel]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#afaqWalletHub .wallet-panel').forEach(p=>p.hidden=true);const panel=$('walletPanel-'+b.dataset.walletPanel);if(panel)panel.hidden=false;if(b.dataset.walletPanel==='history')loadWallet().catch(()=>{})}));
+ $('afaqOpenCryptoWallet').addEventListener('click',()=>{location.href='./crypto-wallet.html'});
+ $('afaqTransferForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,btn=f.querySelector('button[type=submit]'),msg=$('afaqTransferMsg');btn.disabled=true;msg.textContent='جارٍ التحقق من الرصيد والمستلم…';try{const fd=new FormData(f),key=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random()).replace(/[^A-Za-z0-9_-]/g,'');const result=await api('/api/member/transfer',{method:'POST',headers:{'Idempotency-Key':key},body:JSON.stringify({recipient:fd.get('recipient'),currency:fd.get('currency'),amount:fd.get('amount'),note:fd.get('note')})});msg.textContent='تم تنفيذ التحويل بنجاح. رقم العملية: '+(result.transfer_id||'—');f.reset();await loadWallet()}catch(err){msg.textContent='لم يتم التحويل: '+err.message}finally{btn.disabled=false}});
+ document.querySelectorAll('[data-setting]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#member-settings .settings-panel').forEach(p=>p.hidden=true);const p=$('setting-'+b.dataset.setting);if(p)p.hidden=false}));
  function activate(data){if(!data.token)throw new Error('لم يُرجع الخادم رمز جلسة صالحاً');sessionStorage.setItem(tokenKey,data.token);paint(data.member||{});gate.classList.remove('show')}
  $('afaqAuthToggle').onclick=()=>{mode=mode==='signup'?'login':'signup';show()};
  $('afaqAuthSubmit').onclick=async()=>{const email=$('afaqAuthEmail').value.trim().toLowerCase(),password=$('afaqAuthPassword').value,name=$('afaqAuthName').value.trim(),msg=$('afaqAuthMsg');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.textContent='أدخل بريداً إلكترونياً صحيحاً.';return}if(password.length<10){msg.textContent='كلمة المرور يجب ألا تقل عن 10 أحرف.';return}if(mode==='signup'&&name.length<2){msg.textContent='أدخل الاسم الكامل.';return}const btn=$('afaqAuthSubmit');btn.disabled=true;msg.textContent='جارٍ الاتصال بالخادم الآمن…';try{const result=await api(mode==='signup'?'/api/member/register':'/api/member/login',{method:'POST',body:JSON.stringify(mode==='signup'?{name,email,password}:{login:email,password})});activate(result)}catch(e){msg.textContent=e.message}finally{btn.disabled=false}};

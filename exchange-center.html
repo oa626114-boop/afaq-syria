@@ -1,0 +1,36 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071522"><title>مركز التداول | آفاق سوريا</title><style>
+:root{--navy:#071522;--navy2:#102b40;--navy3:#17394f;--gold:#d9b15f;--gold2:#f0d18b;--text:#f3e7c8;--muted:#c1b18a;--line:#806633;--panel:#0d2436}
+*{box-sizing:border-box}body{margin:0;background:var(--navy);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+a{color:var(--gold2)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.wrap{max-width:1050px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #806633;padding:12px 0 18px}
+.brand{color:var(--gold2);font-weight:bold;font-size:22px}.sub{font-size:12px;color:var(--muted)}
+h1,h2,h3{color:var(--gold2);margin:.25em 0}.panel{background:linear-gradient(145deg,#102b40,#0b1e2e);border:1px solid var(--line);border-radius:15px;padding:16px;margin:15px 0;box-shadow:0 12px 28px #0003}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin:8px 0;color:var(--gold2);font-size:13px}
+input,select,textarea{width:100%;background:#071a2b;color:var(--text);border:1px solid #806633;border-radius:9px;padding:11px;min-width:0}
+.btn{border:1px solid #d9b15f;border-radius:9px;background:#d9b15f;color:#071522;padding:10px 15px;font-weight:bold}
+.btn.secondary{background:#17394f;color:var(--gold2)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.notice{background:#30271c;color:#f0d18b;border:1px solid #806633;padding:12px;border-radius:10px;font-size:13px}
+.tile{background:#102b40;border:1px solid #806633;border-radius:12px;padding:14px}.muted{color:var(--muted);font-size:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}
+.badge{border:1px solid #806633;color:#f0d18b;border-radius:20px;padding:3px 9px;font-size:11px}
+table{width:100%;border-collapse:collapse}td,th{padding:10px;border-bottom:1px solid #294456;text-align:right;font-size:13px}
+footer{border-top:1px solid #294456;margin-top:28px;padding:14px;color:var(--muted);font-size:11px}
+@media(max-width:600px){.wrap{padding:12px}.panel{padding:12px}}
+</style></head><body><main class="wrap">
+<header class="top"><div><div class="brand">آفاق سوريا · مركز التداول</div><div class="sub">شراء وبيع العملات الرقمية عبر وسائل الدفع البنكية المتاحة قانونياً</div></div><a href="index.html">العودة إلى المنصة</a></header>
+<section class="panel"><h1>مركز شراء وبيع العملات الرقمية</h1><p class="muted">تجربة تداول منظمة مستوحاة من أسلوب أسواق P2P: عروض، تفاصيل سعر، وسيلة دفع، وطلب تداول مع حالة واضحة.</p>
+<div class="notice"><b>حالة التشغيل:</b> واجهة وتجهيزات أولية. لا تُرسل أموالاً إلى أي شخص من خلال هذه الصفحة. تنفيذ التداول البنكي يتطلب شريك دفع/حفظ مرخصاً، تحقق KYC/AML، نظام ضمان (Escrow) فعلياً، وتسوية مؤكدة من البنك. لم يتم تفعيل أي تحويل مالي حقيقي.</div></section>
+<section class="panel"><h2>إنشاء طلب شراء أو بيع</h2><div class="grid">
+<label class="field">نوع الطلب<select id="side"><option>شراء</option><option>بيع</option></select></label>
+<label class="field">الأصل الرقمي<select id="asset"><option>USDT</option><option>BTC</option><option>ETH</option><option>USDC</option><option>BNB</option><option>SOL</option><option>XRP</option><option>TRX</option><option>ADA</option><option>DOGE</option><option>LTC</option></select></label>
+<label class="field">الكمية<input id="qty" type="number" min="0" step="any" placeholder="أدخل الكمية"></label>
+<label class="field">عملة الدفع البنكي<select id="fiat"><option>TRY</option><option>USD</option><option>EUR</option></select></label>
+<label class="field">سعر الوحدة<input id="price" type="number" min="0" step="any" placeholder="السعر الذي تعرضه"></label>
+<label class="field">وسيلة الدفع البنكية<select id="bank"><option>تحويل بنكي محلي (بعد تفعيل الشريك)</option><option>تحويل IBAN (بعد التحقق)</option><option>وسيلة دفع معتمدة من مزود مرخص</option></select></label>
+</div><label class="field">ملاحظات العرض<textarea id="notes" rows="2" placeholder="الشروط ووقت التسوية — لا تضع بيانات مصرفية حساسة هنا"></textarea></label>
+<button class="btn" id="preview">معاينة الطلب</button><div id="previewResult" class="tile" hidden></div></section>
+<section class="panel"><h2>سوق العروض</h2><div class="grid"><div class="tile"><b>شراء USDT</b><p class="muted">عروض التجار الموثقين ستظهر هنا بعد ربط محرك السوق.</p><span class="badge">بانتظار الربط</span></div><div class="tile"><b>بيع USDT</b><p class="muted">عرض السعر والحدود ووسائل الدفع بعد تفعيل الشريك البنكي.</p><span class="badge">بانتظار الربط</span></div><div class="tile"><b>حماية التداول</b><p class="muted">قفل الأصل الرقمي والتحقق من الدفع وتسوية الطلب عبر نظام ضمان مرخص.</p><span class="badge">يتطلب Backend + Escrow</span></div></div></section>
+<section class="panel"><h2>طلبات التداول</h2><p class="muted">سيظهر هنا رقم الطلب، الطرف المقابل، الأصل، المبلغ، حالة الدفع، وحالة التسوية بعد ربط الخادم.</p><table><thead><tr><th>الطلب</th><th>الأصل</th><th>الحالة</th></tr></thead><tbody><tr><td colspan="3" class="muted">لا توجد طلبات حقيقية حتى الآن.</td></tr></tbody></table></section>
+<footer>آفاق سوريا · لا تعتبر هذه الواجهة منصة تداول أو خدمة حفظ أموال مفعّلة حتى اكتمال الترخيص والربط والاختبارات.</footer></main><script>
+document.getElementById('preview').addEventListener('click',()=>{const q=Number(document.getElementById('qty').value),p=Number(document.getElementById('price').value);const a=document.getElementById('asset').value,f=document.getElementById('fiat').value,s=document.getElementById('side').value;const box=document.getElementById('previewResult');box.hidden=false;box.textContent=Number.isFinite(q)&&q>0&&Number.isFinite(p)&&p>0?`معاينة غير ملزمة: ${s} ${q} ${a} بسعر ${p} ${f}، الإجمالي ${ (q*p).toFixed(2)} ${f}. لم يتم إنشاء طلب أو حجز أموال.`:'أدخل كمية وسعراً صحيحين للمعاينة.';});
+</script></body></html>

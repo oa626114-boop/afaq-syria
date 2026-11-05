@@ -552,7 +552,7 @@ async function handle(req, env) {
     return reply(req,env,{ok:true,withdrawals:(rows.results||[]).map(x=>({...x,amount:Number(x.amount_minor)/100}))});
   }
 
-  if (req.method === "POST" && /^\\/api\\/bank\\/withdrawals\\/AFW-[A-Za-z0-9-]+\\/cancel$/.test(path)) {
+  if (req.method === "POST" && /^\/api\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/cancel$/.test(path)) {
     const auth=await getAuth(req,env);
     if(!auth) return reply(req,env,{ok:false,error:"Unauthorized"},401);
     const id=path.split("/")[4];
@@ -570,7 +570,7 @@ async function handle(req, env) {
   }
 
   // Use only after the payout was actually completed through an authorized partner.
-  if (req.method === "POST" && /^\\/api\\/admin\\/bank\\/withdrawals\\/AFW-[A-Za-z0-9-]+\\/mark-paid$/.test(path)) {
+  if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/mark-paid$/.test(path)) {
     if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
     let body; try{body=await req.json()}catch{return reply(req,env,{ok:false,error:"Invalid JSON"},400)}
     const payoutRef=String(body.payout_reference||"").trim().slice(0,100);

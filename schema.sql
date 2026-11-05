@@ -47,3 +47,21 @@ CREATE TABLE IF NOT EXISTS call_signals (
  created_at TEXT NOT NULL, consumed_at TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_call_signals_recipient ON call_signals(recipient_id,created_at);
+
+
+-- AFAQ BANK withdrawal requests. Funds are not debited when requested.
+CREATE TABLE IF NOT EXISTS bank_withdrawal_requests (
+ withdrawal_id TEXT PRIMARY KEY,
+ idempotency_key TEXT NOT NULL UNIQUE,
+ member_id TEXT NOT NULL,
+ currency TEXT NOT NULL,
+ amount_minor INTEGER NOT NULL CHECK(amount_minor > 0),
+ method TEXT NOT NULL DEFAULT 'bank_transfer',
+ note TEXT,
+ status TEXT NOT NULL DEFAULT 'pending',
+ payout_reference TEXT UNIQUE,
+ created_at TEXT NOT NULL,
+ processed_at TEXT,
+ processed_by TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_bank_withdrawals_member ON bank_withdrawal_requests(member_id,created_at);

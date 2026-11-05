@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b40"><title>AFAQ MINING</title>
+<style>
+:root{--navy:#102b40;--navy2:#17394f;--navy3:#20465d;--gold:#d9b15f;--gold2:#f0d18b;--pale:#dce8ef;--muted:#a8bdca;--line:#426075}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#071522,#102b40 60%,#17394f);color:var(--pale);font-family:Tahoma,Arial,sans-serif;min-height:100vh}
+main{max-width:980px;margin:auto;padding:22px}.hero,.panel{background:#17394f;border:1px solid #426075;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 12px 30px #06152266}
+.hero{text-align:center;background:linear-gradient(120deg,#102b40,#20465d)}h1,h2,h3{color:var(--gold2);margin:0 0 10px}.bee{font-size:68px;filter:drop-shadow(0 0 12px #d9b15f);display:inline-block;animation:float 2s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px) rotate(5deg)}}
+.sub{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat{background:#102b40;border:1px solid var(--line);border-radius:14px;padding:16px}.label{color:var(--muted);font-size:12px}.value{font-size:25px;color:var(--gold2);font-weight:bold;margin-top:7px;direction:ltr;text-align:right}
+button,input{font:inherit}button{border:0;border-radius:10px;padding:13px 18px;font-weight:bold;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#102b40;cursor:pointer}button.secondary{background:#294b61;color:var(--pale);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.field{display:grid;gap:7px;margin:12px 0}.field label{color:var(--gold2);font-size:13px}.field input{width:100%;padding:12px;border-radius:9px;border:1px solid var(--line);background:#102b40;color:#fff}.notice{border-right:3px solid var(--gold);padding:10px 12px;background:#102b40;color:var(--muted);font-size:12px;line-height:1.8}.status{color:var(--gold2);font-size:13px;margin-top:12px;min-height:22px}
+@media(max-width:600px){main{padding:13px}.grid{grid-template-columns:1fr}.value{font-size:22px}}
+</style></head>
+<body><main>
+<section class="hero"><div class="bee" aria-label="نحلة التعدين">🐝</div><h1>AFAQ MINING</h1><p class="sub">نظام المكافآت بالنقاط والتحويل إلى USDT عبر شبكة TRC20</p></section>
+<section class="grid">
+<div class="stat"><div class="label">رصيد نقاط التعدين</div><div class="value" id="points">— AFQ</div></div>
+<div class="stat"><div class="label">المكافآت المحوّلة / المستحقة</div><div class="value" id="usdt">— USDT</div></div>
+</section>
+<section class="panel"><h2>جلسة التعدين</h2><p class="sub">تُحتسب المكافآت من الخادم فقط وفق معدل معلن ومفعّل من الإدارة. لا تُحتسب النقاط بمجرد تحريك الشاشة.</p>
+<div class="actions"><button id="start" disabled>🐝 بدء التعدين</button><button id="stop" class="secondary" disabled>إنهاء الجلسة</button><button id="refresh" class="secondary">تحديث الرصيد</button></div><div id="session" class="status">يلزم تسجيل الدخول إلى حساب العضو أولاً.</div></section>
+<section class="panel"><h2>طلب تحويل المكافآت</h2><div class="field"><label for="amount">عدد نقاط AFQ المراد تحويلها</label><input id="amount" type="number" min="1" step="1" placeholder="مثال: 1000"></div>
+<div class="field"><label for="address">عنوان محفظة USDT — TRC20</label><input id="address" type="text" dir="ltr" placeholder="يبدأ عادةً بالحرف T"></div>
+<div class="notice">الشبكة المعتمدة: TRON (TRC20) فقط. يجب التأكد من أن العنوان يستقبل USDT على TRC20. الطلب يمر بمراجعة الإدارة؛ لا يتم إرسال USDT تلقائياً من هذه الواجهة. لا تضع المفتاح الخاص أو عبارة الاسترداد هنا.</div>
+<div class="actions"><button id="withdraw" disabled>إرسال طلب التحويل</button></div><div id="withdrawStatus" class="status"></div></section>
+<section class="panel"><h2>سجل المكافآت والتحويلات</h2><div class="sub">سيظهر السجل بعد ربط واجهات API وتسجيل الدخول.</div><div id="history" class="status">لا توجد بيانات معروضة بعد.</div></section>
+</main>
+<script>
+/* UI shell only: wire to authenticated Worker endpoints after backend migration and review. */
+const $=id=>document.getElementById(id);
+const token=sessionStorage.getItem("afaq_member_token")||sessionStorage.getItem("member_token")||"";
+const logged=!!token;
+$("start").disabled=!logged;$("withdraw").disabled=!logged;
+$("session").textContent=logged?"تم العثور على جلسة دخول. اربط الواجهة بخدمات التعدين قبل تفعيل الأزرار.":"يلزم تسجيل الدخول إلى حساب العضو أولاً.";
+$("refresh").addEventListener("click",()=>{$("session").textContent=logged?"لم يتم ربط API التعدين بعد. لا يوجد رصيد تجريبي معروض.":"سجّل الدخول أولاً."});
+$("start").addEventListener("click",()=>{$("session").textContent="خدمة التعدين الخلفية غير مفعّلة بعد؛ لم تبدأ جلسة أو تُحتسب نقاط."});
+$("stop").addEventListener("click",()=>{$("session").textContent="لا توجد جلسة خلفية مفعّلة."});
+$("withdraw").addEventListener("click",()=>{
+ const n=Number($("amount").value),a=$("address").value.trim();
+ if(!Number.isSafeInteger(n)||n<=0){$("withdrawStatus").textContent="أدخل عدداً صحيحاً موجباً من النقاط.";return}
+ if(!/^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(a)){$("withdrawStatus").textContent="تحقق من عنوان TRON / TRC20 (34 حرفاً يبدأ بـ T).";return}
+ $("withdrawStatus").textContent="واجهة الطلب جاهزة شكلياً فقط؛ لم يُرسل طلب ولم يُخصم رصيد لأن API لم يُفعّل بعد.";
+});
+</script></body></html>

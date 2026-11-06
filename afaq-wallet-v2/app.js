@@ -1,13 +1,15 @@
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);
-  const state = { api: localStorage.getItem('afaq_wallet_api_base') || '', token: sessionStorage.getItem('afaq_wallet_token') || '', member: null, summary: null, mode: 'login' };
+  const AFAQ_API_BASE = 'https://omax-api-105a.oa626114.workers.dev';
+  const state = { api: AFAQ_API_BASE, token: sessionStorage.getItem('afaq_wallet_token') || '', member: null, summary: null, mode: 'login' };
+  try { localStorage.setItem('afaq_wallet_api_base', AFAQ_API_BASE); } catch {}
   const fmt = (n, digits = 6) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: digits });
   const message = (id, text, error = false) => { const el = $(id); if (el) { el.textContent = text; el.classList.toggle('error', !!error); } };
   function toast(text) { const el = $('toast'); el.textContent = text; el.classList.add('show'); clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('show'), 2800); }
   function base() { return state.api.replace(/\/+$/, ''); }
   async function api(path, options = {}) {
-    if (!base()) throw new Error('يرجى ضبط رابط Worker أولاً من زر الإعدادات.');
+    if (!base()) throw new Error('تعذر الاتصال بخادم آفاق. يرجى المحاولة لاحقاً.');
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
     if (state.token) headers.Authorization = `Bearer ${state.token}`;
     const response = await fetch(base() + path, { ...options, headers });
@@ -169,7 +171,7 @@
     else if (action === 'refresh') refresh();
     else if (action === 'security') toast('تتم إدارة كلمة المرور والجلسات من حساب آفاق سوريا.');
   }));
-  $('settingsOpen').addEventListener('click', () => { $('apiBaseInput').value = state.api; $('settingsDialog').showModal(); });
+  const settingsButton = $('settingsOpen'); if (settingsButton) settingsButton.hidden = true;
   $('saveApiBtn').addEventListener('click', testConnection);
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', async () => { try { const registration = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }); await registration.update(); } catch {} });
   if (state.api) { $('apiBaseInput').value = state.api; if (state.token) loadWallet().catch(e => { clearSession(); message('authMessage', e.message, true); }); }

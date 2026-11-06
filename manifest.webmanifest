@@ -1,13 +1,13 @@
 {
-  "name": "AFAQ WALLET",
-  "short_name": "AFAQ WALLET",
-  "description": "محفظة آفاق الرقمية",
+  "name": "AFAQ SYRIA",
+  "short_name": "AFAQ SYRIA",
+  "description": "منصة آفاق سوريا للأعمال والخدمات",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b2230",
-  "theme_color": "#102b3b",
+  "background_color": "#071522",
+  "theme_color": "#102b40",
   "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

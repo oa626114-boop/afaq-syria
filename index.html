@@ -683,6 +683,11 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 #crypto-wallet .cw-card-foot{margin-top:22px;font-size:11px;color:#f4e5bf}
 #crypto-wallet .cw-card-status{border:1px solid #c7a55d;border-radius:20px;padding:5px 9px;white-space:nowrap}
 #crypto-wallet .cw-card-disclaimer{max-width:520px;margin:8px auto 0;font-size:11px;color:#d8c79f;line-height:1.7}
+#crypto-wallet .cw-crypto-code{position:relative;z-index:2;display:flex;align-items:center;gap:9px;margin:12px 0 0 auto;width:max-content;max-width:100%;padding:7px 9px;border:1px solid #c6a45d;border-radius:9px;background:#10263a}
+#crypto-wallet .cw-crypto-code svg{width:62px;height:62px;flex:0 0 62px}
+#crypto-wallet .cw-crypto-code small{max-width:145px;font-size:9px;line-height:1.5;color:#f5d992}
+#crypto-wallet .cw-wallet-card{min-height:240px}
+
 </style>
 <div class="cw-card-wrap">
  <div class="cw-wallet-card" role="img" aria-label="بطاقة محفظة آفاق الرقمية التجريبية">
@@ -691,6 +696,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
   <div class="cw-card-sub">CRYPTO WALLET · MULTI-ASSET</div>
   <div class="cw-card-sub" style="margin-top:12px">اسم المشترك: <b id="cwMemberName">بانتظار تسجيل الدخول</b></div>
   <div class="cw-card-sub">رقم الحساب: <b id="cwMemberAccount" dir="ltr">—</b></div>
+  <div class="cw-crypto-code" aria-label="رمز QR تجريبي غير قابل للمسح"><svg viewBox="0 0 84 84" role="img" aria-label="رمز QR تجريبي"><rect width="84" height="84" rx="5" fill="#fff"/><g fill="#10263a"><path d="M5 5h24v24H5zM9 9v16h16V9zM13 13h8v8h-8zM55 5h24v24H55zM59 9v16h16V9zM63 13h8v8h-8zM5 55h24v24H5zM9 59v16h16V59zM13 63h8v8h-8zM36 5h5v5h-5zM45 5h5v5h-5zM36 14h5v5h-5zM45 23h5v5h-5zM32 32h5v5h-5zM41 32h5v5h-5zM50 32h5v5h-5zM59 32h5v5h-5zM68 32h5v5h-5zM32 41h5v5h-5zM41 41h5v5h-5zM55 41h5v5h-5zM68 41h5v5h-5zM32 50h5v5h-5zM41 50h5v5h-5zM50 50h5v5h-5zM59 50h5v5h-5zM68 50h5v5h-5zM36 59h5v5h-5zM45 59h5v5h-5zM55 59h5v5h-5zM64 59h5v5h-5zM36 68h5v5h-5zM45 68h5v5h-5zM55 68h5v5h-5zM73 68h5v5h-5zM32 77h5v3h-5zM50 77h5v3h-5zM64 77h5v3h-5z"/></g></svg><small>رمز المحفظة يظهر بعد ربط عنوان الإيداع الحقيقي</small></div>
   <div class="cw-card-foot"><span>BTC · ETH · USDT · USDC</span><span class="cw-card-status">تجريبية — غير مفعّلة</span></div>
  </div>
  <div class="cw-card-disclaimer">بطاقة Bitcoin تعريفية داخل محفظة العملات الرقمية فقط. ليست بطاقة Visa أو Mastercard ولا تتضمن CVV أو تاريخ انتهاء أو بيانات دفع. لا توجد أرصدة حقيقية أو خدمات سحب قبل ربط مزوّد حفظ مرخّص.</div>
@@ -1286,12 +1292,12 @@ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account
 </div></article>
 <article class="afaq-member-card" data-card-code="VISA">
 <div class="afaq-flip-inner" role="button" tabindex="0" aria-label="اقلب بطاقة Visa الفعلية لإظهار بيانات المشترك">
-<div class="afaq-card-face afaq-card-front"><img src="bank-card-assets/visa-physical-card.svg" alt="تصميم بطاقة Visa الفعلية"><div class="afaq-flip-hint">اضغط لقلب البطاقة</div></div>
+<div class="afaq-card-face afaq-card-front"><img src="bank-card-assets/virtual-card.svg" alt="تصميم بطاقة Visa الفعلية"><div class="afaq-flip-hint">اضغط لقلب البطاقة</div></div>
 <div class="afaq-card-face afaq-card-back"><div><b>AFAQ BANK</b><small>بطاقة Visa الفعلية</small><small>اسم المشترك</small><b data-card-name>—</b><small>رقم المشترك ID</small><b data-member-id>—</b><small>رقم البطاقة التعريفي</small><div class="afaq-card-number" data-card-number>—</div><small>رقم الحساب: <span data-account-no>—</span></small><small>تاريخ الانتهاء: <span>بانتظار جهة الإصدار</span></small><small>CVV: <span>غير صادر — لا يُنشأ تجريبياً</span></small></div><div><span class="afaq-card-state">تصميم تجريبي — غير مفعّلة</span><div class="afaq-flip-hint">اضغط للعودة إلى الوجه الأمامي</div></div></div>
 </div></article>
 <article class="afaq-member-card" data-card-code="MASTER">
 <div class="afaq-flip-inner" role="button" tabindex="0" aria-label="اقلب بطاقة Mastercard الفعلية لإظهار بيانات المشترك">
-<div class="afaq-card-face afaq-card-front"><img src="bank-card-assets/mastercard-physical-card.svg" alt="تصميم بطاقة Mastercard الفعلية"><div class="afaq-flip-hint">اضغط لقلب البطاقة</div></div>
+<div class="afaq-card-face afaq-card-front"><img src="bank-card-assets/virtual-card.svg" alt="تصميم بطاقة Mastercard الفعلية"><div class="afaq-flip-hint">اضغط لقلب البطاقة</div></div>
 <div class="afaq-card-face afaq-card-back"><div><b>AFAQ BANK</b><small>بطاقة Mastercard الفعلية</small><small>اسم المشترك</small><b data-card-name>—</b><small>رقم المشترك ID</small><b data-member-id>—</b><small>رقم البطاقة التعريفي</small><div class="afaq-card-number" data-card-number>—</div><small>رقم الحساب: <span data-account-no>—</span></small><small>تاريخ الانتهاء: <span>بانتظار جهة الإصدار</span></small><small>CVV: <span>غير صادر — لا يُنشأ تجريبياً</span></small></div><div><span class="afaq-card-state">تصميم تجريبي — غير مفعّلة</span><div class="afaq-flip-hint">اضغط للعودة إلى الوجه الأمامي</div></div></div>
 </div></article>
 </div><div class="trade-warning">رقم العضوية بصيغة حرفين OA ثم أرقام فقط. رقم الحساب أرقام فقط. التخصيص الحالي داخل ملف العضو على هذا الجهاز؛ يلزم نقل التخصيص إلى قاعدة بيانات الخادم لضمان التفرد والمزامنة بين الأجهزة.</div></div></section>`);const nav=document.querySelector('.nav');const accountBtn=document.createElement('button');accountBtn.innerHTML='<span class="ico">♙</span>مصرف آفاق';accountBtn.dataset.view='member-account';nav.appendChild(accountBtn);accountBtn.addEventListener('click',()=>go('member-account'));

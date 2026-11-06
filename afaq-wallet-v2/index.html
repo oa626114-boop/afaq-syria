@@ -34,7 +34,7 @@
   <section id="walletPanel" hidden>
     <div class="welcome"><div><p class="eyebrow">AFAQ SYRIA · WALLET</p><h1>مرحباً بك في <span>آفاق</span></h1><p class="muted">إدارة رصيدك ومكافآت التعدين من مكان واحد.</p></div><span class="status" id="connectionStatus"><i></i> متصل</span></div>
     <div class="account-bar"><span id="memberName">العضو</span><span id="memberId" dir="ltr">—</span><button id="logoutBtn" class="outline-btn" type="button">خروج</button></div>
-    <article class="balance-card">
+    <article class="balance-card" id="balanceCard">
       <div class="card-top"><span>رصيد مكافآت آفاق</span><span class="coin">AFAQ</span></div>
       <div class="balance"><span id="afaqBalance">—</span> <small>AFAQ</small></div>
       <p class="muted">نقاط مكافآت داخلية للمنصة، وليست عملة رقمية على البلوكشين أو قيمة نقدية.</p>
@@ -53,7 +53,7 @@
       <p class="fineprint">لا يتم إنشاء أي رصيد عند تعذّر الاتصال بالخادم أو إذا لم يكن التعدين مفعّلاً.</p>
     </section>
     <section class="quick"><div class="section-head"><h2>الخدمات</h2></div><div class="service-grid">
-      <button class="service" data-action="transfer" type="button"><span>⇄</span>تحويل داخلي</button>
+      <button class="service" data-action="transfer" type="button"><span>⇄</span>تحويل داخلي</button>\n      <button class="service wallet-shortcut" data-action="wallet" type="button"><span>▣</span>المحفظة</button>
       <button class="service" data-action="history" type="button"><span>▤</span>السجل</button>
       <button class="service" data-action="refresh" type="button"><span>↻</span>استعلام</button>
       <button class="service" data-action="security" type="button"><span>♙</span>الأمان</button>
@@ -72,7 +72,7 @@
     </section>
   </section>
 </main>
-<nav class="bottom-nav" aria-label="التنقل"><a class="active" href="#top" data-scroll="walletPanel"><span>⌂</span>الرئيسية</a><a href="#miningSection" data-scroll="miningSection"><span>🐝</span>التعدين</a><a href="#historySection" data-scroll="historySection"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>تحويل</a></nav>
+<nav class="bottom-nav" aria-label="التنقل"><a href="#balanceCard" data-action="wallet"><span>▣</span>المحفظة</a><a href="#miningSection" data-action="mining"><span>🐝</span>التعدين</a><a href="#historySection" data-action="history"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>التحويلات</a></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <dialog id="settingsDialog" class="settings-dialog"><form method="dialog"><div class="section-head"><h2>إعدادات الاتصال</h2><button class="outline-btn" value="cancel">إغلاق</button></div><label>رابط AFAQ Worker<input id="apiBaseInput" type="url" placeholder="https://your-worker.your-subdomain.workers.dev" required></label><p class="fineprint">أدخل عنوان Worker المنشور الذي يحتوي على مسارات /api/member و /api/wallet. لا تضع مفاتيح API أو أسراراً في هذا الحقل.</p><button class="gold-btn login-submit" id="saveApiBtn" value="default" type="button">حفظ واختبار الاتصال</button><p id="apiMessage" class="message" role="status"></p></form></dialog>
 <script src="./app.js" defer></script>

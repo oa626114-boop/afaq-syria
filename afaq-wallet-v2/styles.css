@@ -40,3 +40,16 @@ body.auth-mode .login-panel input{min-height:48px;font-size:16px}
 body.auth-mode .auth-tab,body.auth-mode .gold-btn{min-height:48px;font-size:14px}
 body.auth-mode .eyebrow{font-size:12px}
 @media(max-width:520px){body.auth-mode .shell{width:calc(100% - 28px);min-height:calc(100svh - 120px)}body.auth-mode .login-panel{padding:22px 18px}}
+
+/* Robust mobile layout for browsers reporting a desktop-sized CSS viewport. */
+#walletNav[hidden],body.auth-mode #walletNav{display:none!important}
+body.auth-mode .shell{width:calc(100% - 32px);max-width:900px}
+body.auth-mode .login-panel{width:100%;max-width:none}
+@media (min-width:521px) and (max-width:1100px){
+ body.auth-mode .shell{width:calc(100% - 48px);max-width:920px;min-height:calc(100svh - 170px)}
+ body.auth-mode .login-panel{padding:clamp(26px,4vw,42px)}
+ body.auth-mode .login-panel h1{font-size:clamp(28px,3.2vw,38px)}
+ body.auth-mode .login-panel p,.login-panel label{font-size:clamp(14px,1.5vw,17px)}
+ body.auth-mode .login-panel input{min-height:56px;font-size:17px}
+ body.auth-mode .auth-tab,body.auth-mode .gold-btn{min-height:56px;font-size:16px}
+}

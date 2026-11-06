@@ -671,6 +671,28 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 </style>
 <div class="view-head"><div><h2>محفظة العملات الرقمية</h2><p>محفظة متعددة الأصول — واجهة تجريبية بانتظار ربط مزوّد حفظ مرخّص</p></div><span class="pill">وضع تجريبي</span></div>
 <div class="warning">هذه واجهة محفظة تجريبية فقط. لا توجد أرصدة حقيقية أو عناوين إيداع أو مفاتيح خاصة. لا ترسل أي أموال إلى المنصة قبل ربط مزوّد حفظ مرخّص واختبار الأمان.</div>
+<style>
+#crypto-wallet .cw-card-wrap{margin:12px 0 16px}
+#crypto-wallet .cw-wallet-card{position:relative;overflow:hidden;min-height:178px;max-width:520px;margin:auto;padding:20px;border:1px solid #c6a45d;border-radius:18px;background:radial-gradient(circle at 85% 15%,#31516a 0,transparent 38%),linear-gradient(125deg,#173c55,#0a1d2d 72%);box-shadow:0 12px 28px #0005;color:#f5d992}
+#crypto-wallet .cw-wallet-card:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #d8b96d55;border-radius:50%;left:-55px;bottom:-125px;box-shadow:0 0 0 18px #d8b96d0d,0 0 0 38px #d8b96d0a}
+#crypto-wallet .cw-card-head,#crypto-wallet .cw-card-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+#crypto-wallet .cw-card-brand{font-size:18px;font-weight:800;letter-spacing:1.5px}
+#crypto-wallet .cw-card-chip{width:34px;height:26px;border:1px solid #e5c77d;border-radius:6px;background:linear-gradient(135deg,#d9bd78,#6d613e)}
+#crypto-wallet .cw-card-title{margin:22px 0 5px;font-size:17px;font-weight:700;position:relative;z-index:1}
+#crypto-wallet .cw-card-sub{font-size:11px;color:#e1d0a7;position:relative;z-index:1}
+#crypto-wallet .cw-card-foot{margin-top:22px;font-size:11px;color:#f4e5bf}
+#crypto-wallet .cw-card-status{border:1px solid #c7a55d;border-radius:20px;padding:5px 9px;white-space:nowrap}
+#crypto-wallet .cw-card-disclaimer{max-width:520px;margin:8px auto 0;font-size:11px;color:#d8c79f;line-height:1.7}
+</style>
+<div class="cw-card-wrap">
+ <div class="cw-wallet-card" role="img" aria-label="بطاقة محفظة آفاق الرقمية التجريبية">
+  <div class="cw-card-head"><span class="cw-card-brand">AFAQ <span style="color:#fff">WALLET</span></span><span class="cw-card-chip" aria-hidden="true"></span></div>
+  <div class="cw-card-title">بطاقة المحفظة الرقمية</div>
+  <div class="cw-card-sub">CRYPTO WALLET · MULTI-ASSET</div>
+  <div class="cw-card-foot"><span>BTC · ETH · USDT · USDC</span><span class="cw-card-status">تجريبية — غير مفعّلة</span></div>
+ </div>
+ <div class="cw-card-disclaimer">بطاقة تعريفية لواجهة المحفظة فقط، وليست بطاقة دفع أو سحب صادرة عن جهة مالية. سيتم تفعيل خدمات البطاقة بعد ربط جهة إصدار معتمدة.</div>
+</div>
 <div class="cw-balance"><div class="cw-top"><span>إجمالي قيمة المحفظة التقديرية</span><span class="pill">DEMO</span></div><strong>$0.00 USD</strong><div class="cw-note">الرصيد الفعلي سيظهر بعد ربط حساب الحفظ ومزامنة الأرصدة من الخادم.</div>
 <div class="cw-actions"><button type="button" data-cw-action="receive">↓ استلام</button><button type="button" data-cw-action="send">↑ إرسال</button><button type="button" data-cw-action="buy">＋ شراء</button><button type="button" data-cw-action="swap">⇄ تبديل</button></div></div>
 <div class="cw-tabs" role="tablist"><button class="active" data-cw-tab="wallet">المحفظة</button><button data-cw-tab="buy">شراء</button><button data-cw-tab="swap">تبديل</button><button data-cw-tab="perps">العقود</button><button data-cw-tab="poly">الأسواق</button><button data-cw-tab="earn">العوائد</button></div>

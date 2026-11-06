@@ -1287,6 +1287,14 @@ content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account
 #afaqMemberCards .afaq-card-back b{font-size:clamp(13px,2vw,18px)}
 #afaqMemberCards .afaq-card-back small{display:block;color:#eee0bf;margin-top:7px;overflow-wrap:anywhere}
 #afaqMemberCards .afaq-card-back .afaq-card-number{font-size:clamp(13px,2vw,18px);letter-spacing:1px;color:#fff;margin-top:8px;direction:ltr;text-align:right}
+#afaqMemberCards [data-card-code="VIRTUAL"] .afaq-card-back{background:linear-gradient(145deg,#24465b 0%,#102b40 48%,#071522 100%)}
+#afaqMemberCards [data-card-code="VIRTUAL"] .afaq-card-back:after{content:"AFAQ • VIRTUAL MEMBER";display:block;margin-top:8px;padding:8px 10px;border:1px solid #c7a45d;border-radius:7px;color:#e9cc87;font-size:9px;letter-spacing:1.5px;text-align:center}
+#afaqMemberCards [data-card-code="VISA"] .afaq-card-back{background:linear-gradient(145deg,#1d3d53 0%,#102638 52%,#071522 100%)}
+#afaqMemberCards [data-card-code="VISA"] .afaq-card-back:after{content:"AFAQ BANK  •  VISA";display:block;margin-top:8px;padding:8px 10px;border-top:1px solid #c7a45d;border-bottom:1px solid #c7a45d;color:#f0d18b;font-size:10px;letter-spacing:2px;text-align:right}
+#afaqMemberCards .afaq-card-back:before{flex:0 0 9px}
+#afaqMemberCards .afaq-card-back{gap:8px}
+@media(max-width:560px){#afaqMemberCards .afaq-card-back{padding:12px;gap:5px}#afaqMemberCards .afaq-card-back small{font-size:9px;margin-top:4px}}
+
 #afaqMemberCards .afaq-card-state{display:inline-block;margin-top:8px;padding:4px 8px;border:1px solid #806633;border-radius:20px;font-size:10px;color:#f0d18b}
 #afaqMemberCards .afaq-flip-hint{font-size:10px;color:#d9b15f;text-align:center}
 @media(max-width:560px){#afaqMemberCards{grid-template-columns:1fr}}

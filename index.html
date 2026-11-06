@@ -320,6 +320,77 @@ tbody tr:hover td{background:#102b40}
 .afaq-password-wrap{display:flex;align-items:center;position:relative}.afaq-password-wrap input{padding-left:48px!important}.afaq-eye{position:absolute;left:5px;width:38px;height:34px;border:1px solid #806633!important;border-radius:7px!important;background:#17394f!important;color:#f0d18b!important;flex:none!important;padding:4px!important}
 #member-account{color:#f0d18b;background:#0b2030;border:1px solid #806633;border-radius:14px;padding:16px}#member-account .view-head h2,#member-account h3{color:#f0d18b}#member-account p,#member-account small{color:#e6d8b5}#member-account .stat{background:#102b40;border:1px solid #806633;color:#f0d18b}#member-account .stat strong{color:#f0d18b}
 </style>
+
+<style id="afaq-global-ui-repair">
+/* AFAQ SYRIA — global visual consistency and mobile layout repair */
+:root{
+ --paper:#071522!important;--ink:#f4f0e6!important;--muted:#d9c99f!important;
+ --line:#66552f!important;--white:#102b40!important;--shadow:0 12px 30px #0005!important;
+}
+html,body{background:#071522!important;color:#f4f0e6!important}
+body{overflow-x:hidden}
+.shell{background:#071522;min-height:100vh}
+.main{background:#071522;min-width:0}
+.topbar{background:linear-gradient(110deg,#0b2030,#102b40)!important;border-bottom:1px solid #806633!important;color:#f0d18b!important}
+.topbar .page-title,.topbar .eyebrow{color:#f0d18b!important}
+.avatar{background:linear-gradient(135deg,#f0d18b,#b68d3c)!important;color:#071522!important}
+.content{background:#071522;color:#f4f0e6}
+.stat,.panel,.module-card,.quick,.settings-card,.report-card,.trade-card,.api-card,.modal-box{
+ background:linear-gradient(145deg,#102b40,#0b2030)!important;
+ border:1px solid #66552f!important;color:#f4f0e6!important;
+ box-shadow:0 8px 24px #0003!important;
+}
+.panel h2,.panel h3,.module-card h3,.page-title,.stat strong,.stat b,.quick strong{color:#f0d18b!important}
+p,small,.panel p,.module-card p,.view-head p,.field,.hint,.empty{color:#e6d8b5}
+.btn:not(.gold):not(.ghost){background:#17394f!important;color:#f0d18b!important;border:1px solid #806633!important}
+.btn.gold,.gold-action{background:linear-gradient(135deg,#f0d18b,#c99a43)!important;color:#071522!important}
+.btn.ghost{background:#102b40!important;color:#f0d18b!important}
+input,select,textarea{background:#071522!important;color:#f4f0e6!important;border:1px solid #806633!important}
+input::placeholder,textarea::placeholder{color:#b9aa82!important}
+select option{background:#102b40;color:#f4f0e6}
+table{background:#0b2030!important}
+th{background:#17394f!important;color:#f0d18b!important}
+td{background:#0b2030!important;color:#f4f0e6!important}
+tr:hover td{background:#17394f!important}
+hr,.divider{border-color:#66552f!important}
+.portfolio-photo{background:#102b40!important;border:1px solid #806633!important;overflow:hidden}
+.portfolio-photo img{display:block;width:100%;min-height:170px;aspect-ratio:16/10;object-fit:cover;background:linear-gradient(135deg,#071522,#17394f)}
+.portfolio-photo figcaption{background:#102b40!important;color:#f0d18b!important}
+.nav button{color:#e6d8b5!important}
+.nav button.active,.nav button:hover{background:#17394f!important;color:#f0d18b!important;border:1px solid #806633!important}
+.sidebar{border-left:1px solid #806633}
+#galleryTitle,#pageTitle,.view-head h2{color:#f0d18b!important}
+#afaqBankCards{grid-template-columns:repeat(2,minmax(0,1fr))}
+#afaqBankCards .afaq-bank-card{max-width:100%}
+@media(max-width:900px){
+ .shell{display:block!important;min-height:100vh}
+ .sidebar{
+  position:fixed!important;z-index:40;top:0;right:0;bottom:0;width:min(300px,86vw)!important;height:100dvh!important;
+  transform:translateX(110%);transition:transform .25s ease;box-shadow:-18px 0 40px #0008;
+ }
+ .sidebar.open{transform:translateX(0)}
+ .main{width:100%;min-width:0}
+ .topbar{height:62px;padding:0 12px;z-index:20}
+ .content{padding:14px 11px!important}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px}
+ .quick-grid,.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .bank-layout{grid-template-columns:1fr!important}
+ .table-wrap{max-width:100%;overflow-x:auto}
+}
+@media(max-width:560px){
+ #afaqBankCards{grid-template-columns:1fr!important;max-width:520px;margin-inline:auto}
+ .afaq-bank-card-inner{aspect-ratio:1.586}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .quick-grid,.module-grid{grid-template-columns:1fr 1fr!important}
+ .content{padding:12px 9px!important}
+ .topbar .page-title{font-size:14px}
+ .welcome{flex-direction:column;align-items:flex-start}
+ .portfolio-toolbar{display:flex;flex-wrap:wrap;gap:7px}
+ .portfolio-toolbar button{max-width:100%}
+ .form-grid{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){.sidebar{transition:none!important}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -617,7 +688,6 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 .afaq-bank-backgrid b{display:block;color:#fff0bd;overflow-wrap:anywhere}
 .afaq-bank-note{font-size:clamp(8px,1.1vw,10px);line-height:1.5;color:#e6d5ad}
 #afaqBankCards .afaq-bank-card:nth-child(2) .afaq-bank-mark{color:#f6d36e}
-#afaqBankCards .afaq-bank-card:nth-child(3) .afaq-bank-mark{color:#f6d36e}
 .afaq-bank-card:focus-visible .afaq-bank-face{outline:3px solid #fff0a6;outline-offset:4px}
 .afaq-bank-hint{font-size:11px;color:#f0d18b;text-align:center;margin:5px 0 14px}
 @media(max-width:560px){#afaqBankCards{grid-template-columns:1fr;gap:16px}.afaq-bank-face{border-radius:16px;padding:12px}.afaq-bank-details{font-size:9px}.afaq-bank-details b{font-size:10px}.afaq-bank-number{font-size:15px}.afaq-bank-head strong{font-size:15px}.afaq-bank-type{font-size:9px}}
@@ -653,19 +723,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="afaq-bank-backgrid"><span>اسم المشترك<b data-bank-card-name>—</b></span><span>رقم العضوية<b data-bank-member-id>—</b></span><span>رقم الحساب<b data-bank-account>—</b></span><span>الحالة<b>غير مُصدرة</b></span></div>
 <div class="afaq-bank-note">تصميم توضيحي فقط. لا تستخدم للدفع ولا تحمل بيانات بطاقة مصرفية حقيقية.</div>
 </div></div></article>
-<article class="afaq-bank-card" data-bank-flip tabindex="0" role="button" aria-label="اقلب بطاقة Mastercard" aria-pressed="false">
-<div class="afaq-bank-card-inner">
-<div class="afaq-bank-face">
-<div class="afaq-bank-head"><strong>مصرف آفاق <small>AFAQ BANK</small></strong><span class="afaq-bank-type">بطاقة Mastercard<br>MASTERCARD</span></div>
-<div class="afaq-bank-chip" aria-hidden="true"></div><div class="afaq-bank-number">AFQ •••• <span data-bank-card-suffix>000000</span></div>
-<div class="afaq-bank-details"><span>اسم حامل البطاقة<b data-bank-card-name>—</b></span><span>رقم العضوية ID<b data-bank-member-id>—</b></span></div>
-<div class="afaq-bank-foot"><small>نموذج تصميم · يتطلب جهة إصدار مرخصة</small><b class="afaq-bank-mark">●●</b></div>
-</div>
-<div class="afaq-bank-face afaq-bank-back">
-<div class="afaq-bank-head"><strong>AFAQ BANK</strong><span class="afaq-bank-type">MASTERCARD</span></div><div class="afaq-bank-stripe"></div>
-<div class="afaq-bank-backgrid"><span>اسم المشترك<b data-bank-card-name>—</b></span><span>رقم العضوية<b data-bank-member-id>—</b></span><span>رقم الحساب<b data-bank-account>—</b></span><span>الحالة<b>غير مُصدرة</b></span></div>
-<div class="afaq-bank-note">تصميم توضيحي فقط. لا تستخدم للدفع ولا تحمل بيانات بطاقة مصرفية حقيقية.</div>
-</div></div></article>
+
 </div>
 <p class="afaq-bank-hint">اضغط على البطاقة لقلبها وإظهار الوجه الخلفي</p>
 </div>
@@ -1068,7 +1126,7 @@ function openPortfolio(index){
  document.getElementById('portfolioGallery').innerHTML=galleryPhotos.map((item,i)=>{
   const photo=item.photo;const url=String(photo[1]).startsWith('data:')?photo[1]:'https://images.unsplash.com/'+photo[1]+'?auto=format&fit=crop&w=1000&q=82';
   const token=item.extraIndex!==null?'extra:'+item.extraIndex:'base:'+item.baseIndex;
-  return `<figure class="portfolio-photo" data-token="${token}" data-image="${url}"><input class="photo-select" type="checkbox" aria-label="تحديد ${esc(photo[0])}"><img src="${url}" alt="${esc(photo[0])}" loading="lazy" onerror="this.style.opacity='.25';this.alt='تعذر تحميل الصورة — تحقق من الاتصال بالإنترنت'"><figcaption><small>${String(i+1).padStart(2,'0')}</small>${esc(photo[0])}</figcaption></figure>`;
+  return `<figure class="portfolio-photo" data-token="${token}" data-image="${url}"><input class="photo-select" type="checkbox" aria-label="تحديد ${esc(photo[0])}"><img src="${url}" alt="${esc(photo[0])}" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 760%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x2=%221%22 y2=%221%22%3E%3Cstop stop-color=%22%23071522%22/%3E%3Cstop offset=%221%22 stop-color=%22%2317394f%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%221200%22 height=%22760%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M0 620 Q300 460 600 620 T1200 600%22 fill=%22none%22 stroke=%22%23d9b15f%22 stroke-width=%226%22/%3E%3Ctext x=%22600%22 y=%22340%22 fill=%22%23f0d18b%22 font-size=%2260%22 text-anchor=%22middle%22 font-family=%22Arial%22%3EAFAQ SYRIA%3C/text%3E%3Ctext x=%22600%22 y=%22410%22 fill=%22%23ffffff%22 font-size=%2230%22 text-anchor=%22middle%22 font-family=%22Arial%22%3Eصورة المشروع%3C/text%3E%3C/svg%3E';this.alt='صورة تعريفية مؤقتة — تعذر تحميل الصورة الأصلية'"><figcaption><small>${String(i+1).padStart(2,'0')}</small>${esc(photo[0])}</figcaption></figure>`;
  }).join('');
  const gallery=document.getElementById('portfolioGallery');gallery.classList.remove('remove-enabled');document.querySelector('.portfolio-toolbar').classList.remove('remove-enabled');const removeBtn=document.getElementById('galleryRemoveMode');removeBtn.setAttribute('aria-pressed','false');removeBtn.textContent='− إزالة الصور';
  gallery.querySelectorAll('.portfolio-photo img').forEach(img=>img.addEventListener('click',()=>{if(gallery.classList.contains('remove-enabled')){const cb=img.closest('.portfolio-photo').querySelector('.photo-select');cb.checked=!cb.checked;cb.dispatchEvent(new Event('change',{bubbles:true}));}else openGalleryLightbox(img.src)}));

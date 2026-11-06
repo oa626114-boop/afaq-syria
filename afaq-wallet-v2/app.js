@@ -131,7 +131,7 @@
   }));
   $('settingsOpen').addEventListener('click', () => { $('apiBaseInput').value = state.api; $('settingsDialog').showModal(); });
   $('saveApiBtn').addEventListener('click', testConnection);
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', async () => { try { const registration = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }); await registration.update(); } catch {} });
   if (state.api) { $('apiBaseInput').value = state.api; if (state.token) loadWallet().catch(e => { clearSession(); message('authMessage', e.message, true); }); }
   setMode('login');
 })();

@@ -686,21 +686,56 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 #crypto-wallet .cw-crypto-code{position:relative;z-index:2;display:flex;align-items:center;gap:9px;margin:12px 0 0 auto;width:max-content;max-width:100%;padding:7px 9px;border:1px solid #c6a45d;border-radius:9px;background:#10263a}
 #crypto-wallet .cw-crypto-code svg{width:62px;height:62px;flex:0 0 62px}
 #crypto-wallet .cw-crypto-code small{max-width:145px;font-size:9px;line-height:1.5;color:#f5d992}
+#crypto-wallet .cw-card-scene{max-width:560px;margin:auto;perspective:1200px;cursor:pointer;outline:none}
+#crypto-wallet .cw-card-rotator{position:relative;aspect-ratio:1.586;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.7,.2,1)}
+#crypto-wallet .cw-card-scene.is-flipped .cw-card-rotator{transform:rotateY(180deg)}
+#crypto-wallet .cw-wallet-card{position:absolute;inset:0;min-height:0;max-width:none;margin:0;padding:clamp(12px,3vw,22px);border:2px solid #c99b37;border-radius:18px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:radial-gradient(circle at 75% 45%,#183d56 0,transparent 42%),linear-gradient(135deg,#061522,#0c2940 60%,#071522);box-shadow:0 12px 28px #0007;color:#f4d486}
+#crypto-wallet .cw-card-front:before{content:"";position:absolute;inset:8px;border:1px solid #d8ad4d88;border-radius:12px;pointer-events:none}
+#crypto-wallet .cw-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:1}
+#crypto-wallet .cw-card-brand{font-size:clamp(13px,3vw,21px);font-weight:900;color:#f4d486}
+#crypto-wallet .cw-card-brand small{display:block;font-size:clamp(8px,1.8vw,12px);letter-spacing:2px}
+#crypto-wallet .cw-card-label{text-align:left;font-size:clamp(9px,2vw,13px);font-weight:bold;line-height:1.5}
+#crypto-wallet .cw-card-label small{font-weight:normal}
+#crypto-wallet .cw-card-art{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:clamp(12px,3vw,25px) 0 5px;position:relative;z-index:1}
+#crypto-wallet .cw-card-chip{width:clamp(34px,8vw,54px);height:clamp(26px,6vw,40px);margin:0;border-radius:7px}
+#crypto-wallet .cw-bitcoin-mark{width:clamp(48px,12vw,84px);height:clamp(48px,12vw,84px);display:grid;place-items:center;border:3px double #e4b84f;border-radius:50%;font-size:clamp(34px,8vw,60px);font-weight:900;color:#f4c85c;text-shadow:0 0 14px #f4c85c88;box-shadow:0 0 0 7px #d9ad3d22,0 0 22px #e6b94b66}
+#crypto-wallet .cw-coin-tags{display:grid;gap:3px;font-size:clamp(8px,1.8vw,11px)}
+#crypto-wallet .cw-coin-tags b{padding:2px 6px;border:1px solid #b88c36;border-radius:12px;background:#071522aa;white-space:nowrap}
+#crypto-wallet .cw-card-number{position:relative;z-index:1;font-size:clamp(11px,3vw,19px);letter-spacing:2px;color:#f4d486;margin-top:2px}
+#crypto-wallet .cw-card-foot{position:relative;z-index:1;margin-top:clamp(7px,2vw,14px);font-size:clamp(9px,2vw,13px)}
+#crypto-wallet .cw-card-status{position:relative;z-index:1;display:inline-block;margin-top:7px;padding:3px 8px;border:1px solid #c6a45d;border-radius:20px;font-size:clamp(8px,1.7vw,10px)}
+#crypto-wallet .cw-card-back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+#crypto-wallet .cw-back-strip{height:22%;margin:0 -22px;background:linear-gradient(#05090d,#171c22 55%,#05090d);border-block:1px solid #c79b42}
+#crypto-wallet .cw-back-title{font-size:clamp(9px,2vw,13px);letter-spacing:1px}
+#crypto-wallet .cw-back-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#crypto-wallet .cw-back-grid small{display:block;color:#d8c18b;font-size:clamp(8px,1.8vw,10px)}
+#crypto-wallet .cw-back-grid b{display:block;color:#fff0bd;font-size:clamp(9px,2vw,13px);overflow-wrap:anywhere}
+#crypto-wallet .cw-back-note{font-size:clamp(8px,1.8vw,11px);line-height:1.5;color:#e5d5ad}
+#crypto-wallet .cw-card-flip-hint{text-align:center;color:#d9b15f;font-size:11px;margin:9px 0}
+#crypto-wallet .cw-card-disclaimer{max-width:560px}
 #crypto-wallet .cw-wallet-card{min-height:240px}
 
 </style>
 <div class="cw-card-wrap">
- <div class="cw-wallet-card" role="img" aria-label="بطاقة محفظة آفاق الرقمية التجريبية">
-  <div class="cw-card-head"><span class="cw-card-brand">AFAQ <span style="color:#fff">WALLET</span></span><span class="cw-card-chip" aria-hidden="true"></span></div>
-  <div class="cw-card-title">بطاقة Bitcoin ومحفظة الأصول الرقمية</div>
-  <div class="cw-card-sub">CRYPTO WALLET · MULTI-ASSET</div>
-  <div class="cw-card-sub" style="margin-top:12px">اسم المشترك: <b id="cwMemberName">بانتظار تسجيل الدخول</b></div>
-  <div class="cw-card-sub">رقم المشترك ID: <b id="cwMemberId" dir="ltr">—</b></div>
-  <div class="cw-card-sub">رقم الحساب: <b id="cwMemberAccount" dir="ltr">—</b></div>
-  <div class="cw-crypto-code" aria-label="رمز QR تجريبي غير قابل للمسح"><svg viewBox="0 0 84 84" role="img" aria-label="رمز QR تجريبي"><rect width="84" height="84" rx="5" fill="#fff"/><g fill="#10263a"><path d="M5 5h24v24H5zM9 9v16h16V9zM13 13h8v8h-8zM55 5h24v24H55zM59 9v16h16V9zM63 13h8v8h-8zM5 55h24v24H5zM9 59v16h16V59zM13 63h8v8h-8zM36 5h5v5h-5zM45 5h5v5h-5zM36 14h5v5h-5zM45 23h5v5h-5zM32 32h5v5h-5zM41 32h5v5h-5zM50 32h5v5h-5zM59 32h5v5h-5zM68 32h5v5h-5zM32 41h5v5h-5zM41 41h5v5h-5zM55 41h5v5h-5zM68 41h5v5h-5zM32 50h5v5h-5zM41 50h5v5h-5zM50 50h5v5h-5zM59 50h5v5h-5zM68 50h5v5h-5zM36 59h5v5h-5zM45 59h5v5h-5zM55 59h5v5h-5zM64 59h5v5h-5zM36 68h5v5h-5zM45 68h5v5h-5zM55 68h5v5h-5zM73 68h5v5h-5zM32 77h5v3h-5zM50 77h5v3h-5zM64 77h5v3h-5z"/></g></svg><small>رمز المحفظة يظهر بعد ربط عنوان الإيداع الحقيقي</small></div>
-  <div class="cw-card-foot"><span>BTC · ETH · USDT · USDC</span><span class="cw-card-status">تجريبية — غير مفعّلة</span></div>
+ <div class="cw-card-scene" id="cwCardScene" role="button" tabindex="0" aria-label="اضغط لقلب بطاقة محفظة آفاق وإظهار الوجه الخلفي">
+  <div class="cw-card-rotator">
+   <div class="cw-wallet-card cw-card-front">
+    <div class="cw-card-head"><span class="cw-card-brand">مصرف آفاق <small>AFAQ BANK</small></span><span class="cw-card-label">بطاقة المحفظة الرقمية<br><small>CRYPTO WALLET CARD</small></span></div>
+    <div class="cw-card-art"><span class="cw-card-chip" aria-hidden="true"></span><div class="cw-bitcoin-mark">₿</div><div class="cw-coin-tags"><b>₮ USDT</b><b>◆ ETH</b><b>₿ BTC</b><b>◉ TRX</b></div></div>
+    <div class="cw-card-number" dir="ltr">AFAQ · <span id="cwCardShortId">MEMBER</span></div>
+    <div class="cw-card-foot"><b id="cwMemberName">بانتظار تسجيل الدخول</b><span>CRYPTO WALLET</span></div>
+    <div class="cw-card-status">بطاقة تعريفية — غير مفعّلة للدفع</div>
+   </div>
+   <div class="cw-wallet-card cw-card-back">
+    <div class="cw-back-strip"></div><div class="cw-back-title">AFAQ BANK · MEMBER WALLET</div>
+    <div class="cw-back-grid"><div><small>اسم المشترك</small><b id="cwBackName">—</b></div><div><small>رقم المشترك ID</small><b id="cwMemberId" dir="ltr">—</b></div><div><small>رقم الحساب</small><b id="cwMemberAccount" dir="ltr">—</b></div><div><small>نوع البطاقة</small><b>محفظة أصول رقمية</b></div></div>
+    <div class="cw-back-note">رمز QR ورقم المحفظة الفعلي يظهران بعد ربط مزوّد الحفظ وإصدار عنوان خاص بالمشترك من الخادم.</div>
+    <div class="cw-card-status">تعريفية فقط · لا تستقبل الأموال حالياً</div>
+   </div>
+  </div>
  </div>
- <div class="cw-card-disclaimer">بطاقة Bitcoin تعريفية داخل محفظة العملات الرقمية فقط. ليست بطاقة Visa أو Mastercard ولا تتضمن CVV أو تاريخ انتهاء أو بيانات دفع. لا توجد أرصدة حقيقية أو خدمات سحب قبل ربط مزوّد حفظ مرخّص.</div>
+ <div class="cw-card-flip-hint">اضغط على البطاقة لقلبها وإظهار الوجه الخلفي</div>
+ <div class="cw-card-disclaimer">هذه بطاقة المحفظة الرقمية الخاصة بالمشترك نفسه في آفاق سوريا وآفاق WALLET. لا تمثل بطاقة Visa أو Mastercard، ولا يوجد عنوان إيداع حقيقي قبل ربط مزوّد حفظ مرخّص.</div>
 </div>
 <div class="cw-balance"><div class="cw-top"><span>إجمالي قيمة المحفظة التقديرية</span><span class="pill">DEMO</span></div><strong>$0.00 USD</strong><div class="cw-note">الرصيد الفعلي سيظهر بعد ربط حساب الحفظ ومزامنة الأرصدة من الخادم.</div>
 <div class="cw-actions"><button type="button" data-cw-action="receive">↓ استلام</button><button type="button" data-cw-action="send">↑ إرسال</button><button type="button" data-cw-action="buy">＋ شراء</button><button type="button" data-cw-action="swap">⇄ تبديل</button></div></div>
@@ -717,6 +752,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <script>
 (function(){
 const root=document.getElementById('crypto-wallet');if(!root||root.dataset.ready)return;root.dataset.ready='1';
+const card=root.querySelector('#cwCardScene');if(card){const flip=()=>card.classList.toggle('is-flipped');card.addEventListener('click',flip);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});}
 const coins=[
 ['BTC','Bitcoin','₿'],['ETH','Ethereum','Ξ'],['BERA','Berachain','B'],['HYPE','Hyperliquid','H'],['IP','Story','I'],['S','Sonic','S'],['GAS','Gas','G'],['QTUM','Qtum','Q'],['ZEC','Zcash','Z'],['BCH','Bitcoin Cash','B'],['DGB','DigiByte','D'],['DOGE','Dogecoin','Ð'],['BAND','Band Protocol','B'],['DOT','Polkadot','P'],['SOL','Solana','S'],['NEAR','NEAR Protocol','N'],['FET','Artificial Superintelligence','F'],['BNB','BNB','B'],['ADA','Cardano','A'],['TRX','TRON','T'],['USDT','Tether USD','₮'],['USDC','USD Coin','$'],['XRP','XRP','X'],['LINK','Chainlink','L'],['AVAX','Avalanche','A']
 ];
@@ -1269,7 +1305,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
 <script>
 (()=>{'use strict';const $=id=>document.getElementById(id),gate=$('afaqAuthGate');if(!gate)return;let mode='signup';const usersKey='afaq_demo_users_v1',sessionKey='afaq_demo_session_v1';const read=()=>{try{return JSON.parse(localStorage.getItem(usersKey)||'{}')}catch(_){return {}}};const hash=async(v,s)=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+'|'+v));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')};
 const content=document.querySelector('.content');document.addEventListener('click',e=>{const inner=e.target.closest('#afaqMemberCards .afaq-flip-inner');if(inner){const card=inner.closest('.afaq-member-card');card.classList.toggle('is-flipped');inner.setAttribute('aria-pressed',card.classList.contains('is-flipped')?'true':'false');}});document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('#afaqMemberCards .afaq-flip-inner')){e.preventDefault();e.target.closest('.afaq-member-card').classList.toggle('is-flipped');}});
-window.AFAQ_UPDATE_MEMBER_CARDS=(m)=>{const name=m.name||m.full_name||'—';const id=m.member_id||m.memberId||'—';const account=m.account_number||m.accountNumber||'—';document.querySelectorAll('#afaqMemberCards [data-card-name]').forEach(el=>el.textContent=name);document.querySelectorAll('#afaqMemberCards [data-member-id]').forEach(el=>el.textContent=id);document.querySelectorAll('#afaqMemberCards [data-account-no]').forEach(el=>el.textContent=account);document.querySelectorAll('#afaqMemberCards [data-card-number]').forEach((el,i)=>{const tail=String(id).replace(/\\D/g,'').slice(-6).padStart(6,'0');el.textContent='AFQ-'+tail+'-'+(['01','02'][i]||'00');});const wn=document.getElementById('cwMemberName'),wi=document.getElementById('cwMemberId'),wa=document.getElementById('cwMemberAccount');if(wn)wn.textContent=name;if(wi)wi.textContent=id;if(wa)wa.textContent=account;};
+window.AFAQ_UPDATE_MEMBER_CARDS=(m)=>{const name=m.name||m.full_name||'—';const id=m.member_id||m.memberId||'—';const account=m.account_number||m.accountNumber||'—';document.querySelectorAll('#afaqMemberCards [data-card-name]').forEach(el=>el.textContent=name);document.querySelectorAll('#afaqMemberCards [data-member-id]').forEach(el=>el.textContent=id);document.querySelectorAll('#afaqMemberCards [data-account-no]').forEach(el=>el.textContent=account);document.querySelectorAll('#afaqMemberCards [data-card-number]').forEach((el,i)=>{const tail=String(id).replace(/\\D/g,'').slice(-6).padStart(6,'0');el.textContent='AFQ-'+tail+'-'+(['01','02'][i]||'00');});const wn=document.getElementById('cwMemberName'),wi=document.getElementById('cwMemberId'),wa=document.getElementById('cwMemberAccount');if(wn)wn.textContent=name;const bn=document.getElementById('cwBackName'),cs=document.getElementById('cwCardShortId');if(bn)bn.textContent=name;if(cs)cs.textContent=String(id).replace(/^OA/,'OA');if(wi)wi.textContent=id;if(wa)wa.textContent=account;};
 content.insertAdjacentHTML('beforeend',`<section class="view" id="member-account"><style>
 #afaqMemberCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
 #afaqMemberCards .afaq-member-card{border:0;background:transparent;box-shadow:none;perspective:1100px;min-width:0}

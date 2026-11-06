@@ -18,7 +18,7 @@
     }
     return data;
   }
-  function clearSession() { state.token = ''; state.member = null; sessionStorage.removeItem('afaq_wallet_token'); $('walletPanel').hidden = true; $('authPanel').hidden = false; }
+  function clearSession() { state.token = ''; state.member = null; sessionStorage.removeItem('afaq_wallet_token'); $('walletPanel').hidden = true; $('authPanel').hidden = false; $('walletNav').hidden = true; document.body.classList.add('auth-mode'); document.querySelectorAll('[data-action].is-selected').forEach(el => { el.classList.remove('is-selected'); el.removeAttribute('aria-current'); el.querySelector('.tap-indicator')?.remove(); }); }
   function setMode(mode) {
     state.mode = mode;
     document.querySelectorAll('[data-auth-mode]').forEach(b => b.classList.toggle('active', b.dataset.authMode === mode));
@@ -56,7 +56,7 @@
     const [me, summary] = await Promise.all([api('/api/member/me'), api('/api/wallet/summary')]);
     state.member = me.member; $('memberName').textContent = me.member.name || me.member.email;
     $('memberId').textContent = me.member.member_id || '—';
-    renderSummary(summary); $('authPanel').hidden = true; $('walletPanel').hidden = false;
+    renderSummary(summary); $('authPanel').hidden = true; $('walletPanel').hidden = false; $('walletNav').hidden = false; document.body.classList.remove('auth-mode');
     await loadHistory();
   }
   async function refresh() { try { const data = await api('/api/wallet/summary'); renderSummary(data); toast('تم تحديث الرصيد من الخادم'); } catch (e) { toast(e.message); } }

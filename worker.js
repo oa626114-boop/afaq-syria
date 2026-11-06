@@ -1,6 +1,6 @@
 // AFAQ SYRIA — Cloudflare Worker: payments + member accounts + internal transfers
 // Bindings: D1 database named DB
-// Secrets: NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET, SESSION_PEPPER
+// Secrets: NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET, SESSION_PEPPER, ADMIN_API_TOKEN
 // Vars: ALLOWED_ORIGIN=https://oa626114-boop.github.io (exact origin)
 // IMPORTANT: Member account numbers are internal identifiers, NOT bank IBANs.
 // A real IBAN must be issued by a licensed bank/payment partner.
@@ -43,7 +43,7 @@ async function sha256(value) {
 async function passwordHash(password, salt) {
   const material = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", salt: enc.encode(salt), iterations: 310000, hash: "SHA-256" },
+    { name: "PBKDF2", salt: enc.encode(salt), iterations: 100000, hash: "SHA-256" },
     material, 256
   );
   return b64url(bits);
@@ -55,9 +55,9 @@ function safeEqual(a, b) {
   return n === 0;
 }
 function newMemberId() {
-  // Public member ID format: OA + 8 digits (10 characters total).
-  const bytes = new Uint8Array(8);
-  crypto.getRandomValues(bytes);
+  // Public member ID format: OA followed by nine digits. The UNIQUE constraint
+  // and registration retry loop below guarantee collision-safe allocation.
+  const bytes = crypto.getRandomValues(new Uint8Array(9));
   return "OA" + Array.from(bytes, b => String(b % 10)).join("");
 }
 function newAccountNumber() {
@@ -80,7 +80,7 @@ async function ensureTables(env) {
     )`,
     `CREATE TABLE IF NOT EXISTS members (
       id TEXT PRIMARY KEY, member_id TEXT NOT NULL UNIQUE, account_number TEXT NOT NULL UNIQUE,
-      email TEXT NOT NULL UNIQUE, full_name TEXT NOT NULL DEFAULT '', password_salt TEXT NOT NULL, password_hash TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE, full_name TEXT NOT NULL DEFAULT '', phone TEXT NOT NULL DEFAULT '', password_salt TEXT NOT NULL, password_hash TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL
     )`,
     `CREATE TABLE IF NOT EXISTS member_sessions (
@@ -117,14 +117,6 @@ async function ensureTables(env) {
           NEW.amount_minor,'payment_in',NEW.created_at);
       END`,
     `CREATE INDEX IF NOT EXISTS idx_ledger_member ON account_ledger(member_id, created_at)`,
-    `CREATE TABLE IF NOT EXISTS bank_withdrawal_requests (
-      withdrawal_id TEXT PRIMARY KEY, idempotency_key TEXT NOT NULL UNIQUE,
-      member_id TEXT NOT NULL, currency TEXT NOT NULL, amount_minor INTEGER NOT NULL CHECK(amount_minor > 0),
-      method TEXT NOT NULL DEFAULT 'bank_transfer', note TEXT,
-      status TEXT NOT NULL DEFAULT 'pending', payout_reference TEXT UNIQUE,
-      created_at TEXT NOT NULL, processed_at TEXT, processed_by TEXT
-    )`,
-    `CREATE INDEX IF NOT EXISTS idx_bank_withdrawals_member ON bank_withdrawal_requests(member_id, created_at)`,
     `CREATE TABLE IF NOT EXISTS auth_rate_limits (
       rate_key TEXT PRIMARY KEY, window_start INTEGER NOT NULL, attempts INTEGER NOT NULL
     )`,
@@ -132,6 +124,7 @@ async function ensureTables(env) {
   for (const sql of statements) await env.DB.prepare(sql).run();
   // Backward-compatible migrations for databases created by earlier Worker versions.
   try { await env.DB.prepare("ALTER TABLE members ADD COLUMN full_name TEXT NOT NULL DEFAULT ''").run(); } catch {}
+  try { await env.DB.prepare("ALTER TABLE members ADD COLUMN phone TEXT NOT NULL DEFAULT ''").run(); } catch {}
   try { await env.DB.prepare("ALTER TABLE afaq_payments ADD COLUMN created_by TEXT").run(); } catch {}
 }
 
@@ -176,9 +169,8 @@ async function getAuth(req, env) {
 function amountToMinor(value) {
   const n = Number(value);
   if (!Number.isFinite(n) || n <= 0 || n > 100000000) return null;
-  const scaled = n * 100;
-  const minor = Math.round(scaled);
-  if (!Number.isSafeInteger(minor) || minor <= 0 || Math.abs(scaled - minor) > 1e-7) return null;
+  const minor = Math.round(n * 100);
+  if (!Number.isSafeInteger(minor) || minor <= 0) return null;
   return minor;
 }
 const currencies = new Set(["USD", "EUR", "TRY", "SYP", "GBP", "CAD", "AUD", "AED", "SAR"]);
@@ -217,8 +209,7 @@ async function handle(req, env) {
       members: true,
       payments: { crypto: !!env.NOWPAYMENTS_API_KEY && !!env.NOWPAYMENTS_IPN_SECRET, cards: false },
       endpoints: ["/api/member/register", "/api/member/login", "/api/member/me",
-        "/api/member/logout", "/api/member/transfer", "/api/member/transfers", "/api/bank/overview", "/api/bank/transactions", "/api/bank/withdrawals", "/api/bank/withdrawals/:id/cancel", "/api/admin/bank/withdrawals", "/api/admin/bank/withdrawals/:id/mark-paid", "/api/admin/bank/withdrawals/:id/reject",
-        "/api/chat/members", "/api/chat/conversations", "/api/chat/conversations/:id/messages", "/api/calls/signal", "/api/calls/signals",
+        "/api/member/logout", "/api/member/transfer", "/api/member/transfers",
         "/api/payment/create", "/api/payment/status", "/api/payment/ipn"],
       time: now()
     }, database ? 200 : 503);
@@ -231,6 +222,7 @@ async function handle(req, env) {
     let body; try { body = await req.json(); } catch { return reply(req, env, { ok:false, error:"Invalid JSON" }, 400); }
     const email = String(body.email || "").trim().toLowerCase();
     const fullName = String(body.name || body.full_name || "").trim().slice(0,120);
+    const phone = String(body.phone || "").replace(/\D/g, "").slice(0,20);
     const password = String(body.password || "");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
       return reply(req, env, { ok:false, error:"Enter a valid email address" }, 400);
@@ -249,9 +241,9 @@ async function handle(req, env) {
       memberId = newMemberId(); accountNumber = newAccountNumber(); internalId = crypto.randomUUID();
       try {
         await env.DB.prepare(
-          `INSERT INTO members(id,member_id,account_number,email,full_name,password_salt,password_hash,created_at)
-           VALUES(?,?,?,?,?,?,?,?)`
-        ).bind(internalId, memberId, accountNumber, email, fullName, salt, hash, now()).run();
+          `INSERT INTO members(id,member_id,account_number,email,full_name,phone,password_salt,password_hash,created_at)
+           VALUES(?,?,?,?,?,?,?,?,?)`
+        ).bind(internalId, memberId, accountNumber, email, fullName, phone, salt, hash, now()).run();
         break;
       } catch (e) {
         if (attempt === 3) {
@@ -269,7 +261,7 @@ async function handle(req, env) {
     await env.DB.prepare("INSERT INTO member_sessions(token_hash,member_id,expires_at,created_at) VALUES(?,?,?,?)")
       .bind(tokenHash, internalId, expires, now()).run();
     return reply(req, env, { ok:true, token, expires_at:expires,
-      member:{ member_id:memberId, account_number:accountNumber, email, name:fullName, iban:null, iban_status:"pending_bank_partner" } }, 201);
+      member:{ member_id:memberId, account_number:accountNumber, email, phone, name:fullName, iban:null, iban_status:"pending_bank_partner" } }, 201);
   }
 
   // Member login by email OR member ID
@@ -292,7 +284,7 @@ async function handle(req, env) {
     await env.DB.prepare("INSERT INTO member_sessions(token_hash,member_id,expires_at,created_at) VALUES(?,?,?,?)")
       .bind(tokenHash, row.id, expires, now()).run();
     return reply(req, env, { ok:true, token, expires_at:expires,
-      member:{ member_id:row.member_id, account_number:row.account_number, email:row.email, name:row.full_name || '', iban:null, iban_status:"pending_bank_partner" } });
+      member:{ member_id:row.member_id, account_number:row.account_number, email:row.email, phone:row.phone || '', name:row.full_name || '', iban:null, iban_status:"pending_bank_partner" } });
   }
 
   if (req.method === "POST" && path === "/api/member/logout") {
@@ -315,299 +307,89 @@ async function handle(req, env) {
   }
 
 
-  // Secure member-to-member messaging and WebRTC signaling (D1).
-  // Media uploads are intentionally not accepted until a private R2 bucket and
-  // malware/content scanning pipeline are configured.
-  const chatTables = [
-    `CREATE TABLE IF NOT EXISTS chat_conversations (
-      id TEXT PRIMARY KEY, member_a TEXT NOT NULL, member_b TEXT NOT NULL,
-      created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
-      UNIQUE(member_a, member_b), CHECK(member_a < member_b)
-    )`,
-    `CREATE TABLE IF NOT EXISTS chat_messages (
-      id TEXT PRIMARY KEY, conversation_id TEXT NOT NULL, sender_id TEXT NOT NULL,
-      body TEXT NOT NULL, created_at TEXT NOT NULL, read_at TEXT,
-      FOREIGN KEY(conversation_id) REFERENCES chat_conversations(id)
-    )`,
-    `CREATE INDEX IF NOT EXISTS idx_chat_messages_conversation ON chat_messages(conversation_id, created_at)`,
-    `CREATE TABLE IF NOT EXISTS chat_blocks (
-      blocker_id TEXT NOT NULL, blocked_id TEXT NOT NULL, created_at TEXT NOT NULL,
-      PRIMARY KEY(blocker_id, blocked_id)
-    )`,
-    `CREATE TABLE IF NOT EXISTS chat_reports (
-      id TEXT PRIMARY KEY, reporter_id TEXT NOT NULL, reported_id TEXT NOT NULL,
-      reason TEXT NOT NULL, details TEXT, created_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending'
-    )`,
-    `CREATE TABLE IF NOT EXISTS call_signals (
-      id TEXT PRIMARY KEY, call_id TEXT NOT NULL, sender_id TEXT NOT NULL,
-      recipient_id TEXT NOT NULL, event_type TEXT NOT NULL, payload TEXT,
-      created_at TEXT NOT NULL, consumed_at TEXT
-    )`,
-    `CREATE INDEX IF NOT EXISTS idx_call_signals_recipient ON call_signals(recipient_id, created_at)`
-  ];
-  for (const sql of chatTables) await env.DB.prepare(sql).run();
-
-  const chatAuth = await getAuth(req, env);
-  const chatJson = async () => { try { return await req.json(); } catch { return null; } };
-  const isBlocked = async (a,b) => !!(await env.DB.prepare(
-    "SELECT 1 FROM chat_blocks WHERE (blocker_id=? AND blocked_id=?) OR (blocker_id=? AND blocked_id=?) LIMIT 1"
-  ).bind(a,b,b,a).first());
-  const conversationFor = async (id, memberId) => env.DB.prepare(
-    "SELECT * FROM chat_conversations WHERE id=? AND (member_a=? OR member_b=?)"
-  ).bind(id,memberId,memberId).first();
-
-  if (path.startsWith("/api/chat/") || path.startsWith("/api/calls/")) {
-    if (!chatAuth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
-
-    if (req.method === "GET" && path === "/api/chat/members") {
-      const q = String(url.searchParams.get("q") || "").trim().toUpperCase();
-      if (q.length < 2) return reply(req, env, {ok:true,members:[]});
-      const rows = await env.DB.prepare(
-        `SELECT member_id,full_name FROM members
-         WHERE status='active' AND id<>? AND (upper(member_id)=? OR upper(member_id) LIKE ?)
-         ORDER BY CASE WHEN upper(member_id)=? THEN 0 ELSE 1 END LIMIT 20`
-      ).bind(chatAuth.member_id,q,q+"%",q).all();
-      return reply(req, env, {ok:true,members:rows.results || []});
+  // Authenticated member directory lookup by public OA ID or normalized phone.
+  if (req.method === "GET" && path === "/api/member/search") {
+    const auth = await getAuth(req, env);
+    if (!auth) return reply(req, env, { ok:false, error:"Unauthorized" }, 401);
+    const raw = String(url.searchParams.get("q") || "").trim();
+    if (raw.length < 4 || raw.length > 32)
+      return reply(req, env, { ok:false, error:"Enter a valid member ID or phone number" }, 400);
+    const digits = raw.replace(/[^0-9]/g, "");
+    let row = null;
+    if (/^OA[0-9]{9}$/i.test(raw)) {
+      row = await env.DB.prepare("SELECT member_id,full_name,phone,status FROM members WHERE upper(member_id)=upper(?) AND status='active' LIMIT 1").bind(raw).first();
+    } else if (digits.length >= 7) {
+      row = await env.DB.prepare("SELECT member_id,full_name,phone,status FROM members WHERE phone=? AND status='active' LIMIT 1").bind(digits).first();
     }
-
-    if (req.method === "GET" && path === "/api/chat/conversations") {
-      const rows = await env.DB.prepare(
-        `SELECT c.id,c.updated_at,
-          CASE WHEN c.member_a=? THEN mb.member_id ELSE ma.member_id END AS peer_member_id,
-          CASE WHEN c.member_a=? THEN mb.full_name ELSE ma.full_name END AS peer_name,
-          (SELECT body FROM chat_messages m WHERE m.conversation_id=c.id ORDER BY created_at DESC LIMIT 1) AS last_message,
-          (SELECT COUNT(*) FROM chat_messages m WHERE m.conversation_id=c.id AND m.sender_id<>? AND m.read_at IS NULL) AS unread
-         FROM chat_conversations c
-         JOIN members ma ON ma.id=c.member_a JOIN members mb ON mb.id=c.member_b
-         WHERE c.member_a=? OR c.member_b=? ORDER BY c.updated_at DESC LIMIT 100`
-      ).bind(chatAuth.member_id,chatAuth.member_id,chatAuth.member_id,chatAuth.member_id,chatAuth.member_id).all();
-      return reply(req, env, {ok:true,conversations:rows.results || []});
-    }
-
-    if (req.method === "POST" && path === "/api/chat/conversations") {
-      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
-      const target=String(body.member_id || "").trim().toUpperCase();
-      const peer=await env.DB.prepare("SELECT id,member_id FROM members WHERE upper(member_id)=? AND status='active'").bind(target).first();
-      if(!peer) return reply(req,env,{ok:false,error:"Member not found"},404);
-      if(peer.id===chatAuth.member_id) return reply(req,env,{ok:false,error:"Cannot message yourself"},400);
-      if(await isBlocked(chatAuth.member_id,peer.id)) return reply(req,env,{ok:false,error:"Messaging is unavailable"},403);
-      const [a,b]=[chatAuth.member_id,peer.id].sort();
-      const id=crypto.randomUUID(), stamp=now();
-      await env.DB.prepare("INSERT OR IGNORE INTO chat_conversations(id,member_a,member_b,created_at,updated_at) VALUES(?,?,?,?,?)")
-        .bind(id,a,b,stamp,stamp).run();
-      const row=await env.DB.prepare("SELECT id FROM chat_conversations WHERE member_a=? AND member_b=?").bind(a,b).first();
-      return reply(req,env,{ok:true,conversation_id:row.id},201);
-    }
-
-    const msgMatch=path.match(/^\/api\/chat\/conversations\/([0-9a-f-]+)\/messages$/i);
-    if(msgMatch && req.method==="GET"){
-      const conv=await conversationFor(msgMatch[1],chatAuth.member_id);
-      if(!conv) return reply(req,env,{ok:false,error:"Conversation not found"},404);
-      const before=String(url.searchParams.get("before")||"");
-      const rows=await env.DB.prepare(
-        `SELECT id,(sender_id=?) AS mine,body,created_at,read_at FROM chat_messages
-         WHERE conversation_id=? ${before ? "AND created_at<?" : ""}
-         ORDER BY created_at DESC LIMIT 100`
-      ).bind(...(before?[chatAuth.member_id,conv.id,before]:[chatAuth.member_id,conv.id])).all();
-      await env.DB.prepare("UPDATE chat_messages SET read_at=? WHERE conversation_id=? AND sender_id<>? AND read_at IS NULL")
-        .bind(now(),conv.id,chatAuth.member_id).run();
-      return reply(req,env,{ok:true,messages:(rows.results||[]).reverse()});
-    }
-    if(msgMatch && req.method==="POST"){
-      const conv=await conversationFor(msgMatch[1],chatAuth.member_id);
-      if(!conv) return reply(req,env,{ok:false,error:"Conversation not found"},404);
-      const peer=conv.member_a===chatAuth.member_id?conv.member_b:conv.member_a;
-      if(await isBlocked(chatAuth.member_id,peer)) return reply(req,env,{ok:false,error:"Messaging is unavailable"},403);
-      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
-      const message=String(body.body||"").trim();
-      if(!message || message.length>4000) return reply(req,env,{ok:false,error:"Message must be 1–4000 characters"},400);
-      const id=crypto.randomUUID(), stamp=now();
-      await env.DB.batch([
-        env.DB.prepare("INSERT INTO chat_messages(id,conversation_id,sender_id,body,created_at) VALUES(?,?,?,?,?)").bind(id,conv.id,chatAuth.member_id,message,stamp),
-        env.DB.prepare("UPDATE chat_conversations SET updated_at=? WHERE id=?").bind(stamp,conv.id)
-      ]);
-      return reply(req,env,{ok:true,message:{id,sender_id:chatAuth.member_id,body:message,created_at:stamp}},201);
-    }
-
-    if(req.method==="POST" && path==="/api/chat/block"){
-      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
-      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=?").bind(String(body.member_id||"").trim().toUpperCase()).first();
-      if(!peer || peer.id===chatAuth.member_id) return reply(req,env,{ok:false,error:"Invalid member"},400);
-      await env.DB.prepare("INSERT OR IGNORE INTO chat_blocks(blocker_id,blocked_id,created_at) VALUES(?,?,?)").bind(chatAuth.member_id,peer.id,now()).run();
-      return reply(req,env,{ok:true});
-    }
-
-    if(req.method==="POST" && path==="/api/chat/report"){
-      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
-      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=?").bind(String(body.member_id||"").trim().toUpperCase()).first();
-      const reason=String(body.reason||"").trim().slice(0,80);
-      if(!peer || peer.id===chatAuth.member_id || !reason) return reply(req,env,{ok:false,error:"Member and report reason are required"},400);
-      await env.DB.prepare("INSERT INTO chat_reports(id,reporter_id,reported_id,reason,details,created_at) VALUES(?,?,?,?,?,?)")
-        .bind(crypto.randomUUID(),chatAuth.member_id,peer.id,reason,String(body.details||"").slice(0,1000),now()).run();
-      return reply(req,env,{ok:true},201);
-    }
-
-    if(path==="/api/calls/signal" && req.method==="POST"){
-      const body=await chatJson(); if(!body) return reply(req,env,{ok:false,error:"Invalid JSON"},400);
-      const peer=await env.DB.prepare("SELECT id FROM members WHERE upper(member_id)=? AND status='active'")
-        .bind(String(body.peer_member_id||"").trim().toUpperCase()).first();
-      const types=new Set(["offer","answer","ice","reject","hangup","busy"]);
-      const type=String(body.event_type||"");
-      const callId=String(body.call_id||"");
-      if(!peer || peer.id===chatAuth.member_id || !types.has(type) || !/^[A-Za-z0-9-]{12,80}$/.test(callId))
-        return reply(req,env,{ok:false,error:"Invalid call signal"},400);
-      if(await isBlocked(chatAuth.member_id,peer.id)) return reply(req,env,{ok:false,error:"Call unavailable"},403);
-      const payload=JSON.stringify(body.payload||{});
-      if(payload.length>12000) return reply(req,env,{ok:false,error:"Signal payload too large"},413);
-      const id=crypto.randomUUID(),stamp=now();
-      await env.DB.prepare("INSERT INTO call_signals(id,call_id,sender_id,recipient_id,event_type,payload,created_at) VALUES(?,?,?,?,?,?,?)")
-        .bind(id,callId,chatAuth.member_id,peer.id,type,payload,stamp).run();
-      return reply(req,env,{ok:true,signal_id:id},201);
-    }
-    if(path==="/api/calls/signals" && req.method==="GET"){
-      const since=String(url.searchParams.get("since")||"");
-      const rows=await env.DB.prepare(
-        `SELECT id,call_id,sender_id,event_type,payload,created_at FROM call_signals
-         WHERE recipient_id=? AND consumed_at IS NULL ${since?"AND created_at>?":""}
-         ORDER BY created_at ASC LIMIT 100`
-      ).bind(...(since?[chatAuth.member_id,since]:[chatAuth.member_id])).all();
-      const signals=rows.results||[];
-      if(signals.length) await env.DB.prepare(
-        `UPDATE call_signals SET consumed_at=? WHERE id IN (${signals.map(()=>"?").join(",")})`
-      ).bind(now(),...signals.map(x=>x.id)).run();
-      return reply(req,env,{ok:true,signals:signals.map(x=>({...x,payload:JSON.parse(x.payload||"{}")}))});
-    }
+    return reply(req, env, row ? {ok:true,member:{memberId:row.member_id,name:row.full_name,phone:row.phone,status:row.status}} : {ok:false,error:"Member not found"}, row ? 200 : 404);
   }
 
-  // AFAQ BANK member banking endpoints. Ledger and balances are server-owned.
-  if (req.method === "GET" && path === "/api/bank/overview") {
+  // AFAQ WALLET — internal AFAQ rewards. Uses the existing AFAQ SYRIA member session.
+  if (req.method === "GET" && path === "/api/wallet/summary") {
     const auth = await getAuth(req, env);
     if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
-    const [balances, totals, latest] = await Promise.all([
-      env.DB.prepare("SELECT currency,balance_minor,updated_at FROM member_balances WHERE member_id=? ORDER BY currency").bind(auth.member_id).all(),
-      env.DB.prepare("SELECT COUNT(*) AS transaction_count,MAX(created_at) AS last_activity FROM account_ledger WHERE member_id=?").bind(auth.member_id).first(),
-      env.DB.prepare("SELECT entry_id,transfer_id,currency,amount_minor,entry_type,created_at FROM account_ledger WHERE member_id=? ORDER BY created_at DESC LIMIT 10").bind(auth.member_id).all()
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_wallet_balances (
+      member_id TEXT PRIMARY KEY, balance_units INTEGER NOT NULL DEFAULT 0,
+      updated_at TEXT NOT NULL
+    )`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_mining_sessions (
+      session_id TEXT PRIMARY KEY, member_id TEXT NOT NULL, started_at TEXT NOT NULL,
+      ended_at TEXT, status TEXT NOT NULL DEFAULT 'active'
+    )`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_mining_rewards (
+      reward_id TEXT PRIMARY KEY, session_id TEXT NOT NULL UNIQUE, member_id TEXT NOT NULL,
+      amount_units INTEGER NOT NULL, seconds_mined INTEGER NOT NULL, created_at TEXT NOT NULL
+    )`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_wallet_ledger (
+      entry_id TEXT PRIMARY KEY, member_id TEXT NOT NULL, amount_units INTEGER NOT NULL,
+      entry_type TEXT NOT NULL, reference_id TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL
+    )`).run();
+    await env.DB.prepare("INSERT OR IGNORE INTO afaq_wallet_balances(member_id,balance_units,updated_at) VALUES(?,0,?)").bind(auth.member_id,now()).run();
+    const balance = await env.DB.prepare("SELECT balance_units FROM afaq_wallet_balances WHERE member_id=?").bind(auth.member_id).first();
+    const active = await env.DB.prepare("SELECT session_id,started_at FROM afaq_mining_sessions WHERE member_id=? AND status='active' ORDER BY started_at DESC LIMIT 1").bind(auth.member_id).first();
+    const rate = Math.max(0, Number(env.AFAQ_MINING_RATE_PER_HOUR || 0));
+    return reply(req, env, {ok:true, member_id:auth.public_member_id, currency:"AFAQ", balance_units:Number(balance?.balance_units||0), mining:{enabled:rate>0, rate_per_hour:rate, active:!!active, session:active||null}, note:"Internal platform reward points; not a blockchain token or cash value."});
+  }
+
+  if (req.method === "POST" && (path === "/api/wallet/mining/start" || path === "/api/wallet/mining/stop")) {
+    const auth = await getAuth(req, env);
+    if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
+    const rate = Math.max(0, Number(env.AFAQ_MINING_RATE_PER_HOUR || 0));
+    if (!(rate > 0)) return reply(req, env, {ok:false,error:"Mining is not enabled by the platform administrator"}, 503);
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_wallet_balances (member_id TEXT PRIMARY KEY, balance_units INTEGER NOT NULL DEFAULT 0, updated_at TEXT NOT NULL)`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_mining_sessions (session_id TEXT PRIMARY KEY, member_id TEXT NOT NULL, started_at TEXT NOT NULL, ended_at TEXT, status TEXT NOT NULL DEFAULT 'active')`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_mining_rewards (reward_id TEXT PRIMARY KEY, session_id TEXT NOT NULL UNIQUE, member_id TEXT NOT NULL, amount_units INTEGER NOT NULL, seconds_mined INTEGER NOT NULL, created_at TEXT NOT NULL)`).run();
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS afaq_wallet_ledger (entry_id TEXT PRIMARY KEY, member_id TEXT NOT NULL, amount_units INTEGER NOT NULL, entry_type TEXT NOT NULL, reference_id TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL)`).run();
+    await env.DB.prepare("INSERT OR IGNORE INTO afaq_wallet_balances(member_id,balance_units,updated_at) VALUES(?,0,?)").bind(auth.member_id,now()).run();
+    if (path.endsWith("/start")) {
+      const existing = await env.DB.prepare("SELECT session_id FROM afaq_mining_sessions WHERE member_id=? AND status='active'").bind(auth.member_id).first();
+      if (existing) return reply(req, env, {ok:true,session_id:existing.session_id,status:"already_active"});
+      const id = crypto.randomUUID(), stamp=now();
+      await env.DB.prepare("INSERT INTO afaq_mining_sessions(session_id,member_id,started_at,status) VALUES(?,?,?,'active')").bind(id,auth.member_id,stamp).run();
+      return reply(req, env, {ok:true,session_id:id,status:"active",started_at:stamp},201);
+    }
+    const active = await env.DB.prepare("SELECT session_id,started_at FROM afaq_mining_sessions WHERE member_id=? AND status='active' ORDER BY started_at DESC LIMIT 1").bind(auth.member_id).first();
+    if (!active) return reply(req, env, {ok:false,error:"No active mining session"},409);
+    const ended = Date.now(), started = Date.parse(active.started_at);
+    const seconds = Math.max(0,Math.min(86400,Math.floor((ended-started)/1000)));
+    const units = Math.floor((seconds/3600)*rate*1000000);
+    const stamp=now();
+    // D1 batch: close once, create unique reward, then credit only when the reward insert succeeded.
+    const results = await env.DB.batch([
+      env.DB.prepare("UPDATE afaq_mining_sessions SET status='completed',ended_at=? WHERE session_id=? AND status='active'").bind(stamp,active.session_id),
+      env.DB.prepare("INSERT OR IGNORE INTO afaq_mining_rewards(reward_id,session_id,member_id,amount_units,seconds_mined,created_at) SELECT ?,?,?,?, ?,? WHERE EXISTS(SELECT 1 FROM afaq_mining_sessions WHERE session_id=? AND status='completed')").bind(crypto.randomUUID(),active.session_id,auth.member_id,units,seconds,stamp,active.session_id),
+      env.DB.prepare("INSERT OR IGNORE INTO afaq_wallet_ledger(entry_id,member_id,amount_units,entry_type,reference_id,created_at) SELECT ?,?,?, 'mining_reward',?,? WHERE EXISTS(SELECT 1 FROM afaq_mining_rewards WHERE session_id=?)").bind(crypto.randomUUID(),auth.member_id,units,active.session_id,stamp,active.session_id),
+      env.DB.prepare("UPDATE afaq_wallet_balances SET balance_units=balance_units+?,updated_at=? WHERE member_id=? AND EXISTS(SELECT 1 FROM afaq_wallet_ledger WHERE reference_id=? AND amount_units=?) AND (SELECT COUNT(*) FROM afaq_wallet_ledger WHERE reference_id=?)=1").bind(units,stamp,auth.member_id,active.session_id,units,active.session_id)
     ]);
-    return reply(req, env, {ok:true,member:{member_id:auth.public_member_id,account_number:auth.account_number,email:auth.email,name:auth.full_name||""},
-      balances:(balances.results||[]).map(x=>({currency:x.currency,balance:Number(x.balance_minor)/100,updated_at:x.updated_at})),
-      transaction_count:Number(totals?.transaction_count||0),last_activity:totals?.last_activity||null,
-      recent_transactions:(latest.results||[]).map(x=>({id:x.entry_id,reference:x.transfer_id,currency:x.currency,amount:Number(x.amount_minor)/100,type:x.entry_type,created_at:x.created_at}))});
+    if (!results[0]?.meta?.changes) return reply(req, env, {ok:false,error:"Mining session was already closed"},409);
+    return reply(req, env, {ok:true,status:"completed",seconds_mined:seconds,reward_units:units,currency:"AFAQ",message:"Reward credited as internal points; no blockchain token is created."});
   }
 
-  if (req.method === "GET" && path === "/api/bank/transactions") {
+  if (req.method === "GET" && path === "/api/wallet/mining/history") {
     const auth = await getAuth(req, env);
     if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
-    const rawLimit = Number(url.searchParams.get("limit") || 100);
-    const limit = Number.isInteger(rawLimit) ? Math.max(1,Math.min(200,rawLimit)) : 100;
-    const rows = await env.DB.prepare(
-      `SELECT l.entry_id,l.transfer_id,l.currency,l.amount_minor,l.entry_type,l.created_at,
-       CASE WHEN l.entry_type='transfer_out' THEN r.member_id
-            WHEN l.entry_type='transfer_in' THEN s.member_id ELSE NULL END AS other_member_id,
-       t.note AS note
-       FROM account_ledger l
-       LEFT JOIN internal_transfers t ON t.transfer_id=l.transfer_id
-       LEFT JOIN members s ON s.id=t.sender_id
-       LEFT JOIN members r ON r.id=t.recipient_id
-       WHERE l.member_id=? ORDER BY l.created_at DESC LIMIT ?`
-    ).bind(auth.member_id,limit).all();
-    return reply(req, env, {ok:true,transactions:(rows.results||[]).map(x=>({
-      id:x.entry_id,reference:x.transfer_id,currency:x.currency,amount:Number(x.amount_minor)/100,
-      type:x.entry_type,direction:Number(x.amount_minor)>=0?"in":"out",other_member_id:x.other_member_id,
-      note:x.note||"",created_at:x.created_at
-    }))});
-  }
-
-  if (req.method === "POST" && path === "/api/bank/withdrawals") {
-    const auth = await getAuth(req, env);
-    if (!auth) return reply(req, env, {ok:false,error:"Unauthorized"}, 401);
-    let body; try { body=await req.json(); } catch { return reply(req, env, {ok:false,error:"Invalid JSON"},400); }
-    const currency=String(body.currency||"").trim().toUpperCase(), minor=amountToMinor(body.amount);
-    const idem=String(req.headers.get("Idempotency-Key")||body.idempotency_key||"").trim();
-    const method=String(body.method||"bank_transfer");
-    const note=String(body.note||"").trim().slice(0,160);
-    if(!minor||!currencies.has(currency)||!/^[-A-Za-z0-9_]{16,100}$/.test(idem)||!["bank_transfer","manual"].includes(method))
-      return reply(req,env,{ok:false,error:"Valid amount, supported currency and idempotency key are required"},400);
-    const id="AFW-"+crypto.randomUUID(),stamp=now();
-    try{
-      const inserted=await env.DB.prepare(
-        `INSERT INTO bank_withdrawal_requests(withdrawal_id,idempotency_key,member_id,currency,amount_minor,method,note,status,created_at)
-         SELECT ?,?,?,?,?,?,?,'pending',?
-         WHERE EXISTS (
-           SELECT 1 FROM member_balances b
-           WHERE b.member_id=? AND b.currency=?
-             AND b.balance_minor-COALESCE((
-               SELECT SUM(amount_minor) FROM bank_withdrawal_requests
-               WHERE member_id=? AND currency=? AND status='pending'
-             ),0)>=?
-         )`
-      ).bind(id,idem,auth.member_id,currency,minor,method,note,stamp,
-        auth.member_id,currency,auth.member_id,currency,minor).run();
-      if(!inserted.meta?.changes)
-        return reply(req,env,{ok:false,error:"Insufficient available balance after pending withdrawal requests"},409);
-    }catch(e){
-      const duplicate=await env.DB.prepare("SELECT withdrawal_id,status FROM bank_withdrawal_requests WHERE idempotency_key=?").bind(idem).first();
-      if(duplicate) return reply(req,env,{ok:false,error:"This withdrawal request was already submitted",withdrawal:duplicate},409);
-      throw e;
-    }
-    return reply(req,env,{ok:true,withdrawal:{withdrawal_id:id,currency,amount:Number(minor)/100,status:"pending",created_at:stamp},
-      message:"Request recorded. No balance was deducted; payout awaits review and an authorized payout partner."},201);
-  }
-
-  if (req.method === "GET" && path === "/api/bank/withdrawals") {
-    const auth=await getAuth(req,env);
-    if(!auth) return reply(req,env,{ok:false,error:"Unauthorized"},401);
-    const rows=await env.DB.prepare("SELECT withdrawal_id,currency,amount_minor,method,note,status,payout_reference,created_at,processed_at FROM bank_withdrawal_requests WHERE member_id=? ORDER BY created_at DESC LIMIT 100").bind(auth.member_id).all();
-    return reply(req,env,{ok:true,withdrawals:(rows.results||[]).map(x=>({...x,amount:Number(x.amount_minor)/100}))});
-  }
-
-  if (req.method === "POST" && /^\/api\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/cancel$/.test(path)) {
-    const auth=await getAuth(req,env);
-    if(!auth) return reply(req,env,{ok:false,error:"Unauthorized"},401);
-    const id=path.split("/")[4];
-    const result=await env.DB.prepare("UPDATE bank_withdrawal_requests SET status='cancelled' WHERE withdrawal_id=? AND member_id=? AND status='pending'").bind(id,auth.member_id).run();
-    if(!result.meta?.changes) return reply(req,env,{ok:false,error:"Pending withdrawal not found or cannot be cancelled"},409);
-    return reply(req,env,{ok:true,withdrawal_id:id,status:"cancelled"});
-  }
-
-  if (req.method === "GET" && path === "/api/admin/bank/withdrawals") {
-    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
-    const rows=await env.DB.prepare(
-      "SELECT w.withdrawal_id,m.member_id,m.full_name,w.currency,w.amount_minor,w.method,w.note,w.status,w.created_at FROM bank_withdrawal_requests w JOIN members m ON m.id=w.member_id ORDER BY w.created_at DESC LIMIT 200"
-    ).all();
-    return reply(req,env,{ok:true,withdrawals:(rows.results||[]).map(x=>({...x,amount:Number(x.amount_minor)/100}))});
-  }
-
-  // Use only after the payout was actually completed through an authorized partner.
-  if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/reject$/.test(path)) {
-    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
-    const id=path.split("/")[5], stamp=now(), admin=String(env.ADMIN_EMAIL||"").trim().toLowerCase();
-    const result=await env.DB.prepare("UPDATE bank_withdrawal_requests SET status='rejected',processed_at=?,processed_by=? WHERE withdrawal_id=? AND status='pending'").bind(stamp,admin,id).run();
-    if(!result.meta?.changes) return reply(req,env,{ok:false,error:"Pending withdrawal not found or cannot be rejected"},409);
-    return reply(req,env,{ok:true,withdrawal_id:id,status:"rejected"});
-  }
-
-  if (req.method === "POST" && /^\/api\/admin\/bank\/withdrawals\/AFW-[A-Za-z0-9-]+\/mark-paid$/.test(path)) {
-    if(!(await hasAdminAccess(req,env))) return reply(req,env,{ok:false,error:"Owner account authorization required"},401);
-    let body; try{body=await req.json()}catch{return reply(req,env,{ok:false,error:"Invalid JSON"},400)}
-    const payoutRef=String(body.payout_reference||"").trim().slice(0,100);
-    if(payoutRef.length<6) return reply(req,env,{ok:false,error:"External payout reference (at least 6 characters) is required"},400);
-    const id=path.split("/")[5], stamp=now(), admin=String(env.ADMIN_EMAIL||"").trim().toLowerCase();
-    const reqRow=await env.DB.prepare("SELECT member_id,currency,amount_minor,status FROM bank_withdrawal_requests WHERE withdrawal_id=?").bind(id).first();
-    if(!reqRow) return reply(req,env,{ok:false,error:"Withdrawal request not found"},404);
-    if(reqRow.status==="paid") return reply(req,env,{ok:true,withdrawal_id:id,status:"paid",message:"Already processed"});
-    const results=await env.DB.batch([
-      env.DB.prepare(
-        "UPDATE bank_withdrawal_requests SET status='paid',payout_reference=?,processed_at=?,processed_by=? WHERE withdrawal_id=? AND status='pending' AND EXISTS (SELECT 1 FROM member_balances WHERE member_id=? AND currency=? AND balance_minor>=?)"
-      ).bind(payoutRef,stamp,admin,id,reqRow.member_id,reqRow.currency,reqRow.amount_minor),
-      env.DB.prepare(
-        "UPDATE member_balances SET balance_minor=balance_minor-?,updated_at=? WHERE member_id=? AND currency=? AND balance_minor>=? AND EXISTS (SELECT 1 FROM bank_withdrawal_requests WHERE withdrawal_id=? AND status='paid') AND NOT EXISTS (SELECT 1 FROM account_ledger WHERE transfer_id=?)"
-      ).bind(reqRow.amount_minor,stamp,reqRow.member_id,reqRow.currency,reqRow.amount_minor,id,"WDR-"+id),
-      env.DB.prepare(
-        "INSERT INTO account_ledger(entry_id,transfer_id,member_id,currency,amount_minor,entry_type,created_at) SELECT ?,?,?,?,-?,'withdrawal_out',? WHERE EXISTS (SELECT 1 FROM bank_withdrawal_requests WHERE withdrawal_id=? AND status='paid') AND NOT EXISTS (SELECT 1 FROM account_ledger WHERE transfer_id=?)"
-      ).bind(crypto.randomUUID(),"WDR-"+id,reqRow.member_id,reqRow.currency,reqRow.amount_minor,stamp,id,"WDR-"+id)
-    ]);
-    if(!results[0]?.meta?.changes) return reply(req,env,{ok:false,error:"Withdrawal could not be paid: it may not be pending or available balance is insufficient"},409);
-    return reply(req,env,{ok:true,withdrawal_id:id,status:"paid",payout_reference:payoutRef});
+    const rows = await env.DB.prepare("SELECT amount_units,seconds_mined,created_at FROM afaq_mining_rewards WHERE member_id=? ORDER BY created_at DESC LIMIT 50").bind(auth.member_id).all();
+    return reply(req, env, {ok:true,rewards:rows.results||[]});
   }
 
   // Internal member transfer. Idempotency-Key is mandatory to prevent duplicate submissions.
@@ -720,15 +502,8 @@ async function handle(req, env) {
     if (paymentStatus === "finished") {
       const amountMinor = amountToMinor(payment.amount);
       const creditCurrency = String(payment.currency || "").toUpperCase();
-      const callbackPrice = Number(event.price_amount);
-      const callbackCurrency = String(event.price_currency || "").toLowerCase();
-      const storedCurrency = String(payment.currency || "").toLowerCase();
-      const amountMatches = Number.isFinite(callbackPrice) && Math.abs(callbackPrice - Number(payment.amount)) <= 0.01;
-      const currencyMatches = callbackCurrency === storedCurrency;
-      const invoiceMatches = !event.invoice_id || !payment.invoice_id || String(event.invoice_id) === String(payment.invoice_id);
-      if (!payment.created_by || !amountMinor || !currencies.has(creditCurrency) ||
-          !amountMatches || !currencyMatches || !invoiceMatches)
-        return json({ok:false,error:"Payment callback does not match the stored invoice; credit was not applied"},409);
+      if (!payment.created_by || !amountMinor || !currencies.has(creditCurrency))
+        return json({ok:false,error:"Payment cannot be credited; account or currency is invalid"},409);
 
       // INSERT OR IGNORE succeeds only once per order_id. The trigger credits
       // the member balance only when this unique row is first inserted.
@@ -759,32 +534,22 @@ async function handle(req, env) {
     let body; try { body = await req.json(); } catch { return reply(req, env, { ok:false, error:"Invalid JSON" }, 400); }
     const amount = Number(body.amount), currency = String(body.currency || "usd").toLowerCase();
     const payCurrency = String(body.pay_currency || "usdttrc20").toLowerCase();
-    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000 || !amountToMinor(amount))
-      return reply(req, env, { ok:false, error:"Invalid amount; use at most two decimal places" }, 400);
+    if (!Number.isFinite(amount) || amount <= 0 || amount > 1000000)
+      return reply(req, env, { ok:false, error:"Invalid amount" }, 400);
     if (!/^[a-z]{3,5}$/.test(currency)) return reply(req, env, { ok:false, error:"Unsupported invoice currency code" }, 400);
     const allowedCrypto = new Set(["usdttrc20","usdterc20","btc","eth","trx"]);
     const allowedFiat = new Set(["usd","eur","gbp","try","cad","aud"]);
     if (!allowedFiat.has(currency))
       return reply(req, env, { ok:false, error:"Unsupported invoice price currency" }, 400);
-    if (payCurrency !== "all" && !allowedCrypto.has(payCurrency))
-      return reply(req, env, { ok:false, error:"Unsupported crypto payment currency or network" }, 400);
+    if (payCurrency !== "all" && !allowedCrypto.has(payCurrency) && !allowedFiat.has(payCurrency))
+      return reply(req, env, { ok:false, error:"Unsupported payment currency or network" }, 400);
     const orderId = "AFQ-" + crypto.randomUUID();
     const payload = { price_amount:amount, price_currency:currency, order_id:orderId,
       order_description:String(body.description || "AFAQ SYRIA invoice").slice(0,200),
       ipn_callback_url:url.origin + "/api/payment/ipn" };
     if (payCurrency !== "all") payload.pay_currency = payCurrency;
-    const siteOrigin = String(env.ALLOWED_ORIGIN || "").split(",")[0].trim();
-    for (const key of ["success_url", "cancel_url"]) {
-      if (!body[key]) continue;
-      try {
-        const target = new URL(String(body[key]));
-        if (target.protocol !== "https:" || target.origin !== siteOrigin)
-          return reply(req, env, {ok:false,error:"Redirect URL must use the configured HTTPS website origin"}, 400);
-        payload[key] = target.toString().slice(0,500);
-      } catch {
-        return reply(req, env, {ok:false,error:"Invalid redirect URL"}, 400);
-      }
-    }
+    if (body.success_url) payload.success_url = String(body.success_url).slice(0,500);
+    if (body.cancel_url) payload.cancel_url = String(body.cancel_url).slice(0,500);
     const provider = await fetch("https://api.nowpayments.io/v1/invoice", {
       method:"POST", headers:{"x-api-key":env.NOWPAYMENTS_API_KEY,"Content-Type":"application/json"},
       body:JSON.stringify(payload)
@@ -865,18 +630,10 @@ export default {
         return json({ok:false,error:"Origin not allowed"}, 403);
       return await handle(req, env);
     } catch (e) {
-      // Safe server-side diagnostics: never log request bodies, passwords, tokens, or headers.
-      try {
-        console.error("[AFAQ_WORKER_ERROR]", {
-          name: e && e.name ? String(e.name) : "Error",
-          message: e && e.message ? String(e.message).slice(0, 500) : String(e).slice(0, 500),
-          stack: e && e.stack ? String(e.stack).slice(0, 3000) : ""
-        });
-      } catch {}
       const origin = req.headers.get("Origin") || "";
       const allowed = String(env.ALLOWED_ORIGIN || "").split(",").map(x => x.trim()).filter(Boolean);
       const headers = origin && allowed.includes(origin) ? {"Access-Control-Allow-Origin":origin,"Vary":"Origin"} : {};
-      return json({ok:false,error:"Internal server error"}, 500, headers);
+      return json({ok:false,error:"Internal server error",detail:env.DEBUG === "true" ? String(e) : undefined}, 500, headers);
     }
   }
 };

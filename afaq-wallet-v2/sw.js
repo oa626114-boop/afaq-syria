@@ -1,4 +1,4 @@
-const CACHE = 'afaq-wallet-shell-v6';;
+const CACHE = 'afaq-wallet-shell-v7';;;
 const FILES = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {

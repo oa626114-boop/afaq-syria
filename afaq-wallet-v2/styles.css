@@ -29,3 +29,14 @@
 @keyframes tapFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.06)}}
 @keyframes tapPulse{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.65);opacity:0}}
 @media(prefers-reduced-motion:reduce){.tap-indicator,.tap-indicator:before{animation:none}}
+
+/* Login state: keep member navigation hidden until authentication succeeds. */
+body.auth-mode{padding-bottom:0}
+body.auth-mode .shell{min-height:calc(100svh - 150px);display:flex;align-items:center;margin-top:0;margin-bottom:0}
+body.auth-mode .login-panel{width:100%;margin:20px auto;padding:clamp(20px,4vw,30px)}
+body.auth-mode .login-panel h1{font-size:clamp(23px,5vw,30px);line-height:1.4}
+body.auth-mode .login-panel label{font-size:clamp(13px,2.8vw,15px)}
+body.auth-mode .login-panel input{min-height:48px;font-size:16px}
+body.auth-mode .auth-tab,body.auth-mode .gold-btn{min-height:48px;font-size:14px}
+body.auth-mode .eyebrow{font-size:12px}
+@media(max-width:520px){body.auth-mode .shell{width:calc(100% - 28px);min-height:calc(100svh - 120px)}body.auth-mode .login-panel{padding:22px 18px}}

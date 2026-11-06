@@ -19,3 +19,13 @@
 @media(max-width:520px){.shell{width:calc(100% - 24px);margin:16px auto}.balance-card{padding:17px;border-radius:17px}.balance{font-size:30px}.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome{align-items:center}.welcome h1{font-size:21px}.account-bar{font-size:11px}.activity-row{align-items:flex-start}.bottom-nav{padding-left:8px;padding-right:8px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @supports(padding:max(0px)){.bottom-nav{padding-bottom:max(9px,env(safe-area-inset-bottom))}body{padding-bottom:calc(90px + env(safe-area-inset-bottom))}}
+
+/* Interactive gold pointer: follows the member's selected wallet action. */
+[data-action]{position:relative;overflow:visible;}
+[data-action].is-selected{border-color:var(--gold2)!important;box-shadow:0 0 0 2px #e5bd6240,0 0 22px #f4d98d75,inset 0 0 18px #e5bd6220!important;color:var(--gold2)!important;}
+.tap-indicator{position:absolute;z-index:3;right:8px;bottom:-13px;font-size:23px;line-height:1;filter:drop-shadow(0 0 5px #f4d98d);pointer-events:none;animation:tapFloat 1.25s ease-in-out infinite;}
+.tap-indicator:before{content:"";position:absolute;width:26px;height:26px;border:2px solid var(--gold2);border-radius:50%;right:-5px;top:-5px;animation:tapPulse 1.25s ease-out infinite;}
+.bottom-nav a.is-selected .tap-indicator{bottom:auto;top:-17px;right:calc(50% - 12px);}
+@keyframes tapFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.06)}}
+@keyframes tapPulse{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.65);opacity:0}}
+@media(prefers-reduced-motion:reduce){.tap-indicator,.tap-indicator:before{animation:none}}

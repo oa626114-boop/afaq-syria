@@ -624,14 +624,14 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="afaq-bank-card-inner">
 <div class="afaq-bank-face">
 <div class="afaq-bank-head"><strong>مصرف آفاق <small>AFAQ BANK</small></strong><span class="afaq-bank-type">بطاقة مصرفية افتراضية<br>VIRTUAL CARD</span></div>
-<div class="afaq-bank-chip" aria-hidden="true"></div><div class="afaq-bank-number">AFQ •••• <span data-bank-card-suffix>000000</span></div><div class="afaq-bank-qrline"><span>QR رقم العضوية</span><img class="afaq-member-qr" data-member-qr alt="QR لرقم العضوية"></div>
-<div class="afaq-bank-details"><span>اسم حامل البطاقة<b data-bank-card-name>—</b></span><span>رقم العضوية ID<b data-bank-member-id>—</b></span></div>
+<div class="afaq-bank-chip" aria-hidden="true"></div><div class="afaq-bank-number">AFQ •••• <span data-bank-card-suffix>000000</span></div>
+<div class="afaq-bank-details"><span>اسم حامل البطاقة<b data-bank-card-name>—</b></span><span>رقم العضوية ID<b data-bank-member-id>—</b></span><span>رقم الحساب<b data-bank-account>—</b></span></div>
 <div class="afaq-bank-foot"><small>تصميم تعريفي · غير مفعّلة للدفع</small><b class="afaq-bank-mark">AFQ</b></div>
 </div>
 <div class="afaq-bank-face afaq-bank-back">
 <div class="afaq-bank-head"><strong>AFAQ BANK</strong><span class="afaq-bank-type">VIRTUAL CARD</span></div><div class="afaq-bank-stripe"></div>
 <div class="afaq-bank-backgrid"><span>اسم المشترك<b data-bank-card-name>—</b></span><span>رقم العضوية<b data-bank-member-id>—</b></span><span>رقم الحساب<b data-bank-account>—</b></span><span>الحالة<b>نموذج تعريفي فقط</b></span></div>
-<div class="afaq-bank-qrline"><span>QR تعريفي للمشترك</span><img class="afaq-member-qr" data-member-qr alt="QR لرقم العضوية"></div><div class="afaq-bank-note">لا يوجد رقم بطاقة أو CVV أو صلاحية دفع فعلية. إصدار بطاقة دفع يتطلب جهة إصدار مرخصة.</div>
+<div class="afaq-bank-note">لا يوجد رقم بطاقة أو CVV أو صلاحية دفع فعلية. إصدار بطاقة دفع يتطلب جهة إصدار مرخصة.</div>
 </div></div></article>
 <article class="afaq-bank-card" data-bank-flip tabindex="0" role="button" aria-label="اقلب بطاقة Visa" aria-pressed="false">
 <div class="afaq-bank-card-inner">
@@ -644,7 +644,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="afaq-bank-face afaq-bank-back">
 <div class="afaq-bank-head"><strong>AFAQ BANK</strong><span class="afaq-bank-type">VISA CARD</span></div><div class="afaq-bank-stripe"></div>
 <div class="afaq-bank-backgrid"><span>اسم المشترك<b data-bank-card-name>—</b></span><span>رقم العضوية<b data-bank-member-id>—</b></span><span>رقم الحساب<b data-bank-account>—</b></span><span>الحالة<b>غير مُصدرة</b></span></div>
-<div class="afaq-bank-qrline"><span>QR تعريفي للمشترك</span><img class="afaq-member-qr" data-member-qr alt="QR لرقم العضوية"></div><div class="afaq-bank-note">تصميم توضيحي فقط. لا تستخدم للدفع ولا تحمل بيانات بطاقة مصرفية حقيقية.</div>
+<div class="afaq-bank-note">تصميم توضيحي فقط. لا تستخدم للدفع ولا تحمل بيانات بطاقة مصرفية حقيقية.</div>
 </div></div></article>
 <article class="afaq-bank-card" data-bank-flip tabindex="0" role="button" aria-label="اقلب بطاقة Mastercard" aria-pressed="false">
 <div class="afaq-bank-card-inner">
@@ -813,13 +813,13 @@ Authorization: Bearer YOUR_SERVER_TOKEN
     <div class="cw-card-head"><span class="cw-card-brand">مصرف آفاق <small>AFAQ BANK</small></span><span class="cw-card-label">بطاقة المحفظة الرقمية<br><small>CRYPTO WALLET CARD</small></span></div>
     <div class="cw-card-art"><span class="cw-card-chip" aria-hidden="true"></span><div class="cw-bitcoin-mark">₿</div><div class="cw-coin-tags"><b>₮ USDT</b><b>◆ ETH</b><b>₿ BTC</b><b>◉ TRX</b></div></div>
     <div class="cw-card-number" dir="ltr">AFAQ · <span id="cwCardShortId">MEMBER</span></div>
-    <div class="cw-card-foot"><b id="cwMemberName">بانتظار تسجيل الدخول</b><span>CRYPTO WALLET</span></div>
+    <div class="cw-card-foot"><b id="cwMemberName">بانتظار تسجيل الدخول</b><span>CRYPTO WALLET</span></div><div class="afaq-bank-qrline"><span>QR رقم العضوية</span><img class="afaq-member-qr" data-member-qr alt="QR لرقم عضوية المحفظة"></div>
     <div class="cw-card-status">بطاقة تعريفية — غير مفعّلة للدفع</div>
    </div>
    <div class="cw-wallet-card cw-card-back">
     <div class="cw-back-strip"></div><div class="cw-back-title">AFAQ BANK · MEMBER WALLET</div>
     <div class="cw-back-grid"><div><small>اسم المشترك</small><b id="cwBackName">—</b></div><div><small>رقم المشترك ID</small><b id="cwMemberId" dir="ltr">—</b></div><div><small>رقم الحساب</small><b id="cwMemberAccount" dir="ltr">—</b></div><div><small>نوع البطاقة</small><b>محفظة أصول رقمية</b></div></div>
-    <div class="cw-back-note">رمز QR ورقم المحفظة الفعلي يظهران بعد ربط مزوّد الحفظ وإصدار عنوان خاص بالمشترك من الخادم.</div>
+    <div class="afaq-bank-qrline"><span>QR تعريفي للعضوية فقط</span><img class="afaq-member-qr" data-member-qr alt="QR لرقم عضوية المحفظة"></div><div class="cw-back-note">هذا الرمز يعرّف العضو فقط، ولا يمثل عنوان إيداع أو استقبال أموال.</div>
     <div class="cw-card-status">تعريفية فقط · لا تستقبل الأموال حالياً</div>
    </div>
   </div>

@@ -593,27 +593,34 @@ Authorization: Bearer YOUR_SERVER_TOKEN
   </div>
   <div class="papara-section" id="bankPage-cards">
 <style id="afaq-bank-member-cards-style">
-#afaqBankCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px;margin:12px 0 20px}
-.afaq-bank-card{min-width:0;perspective:1200px;cursor:pointer;outline:none}
-.afaq-bank-card-inner{position:relative;width:100%;aspect-ratio:1.586;transform-style:preserve-3d;transition:transform .72s cubic-bezier(.2,.7,.2,1)}
+/* Premium AFAQ Bank cards — reference-inspired navy and luminous gold */
+#afaqBankCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:18px 0 22px;max-width:1050px}
+.afaq-bank-card{min-width:0;perspective:1500px;cursor:pointer;outline:none}
+.afaq-bank-card-inner{position:relative;width:100%;aspect-ratio:1.586;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.72,.2,1)}
 .afaq-bank-card.is-flipped .afaq-bank-card-inner{transform:rotateY(180deg)}
-.afaq-bank-face{position:absolute;inset:0;overflow:hidden;box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #d3a744;border-radius:16px;padding:clamp(12px,2.4vw,19px);color:#f5d98f;background:radial-gradient(ellipse at 78% 28%,#23516a 0,transparent 38%),linear-gradient(145deg,#071522,#10334a 58%,#061522);box-shadow:0 10px 26px #0006}
-.afaq-bank-face:before{content:"";position:absolute;inset:6px;border:1px solid #e4bd6388;border-radius:11px;pointer-events:none}
-.afaq-bank-face:after{content:"";position:absolute;width:125%;height:42%;left:-12%;bottom:-23%;border-top:2px solid #d4a644;border-radius:50%;transform:rotate(-10deg);box-shadow:0 -8px 0 -7px #4bb5ce;pointer-events:none}
+.afaq-bank-face{position:absolute;inset:0;overflow:hidden;box-sizing:border-box;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid #f2c75f;border-radius:20px;padding:clamp(12px,2vw,22px);color:#ffe4a0;background:radial-gradient(ellipse at 78% 28%,#255a70 0,transparent 34%),radial-gradient(ellipse at 18% 85%,#153e54 0,transparent 42%),linear-gradient(145deg,#03101d 0%,#08243a 48%,#061522 100%);box-shadow:0 0 0 1px #8d6425,0 0 18px #d9a83c66,inset 0 0 28px #0008}
+.afaq-bank-face:before{content:"";position:absolute;inset:6px;border:1px solid #f5d47d99;border-radius:14px;pointer-events:none;background-image:radial-gradient(#b6c9cf44 .8px,transparent .9px);background-size:7px 7px;mask-image:linear-gradient(90deg,transparent 0%,#000 45%,transparent 100%);opacity:.32}
+.afaq-bank-face:after{content:"";position:absolute;z-index:0;width:145%;height:48%;left:-18%;bottom:-25%;border-top:2px solid #f6c95e;border-radius:50%;transform:rotate(-11deg);box-shadow:0 -7px 0 -6px #2b9fc2,0 -14px 0 -13px #b98731;pointer-events:none}
+.afaq-bank-face>*{position:relative;z-index:1}
 .afaq-bank-back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between;gap:7px}
-.afaq-bank-head,.afaq-bank-foot{position:relative;z-index:1;display:flex;justify-content:space-between;gap:8px;align-items:center}
-.afaq-bank-head strong{font-size:clamp(13px,2.6vw,19px)}.afaq-bank-head small{display:block;font-size:9px;letter-spacing:2px}
-.afaq-bank-type{text-align:left;font-size:clamp(9px,2vw,12px);font-weight:700}
-.afaq-bank-chip{position:relative;z-index:1;width:34px;height:26px;border:1px solid #ffe08b;border-radius:6px;background:linear-gradient(135deg,#fff0a9,#b98223 55%,#f7d978);box-shadow:inset 0 0 0 2px #f9e3a766}
-.afaq-bank-details{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:clamp(9px,1.9vw,12px)}
-.afaq-bank-details b{display:block;overflow-wrap:anywhere;color:#fff0bd}
-.afaq-bank-number{direction:ltr;text-align:left;letter-spacing:2px;font-size:clamp(12px,2.5vw,17px);font-weight:800;position:relative;z-index:1}
-.afaq-bank-mark{font-size:clamp(17px,4vw,26px);font-weight:900;font-style:italic;letter-spacing:1px}
-.afaq-bank-stripe{height:22%;margin:0 -19px;background:linear-gradient(#080c11,#24282d 50%,#080c11);border-block:1px solid #b99140}
-.afaq-bank-backgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px;position:relative;z-index:1}.afaq-member-qr{width:44px;height:44px;object-fit:contain;background:#fff;padding:2px;border:2px solid #d9b15f;border-radius:6px;display:block}.afaq-bank-qrline{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:9px;color:#f0d18b}.afaq-bank-qrline img{width:42px;height:42px}
+.afaq-bank-head,.afaq-bank-foot{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.afaq-bank-head strong{font-size:clamp(13px,2vw,22px);color:#ffe29a;text-shadow:0 1px 8px #d49a35}
+.afaq-bank-head small{display:block;font-size:9px;letter-spacing:2px;color:#f6d88d}
+.afaq-bank-type{text-align:left;font-size:clamp(9px,1.5vw,13px);font-weight:700;color:#ffdf8d}
+.afaq-bank-chip{width:clamp(29px,5vw,48px);height:clamp(23px,3.8vw,37px);border:1px solid #fff0a9;border-radius:8px;background:linear-gradient(135deg,#fff4bd 0%,#e7b945 42%,#a96e19 68%,#f8dc83 100%);box-shadow:inset 0 0 0 2px #fff4a966,0 2px 8px #0008}
+.afaq-bank-details{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:clamp(8px,1.35vw,12px);color:#f1d99e}
+.afaq-bank-details b{display:block;overflow-wrap:anywhere;color:#fff0c2;font-size:clamp(9px,1.5vw,13px);letter-spacing:.25px}
+.afaq-bank-number{direction:ltr;text-align:left;letter-spacing:clamp(1px,.3vw,3px);font-size:clamp(13px,2.2vw,23px);font-weight:800;color:#ffda78;text-shadow:0 2px 5px #000;white-space:nowrap}
+.afaq-bank-mark{font-size:clamp(18px,3.2vw,34px);font-weight:900;font-style:italic;letter-spacing:1px;color:#f7d16f;text-shadow:0 2px 8px #000}
+.afaq-bank-stripe{height:22%;margin:0 -22px;background:linear-gradient(#080c11,#30343a 50%,#080c11);border-block:1px solid #d8b65d}
+.afaq-bank-backgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:clamp(9px,1.25vw,12px);color:#f0d18b}
 .afaq-bank-backgrid b{display:block;color:#fff0bd;overflow-wrap:anywhere}
-.afaq-bank-note{font-size:9px;line-height:1.5;color:#e6d5ad;position:relative;z-index:1}
-.afaq-bank-hint{font-size:11px;color:#d9c18b;text-align:center;margin:5px 0 14px}
+.afaq-bank-note{font-size:clamp(8px,1.1vw,10px);line-height:1.5;color:#e6d5ad}
+#afaqBankCards .afaq-bank-card:nth-child(2) .afaq-bank-mark{color:#f6d36e}
+#afaqBankCards .afaq-bank-card:nth-child(3) .afaq-bank-mark{color:#f6d36e}
+.afaq-bank-card:focus-visible .afaq-bank-face{outline:3px solid #fff0a6;outline-offset:4px}
+.afaq-bank-hint{font-size:11px;color:#f0d18b;text-align:center;margin:5px 0 14px}
+@media(max-width:560px){#afaqBankCards{grid-template-columns:1fr;gap:16px}.afaq-bank-face{border-radius:16px;padding:12px}.afaq-bank-details{font-size:9px}.afaq-bank-details b{font-size:10px}.afaq-bank-number{font-size:15px}.afaq-bank-head strong{font-size:15px}.afaq-bank-type{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.afaq-bank-card-inner{transition:none}}
 </style>
 <h3>البطاقات البنكية</h3>

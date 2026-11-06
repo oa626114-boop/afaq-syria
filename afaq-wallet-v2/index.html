@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102b3b">
+  <meta name="description" content="AFAQ WALLET — محفظة آفاق الرقمية">
+  <meta name="color-scheme" content="dark">
+  <title>AFAQ WALLET | محفظة آفاق</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">A</div><div><b>AFAQ WALLET</b><small>المحفظة الرقمية</small></div></div>
+  <button class="icon-btn" id="settingsOpen" type="button" aria-label="إعدادات الاتصال">⚙</button>
+</header>
+<main class="shell">
+  <section id="authPanel" class="login-panel">
+    <p class="eyebrow">AFAQ MEMBER ACCESS</p>
+    <h1>تسجيل الدخول إلى آفاق</h1>
+    <p class="muted">استخدم حساب العضوية نفسه في منصة آفاق سوريا. لا تنشئ حساباً منفصلاً للمحفظة.</p>
+    <div class="auth-tabs"><button class="auth-tab active" data-auth-mode="login" type="button">تسجيل الدخول</button><button class="auth-tab" data-auth-mode="register" type="button">إنشاء حساب</button></div>
+    <form id="authForm">
+      <label id="nameLabel" hidden>الاسم الكامل<input id="fullName" autocomplete="name" minlength="2"></label>
+      <label>البريد الإلكتروني أو رقم العضوية<input id="loginId" autocomplete="username" required></label>
+      <label>كلمة المرور<div class="password-field"><input id="password" type="password" autocomplete="current-password" minlength="10" required><button type="button" class="password-toggle" id="passwordToggle" aria-label="إظهار كلمة المرور" aria-pressed="false">◉</button></div></label>
+      <button class="gold-btn login-submit" id="authSubmit" type="submit">دخول آمن</button>
+      <p class="fineprint">يتطلب الاتصال بخادم آفاق وقاعدة بيانات مفعّلين. لا يتم إنشاء رصيد تجريبي.</p>
+    </form>
+    <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+  </section>
+  <section id="walletPanel" hidden>
+    <div class="welcome"><div><p class="eyebrow">AFAQ SYRIA · WALLET</p><h1>مرحباً بك في <span>آفاق</span></h1><p class="muted">إدارة رصيدك ومكافآت التعدين من مكان واحد.</p></div><span class="status" id="connectionStatus"><i></i> متصل</span></div>
+    <div class="account-bar"><span id="memberName">العضو</span><span id="memberId" dir="ltr">—</span><button id="logoutBtn" class="outline-btn" type="button">خروج</button></div>
+    <article class="balance-card" id="balanceCard">
+      <div class="card-top"><span>رصيد مكافآت آفاق</span><span class="coin">AFAQ</span></div>
+      <div class="balance"><span id="afaqBalance">—</span> <small>AFAQ</small></div>
+      <p class="muted">نقاط مكافآت داخلية للمنصة، وليست عملة رقمية على البلوكشين أو قيمة نقدية.</p>
+      <div class="card-actions"><button class="gold-btn" data-scroll="miningSection" type="button">التعدين</button><button class="outline-btn" id="refreshBtn" type="button">تحديث الرصيد</button></div>
+    </article>
+    <div class="stats">
+      <article class="stat"><span>حالة التعدين</span><b id="miningStatus">غير نشط</b><small id="miningRate">المعدل يحدده المشرف</small></article>
+      <article class="stat"><span>مكافآت اليوم</span><b id="todayRewards">—</b><small>AFAQ</small></article>
+    </div>
+    <section class="mining-card" id="miningSection">
+      <div class="section-head"><h2>منجم آفاق</h2><span class="pill">مكافآت داخلية</span></div>
+      <div class="bee-wrap"><div class="orbit"></div><div class="bee" aria-label="نحلة التعدين">🐝</div></div>
+      <h3 id="miningTitle">ابدأ رحلتك مع AFAQ</h3>
+      <p class="muted center" id="miningDescription">يتم احتساب المكافآت وفق المعدل الذي يحدده مشرف المنصة، بعد ربط الحساب بالخادم.</p>
+      <button class="mine-btn" id="miningBtn" type="button">طلب تفعيل التعدين</button>
+      <p class="fineprint">لا يتم إنشاء أي رصيد عند تعذّر الاتصال بالخادم أو إذا لم يكن التعدين مفعّلاً.</p>
+    </section>
+    <section class="quick"><div class="section-head"><h2>الخدمات</h2></div><div class="service-grid">
+      <button class="service" data-action="transfer" type="button"><span>⇄</span>تحويل داخلي</button>
+      <button class="service wallet-shortcut" data-action="wallet" type="button"><span>▣</span>المحفظة</button>
+      <button class="service" data-action="history" type="button"><span>▤</span>السجل</button>
+      <button class="service" data-action="refresh" type="button"><span>↻</span>استعلام</button>
+      <button class="service" data-action="security" type="button"><span>♙</span>الأمان</button>
+    </div></section>
+    <section class="activity" id="historySection"><div class="section-head"><h2>آخر العمليات</h2><a href="#" id="historyRefresh">تحديث السجل</a></div><div id="activityList" class="empty"><span>▤</span><b>لا توجد عمليات معروضة</b><small>سيظهر سجل المكافآت والتحويلات بعد جلبه من الخادم.</small></div></section>
+    <section class="login-panel" id="transferPanel" hidden>
+      <div class="section-head"><h2>تحويل داخلي</h2><button class="outline-btn" id="transferClose" type="button">إغلاق</button></div>
+      <p class="fineprint">التحويلات المدعومة هنا بعملات الحساب المصرفي المسجلة في الخادم، وليست تحويل AFAQ.</p>
+      <form id="transferForm">
+        <label>رقم العضوية أو رقم الحساب<input id="recipient" required autocomplete="off"></label>
+        <label>المبلغ<input id="transferAmount" type="number" min="0.01" step="0.01" required></label>
+        <label>العملة<select id="transferCurrency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option><option>GBP</option><option>AED</option><option>SAR</option></select></label>
+        <label>ملاحظة (اختياري)<input id="transferNote" maxlength="160"></label>
+        <button class="gold-btn login-submit" type="submit">مراجعة وإرسال التحويل</button>
+      </form><p id="transferMessage" class="message" role="status"></p>
+    </section>
+  </section>
+</main>
+<nav class="bottom-nav" aria-label="التنقل"><a href="#balanceCard" data-action="wallet"><span>▣</span>المحفظة</a><a href="#miningSection" data-action="mining"><span>🐝</span>التعدين</a><a href="#historySection" data-action="history"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>التحويلات</a></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="settingsDialog" class="settings-dialog"><form method="dialog"><div class="section-head"><h2>إعدادات الاتصال</h2><button class="outline-btn" value="cancel">إغلاق</button></div><label>رابط AFAQ Worker<input id="apiBaseInput" type="url" placeholder="https://your-worker.your-subdomain.workers.dev" required></label><p class="fineprint">أدخل عنوان Worker المنشور الذي يحتوي على مسارات /api/member و /api/wallet. لا تضع مفاتيح API أو أسراراً في هذا الحقل.</p><button class="gold-btn login-submit" id="saveApiBtn" value="default" type="button">حفظ واختبار الاتصال</button><p id="apiMessage" class="message" role="status"></p></form></dialog>
+<script src="./app.js" defer></script>
+</body>
+</html>

@@ -1,12 +1,14 @@
 {
   "project": "AFAQ BANK",
   "visibility": "internal-draft",
-  "member_ui_enabled": false,
+  "member_ui_enabled": true,
+  "member_preview_enabled": true,
+  "issuance_enabled": false,
   "assets": [
     {
       "key": "virtual",
       "type": "virtual",
-      "file": "virtual-card.webp",
+      "file": "virtual-card.svg",
       "status": "awaiting-artwork",
       "published": false
     },
@@ -14,7 +16,7 @@
       "key": "visa_physical",
       "type": "physical",
       "program": "Visa",
-      "file": "visa-physical-card.webp",
+      "file": "visa-physical-card.svg",
       "status": "awaiting-artwork-and-program-approval",
       "published": false
     },
@@ -22,7 +24,7 @@
       "key": "mastercard_physical",
       "type": "physical",
       "program": "Mastercard",
-      "file": "mastercard-physical-card.webp",
+      "file": "mastercard-physical-card.svg",
       "status": "awaiting-artwork-and-program-approval",
       "published": false
     }

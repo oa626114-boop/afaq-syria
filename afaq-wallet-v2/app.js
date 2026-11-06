@@ -109,11 +109,23 @@
   $('miningBtn').addEventListener('click', miningAction); $('refreshBtn').addEventListener('click', refresh); $('historyRefresh').addEventListener('click', e => { e.preventDefault(); loadHistory(); });
   $('logoutBtn').addEventListener('click', async () => { try { await api('/api/member/logout', { method: 'POST', body: '{}' }); } catch {} clearSession(); toast('تم تسجيل الخروج'); });
   $('transferForm').addEventListener('submit', transferSubmit); $('transferClose').addEventListener('click', () => $('transferPanel').hidden = true);
+  function activateAction(button) {
+    document.querySelectorAll('[data-action].is-selected').forEach(el => {
+      el.classList.remove('is-selected'); el.removeAttribute('aria-current');
+      el.querySelector('.tap-indicator')?.remove();
+    });
+    button.classList.add('is-selected'); button.setAttribute('aria-current','page');
+    const pointer = document.createElement('span');
+    pointer.className = 'tap-indicator'; pointer.setAttribute('aria-hidden','true'); pointer.textContent = '👆';
+    button.appendChild(pointer);
+  }
   document.querySelectorAll('[data-scroll]').forEach(b => b.addEventListener('click', () => { const el = $(b.dataset.scroll); if (el) { el.hidden = false; el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }));
   document.querySelectorAll('[data-action]').forEach(b => b.addEventListener('click', () => {
-    const action = b.dataset.action;
-    if (action === 'transfer') { $('transferPanel').hidden = false; $('transferPanel').scrollIntoView({ behavior: 'smooth' }); }
-    else if (action === 'history') $('historySection').scrollIntoView({ behavior: 'smooth' });
+    const action = b.dataset.action; activateAction(b);
+    if (action === 'wallet') $('balanceCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else if (action === 'mining') $('miningSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else if (action === 'transfer') { $('transferPanel').hidden = false; $('transferPanel').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    else if (action === 'history') $('historySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     else if (action === 'refresh') refresh();
     else if (action === 'security') toast('تتم إدارة كلمة المرور والجلسات من حساب آفاق سوريا.');
   }));

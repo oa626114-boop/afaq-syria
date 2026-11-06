@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
 </head>
-<body>
+<body class="auth-mode">
 <header class="topbar">
   <div class="brand"><div class="brand-mark">A</div><div><b>AFAQ WALLET</b><small>المحفظة الرقمية</small></div></div>
   <button class="icon-btn" id="settingsOpen" type="button" aria-label="إعدادات الاتصال">⚙</button>
@@ -73,7 +73,7 @@
     </section>
   </section>
 </main>
-<nav class="bottom-nav" aria-label="التنقل"><a href="#balanceCard" data-action="wallet"><span>▣</span>المحفظة</a><a href="#miningSection" data-action="mining"><span>🐝</span>التعدين</a><a href="#historySection" data-action="history"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>التحويلات</a></nav>
+<nav class="bottom-nav" id="walletNav" aria-label="التنقل" hidden><a href="#balanceCard" data-action="wallet"><span>▣</span>المحفظة</a><a href="#miningSection" data-action="mining"><span>🐝</span>التعدين</a><a href="#historySection" data-action="history"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>التحويلات</a></nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <dialog id="settingsDialog" class="settings-dialog"><form method="dialog"><div class="section-head"><h2>إعدادات الاتصال</h2><button class="outline-btn" value="cancel">إغلاق</button></div><label>رابط AFAQ Worker<input id="apiBaseInput" type="url" placeholder="https://your-worker.your-subdomain.workers.dev" required></label><p class="fineprint">أدخل عنوان Worker المنشور الذي يحتوي على مسارات /api/member و /api/wallet. لا تضع مفاتيح API أو أسراراً في هذا الحقل.</p><button class="gold-btn login-submit" id="saveApiBtn" value="default" type="button">حفظ واختبار الاتصال</button><p id="apiMessage" class="message" role="status"></p></form></dialog>
 <script src="./app.js" defer></script>

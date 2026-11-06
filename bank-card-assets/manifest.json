@@ -1,0 +1,36 @@
+{
+  "project": "AFAQ BANK",
+  "visibility": "internal-draft",
+  "member_ui_enabled": false,
+  "assets": [
+    {
+      "key": "virtual",
+      "type": "virtual",
+      "file": "virtual-card.webp",
+      "status": "awaiting-artwork",
+      "published": false
+    },
+    {
+      "key": "visa_physical",
+      "type": "physical",
+      "program": "Visa",
+      "file": "visa-physical-card.webp",
+      "status": "awaiting-artwork-and-program-approval",
+      "published": false
+    },
+    {
+      "key": "mastercard_physical",
+      "type": "physical",
+      "program": "Mastercard",
+      "file": "mastercard-physical-card.webp",
+      "status": "awaiting-artwork-and-program-approval",
+      "published": false
+    }
+  ],
+  "security": {
+    "allow_real_cardholder_data_in_artwork": false,
+    "allow_full_pan": false,
+    "allow_cvv": false,
+    "allow_pin": false
+  }
+}

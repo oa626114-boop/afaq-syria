@@ -26,9 +26,25 @@
       <label id="nameLabel" hidden>الاسم الكامل<input id="fullName" autocomplete="name" minlength="2"></label>
       <label>البريد الإلكتروني أو رقم العضوية<input id="loginId" autocomplete="username" required></label>
       <label>كلمة المرور<div class="password-field"><input id="password" type="password" autocomplete="current-password" minlength="10" required><button type="button" class="password-toggle" id="passwordToggle" aria-label="إظهار كلمة المرور" aria-pressed="false">◉</button></div></label>
-      <button class="gold-btn login-submit" id="authSubmit" type="submit">دخول آمن</button>
-      <p class="fineprint">يتطلب الاتصال بخادم آفاق وقاعدة بيانات مفعّلين. لا يتم إنشاء رصيد تجريبي.</p>
+      <button class="gold-btn login-submit" id="authSubmit" type="submit">تسجيل الدخول</button>
+      <button class="text-link" id="forgotOpen" type="button">نسيت كلمة المرور؟</button>
+      <p class="fineprint" id="authHint">سجّل الدخول باستخدام بيانات عضويتك في آفاق سوريا.</p>
     </form>
+    <section id="forgotPanel" class="forgot-panel" hidden aria-labelledby="forgotTitle">
+      <h2 id="forgotTitle">استعادة كلمة المرور</h2>
+      <p class="muted">أدخل بريدك الإلكتروني المسجل، وسنرسل رمز تحقق صالحاً لمدة 10 دقائق.</p>
+      <form id="forgotRequestForm">
+        <label>البريد الإلكتروني<input id="forgotEmail" type="email" autocomplete="email" required></label>
+        <button class="outline-btn login-submit" id="sendResetCode" type="submit">إرسال رمز التحقق</button>
+      </form>
+      <form id="forgotResetForm" hidden>
+        <label>رمز التحقق<input id="resetCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required></label>
+        <label>كلمة المرور الجديدة<div class="password-field"><input id="newPassword" type="password" autocomplete="new-password" minlength="10" required><button type="button" class="password-toggle" id="newPasswordToggle" aria-label="إظهار كلمة المرور الجديدة" aria-pressed="false">◉</button></div></label>
+        <label>تأكيد كلمة المرور<input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" required></label>
+        <button class="gold-btn login-submit" id="resetPasswordBtn" type="submit">حفظ كلمة المرور الجديدة</button>
+      </form>
+      <button class="text-link" id="backToLogin" type="button">العودة إلى تسجيل الدخول</button>
+    </section>
     <p id="authMessage" class="message" role="status" aria-live="polite"></p>
   </section>
   <section id="walletPanel" hidden>

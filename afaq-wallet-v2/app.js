@@ -21,11 +21,46 @@
   function clearSession() { state.token = ''; state.member = null; sessionStorage.removeItem('afaq_wallet_token'); $('walletPanel').hidden = true; $('authPanel').hidden = false; $('walletNav').hidden = true; document.body.classList.add('auth-mode'); document.querySelectorAll('[data-action].is-selected').forEach(el => { el.classList.remove('is-selected'); el.removeAttribute('aria-current'); el.querySelector('.tap-indicator')?.remove(); }); }
   function setMode(mode) {
     state.mode = mode;
+    $('forgotPanel').hidden = true; $('authForm').hidden = false;
+    $('forgotOpen').hidden = mode !== 'login';
     document.querySelectorAll('[data-auth-mode]').forEach(b => b.classList.toggle('active', b.dataset.authMode === mode));
     $('nameLabel').hidden = mode !== 'register'; $('fullName').required = mode === 'register';
-    $('authSubmit').textContent = mode === 'register' ? 'إنشاء حساب آفاق' : 'دخول آمن';
+    $('authSubmit').textContent = mode === 'register' ? 'إنشاء حساب' : 'تسجيل الدخول';
     $('password').setAttribute('autocomplete', mode === 'register' ? 'new-password' : 'current-password');
+    $('authHint').textContent = mode === 'register' ? 'أنشئ حساب محفظتك باستخدام بريد إلكتروني صالح وكلمة مرور قوية.' : 'سجّل الدخول باستخدام بيانات عضويتك في آفاق سوريا.';
     message('authMessage', '');
+  }
+  function showForgot() {
+    $('authForm').hidden = true; $('forgotPanel').hidden = false;
+    $('forgotResetForm').hidden = true; $('forgotRequestForm').hidden = false;
+    $('forgotEmail').value = $('loginId').value.includes('@') ? $('loginId').value.trim() : '';
+    message('authMessage', '');
+  }
+  async function requestResetCode(e) {
+    e.preventDefault();
+    const btn=$('sendResetCode'); btn.disabled=true; btn.textContent='جارٍ إرسال الرمز…';
+    try {
+      const data=await api('/api/member/password/forgot',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim()})});
+      message('authMessage', data.message || 'إذا كان البريد مسجلاً، فسيصلك رمز التحقق.');
+      $('forgotRequestForm').hidden=true; $('forgotResetForm').hidden=false;
+      $('resetCode').focus();
+    } catch(err) { message('authMessage',err.message,true); }
+    finally { btn.disabled=false; btn.textContent='إرسال رمز التحقق'; }
+  }
+  async function resetPassword(e) {
+    e.preventDefault();
+    const password=$('newPassword').value;
+    if(password.length<10) return message('authMessage','كلمة المرور الجديدة يجب ألا تقل عن 10 أحرف.',true);
+    if(password!==$('confirmPassword').value) return message('authMessage','كلمتا المرور غير متطابقتين.',true);
+    const btn=$('resetPasswordBtn');btn.disabled=true;btn.textContent='جارٍ تحديث كلمة المرور…';
+    try {
+      const data=await api('/api/member/password/reset',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim(),code:$('resetCode').value.trim(),password})});
+      $('forgotPanel').hidden=true;$('authForm').hidden=false;$('loginId').value=$('forgotEmail').value.trim();$('password').value='';
+      $('newPassword').value='';$('confirmPassword').value='';$('resetCode').value='';
+      message('authMessage',data.message || 'تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن.');
+      setMode('login');
+    } catch(err){message('authMessage',err.message,true);}
+    finally{btn.disabled=false;btn.textContent='حفظ كلمة المرور الجديدة';}
   }
   async function authSubmit(e) {
     e.preventDefault();
@@ -105,6 +140,11 @@
   }
   document.querySelectorAll('[data-auth-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.authMode)));
   $('authForm').addEventListener('submit', authSubmit);
+  $('forgotOpen').addEventListener('click', showForgot);
+  $('backToLogin').addEventListener('click', () => { $('forgotPanel').hidden=true; $('authForm').hidden=false; message('authMessage',''); });
+  $('forgotRequestForm').addEventListener('submit', requestResetCode);
+  $('forgotResetForm').addEventListener('submit', resetPassword);
+  $('newPasswordToggle').addEventListener('click', () => { const p=$('newPassword'),shown=p.type==='password';p.type=shown?'text':'password';$('newPasswordToggle').setAttribute('aria-pressed',String(shown));$('newPasswordToggle').setAttribute('aria-label',shown?'إخفاء كلمة المرور':'إظهار كلمة المرور'); });
   $('passwordToggle').addEventListener('click', () => { const p = $('password'), shown = p.type === 'password'; p.type = shown ? 'text' : 'password'; $('passwordToggle').setAttribute('aria-pressed', String(shown)); $('passwordToggle').setAttribute('aria-label', shown ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'); });
   $('miningBtn').addEventListener('click', miningAction); $('refreshBtn').addEventListener('click', refresh); $('historyRefresh').addEventListener('click', e => { e.preventDefault(); loadHistory(); });
   $('logoutBtn').addEventListener('click', async () => { try { await api('/api/member/logout', { method: 'POST', body: '{}' }); } catch {} clearSession(); toast('تم تسجيل الخروج'); });

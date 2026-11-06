@@ -53,3 +53,15 @@ body.auth-mode .login-panel{width:100%;max-width:none}
  body.auth-mode .login-panel input{min-height:56px;font-size:17px}
  body.auth-mode .auth-tab,body.auth-mode .gold-btn{min-height:56px;font-size:16px}
 }
+
+/* Professional account creation and password recovery */
+.text-link{display:block;width:100%;margin:12px 0 2px;padding:9px;background:transparent;border:0;color:var(--gold2);text-decoration:underline;text-align:center;font-size:13px}
+.forgot-panel{margin-top:16px;padding:18px;border:1px solid #806633;border-radius:14px;background:#0b2230}
+.forgot-panel h2{margin:0 0 8px;color:var(--gold2);font-size:19px}
+.forgot-panel label{display:block;color:var(--gold2);font-size:13px;margin:12px 0 5px}
+.forgot-panel input{width:100%;min-height:48px;background:#071522;color:#f7f1e4;border:1px solid #806633;border-radius:9px;padding:11px;font:inherit}
+.forgot-panel .muted{font-size:13px;line-height:1.7}
+.forgot-panel .outline-btn{width:100%;margin-top:12px}
+.auth-tabs{margin:18px 0}
+.auth-tab{min-height:48px;font-size:14px}
+@media(max-width:520px){.forgot-panel{padding:15px}.text-link{font-size:14px}}

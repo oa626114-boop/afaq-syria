@@ -265,6 +265,67 @@ async function handle(req, env) {
   }
 
   // Member login by email OR member ID
+  // Password recovery: requires RESEND_API_KEY and RESEND_FROM_EMAIL Worker secrets/vars.
+  if (req.method === "POST" && path === "/api/member/password/forgot") {
+    let body; try { body = await req.json(); } catch { return reply(req, env, {ok:false,error:"Invalid JSON"}, 400); }
+    const email=String(body.email||"").trim().toLowerCase();
+    if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||email.length>254)
+      return reply(req,env,{ok:false,error:"أدخل بريداً إلكترونياً صحيحاً."},400);
+    if(String(env.SESSION_PEPPER||"").length<32)
+      return reply(req,env,{ok:false,error:"إعداد حماية الخادم غير مكتمل."},503);
+    if(!env.RESEND_API_KEY||!env.RESEND_FROM_EMAIL)
+      return reply(req,env,{ok:false,error:"خدمة البريد غير مهيأة بعد. يجب إعداد RESEND_API_KEY و RESEND_FROM_EMAIL في Cloudflare."},503);
+    if(!(await allowAuthAttempt(req,env,"password-forgot",3,3600)))
+      return reply(req,env,{ok:false,error:"تجاوزت عدد طلبات الاستعادة. حاول بعد ساعة."},429);
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS member_password_resets(
+      id TEXT PRIMARY KEY, member_id TEXT NOT NULL, code_hash TEXT NOT NULL,
+      expires_at TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
+      used_at TEXT, created_at TEXT NOT NULL
+    )`).run();
+    const member=await env.DB.prepare("SELECT id,full_name,email FROM members WHERE lower(email)=? AND status='active' LIMIT 1").bind(email).first();
+    // Keep the response identical for known and unknown addresses.
+    if(member){
+      const code=String(crypto.getRandomValues(new Uint32Array(1))[0]%1000000).padStart(6,"0");
+      const id=crypto.randomUUID(),expires=new Date(Date.now()+10*60*1000).toISOString();
+      const codeHash=await sha256(code+"|"+env.SESSION_PEPPER);
+      await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE member_id=? AND used_at IS NULL").bind(now(),member.id).run();
+      await env.DB.prepare("INSERT INTO member_password_resets(id,member_id,code_hash,expires_at,created_at) VALUES(?,?,?,?,?)").bind(id,member.id,codeHash,expires,now()).run();
+      const mail=await fetch("https://api.resend.com/emails",{method:"POST",headers:{"Authorization":"Bearer "+env.RESEND_API_KEY,"Content-Type":"application/json"},body:JSON.stringify({
+        from:env.RESEND_FROM_EMAIL,to:[email],subject:"رمز استعادة كلمة مرور AFAQ SYRIA",
+        text:"مرحباً "+(member.full_name||"")+",\n\nرمز استعادة كلمة المرور هو: "+code+"\nصلاحية الرمز 10 دقائق ويستخدم مرة واحدة. إذا لم تطلب الاستعادة فتجاهل هذه الرسالة."
+      })});
+      if(!mail.ok){await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE id=?").bind(now(),id).run();return reply(req,env,{ok:false,error:"تعذر إرسال رسالة التحقق. تحقق من إعدادات البريد في Cloudflare."},502);}
+    }
+    return reply(req,env,{ok:true,message:"إذا كان البريد مسجلاً، فسيصلك رمز التحقق خلال لحظات."});
+  }
+
+  if (req.method === "POST" && path === "/api/member/password/reset") {
+    let body; try { body = await req.json(); } catch { return reply(req,env,{ok:false,error:"Invalid JSON"},400); }
+    const email=String(body.email||"").trim().toLowerCase(),code=String(body.code||"").trim(),password=String(body.password||"");
+    if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||!/^[0-9]{6}$/.test(code)||password.length<10||password.length>128)
+      return reply(req,env,{ok:false,error:"تحقق من البريد والرمز، واجعل كلمة المرور الجديدة 10 أحرف على الأقل."},400);
+    if(String(env.SESSION_PEPPER||"").length<32)return reply(req,env,{ok:false,error:"إعداد حماية الخادم غير مكتمل."},503);
+    if(!(await allowAuthAttempt(req,env,"password-reset",8,900)))
+      return reply(req,env,{ok:false,error:"تجاوزت عدد المحاولات. حاول بعد 15 دقيقة."},429);
+    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS member_password_resets(
+      id TEXT PRIMARY KEY, member_id TEXT NOT NULL, code_hash TEXT NOT NULL,
+      expires_at TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
+      used_at TEXT, created_at TEXT NOT NULL
+    )`).run();
+    const member=await env.DB.prepare("SELECT id FROM members WHERE lower(email)=? AND status='active' LIMIT 1").bind(email).first();
+    if(!member)return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
+    const reset=await env.DB.prepare("SELECT id,code_hash,attempts FROM member_password_resets WHERE member_id=? AND used_at IS NULL AND expires_at>? ORDER BY created_at DESC LIMIT 1").bind(member.id,now()).first();
+    if(!reset||Number(reset.attempts)>=8)return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
+    await env.DB.prepare("UPDATE member_password_resets SET attempts=attempts+1 WHERE id=? AND used_at IS NULL").bind(reset.id).run();
+    const candidate=await sha256(code+"|"+env.SESSION_PEPPER);
+    if(!safeEqual(candidate,reset.code_hash))return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
+    const salt=randomToken(16),hash=await passwordHash(password,salt);
+    await env.DB.prepare("UPDATE members SET password_salt=?,password_hash=? WHERE id=?").bind(salt,hash,member.id).run();
+    await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE id=?").bind(now(),reset.id).run();
+    await env.DB.prepare("DELETE FROM member_sessions WHERE member_id=?").bind(member.id).run();
+    return reply(req,env,{ok:true,message:"تم تحديث كلمة المرور. سجّل الدخول باستخدام كلمة المرور الجديدة."});
+  }
+
   if (req.method === "POST" && path === "/api/member/login") {
     if (String(env.SESSION_PEPPER || "").length < 32)
       return reply(req, env, { ok:false, error:"Server session security is not configured" }, 503);

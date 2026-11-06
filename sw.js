@@ -1,17 +1,59 @@
-const CACHE = 'afaq-syria-v11';
-const CORE = ['./','./index.html','./payment.html','./crypto-wallet.html','./wallet.html','./wallet.webmanifest','./global-market.html','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./afaq-virtual-card-art.png','./afaq-crypto-card-art.png','./afaq-bank.js','./afaq-bank.css'];
+const CACHE = 'afaq-wallet-shell-v3';
+const FILES = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './icon.svg'];
+
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    // A missing optional asset must not prevent the service worker installing.
+    await Promise.allSettled(FILES.map(file => cache.add(file)));
+    await self.skipWaiting();
+  })());
 });
+
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('afaq-syria-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(key => key.startsWith('afaq-wallet-shell-') && key !== CACHE)
+      .map(key => caches.delete(key)));
+    await self.clients.claim();
+  })());
 });
+
 self.addEventListener('fetch', event => {
-  const req = event.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
-  if (req.mode === 'navigate' || /\.html$/.test(new URL(req.url).pathname)) {
-    event.respondWith(fetch(req).then(res => { if(res.ok){const copy=res.clone();caches.open(CACHE).then(c=>c.put(req,copy));} return res; }).catch(() => caches.match(req).then(hit => hit || caches.match('./index.html'))));
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  // HTML navigations use network-first so deployed fixes are not hidden by stale pages.
+  if (request.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request);
+        if (response.ok) {
+          const cache = await caches.open(CACHE);
+          cache.put('./index.html', response.clone());
+        }
+        return response;
+      } catch {
+        return (await caches.match(request)) || (await caches.match('./index.html')) || Response.error();
+      }
+    })());
     return;
   }
-  event.respondWith(caches.match(req).then(hit => hit || fetch(req).then(res => { if(res.ok){const copy=res.clone();caches.open(CACHE).then(c=>c.put(req,copy));} return res; })));
+
+  // Static same-origin assets use cache-first with a network fallback.
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    try {
+      const response = await fetch(request);
+      if (response.ok) {
+        const cache = await caches.open(CACHE);
+        cache.put(request, response.clone());
+      }
+      return response;
+    } catch {
+      return Response.error();
+    }
+  })());
 });

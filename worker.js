@@ -43,7 +43,7 @@ async function sha256(value) {
 async function passwordHash(password, salt) {
   const material = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", salt: enc.encode(salt), iterations: 100000, hash: "SHA-256" },
+    { name: "PBKDF2", salt: enc.encode(salt), iterations: 310000, hash: "SHA-256" },
     material, 256
   );
   return b64url(bits);
@@ -55,10 +55,7 @@ function safeEqual(a, b) {
   return n === 0;
 }
 function newMemberId() {
-  // Public member ID format: OA followed by nine digits. The UNIQUE constraint
-  // and registration retry loop below guarantee collision-safe allocation.
-  const bytes = crypto.getRandomValues(new Uint8Array(9));
-  return "OA" + Array.from(bytes, b => String(b % 10)).join("");
+  return "AFQ-" + randomToken(9).toUpperCase().replace(/[-_]/g, "").slice(0, 12);
 }
 function newAccountNumber() {
   return "AQ" + randomToken(10).toUpperCase().replace(/[-_]/g, "").slice(0, 16);
@@ -80,7 +77,7 @@ async function ensureTables(env) {
     )`,
     `CREATE TABLE IF NOT EXISTS members (
       id TEXT PRIMARY KEY, member_id TEXT NOT NULL UNIQUE, account_number TEXT NOT NULL UNIQUE,
-      email TEXT NOT NULL UNIQUE, full_name TEXT NOT NULL DEFAULT '', phone TEXT NOT NULL DEFAULT '', password_salt TEXT NOT NULL, password_hash TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE, full_name TEXT NOT NULL DEFAULT '', password_salt TEXT NOT NULL, password_hash TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL
     )`,
     `CREATE TABLE IF NOT EXISTS member_sessions (
@@ -124,7 +121,6 @@ async function ensureTables(env) {
   for (const sql of statements) await env.DB.prepare(sql).run();
   // Backward-compatible migrations for databases created by earlier Worker versions.
   try { await env.DB.prepare("ALTER TABLE members ADD COLUMN full_name TEXT NOT NULL DEFAULT ''").run(); } catch {}
-  try { await env.DB.prepare("ALTER TABLE members ADD COLUMN phone TEXT NOT NULL DEFAULT ''").run(); } catch {}
   try { await env.DB.prepare("ALTER TABLE afaq_payments ADD COLUMN created_by TEXT").run(); } catch {}
 }
 
@@ -222,7 +218,6 @@ async function handle(req, env) {
     let body; try { body = await req.json(); } catch { return reply(req, env, { ok:false, error:"Invalid JSON" }, 400); }
     const email = String(body.email || "").trim().toLowerCase();
     const fullName = String(body.name || body.full_name || "").trim().slice(0,120);
-    const phone = String(body.phone || "").replace(/\D/g, "").slice(0,20);
     const password = String(body.password || "");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
       return reply(req, env, { ok:false, error:"Enter a valid email address" }, 400);
@@ -241,9 +236,9 @@ async function handle(req, env) {
       memberId = newMemberId(); accountNumber = newAccountNumber(); internalId = crypto.randomUUID();
       try {
         await env.DB.prepare(
-          `INSERT INTO members(id,member_id,account_number,email,full_name,phone,password_salt,password_hash,created_at)
-           VALUES(?,?,?,?,?,?,?,?,?)`
-        ).bind(internalId, memberId, accountNumber, email, fullName, phone, salt, hash, now()).run();
+          `INSERT INTO members(id,member_id,account_number,email,full_name,password_salt,password_hash,created_at)
+           VALUES(?,?,?,?,?,?,?,?)`
+        ).bind(internalId, memberId, accountNumber, email, fullName, salt, hash, now()).run();
         break;
       } catch (e) {
         if (attempt === 3) {
@@ -261,71 +256,10 @@ async function handle(req, env) {
     await env.DB.prepare("INSERT INTO member_sessions(token_hash,member_id,expires_at,created_at) VALUES(?,?,?,?)")
       .bind(tokenHash, internalId, expires, now()).run();
     return reply(req, env, { ok:true, token, expires_at:expires,
-      member:{ member_id:memberId, account_number:accountNumber, email, phone, name:fullName, iban:null, iban_status:"pending_bank_partner" } }, 201);
+      member:{ member_id:memberId, account_number:accountNumber, email, name:fullName, iban:null, iban_status:"pending_bank_partner" } }, 201);
   }
 
   // Member login by email OR member ID
-  // Password recovery: requires RESEND_API_KEY and RESEND_FROM_EMAIL Worker secrets/vars.
-  if (req.method === "POST" && path === "/api/member/password/forgot") {
-    let body; try { body = await req.json(); } catch { return reply(req, env, {ok:false,error:"Invalid JSON"}, 400); }
-    const email=String(body.email||"").trim().toLowerCase();
-    if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||email.length>254)
-      return reply(req,env,{ok:false,error:"أدخل بريداً إلكترونياً صحيحاً."},400);
-    if(String(env.SESSION_PEPPER||"").length<32)
-      return reply(req,env,{ok:false,error:"إعداد حماية الخادم غير مكتمل."},503);
-    if(!env.RESEND_API_KEY||!env.RESEND_FROM_EMAIL)
-      return reply(req,env,{ok:false,error:"خدمة البريد غير مهيأة بعد. يجب إعداد RESEND_API_KEY و RESEND_FROM_EMAIL في Cloudflare."},503);
-    if(!(await allowAuthAttempt(req,env,"password-forgot",3,3600)))
-      return reply(req,env,{ok:false,error:"تجاوزت عدد طلبات الاستعادة. حاول بعد ساعة."},429);
-    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS member_password_resets(
-      id TEXT PRIMARY KEY, member_id TEXT NOT NULL, code_hash TEXT NOT NULL,
-      expires_at TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
-      used_at TEXT, created_at TEXT NOT NULL
-    )`).run();
-    const member=await env.DB.prepare("SELECT id,full_name,email FROM members WHERE lower(email)=? AND status='active' LIMIT 1").bind(email).first();
-    // Keep the response identical for known and unknown addresses.
-    if(member){
-      const code=String(crypto.getRandomValues(new Uint32Array(1))[0]%1000000).padStart(6,"0");
-      const id=crypto.randomUUID(),expires=new Date(Date.now()+10*60*1000).toISOString();
-      const codeHash=await sha256(code+"|"+env.SESSION_PEPPER);
-      await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE member_id=? AND used_at IS NULL").bind(now(),member.id).run();
-      await env.DB.prepare("INSERT INTO member_password_resets(id,member_id,code_hash,expires_at,created_at) VALUES(?,?,?,?,?)").bind(id,member.id,codeHash,expires,now()).run();
-      const mail=await fetch("https://api.resend.com/emails",{method:"POST",headers:{"Authorization":"Bearer "+env.RESEND_API_KEY,"Content-Type":"application/json"},body:JSON.stringify({
-        from:env.RESEND_FROM_EMAIL,to:[email],subject:"رمز استعادة كلمة مرور AFAQ SYRIA",
-        text:"مرحباً "+(member.full_name||"")+",\n\nرمز استعادة كلمة المرور هو: "+code+"\nصلاحية الرمز 10 دقائق ويستخدم مرة واحدة. إذا لم تطلب الاستعادة فتجاهل هذه الرسالة."
-      })});
-      if(!mail.ok){await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE id=?").bind(now(),id).run();return reply(req,env,{ok:false,error:"تعذر إرسال رسالة التحقق. تحقق من إعدادات البريد في Cloudflare."},502);}
-    }
-    return reply(req,env,{ok:true,message:"إذا كان البريد مسجلاً، فسيصلك رمز التحقق خلال لحظات."});
-  }
-
-  if (req.method === "POST" && path === "/api/member/password/reset") {
-    let body; try { body = await req.json(); } catch { return reply(req,env,{ok:false,error:"Invalid JSON"},400); }
-    const email=String(body.email||"").trim().toLowerCase(),code=String(body.code||"").trim(),password=String(body.password||"");
-    if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)||!/^[0-9]{6}$/.test(code)||password.length<10||password.length>128)
-      return reply(req,env,{ok:false,error:"تحقق من البريد والرمز، واجعل كلمة المرور الجديدة 10 أحرف على الأقل."},400);
-    if(String(env.SESSION_PEPPER||"").length<32)return reply(req,env,{ok:false,error:"إعداد حماية الخادم غير مكتمل."},503);
-    if(!(await allowAuthAttempt(req,env,"password-reset",8,900)))
-      return reply(req,env,{ok:false,error:"تجاوزت عدد المحاولات. حاول بعد 15 دقيقة."},429);
-    await env.DB.prepare(`CREATE TABLE IF NOT EXISTS member_password_resets(
-      id TEXT PRIMARY KEY, member_id TEXT NOT NULL, code_hash TEXT NOT NULL,
-      expires_at TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
-      used_at TEXT, created_at TEXT NOT NULL
-    )`).run();
-    const member=await env.DB.prepare("SELECT id FROM members WHERE lower(email)=? AND status='active' LIMIT 1").bind(email).first();
-    if(!member)return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
-    const reset=await env.DB.prepare("SELECT id,code_hash,attempts FROM member_password_resets WHERE member_id=? AND used_at IS NULL AND expires_at>? ORDER BY created_at DESC LIMIT 1").bind(member.id,now()).first();
-    if(!reset||Number(reset.attempts)>=8)return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
-    await env.DB.prepare("UPDATE member_password_resets SET attempts=attempts+1 WHERE id=? AND used_at IS NULL").bind(reset.id).run();
-    const candidate=await sha256(code+"|"+env.SESSION_PEPPER);
-    if(!safeEqual(candidate,reset.code_hash))return reply(req,env,{ok:false,error:"الرمز غير صحيح أو منتهي الصلاحية."},400);
-    const salt=randomToken(16),hash=await passwordHash(password,salt);
-    await env.DB.prepare("UPDATE members SET password_salt=?,password_hash=? WHERE id=?").bind(salt,hash,member.id).run();
-    await env.DB.prepare("UPDATE member_password_resets SET used_at=? WHERE id=?").bind(now(),reset.id).run();
-    await env.DB.prepare("DELETE FROM member_sessions WHERE member_id=?").bind(member.id).run();
-    return reply(req,env,{ok:true,message:"تم تحديث كلمة المرور. سجّل الدخول باستخدام كلمة المرور الجديدة."});
-  }
-
   if (req.method === "POST" && path === "/api/member/login") {
     if (String(env.SESSION_PEPPER || "").length < 32)
       return reply(req, env, { ok:false, error:"Server session security is not configured" }, 503);
@@ -345,7 +279,7 @@ async function handle(req, env) {
     await env.DB.prepare("INSERT INTO member_sessions(token_hash,member_id,expires_at,created_at) VALUES(?,?,?,?)")
       .bind(tokenHash, row.id, expires, now()).run();
     return reply(req, env, { ok:true, token, expires_at:expires,
-      member:{ member_id:row.member_id, account_number:row.account_number, email:row.email, phone:row.phone || '', name:row.full_name || '', iban:null, iban_status:"pending_bank_partner" } });
+      member:{ member_id:row.member_id, account_number:row.account_number, email:row.email, name:row.full_name || '', iban:null, iban_status:"pending_bank_partner" } });
   }
 
   if (req.method === "POST" && path === "/api/member/logout") {
@@ -367,23 +301,6 @@ async function handle(req, env) {
       balances:(balances.results || []).map(x => ({ currency:x.currency, balance:Number(x.balance_minor)/100 })) });
   }
 
-
-  // Authenticated member directory lookup by public OA ID or normalized phone.
-  if (req.method === "GET" && path === "/api/member/search") {
-    const auth = await getAuth(req, env);
-    if (!auth) return reply(req, env, { ok:false, error:"Unauthorized" }, 401);
-    const raw = String(url.searchParams.get("q") || "").trim();
-    if (raw.length < 4 || raw.length > 32)
-      return reply(req, env, { ok:false, error:"Enter a valid member ID or phone number" }, 400);
-    const digits = raw.replace(/[^0-9]/g, "");
-    let row = null;
-    if (/^OA[0-9]{9}$/i.test(raw)) {
-      row = await env.DB.prepare("SELECT member_id,full_name,phone,status FROM members WHERE upper(member_id)=upper(?) AND status='active' LIMIT 1").bind(raw).first();
-    } else if (digits.length >= 7) {
-      row = await env.DB.prepare("SELECT member_id,full_name,phone,status FROM members WHERE phone=? AND status='active' LIMIT 1").bind(digits).first();
-    }
-    return reply(req, env, row ? {ok:true,member:{memberId:row.member_id,name:row.full_name,phone:row.phone,status:row.status}} : {ok:false,error:"Member not found"}, row ? 200 : 404);
-  }
 
   // AFAQ WALLET — internal AFAQ rewards. Uses the existing AFAQ SYRIA member session.
   if (req.method === "GET" && path === "/api/wallet/summary") {
@@ -438,8 +355,8 @@ async function handle(req, env) {
     // D1 batch: close once, create unique reward, then credit only when the reward insert succeeded.
     const results = await env.DB.batch([
       env.DB.prepare("UPDATE afaq_mining_sessions SET status='completed',ended_at=? WHERE session_id=? AND status='active'").bind(stamp,active.session_id),
-      env.DB.prepare("INSERT OR IGNORE INTO afaq_mining_rewards(reward_id,session_id,member_id,amount_units,seconds_mined,created_at) SELECT ?,?,?,?, ?,? WHERE EXISTS(SELECT 1 FROM afaq_mining_sessions WHERE session_id=? AND status='completed')").bind(crypto.randomUUID(),active.session_id,auth.member_id,units,seconds,stamp,active.session_id),
-      env.DB.prepare("INSERT OR IGNORE INTO afaq_wallet_ledger(entry_id,member_id,amount_units,entry_type,reference_id,created_at) SELECT ?,?,?, 'mining_reward',?,? WHERE EXISTS(SELECT 1 FROM afaq_mining_rewards WHERE session_id=?)").bind(crypto.randomUUID(),auth.member_id,units,active.session_id,stamp,active.session_id),
+      env.DB.prepare("INSERT OR IGNORE INTO afaq_mining_rewards(reward_id,session_id,member_id,amount_units,seconds_mined,created_at) SELECT ?,?,?,?, ?,? WHERE changes()=1 AND EXISTS(SELECT 1 FROM afaq_mining_sessions WHERE session_id=? AND status='completed')").bind(crypto.randomUUID(),active.session_id,auth.member_id,units,seconds,stamp,active.session_id),
+      env.DB.prepare("INSERT OR IGNORE INTO afaq_wallet_ledger(entry_id,member_id,amount_units,entry_type,reference_id,created_at) SELECT ?,?,?, 'mining_reward',?,? WHERE changes()=1 AND EXISTS(SELECT 1 FROM afaq_mining_rewards WHERE session_id=?)").bind(crypto.randomUUID(),auth.member_id,units,active.session_id,stamp,active.session_id),
       env.DB.prepare("UPDATE afaq_wallet_balances SET balance_units=balance_units+?,updated_at=? WHERE member_id=? AND EXISTS(SELECT 1 FROM afaq_wallet_ledger WHERE reference_id=? AND amount_units=?) AND (SELECT COUNT(*) FROM afaq_wallet_ledger WHERE reference_id=?)=1").bind(units,stamp,auth.member_id,active.session_id,units,active.session_id)
     ]);
     if (!results[0]?.meta?.changes) return reply(req, env, {ok:false,error:"Mining session was already closed"},409);
@@ -563,8 +480,16 @@ async function handle(req, env) {
     if (paymentStatus === "finished") {
       const amountMinor = amountToMinor(payment.amount);
       const creditCurrency = String(payment.currency || "").toUpperCase();
+      const reportedAmount = amountToMinor(event.price_amount);
+      const reportedCurrency = String(event.price_currency || "").toUpperCase();
+
+      // A signed webhook is not enough on its own: also bind the completed
+      // payment to the exact invoice amount and currency stored for this order.
+      // This prevents a mismatched provider event from crediting an account.
       if (!payment.created_by || !amountMinor || !currencies.has(creditCurrency))
         return json({ok:false,error:"Payment cannot be credited; account or currency is invalid"},409);
+      if (!reportedAmount || reportedAmount !== amountMinor || reportedCurrency !== creditCurrency)
+        return json({ok:false,error:"Completed payment does not match the invoice amount or currency"},409);
 
       // INSERT OR IGNORE succeeds only once per order_id. The trigger credits
       // the member balance only when this unique row is first inserted.

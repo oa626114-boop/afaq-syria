@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102b3b">
+  <meta name="description" content="AFAQ WALLET — محفظة آفاق الرقمية">
+  <meta name="color-scheme" content="dark">
+  <title>AFAQ WALLET | محفظة آفاق</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+:root{--navy:#102b3b;--navy2:#17394a;--gold:#e5bd62;--gold2:#f4d98d;--text:#f7f2e8;--muted:#b8c5c9;--line:rgba(229,189,98,.2)}
+*{box-sizing:border-box}body{margin:0;background:#0b2230;color:var(--text);font-family:Cairo,Arial,sans-serif;padding-bottom:90px}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100% - 680px)/2));background:#102b3b;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;color:var(--gold)}.brand-mark{width:38px;height:38px;border:1px solid var(--gold);border-radius:12px;display:grid;place-items:center;font-size:22px;font-weight:800}.brand b{display:block;letter-spacing:2px;font-size:15px}.brand small{display:block;font-size:9px;letter-spacing:3px;color:var(--muted)}
+.icon-btn{background:transparent;border:1px solid var(--line);color:var(--gold);border-radius:12px;width:40px;height:40px;font-size:22px}
+.shell{width:min(100% - 32px,620px);margin:24px auto}.welcome{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}.eyebrow{color:var(--gold);font-size:11px;letter-spacing:1.5px;margin:0 0 5px}.welcome h1{font-size:23px;margin:0 0 5px}.welcome h1 span{color:var(--gold)}.muted{color:var(--muted);font-size:12px;margin:0;line-height:1.8}.status,.pill{font-size:10px;color:var(--gold2);border:1px solid var(--line);padding:6px 9px;border-radius:20px;white-space:nowrap}.status i{display:inline-block;width:6px;height:6px;background:#d8a84d;border-radius:50%;margin-left:5px}
+.balance-card{padding:22px;border-radius:22px;background:linear-gradient(135deg,#1c4657,#102b3b 70%);border:1px solid rgba(229,189,98,.35);box-shadow:0 16px 40px #0003}.card-top,.section-head{display:flex;justify-content:space-between;align-items:center}.card-top{color:var(--muted);font-size:12px}.coin{color:var(--gold);font-size:10px;border:1px solid var(--line);padding:4px 9px;border-radius:12px}.balance{font-size:36px;font-weight:800;color:var(--gold2);margin:12px 0 2px;direction:ltr;text-align:right}.balance small{font-size:13px}.card-actions{display:flex;gap:10px;margin-top:18px}.gold-btn,.outline-btn,.mine-btn{border-radius:12px;padding:11px 18px;font-family:inherit;font-weight:700;cursor:pointer}.gold-btn{background:linear-gradient(135deg,var(--gold2),#c9973e);color:#18313d;border:0}.outline-btn{background:transparent;color:var(--gold2);border:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.stat{background:var(--navy);border:1px solid var(--line);border-radius:16px;padding:14px}.stat span,.stat small{display:block;color:var(--muted);font-size:11px}.stat b{display:block;color:var(--gold2);font-size:17px;margin:5px 0}.stat .pending{font-size:13px}.mining-card{background:linear-gradient(160deg,#17394a,#102b3b);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:16px;text-align:center}.section-head{text-align:right}.section-head h2{font-size:16px;margin:0}.section-head a{font-size:11px;color:var(--gold);text-decoration:none}.mining-card .section-head{text-align:right}.bee-wrap{height:112px;display:grid;place-items:center;position:relative;margin:10px auto}.bee{font-size:54px;filter:drop-shadow(0 0 14px #e5bd6280);animation:float 2.5s ease-in-out infinite}.orbit{position:absolute;width:94px;height:94px;border:1px dashed #e5bd6270;border-radius:50%;animation:spin 12s linear infinite}.mining-card h3{font-size:17px;margin:4px 0 5px;color:var(--gold2)}.center{text-align:center;max-width:390px;margin:auto}.mine-btn{width:100%;margin-top:16px;background:linear-gradient(135deg,#f4d98d,#c9973e);color:#17313d;border:0;font-size:14px}.fineprint{font-size:10px;color:#9eafb4;margin:12px 0 0}.quick,.activity{margin-top:23px}.service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.service{background:var(--navy);border:1px solid var(--line);border-radius:15px;padding:13px 4px;color:var(--text);font:600 11px Cairo;cursor:pointer}.service span{display:block;color:var(--gold);font-size:22px;margin-bottom:5px}.empty{margin-top:12px;border:1px dashed var(--line);border-radius:16px;padding:22px;text-align:center;color:var(--muted)}.empty span{display:block;color:var(--gold);font-size:25px}.empty b,.empty small{display:block}.empty b{font-size:12px;color:var(--text);margin:5px}.empty small{font-size:10px}.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#102b3bf2;border-top:1px solid var(--line);display:flex;justify-content:center;gap:0;padding:9px max(8px,calc((100% - 620px)/2));z-index:5;backdrop-filter:blur(12px)}.bottom-nav a{flex:1;text-align:center;color:#9fb0b5;text-decoration:none;font-size:10px}.bottom-nav a span{display:block;font-size:19px}.bottom-nav a.active{color:var(--gold)}.toast{position:fixed;bottom:85px;left:50%;transform:translate(-50%,20px);background:#24495a;color:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 15px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-9px) rotate(5deg)}}@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:700px){.shell{margin-top:34px}.welcome h1{font-size:27px}}
+.login-panel{background:#102b3b;border:1px solid var(--line);border-radius:18px;padding:18px;margin:18px 0}.login-panel label{display:block;color:var(--gold2);font-size:11px;margin:12px 0 5px}.login-panel input{width:100%;background:#071522;color:#f7f1e4;border:1px solid #806633;border-radius:9px;padding:12px;font:inherit;min-height:44px}.login-submit{width:100%;margin-top:15px}.account-bar{display:flex;justify-content:space-between;align-items:center;background:#102b3b;border:1px solid var(--line);border-radius:14px;padding:10px 13px;margin:15px 0;color:var(--gold2);font-size:12px}.account-bar[hidden]{display:none}
+
+/* Accessibility and mobile polish */
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+button:disabled{opacity:.55;cursor:not-allowed}
+input,button,select,textarea{font:inherit}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@supports(padding:max(0px)){.bottom-nav{padding-bottom:max(9px,env(safe-area-inset-bottom))}body{padding-bottom:calc(90px + env(safe-area-inset-bottom))}}
+
+/* AFAQ WALLET standalone application layout */
+.auth-tabs{display:flex;gap:8px;margin:14px 0}.auth-tab{flex:1;border:1px solid var(--line);border-radius:10px;background:#0b2230;color:var(--muted);padding:10px}.auth-tab.active{background:linear-gradient(135deg,var(--gold2),#c9973e);color:#17313d;font-weight:800}
+.login-panel label{display:block;color:var(--gold2);font-size:12px;margin:12px 0 5px}.login-panel input,.login-panel select{width:100%;min-height:44px;background:#071522;color:#f7f1e4;border:1px solid #806633;border-radius:9px;padding:11px;font:inherit}.password-field{position:relative}.password-field input{padding-left:50px}.password-toggle{position:absolute;left:6px;top:4px;width:38px;height:36px;background:transparent;color:var(--gold2);border:0;font-size:19px}
+.message{min-height:20px;color:#9ee2bd;font-size:12px}.message.error{color:#ff9b9b}.account-bar{gap:10px;flex-wrap:wrap}.account-bar button{padding:7px 11px;font-size:11px}.activity-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;margin-top:8px;background:#102b3b;border:1px solid var(--line);border-radius:12px}.activity-row b,.activity-row small{display:block}.activity-row b{font-size:12px;color:var(--gold2)}.activity-row small{font-size:10px;color:var(--muted);margin-top:3px}.activity-row strong{font-size:12px;white-space:nowrap}.positive{color:#75d5a5}.negative{color:#ff9696}.settings-dialog{width:min(480px,calc(100% - 24px));border:1px solid #806633;border-radius:16px;background:#102b3b;color:var(--text);padding:20px;box-shadow:0 20px 70px #0009}.settings-dialog::backdrop{background:#020a11cc}.settings-dialog label{display:block;color:var(--gold2);font-size:12px;margin:12px 0}.settings-dialog input{display:block;width:100%;margin-top:6px;background:#071522;color:#f7f1e4;border:1px solid #806633;border-radius:9px;padding:11px;direction:ltr;text-align:left}.settings-dialog .section-head{display:flex;justify-content:space-between;align-items:center}.settings-dialog h2{font-size:16px;color:var(--gold2)}
+[hidden]{display:none!important}
+@media(max-width:520px){.shell{width:calc(100% - 24px);margin:16px auto}.balance-card{padding:17px;border-radius:17px}.balance{font-size:30px}.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome{align-items:center}.welcome h1{font-size:21px}.account-bar{font-size:11px}.activity-row{align-items:flex-start}.bottom-nav{padding-left:8px;padding-right:8px}}
+
+/* Login and recovery refinements */
+.forgot-link{display:block;margin:12px auto 0;padding:6px 10px;border:0;background:transparent;color:var(--gold2);font:600 12px Cairo,Arial,sans-serif;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.forgot-link:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:6px}
+.password-toggle{display:grid;place-items:center;line-height:1;font-size:21px}
+.recovery-info{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:13px;background:#17394a;color:var(--text);font-size:12px;line-height:1.9}
+.recovery-info b{color:var(--gold2);font-size:14px}
+.recovery-info p{color:var(--muted);margin:6px 0 12px}
+.login-panel h1{color:var(--gold2)}
+.login-panel .eyebrow{font-weight:700}
+
+</style>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">A</div><div><b>AFAQ WALLET</b><small>المحفظة الرقمية</small></div></div>
+  <button class="icon-btn" id="settingsOpen" type="button" aria-label="إعدادات الاتصال">⚙</button>
+</header>
+<main class="shell">
+  <section id="authPanel" class="login-panel">
+    <p class="eyebrow">AFAQ MEMBER ACCESS</p>
+    <h1>تسجيل الدخول إلى آفاق</h1>
+    <p class="muted">استخدم حساب العضوية نفسه في منصة آفاق سوريا. لا تنشئ حساباً منفصلاً للمحفظة.</p>
+    <div class="auth-tabs"><button class="auth-tab active" data-auth-mode="login" type="button">تسجيل الدخول</button><button class="auth-tab" data-auth-mode="register" type="button">إنشاء حساب</button></div>
+    <form id="authForm">
+      <label id="nameLabel" hidden>الاسم الكامل<input id="fullName" autocomplete="name" minlength="2"></label>
+      <label id="loginIdLabel">البريد الإلكتروني أو رقم العضوية<input id="loginId" autocomplete="username" required placeholder="أدخل البريد الإلكتروني أو رقم العضوية"></label>
+      <label>كلمة المرور<div class="password-field"><input id="password" type="password" autocomplete="current-password" minlength="10" required><button type="button" class="password-toggle" id="passwordToggle" aria-label="إظهار كلمة المرور" aria-pressed="false">👁</button></div></label>
+      <button class="gold-btn login-submit" id="authSubmit" type="submit">دخول آمن</button>
+      <button class="forgot-link" id="forgotPasswordBtn" type="button">نسيت كلمة المرور؟</button>
+      <p class="fineprint">يتطلب الاتصال بخادم آفاق وقاعدة بيانات مفعّلين. لا يتم إنشاء رصيد تجريبي.</p>
+    </form>
+    <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+    <section id="recoveryInfo" class="recovery-info" hidden><b>استعادة كلمة المرور</b><p>تتطلب هذه الميزة تفعيل خدمة إرسال رمز تحقق إلى البريد الإلكتروني من خادم آفاق. الخادم الموجود في الحزمة الحالية لا يحتوي بعد على مسارات استعادة كلمة المرور، لذلك لم نفعّل نموذجاً قد يوهمك بأن التغيير تم.</p><button type="button" class="outline-btn" id="recoveryClose">إغلاق</button></section>
+  </section>
+
+  <section id="walletPanel" hidden>
+    <div class="welcome"><div><p class="eyebrow">AFAQ SYRIA · WALLET</p><h1>مرحباً بك في <span>آفاق</span></h1><p class="muted">إدارة رصيدك ومكافآت التعدين من مكان واحد.</p></div><span class="status" id="connectionStatus"><i></i> متصل</span></div>
+    <div class="account-bar"><span id="memberName">العضو</span><span id="memberId" dir="ltr">—</span><button id="logoutBtn" class="outline-btn" type="button">خروج</button></div>
+    <article class="balance-card">
+      <div class="card-top"><span>رصيد مكافآت آفاق</span><span class="coin">AFAQ</span></div>
+      <div class="balance"><span id="afaqBalance">—</span> <small>AFAQ</small></div>
+      <p class="muted">نقاط مكافآت داخلية للمنصة، وليست عملة رقمية على البلوكشين أو قيمة نقدية.</p>
+      <div class="card-actions"><button class="gold-btn" data-scroll="miningSection" type="button">التعدين</button><button class="outline-btn" id="refreshBtn" type="button">تحديث الرصيد</button></div>
+    </article>
+    <div class="stats">
+      <article class="stat"><span>حالة التعدين</span><b id="miningStatus">غير نشط</b><small id="miningRate">المعدل يحدده المشرف</small></article>
+      <article class="stat"><span>مكافآت اليوم</span><b id="todayRewards">—</b><small>AFAQ</small></article>
+    </div>
+    <section class="mining-card" id="miningSection">
+      <div class="section-head"><h2>منجم آفاق</h2><span class="pill">مكافآت داخلية</span></div>
+      <div class="bee-wrap"><div class="orbit"></div><div class="bee" aria-label="نحلة التعدين">🐝</div></div>
+      <h3 id="miningTitle">ابدأ رحلتك مع AFAQ</h3>
+      <p class="muted center" id="miningDescription">يتم احتساب المكافآت وفق المعدل الذي يحدده مشرف المنصة، بعد ربط الحساب بالخادم.</p>
+      <button class="mine-btn" id="miningBtn" type="button">طلب تفعيل التعدين</button>
+      <p class="fineprint">لا يتم إنشاء أي رصيد عند تعذّر الاتصال بالخادم أو إذا لم يكن التعدين مفعّلاً.</p>
+    </section>
+    <section class="quick">
+      <div class="section-head"><h2>الخدمات</h2></div>
+      <div class="service-grid">
+        <button class="service" data-action="transfer" type="button"><span>⇄</span>تحويل داخلي</button>
+        <button class="service" data-action="history" type="button"><span>▤</span>السجل</button>
+        <button class="service" data-action="refresh" type="button"><span>↻</span>استعلام</button>
+        <button class="service" data-action="security" type="button"><span>♙</span>الأمان</button>
+      </div>
+    </section>
+    <section class="activity" id="historySection">
+      <div class="section-head"><h2>آخر العمليات</h2><a href="#" id="historyRefresh">تحديث السجل</a></div>
+      <div id="activityList" class="empty"><span>▤</span><b>لا توجد عمليات معروضة</b><small>سيظهر سجل المكافآت والتحويلات بعد جلبه من الخادم.</small></div>
+    </section>
+    <section class="login-panel" id="transferPanel" hidden>
+      <div class="section-head"><h2>تحويل داخلي</h2><button class="outline-btn" id="transferClose" type="button">إغلاق</button></div>
+      <p class="fineprint">التحويلات المدعومة هنا بعملات الحساب المصرفي المسجلة في الخادم، وليست تحويل AFAQ.</p>
+      <form id="transferForm">
+        <label>رقم العضوية أو رقم الحساب<input id="recipient" required autocomplete="off"></label>
+        <label>المبلغ<input id="transferAmount" type="number" min="0.01" step="0.01" required></label>
+        <label>العملة<select id="transferCurrency"><option>USD</option><option>EUR</option><option>TRY</option><option>SYP</option><option>GBP</option><option>AED</option><option>SAR</option></select></label>
+        <label>ملاحظة (اختياري)<input id="transferNote" maxlength="160"></label>
+        <button class="gold-btn login-submit" type="submit">مراجعة وإرسال التحويل</button>
+      </form>
+      <p id="transferMessage" class="message" role="status"></p>
+    </section>
+  </section>
+</main>
+<nav class="bottom-nav" aria-label="التنقل"><a class="active" href="#top" data-scroll="walletPanel"><span>⌂</span>الرئيسية</a><a href="#miningSection" data-scroll="miningSection"><span>🐝</span>التعدين</a><a href="#historySection" data-scroll="historySection"><span>▤</span>السجل</a><a href="#transferPanel" data-action="transfer"><span>⇄</span>تحويل</a></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="settingsDialog" class="settings-dialog"><form method="dialog"><div class="section-head"><h2>إعدادات الاتصال</h2><button class="outline-btn" value="cancel">إغلاق</button></div><label>رابط AFAQ Worker<input id="apiBaseInput" type="url" placeholder="https://your-worker.your-subdomain.workers.dev" required></label><p class="fineprint">أدخل عنوان Worker المنشور الذي يحتوي على مسارات /api/member و /api/wallet. لا تضع مفاتيح API أو أسراراً في هذا الحقل.</p><button class="gold-btn login-submit" id="saveApiBtn" value="default" type="button">حفظ واختبار الاتصال</button><p id="apiMessage" class="message" role="status"></p></form></dialog>
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const state = { api: localStorage.getItem('afaq_wallet_api_base') || '', token: sessionStorage.getItem('afaq_wallet_token') || '', member: null, summary: null, mode: 'login' };
+  const fmt = (n, digits = 6) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: digits });
+  const message = (id, text, error = false) => { const el = $(id); if (el) { el.textContent = text; el.classList.toggle('error', !!error); } };
+  function toast(text) { const el = $('toast'); el.textContent = text; el.classList.add('show'); clearTimeout(toast.timer); toast.timer = setTimeout(() => el.classList.remove('show'), 2800); }
+  function base() { return state.api.replace(/\/+$/, ''); }
+  async function api(path, options = {}) {
+    if (!base()) throw new Error('يرجى ضبط رابط Worker أولاً من زر الإعدادات.');
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    if (state.token) headers.Authorization = `Bearer ${state.token}`;
+    const response = await fetch(base() + path, { ...options, headers });
+    let data; try { data = await response.json(); } catch { throw new Error(`استجابة غير صالحة من الخادم (${response.status})`); }
+    if (!response.ok || data.ok === false) {
+      if (response.status === 401) clearSession();
+      throw new Error(data.error || `تعذر إكمال الطلب (${response.status})`);
+    }
+    return data;
+  }
+  function clearSession() { state.token = ''; state.member = null; sessionStorage.removeItem('afaq_wallet_token'); $('walletPanel').hidden = true; $('authPanel').hidden = false; }
+  function setMode(mode) {
+    state.mode = mode;
+    document.querySelectorAll('[data-auth-mode]').forEach(b => b.classList.toggle('active', b.dataset.authMode === mode));
+    $('nameLabel').hidden = mode !== 'register'; $('fullName').required = mode === 'register';
+    $('authSubmit').textContent = mode === 'register' ? 'إنشاء حساب آفاق' : 'دخول آمن';
+    $('password').setAttribute('autocomplete', mode === 'register' ? 'new-password' : 'current-password');
+    message('authMessage', ''); if ($('recoveryInfo')) $('recoveryInfo').hidden = true; $('loginId').type = mode === 'register' ? 'email' : 'text'; $('loginId').placeholder = mode === 'register' ? 'البريد الإلكتروني' : 'أدخل البريد الإلكتروني أو رقم العضوية'; $('loginIdLabel').firstChild.textContent = mode === 'register' ? 'البريد الإلكتروني' : 'البريد الإلكتروني أو رقم العضوية';
+  }
+  async function authSubmit(e) {
+    e.preventDefault();
+    const password = $('password').value;
+    if (password.length < 10) return message('authMessage', 'كلمة المرور يجب أن تتكون من 10 أحرف على الأقل.', true);
+    const registering = state.mode === 'register';
+    const body = registering
+      ? { name: $('fullName').value.trim(), email: $('loginId').value.trim(), password }
+      : { login: $('loginId').value.trim(), password };
+    const btn = $('authSubmit'); btn.disabled = true; btn.textContent = 'جارٍ التحقق…';
+    try {
+      const data = await api(registering ? '/api/member/register' : '/api/member/login', { method: 'POST', body: JSON.stringify(body) });
+      state.token = data.token; state.member = data.member; sessionStorage.setItem('afaq_wallet_token', data.token);
+      $('password').value = ''; await loadWallet(); toast('تم تسجيل الدخول بنجاح');
+    } catch (err) { message('authMessage', err.message, true); }
+    finally { btn.disabled = false; btn.textContent = registering ? 'إنشاء حساب آفاق' : 'دخول آمن'; }
+  }
+  function renderSummary(data) {
+    state.summary = data;
+    $('afaqBalance').textContent = fmt(Number(data.balance_units || 0) / 1_000_000);
+    $('miningStatus').textContent = data.mining?.active ? 'نشط' : 'غير نشط';
+    $('miningRate').textContent = `المعدل: ${fmt(data.mining?.rate_per_hour || 0, 8)} AFAQ / ساعة`;
+    $('miningTitle').textContent = data.mining?.active ? 'التعدين يعمل الآن' : 'ابدأ رحلتك مع AFAQ';
+    $('miningDescription').textContent = data.mining?.active ? 'جلسة التعدين نشطة على الخادم. أوقفها عند الانتهاء لاحتساب المكافأة وفق قواعد المنصة.' : 'يتم احتساب المكافآت وفق المعدل الذي يحدده مشرف المنصة بعد تفعيل التعدين.';
+    $('miningBtn').textContent = data.mining?.active ? 'إيقاف التعدين واحتساب المكافأة' : (data.mining?.enabled ? 'بدء التعدين' : 'التعدين غير مفعّل حالياً');
+    $('miningBtn').disabled = !data.mining?.enabled;
+    $('connectionStatus').innerHTML = '<i></i> متصل بالخادم';
+  }
+  async function loadWallet() {
+    const [me, summary] = await Promise.all([api('/api/member/me'), api('/api/wallet/summary')]);
+    state.member = me.member; $('memberName').textContent = me.member.name || me.member.email;
+    $('memberId').textContent = me.member.member_id || '—';
+    renderSummary(summary); $('authPanel').hidden = true; $('walletPanel').hidden = false;
+    await loadHistory();
+  }
+  async function refresh() { try { const data = await api('/api/wallet/summary'); renderSummary(data); toast('تم تحديث الرصيد من الخادم'); } catch (e) { toast(e.message); } }
+  async function miningAction() {
+    const active = !!state.summary?.mining?.active; const btn = $('miningBtn'); btn.disabled = true;
+    try {
+      const data = await api(`/api/wallet/mining/${active ? 'stop' : 'start'}`, { method: 'POST', body: '{}' });
+      if (data.reward_units != null) toast(`تم تسجيل مكافأة ${fmt(data.reward_units / 1_000_000)} AFAQ`);
+      else toast(active ? 'تم إنهاء جلسة التعدين' : 'بدأت جلسة التعدين');
+      await refresh(); await loadHistory();
+    } catch (e) { toast(e.message); }
+    finally { btn.disabled = !state.summary?.mining?.enabled; }
+  }
+  async function loadHistory() {
+    try {
+      const [mining, transfers] = await Promise.all([api('/api/wallet/mining/history'), api('/api/member/transfers')]);
+      const rows = [
+        ...(mining.rewards || []).map(x => ({ type: 'مكافأة تعدين', amount: fmt(Number(x.amount_units) / 1_000_000), currency: 'AFAQ', date: x.created_at, direction: 'in' })),
+        ...(transfers.transfers || []).map(x => ({ type: x.direction === 'out' ? 'تحويل صادر' : 'تحويل وارد', amount: fmt(x.amount, 2), currency: x.currency, date: x.created_at, direction: x.direction }))
+      ].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,30);
+      $('todayRewards').textContent = fmt((mining.rewards || []).filter(x => new Date(x.created_at).toDateString() === new Date().toDateString()).reduce((sum,x) => sum + Number(x.amount_units || 0),0) / 1_000_000);
+      $('activityList').innerHTML = rows.length ? rows.map(x => `<article class="activity-row"><div><b>${escapeHtml(x.type)}</b><small>${new Date(x.date).toLocaleString('ar')}</small></div><strong class="${x.direction === 'out' ? 'negative' : 'positive'}" dir="ltr">${x.direction === 'out' ? '−' : '+'}${escapeHtml(x.amount)} ${escapeHtml(x.currency)}</strong></article>`).join('') : '<div class="empty"><span>▤</span><b>لا توجد عمليات بعد</b><small>ستظهر العمليات المؤكدة من الخادم هنا.</small></div>';
+    } catch (e) { $('activityList').textContent = e.message; }
+  }
+  function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  async function transferSubmit(e) {
+    e.preventDefault(); const btn = e.submitter; if (btn) btn.disabled = true;
+    const idem = crypto.randomUUID();
+    try {
+      const data = await api('/api/member/transfer', { method: 'POST', headers: { 'Idempotency-Key': idem }, body: JSON.stringify({ recipient: $('recipient').value.trim(), amount: Number($('transferAmount').value), currency: $('transferCurrency').value, note: $('transferNote').value.trim() }) });
+      message('transferMessage', `تم تنفيذ التحويل ${data.transfer.transfer_id} بنجاح.`); e.target.reset(); await loadHistory();
+    } catch (err) { message('transferMessage', err.message, true); }
+    finally { if (btn) btn.disabled = false; }
+  }
+  async function testConnection() {
+    const value = $('apiBaseInput').value.trim().replace(/\/+$/, '');
+    if (!/^https:\/\//i.test(value)) return message('apiMessage', 'يجب إدخال رابط HTTPS صحيح.', true);
+    $('saveApiBtn').disabled = true;
+    try {
+      const res = await fetch(value + '/health'); const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.database === 'not_configured' ? 'الخادم لا يتصل بقاعدة D1.' : (data.error || 'فشل فحص الخادم.'));
+      state.api = value; localStorage.setItem('afaq_wallet_api_base', value); message('apiMessage', 'الاتصال بالخادم وقاعدة البيانات سليم.');
+      if (state.token) await loadWallet();
+    } catch (e) { message('apiMessage', e.message, true); }
+    finally { $('saveApiBtn').disabled = false; }
+  }
+  document.querySelectorAll('[data-auth-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.authMode)));
+  $('authForm').addEventListener('submit', authSubmit);
+  $('passwordToggle').addEventListener('click', () => { const p = $('password'), shown = p.type === 'password'; p.type = shown ? 'text' : 'password'; $('passwordToggle').textContent = shown ? '◉' : '👁'; $('passwordToggle').setAttribute('aria-pressed', String(shown)); $('passwordToggle').setAttribute('aria-label', shown ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'); });
+  $('forgotPasswordBtn').addEventListener('click', () => { $('recoveryInfo').hidden = false; $('recoveryInfo').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+  $('recoveryClose').addEventListener('click', () => { $('recoveryInfo').hidden = true; });
+  $('miningBtn').addEventListener('click', miningAction); $('refreshBtn').addEventListener('click', refresh); $('historyRefresh').addEventListener('click', e => { e.preventDefault(); loadHistory(); });
+  $('logoutBtn').addEventListener('click', async () => { try { await api('/api/member/logout', { method: 'POST', body: '{}' }); } catch {} clearSession(); toast('تم تسجيل الخروج'); });
+  $('transferForm').addEventListener('submit', transferSubmit); $('transferClose').addEventListener('click', () => $('transferPanel').hidden = true);
+  document.querySelectorAll('[data-scroll]').forEach(b => b.addEventListener('click', () => { const el = $(b.dataset.scroll); if (el) { el.hidden = false; el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }));
+  document.querySelectorAll('[data-action]').forEach(b => b.addEventListener('click', () => {
+    const action = b.dataset.action;
+    if (action === 'transfer') { $('transferPanel').hidden = false; $('transferPanel').scrollIntoView({ behavior: 'smooth' }); }
+    else if (action === 'history') $('historySection').scrollIntoView({ behavior: 'smooth' });
+    else if (action === 'refresh') refresh();
+    else if (action === 'security') toast('تتم إدارة كلمة المرور والجلسات من حساب آفاق سوريا.');
+  }));
+  $('settingsOpen').addEventListener('click', () => { $('apiBaseInput').value = state.api; $('settingsDialog').showModal(); });
+  $('saveApiBtn').addEventListener('click', testConnection);
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  if (state.api) { $('apiBaseInput').value = state.api; if (state.token) loadWallet().catch(e => { clearSession(); message('authMessage', e.message, true); }); }
+  setMode('login');
+})();
+
+</script>
+</body>
+</html>

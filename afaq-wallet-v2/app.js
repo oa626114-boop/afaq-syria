@@ -57,8 +57,8 @@
       const data=await api('/api/member/password/reset',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim(),code:$('resetCode').value.trim(),password})});
       $('forgotPanel').hidden=true;$('authForm').hidden=false;$('loginId').value=$('forgotEmail').value.trim();$('password').value='';
       $('newPassword').value='';$('confirmPassword').value='';$('resetCode').value='';
-      message('authMessage',data.message || 'تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن.');
       setMode('login');
+      message('authMessage',data.message || 'تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن.');
     } catch(err){message('authMessage',err.message,true);}
     finally{btn.disabled=false;btn.textContent='حفظ كلمة المرور الجديدة';}
   }

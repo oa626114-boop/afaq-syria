@@ -563,6 +563,19 @@ async function handle(req, env) {
     return reply(req, env, row ? {ok:true,payment:row} : {ok:false,error:"Payment not found"}, row ? 200 : 404);
   }
 
+  // Public read-only portfolio data. All writes remain owner-authenticated below.
+  if (req.method === "GET" && path === "/api/v1/public/portfolios") {
+    const types = ["investment_projects", "geography_overrides"];
+    const rows = await env.DB.prepare(
+      "SELECT record_type,payload,updated_at FROM afaq_records WHERE record_type IN (?,?)"
+    ).bind(...types).all();
+    const records = {};
+    for (const row of rows.results || []) {
+      try { records[row.record_type] = JSON.parse(row.payload); } catch {}
+    }
+    return reply(req, env, {ok:true, records});
+  }
+
   // Existing sync and records endpoints retained for compatibility with the current website.
   if (req.method === "POST" && path === "/api/v1/sync") {
     if (!(await hasAdminAccess(req, env)))

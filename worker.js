@@ -565,7 +565,7 @@ async function handle(req, env) {
 
   // Public read-only portfolio data. All writes remain owner-authenticated below.
   if (req.method === "GET" && path === "/api/v1/public/portfolios") {
-    const types = ["investment_projects", "geography_overrides"];
+    const types = ["investment_projects", "geography_overrides", "sector_portfolios"];
     const rows = await env.DB.prepare(
       "SELECT record_type,payload,updated_at FROM afaq_records WHERE record_type IN (?,?)"
     ).bind(...types).all();

@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    env_file: .env
+    environment:
+      - DATA_DIR=/app/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./sftp/incoming:/app/sftp-incoming
+    restart: unless-stopped
+
+  sftp:
+    image: atmoz/sftp:alpine
+    command: "afaqdemo:CHANGE_THIS_PASSWORD:1001:100:incoming"
+    ports:
+      - "127.0.0.1:2222:22"
+    volumes:
+      - ./sftp/incoming:/home/afaqdemo/incoming
+    restart: unless-stopped

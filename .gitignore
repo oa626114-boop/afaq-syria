@@ -1,0 +1,6 @@
+.env
+data/
+sftp/incoming/*
+!sftp/incoming/.gitkeep
+__pycache__/
+*.pyc

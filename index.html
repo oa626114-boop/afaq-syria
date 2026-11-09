@@ -1320,7 +1320,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
     projects:read('afaq_projects',[]), clients:read('afaq_clients',[]), invoices:read('afaq_invoices',[]),
     shareOrders:read('afaq_share_orders',[]), bankBranch:read('afaq_bank_branch_v1',{balances:{},transactions:[]}), investmentWallet:read('afaq_investment_wallet_v1',{balances:{},holdings:[],orders:[]}), bags:read('afaq_bag_records_v2',{}),
     archive:read('afaq_company_archive_v1',[]), syrianCities:read('afaq_syrian_city_directory_v1',{}), cityProjects:read('afaq_syrian_city_projects_v1',[]), reports:read('afaq_analysis_reports_v1',[]), costs:read('afaq_project_costs_v1',[]),
-    partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
+    partners:read('afaq_project_partners_v1',[]), settings:read('afaq_company_settings_v1',{}), customPortfolios:read('afaq_custom_portfolios_v1',[]), portfolioImages:Object.fromEntries(Array.from({length:20},(_,i)=>['portfolio_'+i,read('afaq-gallery-extra-v1-'+i,[])]).filter(([k,v])=>v.length))
    };
  }
  function buildSyncRecords(){
@@ -1399,7 +1399,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
        archive:'afaq_company_archive_v1',syrianCities:'afaq_syrian_city_directory_v1',
        cityProjects:'afaq_syrian_city_projects_v1',reports:'afaq_analysis_reports_v1',
        costs:'afaq_project_costs_v1',partners:'afaq_project_partners_v1',
-       settings:'afaq_company_settings_v1'
+       settings:'afaq_company_settings_v1',customPortfolios:'afaq_custom_portfolios_v1'
      };
      let restored=0;
      for(const [type,keyName] of Object.entries(mappings)){
@@ -1440,6 +1440,7 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
      invoices=safeReadStore('afaq_invoices',invoices)||invoices;
      shareOrders=safeReadStore('afaq_share_orders',shareOrders)||shareOrders;
      bagRecords=safeReadStore('afaq_bag_records_v2',bagRecords)||bagRecords;
+     const restoredCustom=safeReadStore('afaq_custom_portfolios_v1',[]);if(Array.isArray(restoredCustom)){restoredCustom.forEach(item=>{if(item&&item.custom===true&&!portfolios.some(p=>p.name===item.name))portfolios.push(item)});}
      save();if(typeof saveBags==='function')saveBags();render();
      say('اكتمل استرجاع البيانات · '+restored+' مجموعة. تم دمج السجلات مع بيانات الجهاز دون حذفها.',true);
    }catch(e){say('تعذر استرجاع البيانات: '+e.message,false)}

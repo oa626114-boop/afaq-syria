@@ -114,6 +114,12 @@ async function ensureTables(env) {
           NEW.amount_minor,'payment_in',NEW.created_at);
       END`,
     `CREATE INDEX IF NOT EXISTS idx_ledger_member ON account_ledger(member_id, created_at)`,
+    `CREATE TABLE IF NOT EXISTS iso20022_messages (
+      message_id TEXT PRIMARY KEY, message_type TEXT NOT NULL, namespace TEXT NOT NULL,
+      transaction_count INTEGER NOT NULL, xml_payload TEXT NOT NULL,
+      status TEXT NOT NULL, received_at TEXT NOT NULL
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_iso20022_received ON iso20022_messages(received_at)`,
     `CREATE TABLE IF NOT EXISTS auth_rate_limits (
       rate_key TEXT PRIMARY KEY, window_start INTEGER NOT NULL, attempts INTEGER NOT NULL
     )`,
@@ -183,6 +189,64 @@ async function verifyIPN(raw, sig, secret) {
   return safeEqual(expected, sig.toLowerCase());
 }
 
+
+function xmlDecodeText(s) {
+  return s.replace(/&(#x[0-9a-fA-F]+|#\d+|amp|lt|gt|quot|apos);/g, (_, e) => {
+    if (e === "amp") return "&"; if (e === "lt") return "<"; if (e === "gt") return ">";
+    if (e === "quot") return '"'; if (e === "apos") return "'";
+    const n = e[1].toLowerCase() === "x" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
+    if (!Number.isInteger(n) || n < 1 || n > 0x10FFFF || (n >= 0xD800 && n <= 0xDFFF)) throw new Error("Invalid XML character reference");
+    return String.fromCodePoint(n);
+  }).replace(/&[^;\s]+;/g, () => { throw new Error("Unsupported XML entity"); });
+}
+function inspectPacs008Xml(xml) {
+  if (typeof xml !== "string" || !xml.trim() || xml.length > 1000000) throw new Error("XML is empty or exceeds 1 MB");
+  if (/<!DOCTYPE|<!ENTITY|<!\[CDATA\[/i.test(xml)) throw new Error("DOCTYPE, ENTITY and CDATA are not accepted");
+  const tokens = xml.match(/<!--[\s\S]*?-->|<\?[\s\S]*?\?>|<[^>]*>|[^<]+/g) || [];
+  const stack = [], values = [];
+  let txCount = 0, root = null, rootNs = "", closedRoot = false;
+  for (const token of tokens) {
+    if (token.startsWith("<!--") || token.startsWith("<?")) continue;
+    if (token.startsWith("<")) {
+      if (/^<\s*!/.test(token)) throw new Error("Unsupported XML declaration");
+      if (/^<\//.test(token)) {
+        const m = token.match(/^<\/\s*([A-Za-z_][\w:.-]*)\s*>$/);
+        if (!m || stack.pop() !== m[1]) throw new Error("Malformed XML closing tag");
+        if (!stack.length) closedRoot = true;
+        continue;
+      }
+      const m = token.match(/^<\s*([A-Za-z_][\w:.-]*)([\s\S]*?)\s*\/?>$/);
+      if (!m) throw new Error("Malformed XML element");
+      const name = m[1], attrs = m[2], local = name.split(":").pop();
+      const selfClosing = /\/\s*>$/.test(token);
+      if (!root) {
+        root = local;
+        const ns = attrs.match(/(?:^|\s)xmlns(?::[\w.-]+)?\s*=\s*["']([^"']+)["']/);
+        rootNs = ns ? ns[1] : "";
+      }
+      if (local === "CdtTrfTxInf") txCount++;
+      if (local === "MsgId" && stack.length && stack[stack.length-1].split(":").pop() === "GrpHdr")
+        values.push({key:"MsgId", value:""});
+      if (!selfClosing) stack.push(name);
+      else if (!stack.length) closedRoot = true;
+    } else if (token.trim() && stack.length && values.length && values[values.length-1].value === "") {
+      values[values.length-1].value = xmlDecodeText(token).trim();
+    }
+  }
+  if (!root || stack.length || !closedRoot) throw new Error("XML document is incomplete or malformed");
+  if (root !== "Document" || !/^urn:iso:std:iso:20022:tech:xsd:pacs\.008\.001\.\d+$/i.test(rootNs))
+    throw new Error("Expected an ISO 20022 pacs.008 Document namespace");
+  const messageId = values.find(x => x.key === "MsgId")?.value || "";
+  if (!messageId || messageId.length > 35) throw new Error("GrpHdr/MsgId is missing or invalid");
+  if (txCount < 1 || txCount > 500) throw new Error("Expected between 1 and 500 CdtTrfTxInf transactions");
+  return {messageId, namespace:rootNs, transactionCount:txCount};
+}
+async function validIsoToken(req, env) {
+  const expected = String(env.ISO20022_API_TOKEN || "");
+  const got = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "").trim();
+  return expected.length >= 32 && got.length === expected.length && safeEqual(got, expected);
+}
+
 async function handle(req, env) {
   const url = new URL(req.url), path = url.pathname;
   if (req.method === "OPTIONS") {
@@ -206,7 +270,8 @@ async function handle(req, env) {
       payments: { crypto: !!env.NOWPAYMENTS_API_KEY && !!env.NOWPAYMENTS_IPN_SECRET, cards: false },
       endpoints: ["/api/member/register", "/api/member/login", "/api/member/me",
         "/api/member/logout", "/api/member/transfer", "/api/member/transfers",
-        "/api/payment/create", "/api/payment/status", "/api/payment/ipn"],
+        "/api/payment/create", "/api/payment/status", "/api/payment/ipn",
+        "/api/v1/iso20022/pacs008", "/api/v1/iso20022/messages"],
       time: now()
     }, database ? 200 : 503);
   }
@@ -615,6 +680,36 @@ async function handle(req, env) {
     ).all();
     return reply(req, env, {payments:rows.results || []});
   }
+
+  // Authenticated pacs.008 receiver: stores XML for review; it never executes bank transfers.
+  if (req.method === "POST" && path === "/api/v1/iso20022/pacs008") {
+    if (!(await validIsoToken(req, env))) return reply(req, env, {ok:false,error:"Unauthorized or ISO20022_API_TOKEN is not configured"}, 401);
+    const ct = String(req.headers.get("Content-Type") || "").toLowerCase();
+    if (!ct.includes("application/xml") && !ct.includes("text/xml"))
+      return reply(req, env, {ok:false,error:"Content-Type must be application/xml or text/xml"}, 415);
+    const raw = await req.text();
+    let info;
+    try { info = inspectPacs008Xml(raw); }
+    catch (e) { return reply(req, env, {ok:false,error:"XML validation failed",detail:String(e.message || e)}, 400); }
+    const stamp = now();
+    try {
+      await env.DB.prepare("INSERT INTO iso20022_messages(message_id,message_type,namespace,transaction_count,xml_payload,status,received_at) VALUES(?,?,?, ?,?,'RECEIVED_PENDING_REVIEW',?)")
+        .bind(info.messageId,"pacs.008",info.namespace,info.transactionCount,raw,stamp).run();
+    } catch (e) {
+      const exists = await env.DB.prepare("SELECT message_id FROM iso20022_messages WHERE message_id=?").bind(info.messageId).first();
+      if (exists) return reply(req, env, {ok:false,error:"Duplicate message ID",message_id:info.messageId}, 409);
+      throw e;
+    }
+    return reply(req, env, {ok:true,message_id:info.messageId,message_type:"pacs.008",namespace:info.namespace,
+      transaction_count:info.transactionCount,status:"RECEIVED_PENDING_REVIEW",received_at:stamp,
+      note:"Stored for review only; no bank transfer was executed."}, 201);
+  }
+  if (req.method === "GET" && path === "/api/v1/iso20022/messages") {
+    if (!(await validIsoToken(req, env))) return reply(req, env, {ok:false,error:"Unauthorized or ISO20022_API_TOKEN is not configured"}, 401);
+    const rows = await env.DB.prepare("SELECT message_id,message_type,namespace,transaction_count,status,received_at FROM iso20022_messages ORDER BY received_at DESC LIMIT 100").all();
+    return reply(req, env, {ok:true,messages:rows.results || []});
+  }
+
   return reply(req, env, {ok:false,error:"Not found"}, 404);
 }
 

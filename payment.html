@@ -22,14 +22,14 @@
 <div id="cryptoFields"><div class="row"><div><label for="payCurrency">عملة / شبكة الاستلام</label><select id="payCurrency"><option value="usdttrc20">USDT — TRC20</option><option value="usdterc20">USDT — ERC20</option><option value="all">اختيار العميل — العملات الرقمية المتاحة</option><option value="btc">Bitcoin (BTC)</option><option value="eth">Ethereum (ETH)</option><option value="trx">TRON (TRX)</option></select></div><div><label for="customerEmail">بريد العميل (اختياري)</label><input id="customerEmail" type="email" placeholder="customer@example.com"></div></div></div>
 <label for="description">وصف الفاتورة</label><input id="description" maxlength="180" placeholder="خدمات / استثمار / طلب تجاري" required>
 <button class="primary" id="submitBtn" type="submit">إنشاء رابط فاتورة NOWPayments</button><p class="hint">سيتم فتح صفحة دفع آمنة مستضافة لدى مزود الدفع. لا تدخل بيانات البطاقة أو كلمات المرور في هذه الصفحة.</p></form>
-<div class="result" id="result" aria-live="polite"><h2>تم إنشاء رابط الفاتورة</h2><div class="status" id="resultStatus"></div><a id="invoiceLink" href="#" target="_blank" rel="noopener">فتح صفحة الدفع الآمنة</a><button class="primary" id="copyLink" type="button">نسخ رابط الدفع</button><p class="hint" id="orderRef"></p></div>
+<div class="result" id="result" aria-live="polite"><h2 id="resultTitle">نتيجة إنشاء الفاتورة</h2><div class="status" id="resultStatus"></div><a id="invoiceLink" href="#" target="_blank" rel="noopener">فتح صفحة الدفع الآمنة</a><button class="primary" id="copyLink" type="button">نسخ رابط الدفع</button><p class="hint" id="orderRef"></p></div>
 </section>
 <section class="panel"><h2 class="section-title">حالة وسائل الدفع</h2><p class="hint">Visa/Mastercard وApple Pay قد تظهر عبر Fiat On-Ramp إذا فُعّل في حساب NOWPayments وأكمل التاجر KYC/KYB؛ تعتمد على البلد والمزود وقد تتحول الحصيلة إلى عملة رقمية. PayPal وPapara يحتاجان تكاملاً مستقلاً وحساباً مؤهلاً. لن ننشئ روابط وهمية لوسائل غير مفعّلة.</p></section>
 </main><footer>© 2026 AFAQ SYRIA · آفاق سوريا — جميع الحقوق محفوظة</footer>
 <script>
 const WORKER_URL='https://omax-api-105a.oa626114.workers.dev';
-const MEMBER_TOKEN_KEY='afaq_member_token_v1';
-const memberToken=()=>sessionStorage.getItem(MEMBER_TOKEN_KEY)||'';
+const MEMBER_TOKEN_KEY='afaq_server_token_v1';
+const memberToken=()=>localStorage.getItem(MEMBER_TOKEN_KEY)||'';
 const $=id=>document.getElementById(id);
 (function prefillFromWallet(){const q=new URLSearchParams(location.search);const amount=q.get('amount');if(amount&&Number.isFinite(Number(amount))&&Number(amount)>0)$('amount').value=amount;const raw=(q.get('currency')||'').toLowerCase().replace(/\s+/g,'');const map={'usdttrc20':'usdttrc20','usdt—trc20':'usdttrc20','usdt-trc20':'usdttrc20','usdt erc20':'usdterc20','usdterc20':'usdterc20','btc':'btc','bitcoin':'btc','eth':'eth','ethereum':'eth','trx':'trx','tron':'trx'};if(map[raw])$('payCurrency').value=map[raw];})();
 let selectedMethod='crypto';
@@ -52,9 +52,9 @@ $('paymentForm').addEventListener('submit',async e=>{
   const token=memberToken();if(!token)throw new Error('يجب تسجيل الدخول أولاً من الصفحة الرئيسية قبل إنشاء فاتورة.');
    const response=await fetch(WORKER_URL+'/api/payment/create',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},mode:'cors',credentials:'omit',body:JSON.stringify({amount,currency:$('priceCurrency').value,pay_currency:payCurrency,description:$('description').value,success_url:location.href.split('?')[0]+'?payment=success',cancel_url:location.href.split('?')[0]+'?payment=cancel'})});
   const data=await response.json().catch(()=>({}));if(!response.ok||!data.ok||!data.invoice_url)throw new Error(data.error||'لم يرجع مزود الدفع رابط الفاتورة');
-  $('invoiceLink').href=data.invoice_url;$('invoiceLink').textContent=data.invoice_url;$('orderRef').textContent='رقم الطلب: '+data.order_id+' · رقم الفاتورة: '+(data.invoice_id||'—');
+  $('resultTitle').textContent='تم إنشاء رابط الفاتورة';$('invoiceLink').style.display='block';$('copyLink').style.display='block';$('invoiceLink').href=data.invoice_url;$('invoiceLink').textContent=data.invoice_url;$('orderRef').textContent='رقم الطلب: '+data.order_id+' · رقم الفاتورة: '+(data.invoice_id||'—');
   $('resultStatus').textContent='تم إنشاء رابط الفاتورة لدى NOWPayments. افتحه وتحقق من العملة والشبكة والمبلغ قبل الدفع.';$('resultStatus').className='status success';
- }catch(err){$('resultStatus').textContent='تعذر إنشاء رابط الدفع: '+err.message;$('resultStatus').className='status error';}
+ }catch(err){$('resultTitle').textContent='لم يتم إنشاء الفاتورة';$('invoiceLink').style.display='none';$('copyLink').style.display='none';$('orderRef').textContent='';$('resultStatus').textContent='تعذر إنشاء رابط الدفع: '+err.message;$('resultStatus').className='status error';}
  finally{btn.disabled=false;btn.textContent='إنشاء رابط فاتورة العملات الرقمية';}
 });
 $('copyLink').addEventListener('click',async()=>{const url=$('invoiceLink').href;if(!url||url.endsWith('#'))return;try{await navigator.clipboard.writeText(url);$('resultStatus').textContent='تم نسخ رابط الدفع.';$('resultStatus').className='status success';}catch(_){$('resultStatus').textContent='تعذر النسخ التلقائي؛ اضغط مطولاً على الرابط لنسخه.';}});

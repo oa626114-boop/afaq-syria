@@ -608,7 +608,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
    <div class="form-grid">
     <label class="field full">عنوان API Worker<input id="afaqApiBase" type="url" placeholder="https://your-worker.your-subdomain.workers.dev"></label>
     <div class="field"><span>حالة الاتصال</span><strong id="afaqApiStatus" class="api-badge">لم يتم الفحص بعد</strong></div>
-    <div class="field"><span>الإجراءات</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn gold" id="afaqApiSave">حفظ العنوان</button><button type="button" class="btn" id="afaqApiTest">اختبار الاتصال</button><button type="button" class="btn ghost" id="afaqApiSync">مزامنة البيانات</button></div></div>
+    <div class="field"><span>الإجراءات</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn gold" id="afaqApiSave">حفظ العنوان</button><button type="button" class="btn" id="afaqApiTest">اختبار الاتصال</button><button type="button" class="btn ghost" id="afaqApiSync">مزامنة البيانات</button><button type="button" class="btn ghost" id="afaqApiRestore">استرجاع بيانات الخادم</button></div></div>
    </div>
    <p id="afaqApiMessage" class="settings-note" aria-live="polite">المزامنة تتطلب إعداد قاعدة D1 وحماية مسارات الإدارة عبر Cloudflare Access. لا تضغط مزامنة على جهاز عام أو غير موثوق.</p>
   </div>
@@ -1383,8 +1383,70 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  }
  $('afaqApiSave').addEventListener('click',()=>{apiBase=normalize(input.value);if(!/^https:\/\//i.test(apiBase)){say('يجب إدخال عنوان HTTPS صحيح',false);return}localStorage.setItem(key,apiBase);say('تم حفظ عنوان الخادم على هذا الجهاز');test()});
  $('afaqApiTest').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));test()});
+ async function restore(){
+   try{
+     say('جارٍ التحقق من الخادم قبل استرجاع البيانات…');
+     if(!(await test()))throw new Error('تعذر الاتصال بالخادم');
+     say('تم الاتصال. جارٍ قراءة السجلات المحفوظة…',true);
+     const response=await request('/api/v1/records',{method:'GET',headers:{Accept:'application/json'}});
+     const rows=Array.isArray(response.records)?response.records:[];
+     if(!rows.length)throw new Error('لم يُرجع الخادم أي سجلات محفوظة؛ لم يتم تغيير بيانات الجهاز');
+     const remote={};rows.forEach(row=>{if(row&&typeof row.type==='string')remote[row.type]=row.data});
+     const mappings={
+       projects:'afaq_projects',clients:'afaq_clients',invoices:'afaq_invoices',
+       shareOrders:'afaq_share_orders',bankBranch:'afaq_bank_branch_v1',
+       investmentWallet:'afaq_investment_wallet_v1',bags:'afaq_bag_records_v2',
+       archive:'afaq_company_archive_v1',syrianCities:'afaq_syrian_city_directory_v1',
+       cityProjects:'afaq_syrian_city_projects_v1',reports:'afaq_analysis_reports_v1',
+       costs:'afaq_project_costs_v1',partners:'afaq_project_partners_v1',
+       settings:'afaq_company_settings_v1'
+     };
+     let restored=0;
+     for(const [type,keyName] of Object.entries(mappings)){
+       if(!Object.prototype.hasOwnProperty.call(remote,type))continue;
+       const current=safeReadStore(keyName,null),incoming=remote[type];
+       let value=incoming;
+       if(Array.isArray(current)&&Array.isArray(incoming)){
+         const seen=new Set(),merged=[];
+         [...incoming,...current].forEach(item=>{const signature=JSON.stringify(item);if(!seen.has(signature)){seen.add(signature);merged.push(item)}});
+         value=merged;
+       }else if(current&&incoming&&typeof current==='object'&&typeof incoming==='object'&&!Array.isArray(current)&&!Array.isArray(incoming)){
+         value={...current,...incoming};
+       }
+       localStorage.setItem(keyName,JSON.stringify(value));restored++;
+     }
+     const manifest=remote.portfolioImages_manifest;
+     if(manifest&&manifest.portfolios){
+       for(const [portfolioKey,meta] of Object.entries(manifest.portfolios)){
+         const idx=Number(String(portfolioKey).replace('portfolio_',''));
+         if(!Number.isInteger(idx)||idx<0||idx>100)continue;
+         const localKey='afaq-gallery-extra-v1-'+idx;
+         let local=safeReadStore(localKey,[]);if(!Array.isArray(local))local=[];
+         const downloaded=[];
+         for(const chunkKey of (meta.chunks||[])){
+           const chunk=remote[chunkKey];if(Array.isArray(chunk))downloaded.push(...chunk);
+         }
+         for(const image of (meta.splitImages||[])){
+           let data='';for(const partKey of (image.parts||[])){const part=remote[partKey];if(part&&typeof part.data==='string')data+=part.data;}
+           if(data)downloaded.push([image.name||'صورة',data]);
+         }
+         const merged=[...downloaded,...local],seen=new Set();
+         localStorage.setItem(localKey,JSON.stringify(merged.filter(item=>{const sig=JSON.stringify(item);if(seen.has(sig))return false;seen.add(sig);return true})));
+         restored++;
+       }
+     }
+     projects=safeReadStore('afaq_projects',projects)||projects;
+     clients=safeReadStore('afaq_clients',clients)||clients;
+     invoices=safeReadStore('afaq_invoices',invoices)||invoices;
+     shareOrders=safeReadStore('afaq_share_orders',shareOrders)||shareOrders;
+     bagRecords=safeReadStore('afaq_bag_records_v2',bagRecords)||bagRecords;
+     save();if(typeof saveBags==='function')saveBags();render();
+     say('اكتمل استرجاع البيانات · '+restored+' مجموعة. تم دمج السجلات مع بيانات الجهاز دون حذفها.',true);
+   }catch(e){say('تعذر استرجاع البيانات: '+e.message,false)}
+ }
  $('afaqApiSync').addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));sync()});
- window.AFAQ_API={request,test,sync,get base(){return apiBase}};
+ $('afaqApiRestore')?.addEventListener('click',()=>{apiBase=normalize(input.value||localStorage.getItem(key));restore()});
+ window.AFAQ_API={request,test,sync,restore,get base(){return apiBase}};
  const refreshBtn=document.getElementById('refreshInvoiceStatuses');if(refreshBtn)refreshBtn.addEventListener('click',()=>refreshInvoiceStatuses(false));
  if(apiBase)test().then(()=>refreshInvoiceStatuses(true));
  window.addEventListener('focus',()=>refreshInvoiceStatuses(true));

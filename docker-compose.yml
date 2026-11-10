@@ -13,9 +13,10 @@ services:
 
   sftp:
     image: atmoz/sftp:alpine
-    command: "afaqdemo:CHANGE_THIS_PASSWORD:1001:100:incoming"
+    # The SFTP account is deliberately configurable; never ship a demo password.
+    command: "${SFTP_USERNAME:?Set SFTP_USERNAME in .env}:${SFTP_PASSWORD:?Set SFTP_PASSWORD in .env}:1001:100:incoming"
     ports:
       - "127.0.0.1:2222:22"
     volumes:
-      - ./sftp/incoming:/home/afaqdemo/incoming
+      - ./sftp/incoming:/home/${SFTP_USERNAME:?Set SFTP_USERNAME in .env}/incoming
     restart: unless-stopped

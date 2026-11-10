@@ -1,4 +1,4 @@
-const CACHE = 'afaq-syria-shell-v16';
+const CACHE = 'afaq-syria-shell-v17';
 const APP_SHELL = ['./index.html', './manifest.webmanifest'];
 
 self.addEventListener('install', event => {

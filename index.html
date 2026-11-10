@@ -1282,7 +1282,8 @@ render();let initial=location.hash.slice(1);const portfolioRoute=/^portfolio-(\d
  const $=id=>document.getElementById(id);
  const key='afaq_api_base_v1';
  const normalize=s=>String(s||'').trim().replace(/\/+$/,'');
- let apiBase=normalize(localStorage.getItem(key)||'');
+ const defaultWorker='https://omax-api-105a.oa626114.workers.dev';
+ let apiBase=normalize(localStorage.getItem(key)||defaultWorker);
  const input=$('afaqApiBase'), status=$('afaqApiStatus'), message=$('afaqApiMessage'), topBadge=$('apiTopBadge');
  if(!input||!status||!message)return;
  input.value=apiBase;

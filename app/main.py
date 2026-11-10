@@ -101,7 +101,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-origins = [x.strip() for x in os.getenv("ALLOWED_ORIGINS", "").split(",") if x.strip()]
+origins = [x.strip() for x in os.getenv("ALLOWED_ORIGINS", "https://oa626114-boop.github.io,https://afaqsyria.runs-at.dev").split(",") if x.strip()]
 if origins:
     app.add_middleware(
         CORSMiddleware,
@@ -136,8 +136,9 @@ def safe_identifier(value: str, field: str) -> str:
 def inspect_xml(raw: bytes) -> tuple[str, str, str]:
     try:
         root = ET.fromstring(raw)
-    except ET.ParseError as exc:
-        raise HTTPException(status_code=400, detail="Malformed XML") from exc
+    except (ET.ParseError, Exception) as exc:
+        # defusedxml rejects DTD/entity declarations as well as malformed XML.
+        raise HTTPException(status_code=400, detail="Malformed or unsafe XML") from exc
 
     local_name = root.tag.rsplit("}", 1)[-1]
     namespace = root.tag[1:].split("}", 1)[0] if root.tag.startswith("{") else ""
@@ -147,8 +148,13 @@ def inspect_xml(raw: bytes) -> tuple[str, str, str]:
         raise HTTPException(status_code=400, detail="Unsupported ISO 20022 root namespace/version")
 
     all_nodes = list(root.iter())
-    msg_id = next((node.text.strip() for node in all_nodes
-                   if node.tag.rsplit("}", 1)[-1] == "MsgId" and node.text and node.text.strip()), "")
+    msg_id = ""
+    for node in all_nodes:
+        if node.tag.rsplit("}", 1)[-1] == "GrpHdr":
+            msg_id = next((child.text.strip() for child in list(node)
+                           if child.tag.rsplit("}", 1)[-1] == "MsgId" and child.text and child.text.strip()), "")
+            if msg_id:
+                break
     if not msg_id:
         raise HTTPException(status_code=400, detail="ISO 20022 GrpHdr/MsgId is required")
     tx_count = sum(1 for node in all_nodes if node.tag.rsplit("}", 1)[-1] in {"CdtTrfTxInf", "DrctDbtTxInf"})

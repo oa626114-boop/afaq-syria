@@ -392,6 +392,28 @@ hr,.divider{border-color:#66552f!important}
 }
 @media(prefers-reduced-motion:reduce){.sidebar{transition:none!important}}
 </style>
+<style id="afaq-whatsapp-chat-style">
+.afaq-chat-shell{display:grid;grid-template-columns:minmax(220px,34%) 1fr;min-height:560px;height:min(72vh,760px);background:#081b29;border:1px solid #806633;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px #0003;color:#f0d18b}
+.afaq-chat-list{border-left:1px solid #806633;display:flex;flex-direction:column;min-width:0;background:#0c2435}
+.afaq-chat-list-head,.afaq-chat-header{display:flex;align-items:center;gap:10px;padding:13px;border-bottom:1px solid #806633;min-height:64px}
+.afaq-chat-list-head{justify-content:space-between}.afaq-chat-list-head b{font-size:16px}
+.afaq-chat-search{margin:10px;padding:11px;border:1px solid #806633;border-radius:22px;background:#102d43;color:#fff;min-width:0}
+.afaq-chat-contacts{overflow:auto;flex:1}
+.afaq-chat-contact{display:flex;align-items:center;gap:10px;padding:12px;border:0;border-bottom:1px solid #ffffff12;background:transparent;color:#f0d18b;text-align:right;width:100%;cursor:pointer}
+.afaq-chat-contact.active,.afaq-chat-contact:hover{background:#194158}
+.afaq-chat-avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:#dcb45d;color:#102437;font-weight:800;font-size:17px}
+.afaq-chat-contact-info{min-width:0;flex:1}.afaq-chat-contact-info b,.afaq-chat-contact-info small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.afaq-chat-contact-info small{font-size:11px;color:#c8c0a6;margin-top:4px}
+.afaq-chat-window{display:flex;flex-direction:column;min-width:0;background:radial-gradient(circle at center,#123148,#081b29 70%)}
+.afaq-chat-header{background:#102b40}.afaq-chat-header small{display:block;color:#c8c0a6;font-size:11px;margin-top:4px}
+.afaq-chat-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:9px}
+.afaq-chat-welcome{margin:auto;text-align:center;color:#d7c99f;line-height:2}
+.afaq-chat-bubble{max-width:min(82%,460px);padding:10px 13px;border:1px solid #806633;border-radius:13px;background:#12364b;color:#f6e6bd;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}
+.afaq-chat-bubble time{display:block;text-align:left;color:#c4b58f;font-size:9px;margin-top:5px}
+.afaq-chat-compose{display:flex;gap:8px;padding:11px;border-top:1px solid #806633;background:#0d2638}
+.afaq-chat-compose input{flex:1;min-width:0;border:1px solid #806633;border-radius:24px;background:#18364c;color:#fff;padding:12px}
+.afaq-chat-local-note{text-align:center;font-size:10px;color:#c9b98e;padding:7px;background:#091d2b}
+@media(max-width:650px){.afaq-chat-shell{grid-template-columns:112px minmax(0,1fr);height:68vh;min-height:460px}.afaq-chat-list-head{padding:8px;display:block}.afaq-chat-list-head .btn{font-size:10px;padding:6px;margin-top:6px}.afaq-chat-search{margin:6px;padding:8px;font-size:11px}.afaq-chat-contact{padding:9px 5px;gap:5px;display:block;text-align:center}.afaq-chat-avatar{margin:0 auto 5px;width:34px;height:34px;flex-basis:34px}.afaq-chat-contact-info b{font-size:10px}.afaq-chat-contact-info small{font-size:9px}.afaq-chat-header{padding:8px}.afaq-chat-messages{padding:9px}.afaq-chat-bubble{max-width:95%;font-size:12px}.afaq-chat-compose{padding:7px}.afaq-chat-compose input{padding:9px;font-size:12px}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -785,11 +807,38 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="panel" id="mediaComposer" hidden><h3 id="mediaComposerTitle">إضافة حدث أو فعالية</h3><form id="mediaEventForm" class="form-grid"><label class="field full">عنوان الحدث<input name="title" required maxlength="140"></label><label class="field">التاريخ<input name="date" type="date"></label><label class="field full">التفاصيل<textarea name="body" rows="3" required maxlength="3000"></textarea></label><div class="field full"><button class="btn gold" type="submit">حفظ الحدث</button></div></form></div>
 </section>
 <section class="view" id="media-contacts">
-<div class="view-head"><div><h2>الاتصالات والاجتماعات</h2><p>دليل جهات الاتصال والتواصل والاجتماعات</p></div><button type="button" class="btn ghost" data-go="dashboard">← العودة إلى القائمة الرئيسية</button></div>
-<div class="panel"><div class="panel-head"><h3>جهات الاتصال</h3><small>العملاء والشركاء وفريق العمل</small></div><button class="btn gold" id="mediaAddContact">＋ إضافة جهة اتصال</button><div id="mediaContactsList" class="media-contact-grid"></div></div>
-<div class="panel"><h3>الاتصالات الصوتية والمرئية</h3><div class="media-call-note"><b>المكالمات الصوتية والمرئية:</b> تحتاج إلى ربط خدمة اتصال آمنة (WebRTC) وخادم إشارات أو مزود اجتماعات. لم يتم تفعيل المكالمات بعد.</div></div>
-<div class="panel" id="mediaContactComposer" hidden><h3>إضافة جهة اتصال</h3><form id="mediaContactForm" class="form-grid"><label class="field">الاسم<input name="name" required></label><label class="field">الصفة / الشركة<input name="role"></label><label class="field">الهاتف<input name="phone" type="tel"></label><label class="field">البريد<input name="email" type="email"></label><div class="field full"><button class="btn gold" type="submit">حفظ جهة الاتصال</button></div></form></div>
+<div class="view-head"><div><h2>محادثات AFAQ SYRIA</h2><p>واجهة مراسلة مستوحاة من تطبيقات المحادثة</p></div><button type="button" class="btn ghost" data-go="dashboard">← العودة إلى القائمة الرئيسية</button></div>
+<div class="afaq-chat-shell">
+<aside class="afaq-chat-list">
+<div class="afaq-chat-list-head"><b>المحادثات</b><button type="button" id="mediaAddContact" class="btn gold">＋ جهة اتصال</button></div>
+<input id="afaqChatSearch" class="afaq-chat-search" type="search" placeholder="ابحث عن اسم أو محادثة">
+<div id="afaqChatContacts" class="afaq-chat-contacts"></div>
+</aside>
+<div class="afaq-chat-window">
+<div id="afaqChatHeader" class="afaq-chat-header"><span class="afaq-chat-avatar">A</span><div><b>AFAQ SYRIA</b><small>اختر جهة اتصال لبدء المحادثة</small></div></div>
+<div id="afaqChatMessages" class="afaq-chat-messages"><div class="afaq-chat-welcome">💬<br>اختر جهة اتصال من القائمة لعرض المحادثة</div></div>
+<form id="afaqChatSend" class="afaq-chat-compose"><input id="afaqChatText" name="message" maxlength="2000" placeholder="اكتب رسالة..." autocomplete="off" disabled><button class="btn gold" type="submit" disabled>إرسال</button></form>
+<div class="afaq-chat-local-note">المحادثات في هذه النسخة محفوظة على هذا الجهاز فقط. لم يتم تفعيل الإرسال بين الأعضاء بعد.</div>
+</div>
+</div>
+<div class="panel" id="mediaContactComposer" hidden><h3>إضافة جهة اتصال</h3><form id="mediaContactForm" class="form-grid"><label class="field">الاسم<input name="name" required maxlength="100"></label><label class="field">الصفة / الشركة<input name="role" maxlength="100"></label><label class="field">الهاتف<input name="phone" type="tel"></label><label class="field">البريد<input name="email" type="email"></label><div class="field full"><button class="btn gold" type="submit">حفظ جهة الاتصال</button></div></form></div>
 </section>
+<script id="afaq-chat-local-script">
+(()=>{const $=id=>document.getElementById(id);if(!$('afaqChatContacts'))return;
+const contactsKey='afaq_media_contacts_v1',messagesKey='afaq_chat_messages_v1';let active='';
+const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}},write=(k,v)=>localStorage.setItem(k,JSON.stringify(v)),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderList(){const q=$('afaqChatSearch').value.trim().toLowerCase(),items=read(contactsKey).filter(c=>(c.name+' '+(c.role||'')).toLowerCase().includes(q));$('afaqChatContacts').innerHTML=items.length?items.map(c=>'<button type="button" class="afaq-chat-contact '+(active===c.id?'active':'')+'" data-chat-contact="'+esc(c.id)+'"><span class="afaq-chat-avatar">'+esc((c.name||'?').trim().charAt(0).toUpperCase())+'</span><span class="afaq-chat-contact-info"><b>'+esc(c.name)+'</b><small>'+esc(c.role||c.phone||'جهة اتصال')+'</small></span></button>').join(''):'<div class="afaq-chat-welcome">لا توجد جهات اتصال<br>أضف جهة اتصال للبدء</div>'}
+function renderMessages(){const c=read(contactsKey).find(x=>x.id===active),all=read(messagesKey),list=all.filter(m=>m.contactId===active);$('afaqChatHeader').innerHTML=c?'<span class="afaq-chat-avatar">'+esc((c.name||'?').charAt(0).toUpperCase())+'</span><div><b>'+esc(c.name)+'</b><small>'+esc(c.role||c.phone||'جهة اتصال')+'</small></div>':'<span class="afaq-chat-avatar">A</span><div><b>AFAQ SYRIA</b><small>اختر جهة اتصال لبدء المحادثة</small></div>';
+$('afaqChatMessages').innerHTML=c?(list.length?list.map(m=>'<div class="afaq-chat-bubble">'+esc(m.text)+'<time>'+esc(m.time)+'</time></div>').join(''):'<div class="afaq-chat-welcome">ابدأ المحادثة مع '+esc(c.name)+'</div>'):'<div class="afaq-chat-welcome">💬<br>اختر جهة اتصال من القائمة لعرض المحادثة</div>';
+$('afaqChatText').disabled=!c;$('afaqChatSend').querySelector('button').disabled=!c;if(c)$('afaqChatMessages').scrollTop=$('afaqChatMessages').scrollHeight}
+$('afaqChatSearch').addEventListener('input',renderList);
+$('afaqChatContacts').addEventListener('click',e=>{const b=e.target.closest('[data-chat-contact]');if(!b)return;active=b.dataset.chatContact;renderList();renderMessages()});
+$('afaqChatSend').addEventListener('submit',e=>{e.preventDefault();const input=$('afaqChatText'),text=input.value.trim();if(!active||!text)return;const all=read(messagesKey);all.push({id:Date.now().toString(),contactId:active,text,time:new Date().toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})});write(messagesKey,all);input.value='';renderList();renderMessages()});
+const add=$('mediaAddContact');add.addEventListener('click',()=>{$('mediaContactComposer').hidden=false;$('mediaContactComposer').scrollIntoView({behavior:'smooth',block:'center'})});
+$('mediaContactForm').addEventListener('submit',e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget)),items=read(contactsKey);d.id='c'+Date.now();items.push(d);write(contactsKey,items);active=d.id;e.currentTarget.reset();$('mediaContactComposer').hidden=true;renderList();renderMessages();if(typeof showToast==='function')showToast('تمت إضافة جهة الاتصال على هذا الجهاز')});
+renderList();renderMessages();
+})();
+</script>
 <section class="view" id="documents"><div class="view-head"><div><h2>المستندات والعقود</h2><p>مساحة مخصصة لتنظيم العقود والملفات الرسمية.</p></div></div><div class="panel"><div class="empty">📁<br>سيتم تفعيل مكتبة المستندات بعد إعداد التخزين الآمن والصلاحيات.<br><small>لا ترفع مستندات سرية إلى هذه النسخة التجريبية.</small></div></div></section>
 <section class="view" id="reports"><div class="view-head"><div><h2>التقارير والتحليلات</h2><p>إدارة التقارير والتكاليف والشركات المشاركة بالمشاريع.</p></div></div>
 <div class="report-tabs"><button class="active" data-report-tab="analysis">📊 تقارير وتحليلات</button><button data-report-tab="finance">💰 التقارير المالية والتكاليف</button><button data-report-tab="partners">🤝 الشركات الشريكة</button></div>

@@ -135,11 +135,10 @@ async function ensureTables(env) {
   try { await env.DB.prepare("ALTER TABLE afaq_payments ADD COLUMN created_by TEXT").run(); } catch {}
 }
 
+const OWNER_EMAIL = "oa626114@gmail.com";
 async function hasAdminAccess(req, env) {
-  const ownerEmail = String(env.ADMIN_EMAIL || "").trim().toLowerCase();
-  if (!ownerEmail) return false;
   const auth = await getAuth(req, env);
-  return !!auth && auth.email.toLowerCase() === ownerEmail;
+  return !!auth && String(auth.email || "").trim().toLowerCase() === OWNER_EMAIL;
 }
 
 async function allowAuthAttempt(req, env, action, maximum = 8, windowSeconds = 900) {
@@ -367,7 +366,9 @@ async function handle(req, env) {
     const balances = await env.DB.prepare("SELECT currency,balance_minor FROM member_balances WHERE member_id=? ORDER BY currency")
       .bind(auth.member_id).all();
     return reply(req, env, { ok:true, member:{ member_id:auth.public_member_id,
-      account_number:auth.account_number, email:auth.email, name:auth.full_name || '', iban:null, iban_status:"pending_bank_partner" },
+      account_number:auth.account_number, email:auth.email, name:auth.full_name || '',
+      is_owner:String(auth.email || "").trim().toLowerCase() === OWNER_EMAIL,
+      iban:null, iban_status:"pending_bank_partner" },
       balances:(balances.results || []).map(x => ({ currency:x.currency, balance:Number(x.balance_minor)/100 })) });
   }
 

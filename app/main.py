@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from xml.etree import ElementTree as ET
+from defusedxml import ElementTree as ET
 
 from cryptography.fernet import Fernet, InvalidToken
 from fastapi import Depends, FastAPI, File, Header, HTTPException, Request, UploadFile

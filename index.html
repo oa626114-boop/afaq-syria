@@ -994,11 +994,73 @@ root.querySelectorAll('[data-cw-network]').forEach(b=>b.addEventListener('click'
  <div class="panel"><h3>متطلبات الربط قبل التفعيل</h3><ol><li>اختيار مزوّد دفع متاح قانونياً في بلد تسجيل الشركة.</li><li>إعداد مفاتيح API كأسرار في الخادم فقط، لا داخل ملف HTML.</li><li>إنشاء Webhook والتحقق من التوقيع ومنع تكرار الإشعارات.</li><li>اختبار الدفع والاسترداد والتسوية قبل الإنتاج.</li></ol></div>
 </section>
 <section class="view afaq-module" id="global-market">
- <div class="view-head"><div><h2>مؤشر آفاق سوريا العالمي</h2><p>قائمة متابعة الأصول والأسواق — لا تمثل أسعاراً مباشرة</p></div><span class="pill">بيانات السوق غير متصلة</span></div>
- <div class="warning">هذه الصفحة لا تعرض أسعاراً لحظية حالياً. لن نعرض أرقاماً تقديرية على أنها أسعار سوق. يلزم ربط مزوّد بيانات سوق موثوق أو مخططات مرخّصة قبل تفعيل الأسعار والشموع.</div>
- <div class="module-grid"><article class="asset-card"><span class="ticker">المعادن</span><b>الذهب · الفضة</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الطاقة</span><b>النفط · الغاز</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأصول الرقمية</span><b>Bitcoin · Ethereum</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">العملات</span><b>مؤشرات العملات الرئيسية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الأسهم</span><b>الأسواق العالمية</b><p>بانتظار مزوّد بيانات الأسعار.</p></article><article class="asset-card"><span class="ticker">الرسوم البيانية</span><b>شموع يابانية</b><p>يتم تجهيز تكامل المخططات بعد تحديد مزوّد مرخّص.</p></article></div>
- <div class="panel"><h3>قائمة المتابعة</h3><div class="toolbar"><input id="marketWatchInput" placeholder="أضف رمزاً إلى قائمة المتابعة مثل XAUUSD أو BTCUSD"><button class="btn" id="marketWatchAdd" type="button">إضافة</button></div><div id="marketWatchList"><p class="empty">لا توجد رموز في قائمة المتابعة.</p></div></div>
+ <div class="view-head"><div><h2>مؤشر آفاق سوريا العالمي</h2><p>متابعة الأسواق العالمية وأسعار الأصول من مزوّدي بيانات خارجيين</p></div><span class="pill" id="globalMarketStatus">جارٍ الاتصال بمصادر السوق…</span></div>
+ <div class="panel"><div class="panel-head"><h3>أسعار العملات الرقمية</h3><button class="btn ghost" type="button" id="globalMarketRefresh">↻ تحديث الأسعار</button></div><p class="muted" id="globalMarketUpdated">المصدر: CoinGecko · الأسعار بالدولار الأمريكي</p><div id="globalCryptoRows" class="crypto-market-rows"><div class="empty">جارٍ تحميل أسعار السوق…</div></div></div>
+ <div class="panel"><div class="panel-head"><h3>المعادن والطاقة والعملات</h3><small>مخططات TradingView</small></div><div class="tv-grid">
+  <div class="tv-card"><b>الذهب · XAU/USD</b><div class="tradingview-widget-container"><div id="gm-xau"></div></div></div>
+  <div class="tv-card"><b>الفضة · XAG/USD</b><div class="tradingview-widget-container"><div id="gm-xag"></div></div></div>
+  <div class="tv-card"><b>النفط الأمريكي · WTI</b><div class="tradingview-widget-container"><div id="gm-oil"></div></div></div>
+  <div class="tv-card"><b>الغاز الطبيعي</b><div class="tradingview-widget-container"><div id="gm-gas"></div></div></div>
+  <div class="tv-card"><b>EUR / USD</b><div class="tradingview-widget-container"><div id="gm-eurusd"></div></div></div>
+  <div class="tv-card"><b>USD / JPY</b><div class="tradingview-widget-container"><div id="gm-usdjpy"></div></div></div>
+ </div></div>
+ <div class="panel"><div class="panel-head"><h3>مؤشرات الأسهم العالمية</h3><small>مخططات TradingView</small></div><div class="tv-grid">
+  <div class="tv-card"><b>S&amp;P 500</b><div class="tradingview-widget-container"><div id="gm-spx"></div></div></div>
+  <div class="tv-card"><b>NASDAQ 100</b><div class="tradingview-widget-container"><div id="gm-ndx"></div></div></div>
+  <div class="tv-card"><b>DOW JONES</b><div class="tradingview-widget-container"><div id="gm-dji"></div></div></div>
+  <div class="tv-card"><b>DAX · ألمانيا</b><div class="tradingview-widget-container"><div id="gm-dax"></div></div></div>
+ </div></div>
+ <div class="panel"><h3>قائمة المتابعة</h3><div class="toolbar"><input id="marketWatchInput" placeholder="أضف رمزاً مثل XAUUSD أو BTCUSD"><button class="btn" id="marketWatchAdd" type="button">إضافة</button></div><div id="marketWatchList"><p class="empty">لا توجد رموز في قائمة المتابعة.</p></div></div>
+ <p class="market-source-note">الأسعار الرقمية تُجلب من CoinGecko، والمخططات من TradingView. قد تتأخر بعض بيانات الأسواق حسب مزوّد البيانات والبورصة. هذه الصفحة للعرض والمتابعة وليست منصة تنفيذ تداول.</p>
 </section>
+<script id="afaq-global-market-live">
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const symbols=[
+  ['gm-xau','OANDA:XAUUSD'],['gm-xag','OANDA:XAGUSD'],['gm-oil','TVC:USOIL'],['gm-gas','TVC:NATGAS'],
+  ['gm-eurusd','FX:EURUSD'],['gm-usdjpy','FX:USDJPY'],['gm-spx','SP:SPX'],['gm-ndx','NASDAQ:NDX'],
+  ['gm-dji','DJ:DJI'],['gm-dax','XETR:DAX']
+ ];
+ function mountWidgets(){
+  symbols.forEach(([id,symbol])=>{
+   const host=$(id);if(!host||host.dataset.loaded)return;
+   host.dataset.loaded='1';
+   const script=document.createElement('script');
+   script.src='https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
+   script.async=true;
+   script.innerHTML=JSON.stringify({symbol,width:'100%',height:'100%',locale:'en',dateRange:'1D',colorTheme:'dark',isTransparent:true,autosize:true,chartOnly:false,noTimeScale:false,valuesTracking:'1',changeMode:'price-and-percent',chartType:'area',lineWidth:2,fontColor:'#d7e3ea',gridLineColor:'rgba(255,255,255,0.06)',trendLineColor:'#d9b15f',underLineColor:'rgba(217,177,95,0.12)'}).replace(/</g,'\\u003c');
+   host.appendChild(script);
+  });
+ }
+ const coins=[['bitcoin','BTC','Bitcoin'],['ethereum','ETH','Ethereum'],['tether','USDT','Tether'],['binancecoin','BNB','BNB'],['solana','SOL','Solana'],['ripple','XRP','XRP'],['tron','TRX','TRON'],['usd-coin','USDC','USD Coin']];
+ const fmt=n=>Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:n<10?4:2});
+ async function refresh(){
+  const host=$('globalCryptoRows'),status=$('globalMarketStatus'),stamp=$('globalMarketUpdated');
+  if(!host)return;
+  if(status)status.textContent='جارٍ تحديث الأسعار…';
+  try{
+   const ids=coins.map(x=>x[0]).join(',');
+   const res=await fetch('https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true',{cache:'no-store'});
+   if(!res.ok)throw new Error('HTTP '+res.status);
+   const data=await res.json();
+   const rows=coins.filter(x=>Number.isFinite(Number(data[x[0]]?.usd))).map(x=>{
+    const p=Number(data[x[0]].usd),ch=Number(data[x[0]].usd_24h_change||0),cl=ch>0?'up':ch<0?'down':'flat',ar=ch>0?'▲':ch<0?'▼':'◆';
+    return '<div class="crypto-market-row"><div><b>'+x[1]+'</b> · '+x[2]+'</div><strong dir="ltr">$'+fmt(p)+'</strong><strong class="crypto-change '+cl+'" dir="ltr">'+ar+' '+(ch>0?'+':'')+ch.toFixed(2)+'%</strong></div>';
+   });
+   if(!rows.length)throw new Error('No market quotes');
+   host.innerHTML=rows.join('');
+   if(status)status.textContent='متصل · أسعار العملات الرقمية';
+   if(stamp)stamp.textContent='المصدر: CoinGecko · آخر تحديث: '+new Date().toLocaleString('ar');
+  }catch(e){
+   if(status)status.textContent='تعذر الاتصال بمصدر العملات الرقمية';
+   if(host&&!host.dataset.hasData)host.innerHTML='<div class="empty">تعذر جلب الأسعار الآن. استخدم زر التحديث لاحقاً؛ لن نعرض أرقاماً غير موثوقة.</div>';
+  }
+ }
+ $('globalMarketRefresh')?.addEventListener('click',refresh);
+ mountWidgets();refresh();setInterval(refresh,60000);
+})();
+</script>
 <script>
 (()=>{'use strict';
  const key='afaq_market_watch_v1';const $=id=>document.getElementById(id);

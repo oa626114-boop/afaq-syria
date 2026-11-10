@@ -1,0 +1,55 @@
+name: API intake validation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - "requirements.txt"
+      - ".env.example"
+      - ".github/workflows/api-intake-check.yml"
+  push:
+    branches: [feature/api-intake-server-2026-11-10]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Compile and import application
+        run: |
+          python -m compileall -q app
+          python -c "import app.main; print('API import OK')"
+      - name: Build container
+        run: docker build -t afaq-api-intake:test .
+      - name: Smoke test protected intake API
+        env:
+          ADMIN_TOKEN: ci-test-token-that-is-long-enough-for-ci-123456789
+          FERNET_KEY: ${{ secrets.CI_FERNET_KEY }}
+          DATA_DIR: /tmp/afaq-api-ci-data
+        run: |
+          export FERNET_KEY="$(python -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')"
+          uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+          API_PID=$!
+          trap 'kill $API_PID 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8000/health; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8000/health
+          test "$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/v1/messages)" = "401"
+          curl -fsS -X POST http://127.0.0.1:8000/v1/intake/json \
+            -H "Authorization: Bearer $ADMIN_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"message_type":"pain.001","sender_id":"CI-SENDER","reference":"CI-REF-001","payload":{"message_id":"CI-MSG-001","note":"test only"}}'
+          curl -fsS http://127.0.0.1:8000/v1/messages \
+            -H "Authorization: Bearer $ADMIN_TOKEN" | grep -q "CI-MSG-001"

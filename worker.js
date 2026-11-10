@@ -15,8 +15,13 @@ const json = (data, status = 200, headers = {}) =>
 
 function corsHeaders(req, env) {
   const origin = req.headers.get("Origin") || "";
-  const allowed = String(env.ALLOWED_ORIGIN || "")
-    .split(",").map(x => x.trim()).filter(Boolean);
+  // Permit the published AFAQ SYRIA site on GitHub Pages and its verified custom domain.
+  // Additional origins may be supplied through ALLOWED_ORIGIN (comma-separated).
+  const allowed = [
+    "https://oa626114-boop.github.io",
+    "https://afaqsyria.runs-at.dev",
+    ...String(env.ALLOWED_ORIGIN || "").split(",").map(x => x.trim()).filter(Boolean)
+  ];
   const headers = {
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type,Authorization,Idempotency-Key,X-Admin-Token",

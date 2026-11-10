@@ -776,7 +776,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
  </div>
 </section>
 <section class="view" id="media-news">
-<div class="view-head"><div><h2>الإعلام والأخبار</h2><p>الأخبار والإعلانات والأحداث والفعاليات</p></div></div>
+<div class="view-head"><div><h2>الإعلام والأخبار</h2><p>الأخبار والإعلانات والأحداث والفعاليات</p></div><button type="button" class="btn ghost" data-go="dashboard">← العودة إلى القائمة الرئيسية</button></div>
 <div class="panel"><div class="panel-head"><h3>مركز الأخبار والأحداث</h3><small>إدارة المحتوى داخل التطبيق</small></div>
 <div class="toolbar"><button class="btn gold" id="mediaAddNews">＋ نشر خبر / إعلان</button><button class="btn" id="mediaAddEvent">＋ إضافة حدث</button></div>
 <div class="grid2"><div><h3>آخر الأخبار</h3><div id="mediaNewsList" class="media-list"></div></div><div><h3>الأحداث والفعاليات</h3><div id="mediaEventsList" class="media-list"></div></div></div>
@@ -784,7 +784,7 @@ Authorization: Bearer YOUR_SERVER_TOKEN
 <div class="panel" id="mediaComposer" hidden><h3 id="mediaComposerTitle">إضافة محتوى</h3><form id="mediaComposerForm" class="form-grid"><label class="field full">العنوان<input name="title" required maxlength="140"></label><label class="field">النوع<select name="type"><option value="news">خبر</option><option value="announcement">إعلان</option><option value="event">حدث / فعالية</option></select></label><label class="field">التاريخ<input name="date" type="date"></label><label class="field full">التفاصيل<textarea name="body" rows="4" required maxlength="3000"></textarea></label><div class="field full"><button class="btn gold" type="submit">حفظ المحتوى</button></div></form></div>
 </section>
 <section class="view" id="media-contacts">
-<div class="view-head"><div><h2>الاتصالات والاجتماعات</h2><p>دليل جهات الاتصال والتواصل والاجتماعات</p></div></div>
+<div class="view-head"><div><h2>الاتصالات والاجتماعات</h2><p>دليل جهات الاتصال والتواصل والاجتماعات</p></div><button type="button" class="btn ghost" data-go="dashboard">← العودة إلى القائمة الرئيسية</button></div>
 <div class="panel"><div class="panel-head"><h3>جهات الاتصال</h3><small>العملاء والشركاء وفريق العمل</small></div><button class="btn gold" id="mediaAddContact">＋ إضافة جهة اتصال</button><div id="mediaContactsList" class="media-contact-grid"></div></div>
 <div class="panel"><h3>الاتصالات الصوتية والمرئية</h3><div class="media-call-note"><b>المكالمات الصوتية والمرئية:</b> تحتاج إلى ربط خدمة اتصال آمنة (WebRTC) وخادم إشارات أو مزود اجتماعات. لم يتم تفعيل المكالمات بعد.</div></div>
 <div class="panel" id="mediaContactComposer" hidden><h3>إضافة جهة اتصال</h3><form id="mediaContactForm" class="form-grid"><label class="field">الاسم<input name="name" required></label><label class="field">الصفة / الشركة<input name="role"></label><label class="field">الهاتف<input name="phone" type="tel"></label><label class="field">البريد<input name="email" type="email"></label><div class="field full"><button class="btn gold" type="submit">حفظ جهة الاتصال</button></div></form></div>
